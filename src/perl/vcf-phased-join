@@ -582,7 +582,7 @@ sub flush_buffer
         my $p = $nerrors/$ngts;
         if ( $p==0 ) { $p=1./$ngts; }
         elsif ( $p==1 ) { $p=1 - 1./$ngts; }
-
+        my ($log_match,$log_mism); # Reuse within this site, evaluating only when first needed.
         for (my $i=0; $i<@$gts1; $i++)
         {
             if ( !$phased[$i] ) { next; }
@@ -597,14 +597,14 @@ sub flush_buffer
             if ( $a1 eq $b1 && $a2 eq $b2 ) 
             { 
                 #print STDERR "$i .. counting match $a1/$a2 $b1/$b2\n";
-                $lks_match[$i] += log($p*$p + (1-$p)*(1-$p));
-                $lks_mism[$i] += log($p*(1-$p) + (1-$p)*$p);
+                $lks_match[$i] += defined $log_match ? $log_match : ($log_match = log($p*$p + (1-$p)*(1-$p)));
+                $lks_mism[$i] += defined $log_mism ? $log_mism : ($log_mism = log($p*(1-$p) + (1-$p)*$p));
             }
             elsif ( $a1 eq $b2 && $a2 eq $b1 )
             {
                 #print STDERR "$i .. counting mismatch $a1/$a2 $b1/$b2\n";
-                $lks_match[$i] += log($p*(1-$p) + (1-$p)*$p);
-                $lks_mism[$i] += log($p*$p + (1-$p)*(1-$p));
+                $lks_match[$i] += defined $log_mism ? $log_mism : ($log_mism = log($p*(1-$p) + (1-$p)*$p));
+                $lks_mism[$i] += defined $log_match ? $log_match : ($log_match = log($p*$p + (1-$p)*(1-$p)));
             }
             else { next; } # different alleles might have been selected at multiallelic sites
 

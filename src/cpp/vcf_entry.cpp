@@ -15,6 +15,7 @@ vcf_entry::vcf_entry(header &meta_data, vector<bool> &include_individual)
 	N_indv = meta_data.N_indv;
 	include_indv = include_individual;
 	include_genotype = vector<bool>(N_indv, true);
+	line_empty = true;
 	basic_parsed = false; fully_parsed = false;
 	parsed_ALT = false; parsed_FILTER = false;
 	parsed_INFO = false; parsed_FORMAT = false;
@@ -45,9 +46,11 @@ void vcf_entry::reset(const vector<char> &data_line)
 	passed_filters = true;
 
 	data_stream.clear();
-	line = data_line;
+	line_empty = data_line.empty();
 
-	convert_line.assign(line.begin(), line.end());
+	// VCF parsing owns its bytes in data_stream; filters only need row emptiness.
+	// Keep the raw line vector for BCF rather than duplicating every VCF row.
+	convert_line.assign(data_line.begin(), data_line.end());
 	data_stream.str(convert_line);
 
 	fill(parsed_GT.begin(), parsed_GT.end(), 0);
@@ -214,8 +217,28 @@ void vcf_entry::parse_genotype_entry(unsigned int indv, bool GT, bool GQ, bool D
 // Read the VCF entry and fully populate the object
 void vcf_entry::parse_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
 {
+	if (N_indv == 0)
+		return;
+
+	// Preserve the initialization performed by the first single-entry call,
+	// even when no fields were requested or every requested field is cached.
+	if (fully_parsed == false)
+		parse_full_entry(true);
+	if (parsed_FORMAT == false)
+		set_FORMAT(FORMAT_str);
+
+	// Reuse fields across bulk filter/output passes without adding cache checks
+	// to the single-sample parsing path. reset() clears these flags per row;
+	// genotype filters change include_genotype, not the parsed field values.
 	for (unsigned int ui=0; ui<N_indv; ui++)
-		parse_genotype_entry(ui, GT, GQ, DP, FT);
+	{
+		const bool need_GT = GT && !parsed_GT[ui];
+		const bool need_GQ = GQ && !parsed_GQ[ui];
+		const bool need_DP = DP && !parsed_DP[ui];
+		const bool need_FT = FT && !parsed_FT[ui];
+		if (need_GT || need_GQ || need_DP || need_FT)
+			parse_genotype_entry(ui, need_GT, need_GQ, need_DP, need_FT);
+	}
 }
 
 void vcf_entry::parse_FORMAT()
@@ -223,29 +246,67 @@ void vcf_entry::parse_FORMAT()
 	FORMAT_binary.resize(0);
 	vector<char> tmp_vector;
 	vector<string> tmp_split;
-	vector< vector<string> > format_matrix(N_indv);
+	vector<string::size_type> next_field;
+	vector< vector<string> > format_matrix;
 
 	unsigned int type, number, size, position=0;
-	tmp_split.resize(FORMAT.size());
-	for (unsigned int ui=0; ui<N_indv; ui++)
+	// header::split stores offsets and the initial token count in int. Keep
+	// its original matrix path when those conversions can reach that boundary.
+	const string::size_type split_offset_limit = (string::size_type)numeric_limits<int>::max();
+	bool legacy_split = FORMAT.size() > split_offset_limit;
+	for (unsigned int ui=0; ui<N_indv && !legacy_split; ui++)
+		legacy_split = GENOTYPE_str[ui].size() >= split_offset_limit;
+	if (legacy_split)
 	{
-		format_matrix[ui].resize(FORMAT.size());
-		if ( (GENOTYPE_str[ui] != "") and (GENOTYPE_str[ui] != ".") )
-			header::split(GENOTYPE_str[ui],':', tmp_split);
-		else
-			tmp_split.assign(FORMAT.size(),".");
+		format_matrix.resize(N_indv);
+		tmp_split.resize(FORMAT.size());
+		for (unsigned int ui=0; ui<N_indv; ui++)
+		{
+			format_matrix[ui].resize(FORMAT.size());
+			if ( (GENOTYPE_str[ui] != "") and (GENOTYPE_str[ui] != ".") )
+				header::split(GENOTYPE_str[ui],':', tmp_split);
+			else
+				tmp_split.assign(FORMAT.size(),".");
 
-		for (unsigned int uj=0; uj<tmp_split.size(); uj++)
-			format_matrix[ui][uj] = tmp_split[uj];
+			for (unsigned int uj=0; uj<tmp_split.size(); uj++)
+				format_matrix[ui][uj] = tmp_split[uj];
 
-		for (unsigned int uj=format_matrix[ui].size(); uj<FORMAT.size(); uj++)
-			format_matrix[ui][uj] = ".";
+			for (unsigned int uj=format_matrix[ui].size(); uj<FORMAT.size(); uj++)
+				format_matrix[ui][uj] = ".";
+		}
+	}
+	else
+	{
+		tmp_split.resize(N_indv);
+		next_field.assign(N_indv, 0);
 	}
 
 	FORMAT_positions.resize(FORMAT.size()); FORMAT_types.resize(FORMAT.size()); FORMAT_skip.resize(FORMAT.size());
 
 	for (unsigned int ui=0; ui<FORMAT.size(); ui++)
 	{
+		// Build only the current column. The original reusable split vector did
+		// not clear trailing fields of a short row: retain that carry from the
+		// preceding sample, including the initial empty string for each field.
+		const string empty_field;
+		const string *previous_field = &empty_field;
+		for (unsigned int uj=0; !legacy_split && uj<N_indv; uj++)
+		{
+			const string &genotype = GENOTYPE_str[uj];
+			if (genotype.empty() || genotype == ".")
+				tmp_split[uj] = ".";
+			else if (next_field[uj] != string::npos)
+			{
+				const string::size_type start = next_field[uj];
+				const string::size_type end = genotype.find(':', start);
+				tmp_split[uj].assign(genotype, start, end == string::npos ? string::npos : end-start);
+				next_field[uj] = end == string::npos ? string::npos : end+1;
+			}
+			else
+				tmp_split[uj] = *previous_field;
+			previous_field = &tmp_split[uj];
+		}
+
 		if (entry_header.FORMAT_reverse_map.find(FORMAT[ui]) == entry_header.FORMAT_reverse_map.end())
 		{
 			LOG.one_off_warning("FORMAT value " + FORMAT[ui] + " is not defined in the header and will not be encoded.");
@@ -257,13 +318,14 @@ void vcf_entry::parse_FORMAT()
 		FORMAT_binary.insert(FORMAT_binary.end(), tmp_vector.begin(), tmp_vector.end() );
 
 		tmp_vector.resize(0);
-		tmp_split.resize(0);
+		if (legacy_split)
+			tmp_split.resize(0);
 
 		type = entry_header.FORMAT_map[ entry_header.FORMAT_reverse_map[FORMAT[ui]] ].Type;
 		number = entry_header.FORMAT_map[ entry_header.FORMAT_reverse_map[FORMAT[ui]] ].N_entries;
-
-		for (unsigned int uj=0; uj<N_indv; uj++)
-			tmp_split.push_back( format_matrix[uj][ui] );
+		if (legacy_split)
+			for (unsigned int uj=0; uj<N_indv; uj++)
+				tmp_split.push_back(format_matrix[uj][ui]);
 
 		if ((int)ui == GT_idx)
 			make_typed_GT_vector(tmp_vector, tmp_split );
@@ -485,7 +547,9 @@ void vcf_entry::print_bcf(BGZF* out, const set<string> &INFO_to_keep, bool keep_
 	vector_pos += tmp_vector.size();
 
 	tmp_vector.resize(0);
-	get_FORMAT_binary(tmp_vector);
+	// The encoded FORMAT bytes are read-only here; do not duplicate the payload.
+	assert(parsed_FORMAT_binary == true);
+	const vector<char> &format_binary = FORMAT_binary;
 	unsigned int key_size, size, type, old_pos, out_size, format_pos = 0;
 	unsigned int skip_size = 0;
 	for (unsigned int ui=0; ui<(FORMAT.size()-N_FORMAT_removed); ui++)
@@ -493,12 +557,12 @@ void vcf_entry::print_bcf(BGZF* out, const set<string> &INFO_to_keep, bool keep_
 		format_pos = FORMAT_positions[ui];
 		old_pos = format_pos;
 
-		get_typed_int(&format_pos, tmp_vector, type, size);
-		get_type(&format_pos, tmp_vector, type, size);
+		get_typed_int(&format_pos, format_binary, type, size);
+		get_type(&format_pos, format_binary, type, size);
 		key_size = format_pos - old_pos;
 		out_size = out_vector.size();
 		out_vector.resize( out_size + key_size );
-		memcpy(&out_vector[out_size], &tmp_vector[old_pos], key_size );
+		memcpy(&out_vector[out_size], &format_binary[old_pos], key_size );
 
 		skip_size = FORMAT_skip[ui];
 		for (unsigned int uj=0; uj<N_indv; uj++)
@@ -522,7 +586,7 @@ void vcf_entry::print_bcf(BGZF* out, const set<string> &INFO_to_keep, bool keep_
 			}
 			else
 			{
-				memcpy(&out_vector[out_size], &tmp_vector[format_pos], skip_size);
+				memcpy(&out_vector[out_size], &format_binary[format_pos], skip_size);
 				out_size += skip_size;
 			}
 		}

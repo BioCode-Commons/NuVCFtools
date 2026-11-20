@@ -395,7 +395,8 @@ void entry::get_allele_counts(vector<int> &out, unsigned int &N_non_missing_chr_
 void entry::get_allele_counts(vector<int> &out, unsigned int &N_non_missing_chr_out, const vector<bool> &include_indv, const vector<bool> &include_genotype) const
 {
 	pair<int,int> genotype;
-	vector<int> allele_counts(get_N_alleles(), 0);
+	out.assign(get_N_alleles(), 0);
+	vector<int> &allele_counts = out; // Count directly into the caller-owned buffer.
 	N_non_missing_chr_out = 0;
 
 	for (unsigned int ui=0; ui<N_indv; ui++)
@@ -418,7 +419,6 @@ void entry::get_allele_counts(vector<int> &out, unsigned int &N_non_missing_chr_
 			}
 		}
 	}
-	out = allele_counts;
 }
 
 void entry::get_genotype_counts(const vector<bool> &include_indv, const vector<bool> &include_genotype, unsigned int &out_N_hom1, unsigned int &out_N_het, unsigned int &out_N_hom2) const
@@ -462,12 +462,18 @@ void entry::get_multiple_genotype_counts(const vector<bool> &include_indv, const
 			assert(parsed_GT[ui] == true);
 			get_indv_GENOTYPE_ids(ui, genotype);
 
-			for (int uj=0; uj<=(int)ALT.size(); uj++)
+			if (genotype.first == genotype.second)
 			{
-				if ((genotype.first == uj) && (genotype.second == uj))
-					out_N_hom[uj]++;
-				else if (((genotype.first == uj) || (genotype.second == uj)) && (genotype.first != -1) && (genotype.second != -1))
-					out_N_het[uj]++;
+				if ((genotype.first >= 0) && ((unsigned int)genotype.first < out_N_hom.size()))
+					out_N_hom[genotype.first]++;
+			}
+			else if ((genotype.first != -1) && (genotype.second != -1))
+			{
+				// Each valid allele contributes even when the other allele is out of range.
+				if ((genotype.first >= 0) && ((unsigned int)genotype.first < out_N_het.size()))
+					out_N_het[genotype.first]++;
+				if ((genotype.second >= 0) && ((unsigned int)genotype.second < out_N_het.size()))
+					out_N_het[genotype.second]++;
 			}
 		}
 	}

@@ -22,7 +22,7 @@ int entry::thin_pos;
 
 int entry::apply_filters(const parameters &params)
 {
-	if (line.empty())
+	if (line_empty)
 	{
 		passed_filters = false;
 		return 0;
@@ -519,12 +519,24 @@ void entry::filter_sites_by_overlap_positions(const string &positions_overlap_fi
 				idx = chr_to_idx[CHROM];
 				bool found=false;
 
-				for (unsigned int ui=POS; ui<(POS+REF.size()); ui++)
-					if (keep_positions[idx].find(ui) != keep_positions[idx].end())
-					{
-						found = true;
-						break;
-					}
+				// A range query is equivalent while every visited unsigned
+				// position is representable as an int set key. Keep the original
+				// loop for negative positions and ranges crossing that boundary.
+				if (POS >= 0 && REF.size() <= static_cast<size_t>(numeric_limits<int>::max() - POS) + 1)
+				{
+					set<int>::const_iterator it = keep_positions[idx].lower_bound(POS);
+					found = it != keep_positions[idx].end() &&
+						static_cast<size_t>(*it) < static_cast<size_t>(POS) + REF.size();
+				}
+				else
+				{
+					for (unsigned int ui=POS; ui<(POS+REF.size()); ui++)
+						if (keep_positions[idx].find(ui) != keep_positions[idx].end())
+						{
+							found = true;
+							break;
+						}
+				}
 
 				if (found == false)
 					passed_filters = false;
@@ -537,12 +549,22 @@ void entry::filter_sites_by_overlap_positions(const string &positions_overlap_fi
 			idx = chr_to_idx[CHROM];
 			bool found=false;
 
-			for (unsigned int ui=POS; ui<(POS+REF.size()); ui++)
-				if (exclude_positions[idx].find(ui) != exclude_positions[idx].end())
-					found = true;
+			// Use the same safe int-key range as the keep-position query.
+			if (POS >= 0 && REF.size() <= static_cast<size_t>(numeric_limits<int>::max() - POS) + 1)
+			{
+				set<int>::const_iterator it = exclude_positions[idx].lower_bound(POS);
+				found = it != exclude_positions[idx].end() &&
+					static_cast<size_t>(*it) < static_cast<size_t>(POS) + REF.size();
+			}
+			else
+			{
+				for (unsigned int ui=POS; ui<(POS+REF.size()); ui++)
+					if (exclude_positions[idx].find(ui) != exclude_positions[idx].end())
+						found = true;
+			}
 
-				if (found == true)
-					passed_filters = false;
+			if (found == true)
+				passed_filters = false;
 		}
 	}
 }
@@ -610,9 +632,31 @@ void entry::filter_sites_by_BED_file(const string &bed_file, bool BED_exclude)
 		LOG.printLOG("\tRead " + output_log::int2str(N_BED_entries) + " BED file entries.\n");
 
 		for (unsigned int ui=0; ui<lims.size(); ui++)
-			sort(lims[ui].begin(), lims[ui].end());
+		{
+			deque<pair<int,int> > &intervals = lims[ui];
+			for (unsigned int uj=0; uj<intervals.size(); uj++)
+			{
+				// Encode the original predicate as a closed integer interval.
+				// Reversed ranges and zero-length ranges also match spanning variants.
+				if (intervals[uj].first < intervals[uj].second)
+					intervals[uj].first++;
+				else
+					swap(intervals[uj].first, intervals[uj].second);
+			}
+			sort(intervals.begin(), intervals.end());
+
+			unsigned int n_merged = 0;
+			for (unsigned int uj=0; uj<intervals.size(); uj++)
+			{
+				const pair<int,int> interval = intervals[uj];
+				if ((n_merged > 0) && (interval.first <= intervals[n_merged-1].second))
+					intervals[n_merged-1].second = max(intervals[n_merged-1].second, interval.second);
+				else
+					intervals[n_merged++] = interval;
+			}
+			intervals.resize(n_merged);
+		}
 	}
-	vector<unsigned int> min_ui(lims.size(), 0);
 	parse_basic_entry(true);
 
 	pos1 = POS;
@@ -621,54 +665,22 @@ void entry::filter_sites_by_BED_file(const string &bed_file, bool BED_exclude)
 	for (int i=0; i<(int)N_alleles; i++)
 		pos2 = max(pos2, (int)(pos1 + get_allele(i).length() - 1));
 
-	if (BED_exclude == false)
-	{	// Exclude sites not in BED file
-		if (chr_to_idx.find(CHROM) == chr_to_idx.end())
-			passed_filters = false;
-		else
+	bool found = false;
+	map<string,int>::const_iterator chr = chr_to_idx.find(CHROM);
+	if (chr != chr_to_idx.end())
+	{
+		idx = chr->second;
+		// Disjoint intervals have increasing ends, so only the last start <= pos2 matters.
+		deque<pair<int,int> >::const_iterator interval = upper_bound(lims[idx].begin(), lims[idx].end(),
+			make_pair(pos2, numeric_limits<int>::max()));
+		if (interval != lims[idx].begin())
 		{
-			idx = chr_to_idx[CHROM];
-			bool found=false;
-			unsigned int max_ui = lims[idx].size();
-			for (unsigned int ui=min_ui[idx]; ui<max_ui; ui++)
-			{	// No need to start this loop at zero every time...
-				if (((pos1 > lims[idx][ui].first) && (pos1 <= lims[idx][ui].second)) ||	// Start pos inside bin
-					((pos2 > lims[idx][ui].first) && (pos2 <= lims[idx][ui].second)) ||	// End pos inside bin
-					((pos1 <= lims[idx][ui].first) && (pos2 >= lims[idx][ui].second)))	// Variant spans bin
-				{
-					found=true;
-					break;
-				}
-				else if (pos1 > lims[idx][ui].second)
-					min_ui[idx] = ui+1;
-			}
-			if (found == false)
-				passed_filters = false;
+			--interval;
+			found = (interval->second >= pos1);
 		}
 	}
-	else
-	{	// Exclude sites in BED file
-		if (chr_to_idx.find(CHROM) != chr_to_idx.end())
-		{
-			idx = chr_to_idx[CHROM];
-			bool found=false;
-			unsigned int max_ui = lims[idx].size();
-			for (unsigned int ui=min_ui[idx]; ui<max_ui; ui++)
-			{	// No need to start this loop at zero every time...
-				if (((pos1 > lims[idx][ui].first) && (pos1 <= lims[idx][ui].second)) ||	// Start pos inside bin
-					((pos2 > lims[idx][ui].first) && (pos2 <= lims[idx][ui].second)) ||	// End pos inside bin
-					((pos1 <= lims[idx][ui].first) && (pos2 >= lims[idx][ui].second)))	// Variant spans bin
-				{
-					found=true;
-					break;
-				}
-				else if (pos1 > lims[idx][ui].second)
-					min_ui[idx] = ui+1;
-			}
-			if (found == true)
-				passed_filters = false;
-		}
-	}
+	if (found == BED_exclude)
+		passed_filters = false;
 }
 
 void entry::filter_sites_by_mask(const string &mask_file, bool invert_mask, int min_kept_mask_value)

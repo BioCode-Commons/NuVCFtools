@@ -342,7 +342,9 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 	return_indv_union(diff_variant_file, combined_individuals, params.diff_indv_map_file);
 
 	LOG.printLOG("Outputting Discordance By Individual...\n");
-	map<string, pair<int, int> > indv_sums;
+	// Keep counters in the same stable order as the existing name map.
+	vector<pair<int,int> > indv_sums(combined_individuals.size(), make_pair(0,0));
+	size_t indv_index = 0;
 
 	vector<char> variant_line;
 	int indv1, indv2;
@@ -521,7 +523,7 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 			e2->parse_full_entry(true);
 			e2->parse_genotype_entries(true);
 
-			for (combined_individuals_it=combined_individuals.begin(); combined_individuals_it!=combined_individuals.end(); ++combined_individuals_it)
+			for (combined_individuals_it=combined_individuals.begin(), indv_index=0; combined_individuals_it!=combined_individuals.end(); ++combined_individuals_it, ++indv_index)
 			{
 				indv1 = combined_individuals_it->second.first;
 				indv2 = combined_individuals_it->second.second;
@@ -536,7 +538,7 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 
 					if ((geno_ids1 != missing_id) && (geno_ids2 != missing_id))
 					{
-						indv_sums[combined_individuals_it->first].first++;
+						indv_sums[indv_index].first++;
 						if (((geno_ids1.first == geno_ids2.first) && (geno_ids1.second == geno_ids2.second)) ||
 								((geno_ids1.first == geno_ids2.second) && (geno_ids1.second == geno_ids2.first)) )
 						{	// Match
@@ -544,7 +546,7 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 						}
 						else
 						{	// Mismatch
-							indv_sums[combined_individuals_it->first].second++;
+							indv_sums[indv_index].second++;
 						}
 					}
 					else if ((geno_ids1 == missing_id) && (geno_ids2 == missing_id))
@@ -569,7 +571,7 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 
 					if ((genotype1 != missing_genotype) && (genotype2 != missing_genotype))
 					{	// No missing data
-						indv_sums[combined_individuals_it->first].first++;
+						indv_sums[indv_index].first++;
 						if (((genotype1.first == genotype2.first) && (genotype1.second == genotype2.second)) ||
 								((genotype1.first == genotype2.second) && (genotype1.second == genotype2.first)) )
 						{	// Match
@@ -577,7 +579,7 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 						}
 						else
 						{	// Mismatch
-							indv_sums[combined_individuals_it->first].second++;
+							indv_sums[indv_index].second++;
 						}
 					}
 					else if ((genotype1 == missing_genotype) && (genotype2 == missing_genotype))
@@ -616,11 +618,11 @@ void variant_file::output_discordance_by_indv(const parameters &params, variant_
 
 	int N, N_discord;
 	double discordance;
-	for (combined_individuals_it=combined_individuals.begin(); combined_individuals_it!=combined_individuals.end(); ++combined_individuals_it)
+	for (combined_individuals_it=combined_individuals.begin(), indv_index=0; combined_individuals_it!=combined_individuals.end(); ++combined_individuals_it, ++indv_index)
 	{
 		out << combined_individuals_it->first;
-		N = indv_sums[combined_individuals_it->first].first;
-		N_discord = indv_sums[combined_individuals_it->first].second;
+		N = indv_sums[indv_index].first;
+		N_discord = indv_sums[indv_index].second;
 		discordance = N_discord / double(N);
 		out << "\t" << N << "\t" << N_discord << "\t" << discordance << endl;
 	}

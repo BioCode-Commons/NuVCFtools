@@ -129,19 +129,9 @@ void variant_file::filter_individuals_randomly(int max_N_indv)
 	random_shuffle(keep_index.begin(), keep_index.end());			// Get a random order
 	keep_index.resize(min(max_N_indv, (signed)keep_index.size()));	// Only keep a subset
 
-	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
-	{
-		if (include_indv[ui] == false)
-			continue;
-		bool found = false;
-		for (unsigned int uj=0; uj<keep_index.size(); uj++)
-		{
-			if (keep_index[uj] == ui)
-			{
-				found = true;
-			}
-		}
-		if (found == false)
-			include_indv[ui] = false;
-	}
+	// Preserve the shuffled selection, then mark it directly instead of
+	// searching the selected indices once for every individual.
+	fill(include_indv.begin(), include_indv.end(), false);
+	for (unsigned int ui=0; ui<keep_index.size(); ui++)
+		include_indv[keep_index[ui]] = true;
 }

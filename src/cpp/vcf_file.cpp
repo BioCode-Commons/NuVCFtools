@@ -317,6 +317,5 @@ void vcf_file::read_line(vector<char> &out)
 	tmp="";
 	out.resize(0);
 	read_line(tmp);
-	vector<char> tmp_char(tmp.begin(),tmp.end());
-	out = tmp_char;
+	out.assign(tmp.begin(), tmp.end());
 }

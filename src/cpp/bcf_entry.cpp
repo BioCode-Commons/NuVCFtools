@@ -13,6 +13,7 @@ bcf_entry::bcf_entry(header &header_obj, vector<bool> &include_individual)
 	N_indv = header_obj.N_indv;
 	include_indv = include_individual;
 	include_genotype = vector<bool>(N_indv, true);
+	line_empty = true;
 	basic_parsed = false; fully_parsed = false;
 	parsed_ALT = false; parsed_FILTER = false;
 	parsed_INFO = false; parsed_FORMAT = false;
@@ -44,6 +45,7 @@ void bcf_entry::reset(const vector<char> &data_line)
 	passed_filters = true;
 
 	line = data_line;
+	line_empty = data_line.empty();
 
 	fill(parsed_GT.begin(), parsed_GT.end(), false);
 	fill(parsed_GQ.begin(), parsed_GQ.end(), false);

@@ -107,13 +107,13 @@ sub print_or_discard_line
     {
         if ( @items != @{$$known{line}} ) { next; }
 
-        my $nmatches = 0;
+        my $ndiffs = 0;
         for (my $i=0; $i<$nitems; $i++)
         {
-            if ( $items[$i] eq $$known{line}[$i] ) { $nmatches++ }
+            if ( $items[$i] ne $$known{line}[$i] && ++$ndiffs==3 ) { last; }
         }
 
-        if ( $nitems-$nmatches<3 ) 
+        if ( $ndiffs<3 ) 
         { 
             $$known{n}++;
             return; 

@@ -163,6 +163,7 @@ public:
 protected:
 	istringstream data_stream;
 	vector<char> line;
+	bool line_empty;
 
 	bool basic_parsed;
 	bool fully_parsed;

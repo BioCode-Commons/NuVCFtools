@@ -1,0 +1,1255 @@
+{
+  "baseline_commit": "48d19c885e0bb90ad79266e782b3c7d21a80e14c",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "compiler": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "clang++": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "build_flags": [
+    "-O2",
+    "-g",
+    "-std=c++11"
+  ],
+  "pca_enabled": false,
+  "production_source_changes": [
+    "src/cpp/vcf_file.cpp",
+    "src/cpp/vcf_entry.cpp",
+    "src/cpp/variant_file_output.cpp"
+  ],
+  "regression": {
+    "cases": 2038,
+    "passed": 2038,
+    "baseline_successes": 1717,
+    "baseline_nonzero": 321,
+    "baseline_crashes": 0,
+    "file_pairs": 5725,
+    "clock": "fixed_time.c linked in both executables; no output normalization",
+    "failures": []
+  },
+  "binaries": {
+    "baseline": {
+      "vcftools": "95d72e5e838fb2aaf85db449ed7ef631e0a86ee5b92edaa478920f1925cf4e9a",
+      "vcftools-fixed-clock": "8bff9725e8f668296865fba066bac4a0921b98797a80b8dee25cc44837e44a16"
+    },
+    "candidate": {
+      "vcftools": "7bbf5d782feb9b9868ba7e796d76e5629082b4ebd5917785e9e1b0df09126657",
+      "vcftools-fixed-clock": "313750af569d206290fc4e5e85722891d4bfa77d70fe3366e0b9f99e5f3c46d2"
+    }
+  },
+  "benchmark_method": "Five sequential runs per binary per workload, alternating order; normal clocks; posix_spawn and per-child wait4; warm filesystem caches, no explicit warmup; raw outputs compared on every pair.",
+  "workloads": [
+    {
+      "name": "filtered-depth-gz",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--site-mean-depth",
+        "--min-meanDP",
+        "1",
+        "--minDP",
+        "5",
+        "--maxDP",
+        "60"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.1556588339999996,
+              "min": 1.1352545410000006,
+              "max": 1.2026844579999998,
+              "values": [
+                1.2026844579999998,
+                1.1352545410000006,
+                1.1556588339999996,
+                1.1870182920000003,
+                1.153368583999999
+              ]
+            },
+            "user_seconds": {
+              "median": 1.001316,
+              "min": 0.9977269999999999,
+              "max": 1.015716,
+              "values": [
+                1.004716,
+                0.9977269999999999,
+                1.001316,
+                1.000273,
+                1.015716
+              ]
+            },
+            "system_seconds": {
+              "median": 0.134495,
+              "min": 0.1224,
+              "max": 0.15112799999999998,
+              "values": [
+                0.15112799999999998,
+                0.1224,
+                0.134495,
+                0.143587,
+                0.13000899999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5226496,
+              "min": 5193728,
+              "max": 5259264,
+              "values": [
+                5226496,
+                5226496,
+                5259264,
+                5242880,
+                5193728
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.9523881669999996,
+              "min": 0.9436182079999997,
+              "max": 0.9997604579999999,
+              "values": [
+                0.959453584,
+                0.9436182079999997,
+                0.9523881669999996,
+                0.9997604579999999,
+                0.950480958
+              ]
+            },
+            "user_seconds": {
+              "median": 0.820492,
+              "min": 0.8109839999999999,
+              "max": 0.830896,
+              "values": [
+                0.830896,
+                0.8109839999999999,
+                0.814612,
+                0.82636,
+                0.820492
+              ]
+            },
+            "system_seconds": {
+              "median": 0.12065999999999999,
+              "min": 0.114386,
+              "max": 0.126625,
+              "values": [
+                0.120352,
+                0.12065999999999999,
+                0.12179,
+                0.126625,
+                0.114386
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5275648,
+              "min": 5226496,
+              "max": 5275648,
+              "values": [
+                5275648,
+                5226496,
+                5275648,
+                5275648,
+                5259264
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.2134325835234785,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0094043887147335
+      },
+      "elapsed_time_reduction_percent": 17.58915875686544,
+      "peak_rss_reduction_percent": -0.940438871473348,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "filtered-freq-gz",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--freq",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--mac",
+        "1",
+        "--hwe",
+        "0.0001",
+        "--max-missing",
+        "0.25"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.075403334,
+              "min": 2.064210750000001,
+              "max": 2.1273184999999994,
+              "values": [
+                2.075403334,
+                2.101523708,
+                2.064210750000001,
+                2.1273184999999994,
+                2.064930959
+              ]
+            },
+            "user_seconds": {
+              "median": 2.060845,
+              "min": 2.049418,
+              "max": 2.070881,
+              "values": [
+                2.060845,
+                2.062107,
+                2.049418,
+                2.070881,
+                2.055681
+              ]
+            },
+            "system_seconds": {
+              "median": 0.007665,
+              "min": 0.006852,
+              "max": 0.00831,
+              "values": [
+                0.007771999999999999,
+                0.007665,
+                0.007606,
+                0.00831,
+                0.006852
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5341184,
+              "min": 5324800,
+              "max": 5373952,
+              "values": [
+                5373952,
+                5341184,
+                5341184,
+                5357568,
+                5324800
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.6862424170000003,
+              "min": 1.6573303330000009,
+              "max": 1.7460107919999999,
+              "values": [
+                1.6862424170000003,
+                1.7460107919999999,
+                1.6573303330000009,
+                1.6700426670000006,
+                1.7003252090000025
+              ]
+            },
+            "user_seconds": {
+              "median": 1.662464,
+              "min": 1.641298,
+              "max": 1.6756579999999999,
+              "values": [
+                1.66428,
+                1.6756579999999999,
+                1.641298,
+                1.656032,
+                1.662464
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009027,
+              "min": 0.007284,
+              "max": 0.009637999999999999,
+              "values": [
+                0.009027,
+                0.009637999999999999,
+                0.007284,
+                0.007581,
+                0.00941
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5357568,
+              "min": 5341184,
+              "max": 5373952,
+              "values": [
+                5373952,
+                5341184,
+                5341184,
+                5357568,
+                5373952
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.2307858663005036,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0030674846625767
+      },
+      "elapsed_time_reduction_percent": 18.75109819015063,
+      "peak_rss_reduction_percent": -0.30674846625766694,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "filtered-freq-vcf",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "vcf",
+      "input_bytes": 152960778,
+      "input_sha256": "ed28be28fb218712e6998e26cd42a25b7bea1761f76baedc39d9036038f294aa",
+      "arguments": [
+        "--freq",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--mac",
+        "1",
+        "--hwe",
+        "0.0001",
+        "--max-missing",
+        "0.25"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.027205792,
+              "min": 2.0121889159999995,
+              "max": 2.064056624999999,
+              "values": [
+                2.027205792,
+                2.0197315839999996,
+                2.064056624999999,
+                2.0121889159999995,
+                2.0346048749999994
+              ]
+            },
+            "user_seconds": {
+              "median": 1.982881,
+              "min": 1.968135,
+              "max": 1.9888649999999999,
+              "values": [
+                1.9877289999999999,
+                1.982881,
+                1.9888649999999999,
+                1.968135,
+                1.973315
+              ]
+            },
+            "system_seconds": {
+              "median": 0.031376,
+              "min": 0.030074999999999998,
+              "max": 0.031984,
+              "values": [
+                0.031376,
+                0.031149999999999997,
+                0.031519,
+                0.030074999999999998,
+                0.031984
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2113536,
+              "min": 2113536,
+              "max": 2113536,
+              "values": [
+                2113536,
+                2113536,
+                2113536,
+                2113536,
+                2113536
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.6133872909999987,
+              "min": 1.6012373750000002,
+              "max": 1.6631070830000003,
+              "values": [
+                1.622247834,
+                1.6631070830000003,
+                1.610427291999999,
+                1.6012373750000002,
+                1.6133872909999987
+              ]
+            },
+            "user_seconds": {
+              "median": 1.575865,
+              "min": 1.565933,
+              "max": 1.59348,
+              "values": [
+                1.581349,
+                1.59348,
+                1.575865,
+                1.565933,
+                1.57364
+              ]
+            },
+            "system_seconds": {
+              "median": 0.030841999999999998,
+              "min": 0.02861,
+              "max": 0.03184,
+              "values": [
+                0.031115,
+                0.03184,
+                0.0295,
+                0.02861,
+                0.030841999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2129920,
+              "min": 2129920,
+              "max": 2146304,
+              "values": [
+                2129920,
+                2146304,
+                2129920,
+                2146304,
+                2129920
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.2564904925856404,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0077519379844961
+      },
+      "elapsed_time_reduction_percent": 20.413245790489608,
+      "peak_rss_reduction_percent": -0.7751937984496138,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "filtered-recode-gz",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--recode",
+        "--recode-INFO-all",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--max-missing",
+        "0.25"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 5.40784,
+              "min": 5.337188209000001,
+              "max": 5.695208874999999,
+              "values": [
+                5.337188209000001,
+                5.343639541999998,
+                5.40784,
+                5.695208874999999,
+                5.422111167000004
+              ]
+            },
+            "user_seconds": {
+              "median": 5.139625,
+              "min": 5.107749,
+              "max": 5.143257,
+              "values": [
+                5.139625,
+                5.107749,
+                5.143257,
+                5.114576,
+                5.139818
+              ]
+            },
+            "system_seconds": {
+              "median": 0.130042,
+              "min": 0.126752,
+              "max": 0.146701,
+              "values": [
+                0.13003499999999998,
+                0.126752,
+                0.130042,
+                0.146701,
+                0.131017
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5292032,
+              "min": 5259264,
+              "max": 5324800,
+              "values": [
+                5259264,
+                5308416,
+                5275648,
+                5292032,
+                5324800
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 4.757376334,
+              "min": 4.64985175,
+              "max": 4.887812334000003,
+              "values": [
+                4.863772459000001,
+                4.720094,
+                4.757376334,
+                4.64985175,
+                4.887812334000003
+              ]
+            },
+            "user_seconds": {
+              "median": 4.481087,
+              "min": 4.455124,
+              "max": 4.673548,
+              "values": [
+                4.498008,
+                4.473924,
+                4.481087,
+                4.455124,
+                4.673548
+              ]
+            },
+            "system_seconds": {
+              "median": 0.13292099999999998,
+              "min": 0.122107,
+              "max": 0.137326,
+              "values": [
+                0.135816,
+                0.137326,
+                0.13292099999999998,
+                0.126542,
+                0.122107
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5292032,
+              "min": 5259264,
+              "max": 5324800,
+              "values": [
+                5308416,
+                5292032,
+                5259264,
+                5324800,
+                5292032
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.1367273934902455,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "elapsed_time_reduction_percent": 12.028160337583959,
+      "peak_rss_reduction_percent": 0.0,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "freq-gz",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--freq"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5755870419999995,
+              "min": 0.5709245419999998,
+              "max": 0.5852667920000005,
+              "values": [
+                0.5716722089999999,
+                0.5709245419999998,
+                0.5774769580000001,
+                0.5755870419999995,
+                0.5852667920000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.565631,
+              "min": 0.560501,
+              "max": 0.569164,
+              "values": [
+                0.560501,
+                0.56087,
+                0.569164,
+                0.565631,
+                0.567175
+              ]
+            },
+            "system_seconds": {
+              "median": 0.007043,
+              "min": 0.006683,
+              "max": 0.007856,
+              "values": [
+                0.007043,
+                0.006808,
+                0.006683,
+                0.007097,
+                0.007856
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5242880,
+              "min": 5226496,
+              "max": 5259264,
+              "values": [
+                5259264,
+                5226496,
+                5242880,
+                5226496,
+                5259264
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5744346660000001,
+              "min": 0.5682315420000004,
+              "max": 0.5916231249999999,
+              "values": [
+                0.569708709,
+                0.5790546249999999,
+                0.5744346660000001,
+                0.5682315420000004,
+                0.5916231249999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.5582079999999999,
+              "min": 0.5573159999999999,
+              "max": 0.5616949999999999,
+              "values": [
+                0.5573159999999999,
+                0.5616949999999999,
+                0.5582079999999999,
+                0.55747,
+                0.558335
+              ]
+            },
+            "system_seconds": {
+              "median": 0.007271,
+              "min": 0.0070079999999999995,
+              "max": 0.007499,
+              "values": [
+                0.0070799999999999995,
+                0.007271,
+                0.0070079999999999995,
+                0.0074399999999999996,
+                0.007499
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5259264,
+              "min": 5210112,
+              "max": 5275648,
+              "values": [
+                5259264,
+                5259264,
+                5275648,
+                5210112,
+                5226496
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0020061045549773,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.003125
+      },
+      "elapsed_time_reduction_percent": 0.20020881568063587,
+      "peak_rss_reduction_percent": -0.31250000000000444,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "freq-vcf",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "vcf",
+      "input_bytes": 152960778,
+      "input_sha256": "ed28be28fb218712e6998e26cd42a25b7bea1761f76baedc39d9036038f294aa",
+      "arguments": [
+        "--freq"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5203663749999996,
+              "min": 0.5154214580000005,
+              "max": 0.5308839160000001,
+              "values": [
+                0.5308839160000001,
+                0.5185230420000002,
+                0.5261725839999998,
+                0.5203663749999996,
+                0.5154214580000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.484278,
+              "min": 0.480014,
+              "max": 0.488195,
+              "values": [
+                0.488195,
+                0.484278,
+                0.480014,
+                0.482603,
+                0.48503999999999997
+              ]
+            },
+            "system_seconds": {
+              "median": 0.025918999999999998,
+              "min": 0.025285,
+              "max": 0.028704999999999998,
+              "values": [
+                0.025918999999999998,
+                0.028704999999999998,
+                0.026709,
+                0.025632,
+                0.025285
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1998848,
+              "min": 1966080,
+              "max": 2015232,
+              "values": [
+                1966080,
+                2015232,
+                1998848,
+                1998848,
+                1966080
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5153004159999999,
+              "min": 0.5062071670000003,
+              "max": 0.5155307499999999,
+              "values": [
+                0.5153004159999999,
+                0.5155217919999999,
+                0.506500291,
+                0.5062071670000003,
+                0.5155307499999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.480929,
+              "min": 0.479348,
+              "max": 0.482838,
+              "values": [
+                0.482838,
+                0.480929,
+                0.47974,
+                0.479348,
+                0.481147
+              ]
+            },
+            "system_seconds": {
+              "median": 0.026161999999999998,
+              "min": 0.025234,
+              "max": 0.029337,
+              "values": [
+                0.026161999999999998,
+                0.029337,
+                0.025234,
+                0.025623,
+                0.026841
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2015232,
+              "min": 1998848,
+              "max": 2031616,
+              "values": [
+                2015232,
+                1998848,
+                2031616,
+                2031616,
+                2015232
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0098310788089868,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0081967213114753
+      },
+      "elapsed_time_reduction_percent": 0.973536962298871,
+      "peak_rss_reduction_percent": -0.8196721311475308,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "long-records",
+      "dataset": {
+        "sites": 3,
+        "samples": 4,
+        "two_records_larger_than_1MiB": true
+      },
+      "input_format": "vcf",
+      "input_bytes": 2098458,
+      "input_sha256": "94ca0f1ac790695a4aeab01b132ef713c7902e39e2174755dcd7031b43cd41cd",
+      "arguments": [
+        "--freq"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0032493339999999926,
+              "min": 0.003081540999999993,
+              "max": 0.003887458999999996,
+              "values": [
+                0.003887458999999996,
+                0.003081540999999993,
+                0.0032493339999999926,
+                0.0033671669999999904,
+                0.003142999999999993
+              ]
+            },
+            "user_seconds": {
+              "median": 0.001457,
+              "min": 0.001369,
+              "max": 0.0014659999999999999,
+              "values": [
+                0.0014659999999999999,
+                0.001369,
+                0.001457,
+                0.0014609999999999998,
+                0.0014039999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.001333,
+              "min": 0.001238,
+              "max": 0.001389,
+              "values": [
+                0.001389,
+                0.001238,
+                0.001333,
+                0.00137,
+                0.001267
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 12419072,
+              "min": 12402688,
+              "max": 12419072,
+              "values": [
+                12402688,
+                12402688,
+                12419072,
+                12419072,
+                12419072
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.00334462499999999,
+              "min": 0.003230583000000009,
+              "max": 0.0035415420000000086,
+              "values": [
+                0.003230583000000009,
+                0.003467790999999998,
+                0.003237249999999997,
+                0.0035415420000000086,
+                0.00334462499999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0013729999999999999,
+              "min": 0.001367,
+              "max": 0.001524,
+              "values": [
+                0.0013729999999999999,
+                0.0014709999999999999,
+                0.001371,
+                0.001524,
+                0.001367
+              ]
+            },
+            "system_seconds": {
+              "median": 0.001362,
+              "min": 0.001315,
+              "max": 0.00149,
+              "values": [
+                0.001362,
+                0.0014249999999999998,
+                0.001315,
+                0.00149,
+                0.001334
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 11370496,
+              "min": 11370496,
+              "max": 11403264,
+              "values": [
+                11370496,
+                11370496,
+                11386880,
+                11403264,
+                11370496
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.971509212542513,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9155672823218998
+      },
+      "elapsed_time_reduction_percent": -2.932631733148927,
+      "peak_rss_reduction_percent": 8.443271767810023,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": true,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "missing-indv-gz",
+      "dataset": {
+        "sites": 80000,
+        "samples": 128
+      },
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--missing-indv"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.505613458,
+              "min": 0.48882233399999997,
+              "max": 0.662107542,
+              "values": [
+                0.662107542,
+                0.5137986670000003,
+                0.505613458,
+                0.49983445900000056,
+                0.48882233399999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.49580599999999997,
+              "min": 0.484657,
+              "max": 0.509002,
+              "values": [
+                0.502672,
+                0.509002,
+                0.493563,
+                0.49580599999999997,
+                0.484657
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003797,
+              "min": 0.003356,
+              "max": 0.0045769999999999995,
+              "values": [
+                0.00409,
+                0.003797,
+                0.0045769999999999995,
+                0.003356,
+                0.0034389999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5259264,
+              "min": 5226496,
+              "max": 5259264,
+              "values": [
+                5259264,
+                5259264,
+                5259264,
+                5226496,
+                5259264
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4968343749999997,
+              "min": 0.49124045800000005,
+              "max": 0.7207498330000001,
+              "values": [
+                0.7207498330000001,
+                0.49405875,
+                0.49898579099999996,
+                0.4968343749999997,
+                0.49124045800000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.49184999999999995,
+              "min": 0.485131,
+              "max": 0.505444,
+              "values": [
+                0.505444,
+                0.489384,
+                0.49439099999999997,
+                0.49184999999999995,
+                0.485131
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003849,
+              "min": 0.00357,
+              "max": 0.006004,
+              "values": [
+                0.006004,
+                0.003947,
+                0.003832,
+                0.00357,
+                0.003849
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5259264,
+              "min": 5259264,
+              "max": 5292032,
+              "values": [
+                5292032,
+                5292032,
+                5259264,
+                5259264,
+                5259264
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0176700394371874,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "elapsed_time_reduction_percent": 1.736323047002497,
+      "peak_rss_reduction_percent": 0.0,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    },
+    {
+      "name": "relatedness-1200",
+      "dataset": {
+        "sites": 32,
+        "samples": 1200
+      },
+      "input_format": "vcf",
+      "input_bytes": 568369,
+      "input_sha256": "b6c73ea5dacbce36ab80602bdb89a95e77f690a42e12106775156ce9e428c93f",
+      "arguments": [
+        "--relatedness2"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.7577462500000003,
+              "min": 2.6556615420000007,
+              "max": 2.767373750000001,
+              "values": [
+                2.738334791,
+                2.767373750000001,
+                2.7578622500000005,
+                2.7577462500000003,
+                2.6556615420000007
+              ]
+            },
+            "user_seconds": {
+              "median": 0.95429,
+              "min": 0.950556,
+              "max": 0.983802,
+              "values": [
+                0.9742059999999999,
+                0.983802,
+                0.95429,
+                0.954193,
+                0.950556
+              ]
+            },
+            "system_seconds": {
+              "median": 1.738248,
+              "min": 1.670356,
+              "max": 1.749264,
+              "values": [
+                1.728836,
+                1.738248,
+                1.744605,
+                1.749264,
+                1.670356
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 42057728,
+              "min": 42057728,
+              "max": 42106880,
+              "values": [
+                42057728,
+                42106880,
+                42074112,
+                42057728,
+                42057728
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.6907963750000006,
+              "min": 2.624507834000001,
+              "max": 2.883588375,
+              "values": [
+                2.883588375,
+                2.6907963750000006,
+                2.624507834000001,
+                2.6731801670000017,
+                2.710094209000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.949309,
+              "min": 0.942214,
+              "max": 0.9579329999999999,
+              "values": [
+                0.943971,
+                0.9579329999999999,
+                0.949309,
+                0.942214,
+                0.950131
+              ]
+            },
+            "system_seconds": {
+              "median": 1.697107,
+              "min": 1.644305,
+              "max": 1.855395,
+              "values": [
+                1.855395,
+                1.697107,
+                1.644305,
+                1.69256,
+                1.716069
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 28868608,
+              "min": 28852224,
+              "max": 28884992,
+              "values": [
+                28868608,
+                28852224,
+                28868608,
+                28868608,
+                28884992
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0248810633246077,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.6864043630697312
+      },
+      "elapsed_time_reduction_percent": 2.4277025125136076,
+      "peak_rss_reduction_percent": 31.35956369302688,
+      "raw_outputs_equal": true,
+      "raw_diagnostics_equal": false,
+      "all_runs_succeeded": true
+    }
+  ],
+  "limitations": [
+    "Synthetic benchmarks on one macOS arm64 machine, not production datasets.",
+    "Fixed-clock regression compares full diagnostics; normal benchmark reports real-time diagnostic differences separately.",
+    "No PCA or Perl runtime coverage in this C++ comparison suite.",
+    "No new persistent parser buffers; small 0-48 KiB peak RSS median increases were observed for some ordinary workloads.",
+    "Long-record fixture timing is only a few milliseconds; use its RSS result, not its timing, to assess the change.",
+    "Private tmp/ scratch files are outside the regression output-file inventory."
+  ]
+}

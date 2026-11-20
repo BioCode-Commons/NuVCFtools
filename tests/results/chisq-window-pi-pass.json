@@ -1,0 +1,3243 @@
+{
+  "baseline_commit": "48d19c885e0bb90ad79266e782b3c7d21a80e14c",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "compiler": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "clang++": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "build_flags": [
+    "-O2",
+    "-g",
+    "-std=c++11"
+  ],
+  "benchmark_method": "Five sequential runs per binary per workload, alternating order; normal clocks; posix_spawn and per-child wait4; warm filesystem caches, no explicit warmup; raw outputs compared on every pair.",
+  "phase": "Seventh pass: row-sized chi-square expectations, window-pi range updates, packed masks and rolling counts",
+  "baseline_scope": "Complete CLI regression against original commit with matching configurations; performance and actual-function probes against frozen sixth-pass delivery. No Perl source changes.",
+  "production_source_changes": [
+    "src/cpp/bcf_entry.cpp",
+    "src/cpp/dgeev.cpp",
+    "src/cpp/entry.h",
+    "src/cpp/entry_filters.cpp",
+    "src/cpp/entry_getters.cpp",
+    "src/cpp/variant_file.cpp",
+    "src/cpp/variant_file.h",
+    "src/cpp/variant_file_diff.cpp",
+    "src/cpp/variant_file_filters.cpp",
+    "src/cpp/variant_file_format_convert.cpp",
+    "src/cpp/variant_file_output.cpp",
+    "src/cpp/vcf_entry.cpp",
+    "src/cpp/vcf_file.cpp",
+    "src/perl/Vcf.pm",
+    "src/perl/vcf-phased-join",
+    "src/perl/vcf-validator"
+  ],
+  "seventh_pass_production_changes": [
+    "src/cpp/variant_file_output.cpp"
+  ],
+  "production_source_sha256": {
+    "src/cpp/bcf_entry.cpp": "884ea1c178bc1b2f849fcbdfa337934d84636cd20b6fca45e7e8859360180ee4",
+    "src/cpp/dgeev.cpp": "6f8c4e1a232328c3a3effefeb7166e951aa35cccf61effc9a83bde538d579e9b",
+    "src/cpp/entry.h": "a05772aba443c51f995cf2b627b0aa4ae3a95781714ecc08473bd69187cc6c11",
+    "src/cpp/entry_filters.cpp": "78f30bd12b91fba18563c2584a0747bbe8e0fec322feab542a6a47c3c8bdeb3a",
+    "src/cpp/entry_getters.cpp": "8ac635c7a8440a0220c2afae05b7cd4eb94705ccd1945f3157638001ebb1003c",
+    "src/cpp/variant_file.cpp": "ebdca87bbe50b0f9c968b39423f79f91cbf059100bd20e22703b9b89d0926189",
+    "src/cpp/variant_file.h": "f71f3a6785b7dc6fc0fb7f36e2fc7f75348b341394d48368c83ce15798d96d2c",
+    "src/cpp/variant_file_diff.cpp": "898176b6bd860e54607b0f82288c18d592c113e5f22d877d43165269aa0c9820",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_format_convert.cpp": "6e1088bcb42d6b656b1e797a5282c4bae214a1734b61556c0fbd0a2d33edc125",
+    "src/cpp/variant_file_output.cpp": "1c045c98639794af52f876fe433dbbdb632f080f58d6a66c4dbba7503c160e4f",
+    "src/cpp/vcf_entry.cpp": "344d4738e010030aa15bde248ebf046633e2a7f339558af98adaeb08ee494790",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3",
+    "src/perl/Vcf.pm": "7b5fa81cc64ced91ccf2ba7c1130ced13942bb5ea6fe34bf86bdf99005d0a26f",
+    "src/perl/vcf-phased-join": "a64a7003752dc0342fa8f0e151789ae023b01b905f06ab968b26ed29f8ea399d",
+    "src/perl/vcf-validator": "b6e28787fd76e63a782430cbd45f01bdf76740fe73812b27564e56664de8eef0"
+  },
+  "previous_source_sha256": {
+    "src/cpp/bcf_entry.cpp": "884ea1c178bc1b2f849fcbdfa337934d84636cd20b6fca45e7e8859360180ee4",
+    "src/cpp/dgeev.cpp": "6f8c4e1a232328c3a3effefeb7166e951aa35cccf61effc9a83bde538d579e9b",
+    "src/cpp/entry.h": "a05772aba443c51f995cf2b627b0aa4ae3a95781714ecc08473bd69187cc6c11",
+    "src/cpp/entry_filters.cpp": "78f30bd12b91fba18563c2584a0747bbe8e0fec322feab542a6a47c3c8bdeb3a",
+    "src/cpp/entry_getters.cpp": "8ac635c7a8440a0220c2afae05b7cd4eb94705ccd1945f3157638001ebb1003c",
+    "src/cpp/variant_file.cpp": "ebdca87bbe50b0f9c968b39423f79f91cbf059100bd20e22703b9b89d0926189",
+    "src/cpp/variant_file.h": "f71f3a6785b7dc6fc0fb7f36e2fc7f75348b341394d48368c83ce15798d96d2c",
+    "src/cpp/variant_file_diff.cpp": "898176b6bd860e54607b0f82288c18d592c113e5f22d877d43165269aa0c9820",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_format_convert.cpp": "6e1088bcb42d6b656b1e797a5282c4bae214a1734b61556c0fbd0a2d33edc125",
+    "src/cpp/variant_file_output.cpp": "86fba1af592e00c0d986f7102f54f00a0293abfc7c953cba4d66f6b65b3d211d",
+    "src/cpp/vcf_entry.cpp": "344d4738e010030aa15bde248ebf046633e2a7f339558af98adaeb08ee494790",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3",
+    "src/perl/Vcf.pm": "7b5fa81cc64ced91ccf2ba7c1130ced13942bb5ea6fe34bf86bdf99005d0a26f",
+    "src/perl/vcf-phased-join": "a64a7003752dc0342fa8f0e151789ae023b01b905f06ab968b26ed29f8ea399d",
+    "src/perl/vcf-validator": "b6e28787fd76e63a782430cbd45f01bdf76740fe73812b27564e56664de8eef0"
+  },
+  "binaries": {
+    "normal": {
+      "original_baseline": {
+        "vcftools": "a5884d02a5dd33ef82c64a1ad83a023b97a1bc973ec13baf8e6618f0c6306203",
+        "vcftools-fixed-clock": "c4076b697d6113a2221ed55162f32d8792f542c41c6994722ab73f7cc8596029"
+      },
+      "candidate": {
+        "vcftools": "ffa91ecba2afdcd41d10e41cb3eebd80977eefe2b0687ce2797c14ce42d764d3",
+        "vcftools-fixed-clock": "cf1c9b0bd8dd70fb122a7bfa6dd1f0ad4b6601ff59c87d0a55ad1b6722e4e0ee"
+      },
+      "previous_pass_performance_baseline": {
+        "vcftools": "0fb754b88932e88e5b71104051b5c5844e76fa25291f1ecf9b02c73c30a541e1",
+        "vcftools-fixed-clock": "643ab738e159c6476aae61593916f94d8de393ede436088d3b264c4c81df79fd"
+      }
+    },
+    "lapack": {
+      "original_baseline": {
+        "vcftools": "0e0ba1a487632a5af4eb2fee5d1dd537b17808eba460d78e9b2abc8a55e9db11",
+        "vcftools-fixed-clock": "9fa049ec56eef024a3d02585d28eebede6da38c36030195b3bfcb8e765f0d735"
+      },
+      "candidate": {
+        "vcftools": "32bdaab477fab31edb612d1ba165f7d29c2f0d68f5dcb3903f4da5a5b41d781c",
+        "vcftools-fixed-clock": "76c751a594684db6d0d143e3bd3d3cd446d321bee8bec63702bef922667ee059"
+      },
+      "previous_pass_performance_baseline": {
+        "vcftools": "547366525ce4fc5998c821dc28a08802501050516119a2268e49a4599439319c",
+        "vcftools-fixed-clock": "a95ade24c2ffb082772cb16a076317054370de68e50b5db8f92d5cbb26900128"
+      }
+    }
+  },
+  "regressions": {
+    "normal": {
+      "cases": 4850,
+      "passed": 4850,
+      "baseline_successes": 4051,
+      "baseline_nonzero": 799,
+      "baseline_crashes": 0,
+      "file_pairs": 13059,
+      "clock": "fixed_time.c linked in both executables; no output normalization",
+      "failures": []
+    },
+    "lapack": {
+      "cases": 210,
+      "passed": 210,
+      "baseline_successes": 120,
+      "baseline_nonzero": 90,
+      "baseline_crashes": 0,
+      "file_pairs": 519,
+      "clock": "fixed_time.c linked in both executables; no output normalization",
+      "failures": []
+    }
+  },
+  "regression_totals": {
+    "cases": 5060,
+    "passed": 5060,
+    "baseline_successes": 4171,
+    "baseline_nonzero": 889,
+    "baseline_crashes": 0,
+    "file_pairs": 13578
+  },
+  "chisq_probe": {
+    "passed": true,
+    "cases_per_build": 37551,
+    "builds": [
+      {
+        "optimization": "-O0",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O0",
+          "-I",
+          "outputs/NuVCFtools/src/cpp",
+          "work/phase7-chisq-probe-final/chisq_probe.cpp",
+          "outputs/NuVCFtools/src/cpp/gamma.cpp",
+          "-o",
+          "work/phase7-chisq-probe-final/probe-O0"
+        ],
+        "executable_sha256": "7e4744d87ef669a98a219b9b7e81544bb0c2cc55ccd0b6b5a0789eefbeb21416",
+        "result": {
+          "cases": 37551,
+          "sequence_cases": 16276,
+          "contingency_tables": 19683,
+          "randomized_cases": 1568,
+          "large_cases": 24
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "optimization": "-O2",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "-I",
+          "outputs/NuVCFtools/src/cpp",
+          "work/phase7-chisq-probe-final/chisq_probe.cpp",
+          "outputs/NuVCFtools/src/cpp/gamma.cpp",
+          "-o",
+          "work/phase7-chisq-probe-final/probe-O2"
+        ],
+        "executable_sha256": "b869f84862812bf840ddf7e4cfc09a808ae265ad1a69cc6e78a990faaa4fd892",
+        "result": {
+          "cases": 37551,
+          "sequence_cases": 16276,
+          "contingency_tables": 19683,
+          "randomized_cases": 1568,
+          "large_cases": 24
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "baseline_source_sha256": "86fba1af592e00c0d986f7102f54f00a0293abfc7c953cba4d66f6b65b3d211d",
+    "candidate_source_sha256": "1c045c98639794af52f876fe433dbbdb632f080f58d6a66c4dbba7503c160e4f",
+    "baseline_function_sha256": "8eb5520ce2b4d994595ffd436e91a0c645748105cc4a0a450b9f766c2c200bce",
+    "candidate_function_sha256": "aafe203923cdc0b9d4178839836cb2322f897e38bd02bb6c9ed50c16b1cba861",
+    "gamma_sha256": "c8c69b29f61a41454f6da8aa89c2686beb6922eebd3288d55e4c24a5481bf57a",
+    "driver_sha256": "fc67646e5b46b7bb28d971cb0021480c9134b0320dbe64f534ac279047fb907b",
+    "comparison": "memcmp of chisq, dof and pval doubles; integer sample counts, final floating exception flags and errno also equal.",
+    "rounding_mode": "FE_TONEAREST, nontrapping",
+    "limits": [
+      "Extracted real functions, not complete CLI output.",
+      "Existing signed dimension/count overflow and mismatched input-vector lengths excluded.",
+      "Valid positive dimensions; empty observations and invalid allele IDs retaining legacy index-zero behavior included.",
+      "No claim for signaling/trapping floating environments, excess-precision architectures not run here or different math libraries."
+    ]
+  },
+  "window_pi_probe": {
+    "all_passed": true,
+    "runs": [
+      {
+        "configuration": "default",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "work/phase7-window-pi-probe-final/window_pi_probe.cpp",
+          "-o",
+          "work/phase7-window-pi-probe-final/window_pi_probe_default"
+        ],
+        "checks": {
+          "range_operations": 132620,
+          "bin_value_comparisons": 16397384,
+          "mask_predicate_comparisons": 8192,
+          "rolling_range_comparisons": 3379458,
+          "passed": true
+        },
+        "executable_sha256": "2371cdb92aac03b03208089ef8278f9ef0c25c1b3e726556a38ace022b4d876e"
+      },
+      {
+        "configuration": "signed-char",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "-fsigned-char",
+          "work/phase7-window-pi-probe-final/window_pi_probe.cpp",
+          "-o",
+          "work/phase7-window-pi-probe-final/window_pi_probe_signed-char"
+        ],
+        "checks": {
+          "range_operations": 132620,
+          "bin_value_comparisons": 16397384,
+          "mask_predicate_comparisons": 8192,
+          "rolling_range_comparisons": 3379458,
+          "passed": true
+        },
+        "executable_sha256": "7924203a81e52fc27a77a6a46728b1628d218387d2e1d68be093d627334c6805"
+      },
+      {
+        "configuration": "unsigned-char",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "-funsigned-char",
+          "work/phase7-window-pi-probe-final/window_pi_probe.cpp",
+          "-o",
+          "work/phase7-window-pi-probe-final/window_pi_probe_unsigned-char"
+        ],
+        "checks": {
+          "range_operations": 132620,
+          "bin_value_comparisons": 16397384,
+          "mask_predicate_comparisons": 8192,
+          "rolling_range_comparisons": 3379458,
+          "passed": true
+        },
+        "executable_sha256": "0c7a9c3889e003b430df51724de233b9100f579b71347724c0ca3f828a18f8ba"
+      }
+    ],
+    "baseline_source_sha256": "86fba1af592e00c0d986f7102f54f00a0293abfc7c953cba4d66f6b65b3d211d",
+    "candidate_source_sha256": "1c045c98639794af52f876fe433dbbdb632f080f58d6a66c4dbba7503c160e4f",
+    "extracted_helpers_sha256": "6ed855b0887af04be25dc74d3c2fa97a33f8874041684e416410fc53f423a443",
+    "driver_sha256": "2869f8f667c7ddd7ef5d6c87a90090af3ba5fdd4141232cf7f1ffe0aafa05e31",
+    "scope": "Actual candidate helpers; previous-source range loop with identifiers adapted; direct mask scans and exact legacy char narrowing as oracle. Each configuration is counted separately.",
+    "limitations": [
+      "No full CLI or mask-file parser test; complete CLI corpus covers those separately.",
+      "Bin probes preserve unsigned-long modular arithmetic; existing signed-overflow dimensions and invalid indices are excluded.",
+      "Endpoint wrapping is tested without allocating a multi-GiB mask."
+    ]
+  },
+  "cxx98_check": {
+    "passed": true,
+    "files": [
+      "src/cpp/variant_file_output.cpp"
+    ],
+    "lapack_enabled": true,
+    "log_sha256": "653392329ebb95de5aad03ba9c78cf6eaa9640d3f5d5184a5ad6aff347a7fdc3"
+  },
+  "scratch_comparison": {
+    "cases_checked": 5060,
+    "cases_retaining_scratch": 36,
+    "retained_files_per_version": 180,
+    "all_passed": true,
+    "method": "Complete raw-byte multisets; random private filenames ignored only. Public output files and diagnostics remain byte-exact.",
+    "results": [
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-plink",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-012",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+          },
+          {
+            "bytes": 1,
+            "sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+          },
+          {
+            "bytes": 1,
+            "sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhat",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhat_geno",
+        "files_per_version": 9,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 9,
+            "sha256": "a1852ec81c3b20981618e10c24edce1a85ba43ef5f09aaf13bd44d6a715ed5b5"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhelmet",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhelmet-pipe",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-plink",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-012",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+          },
+          {
+            "bytes": 1,
+            "sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+          },
+          {
+            "bytes": 1,
+            "sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhat",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhat_geno",
+        "files_per_version": 9,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 9,
+            "sha256": "a1852ec81c3b20981618e10c24edce1a85ba43ef5f09aaf13bd44d6a715ed5b5"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhelmet",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhelmet-pipe",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-chisq",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-inter_geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-list_geno",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-chisq-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-inter_geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/vcf/manifest-list_geno-pipe",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-chisq",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-inter_geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-list_geno",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-chisq-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-inter_geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "ld_byte_domain/gzvcf/manifest-list_geno-pipe",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/vcf/manifest-plain",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/vcf/manifest-kept",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/vcf/manifest-plain-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/vcf/manifest-kept-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-plain",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-kept",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-plain-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "configuration": "normal",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-kept-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "workloads": [
+    {
+      "name": "chisq-asymmetric-tall",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "dae51a6208303b412b3ad56bc6387bdc4c9d863665102b815f1efa3c3d823c45",
+      "input_bytes": 8895,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.002350917000000008,
+              "min": 0.002229624999999999,
+              "max": 0.0034855410000000087,
+              "values": [
+                0.0034855410000000087,
+                0.002398125000000001,
+                0.0023332910000000012,
+                0.002229624999999999,
+                0.002350917000000008
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0010689999999999999,
+              "min": 0.001042,
+              "max": 0.001249,
+              "values": [
+                0.001249,
+                0.001075,
+                0.0010689999999999999,
+                0.001067,
+                0.001042
+              ]
+            },
+            "system_seconds": {
+              "median": 0.000797,
+              "min": 0.000785,
+              "max": 0.0010969999999999999,
+              "values": [
+                0.0010969999999999999,
+                0.000797,
+                0.000878,
+                0.00079,
+                0.000785
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2736128,
+              "min": 2719744,
+              "max": 2752512,
+              "values": [
+                2736128,
+                2719744,
+                2736128,
+                2736128,
+                2752512
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.002205208,
+              "min": 0.0020969589999999955,
+              "max": 0.002489832999999997,
+              "values": [
+                0.002489832999999997,
+                0.0022189590000000065,
+                0.0020969589999999955,
+                0.002205208,
+                0.0021627079999999993
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0009809999999999999,
+              "min": 0.0009429999999999999,
+              "max": 0.001047,
+              "values": [
+                0.001047,
+                0.0010069999999999999,
+                0.0009429999999999999,
+                0.0009809999999999999,
+                0.000944
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0008139999999999999,
+              "min": 0.0007549999999999999,
+              "max": 0.000906,
+              "values": [
+                0.000906,
+                0.0008139999999999999,
+                0.0007549999999999999,
+                0.000823,
+                0.00079
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2490368,
+              "min": 2490368,
+              "max": 2506752,
+              "values": [
+                2490368,
+                2490368,
+                2490368,
+                2506752,
+                2490368
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0660749462182286,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9101796407185628
+      },
+      "speedup": 1.0660749462182286,
+      "peak_rss_difference_bytes": -245760,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "chisq-asymmetric-wide",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "d52d4c9407de6dde940951fe51aa7f5372a262583701d70a8680e3e7f8a58696",
+      "input_bytes": 8896,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0021502909999999986,
+              "min": 0.0020883329999999978,
+              "max": 0.003073458000000001,
+              "values": [
+                0.003073458000000001,
+                0.002120542000000003,
+                0.0025777500000000036,
+                0.0020883329999999978,
+                0.0021502909999999986
+              ]
+            },
+            "user_seconds": {
+              "median": 0.000892,
+              "min": 0.00085,
+              "max": 0.0010379999999999999,
+              "values": [
+                0.0010379999999999999,
+                0.0008629999999999999,
+                0.000895,
+                0.000892,
+                0.00085
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0007859999999999999,
+              "min": 0.0007379999999999999,
+              "max": 0.000979,
+              "values": [
+                0.000979,
+                0.0007379999999999999,
+                0.0007689999999999999,
+                0.0007859999999999999,
+                0.000837
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2457600,
+              "min": 2441216,
+              "max": 2490368,
+              "values": [
+                2441216,
+                2441216,
+                2457600,
+                2490368,
+                2457600
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.002025374999999996,
+              "min": 0.001911291999999995,
+              "max": 0.002259083000000009,
+              "values": [
+                0.002025374999999996,
+                0.002259083000000009,
+                0.0021010419999999974,
+                0.001911291999999995,
+                0.0020214580000000038
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0008839999999999999,
+              "min": 0.0008619999999999999,
+              "max": 0.0009069999999999999,
+              "values": [
+                0.0009069999999999999,
+                0.000901,
+                0.000865,
+                0.0008619999999999999,
+                0.0008839999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0007549999999999999,
+              "min": 0.000685,
+              "max": 0.0008089999999999999,
+              "values": [
+                0.000722,
+                0.0008089999999999999,
+                0.000776,
+                0.000685,
+                0.0007549999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2441216,
+              "min": 2408448,
+              "max": 2457600,
+              "values": [
+                2457600,
+                2424832,
+                2408448,
+                2457600,
+                2441216
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0616754921928053,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9933333333333333
+      },
+      "speedup": 1.0616754921928053,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "chisq-biallelic-control",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "00624a587ab7ed04b8ab13eaf7f24a42478221759b99eea61030394b009e3d8f",
+      "input_bytes": 830133,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq",
+        "--ld-window",
+        "20"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.11198704099999995,
+              "min": 0.10332854199999997,
+              "max": 0.13526354200000001,
+              "values": [
+                0.13526354200000001,
+                0.11198704099999995,
+                0.11402374999999998,
+                0.10332854199999997,
+                0.10846391699999991
+              ]
+            },
+            "user_seconds": {
+              "median": 0.057393,
+              "min": 0.057255999999999994,
+              "max": 0.058714999999999996,
+              "values": [
+                0.058714999999999996,
+                0.057393,
+                0.058082999999999996,
+                0.057328,
+                0.057255999999999994
+              ]
+            },
+            "system_seconds": {
+              "median": 0.049471,
+              "min": 0.045073999999999996,
+              "max": 0.063786,
+              "values": [
+                0.063786,
+                0.049471,
+                0.052309999999999995,
+                0.045073999999999996,
+                0.047067
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2031616,
+              "min": 2015232,
+              "max": 2048000,
+              "values": [
+                2015232,
+                2031616,
+                2048000,
+                2031616,
+                2015232
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.10273404200000003,
+              "min": 0.09924233299999996,
+              "max": 0.11094749999999998,
+              "values": [
+                0.10445420799999999,
+                0.10273404200000003,
+                0.11094749999999998,
+                0.09924233299999996,
+                0.09984054100000006
+              ]
+            },
+            "user_seconds": {
+              "median": 0.055198,
+              "min": 0.054592999999999996,
+              "max": 0.055800999999999996,
+              "values": [
+                0.055198,
+                0.054592999999999996,
+                0.055800999999999996,
+                0.055404999999999996,
+                0.054759999999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.046265999999999995,
+              "min": 0.043119,
+              "max": 0.048672,
+              "values": [
+                0.048672,
+                0.04761,
+                0.046265999999999995,
+                0.043119,
+                0.044474
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2097152,
+              "min": 2097152,
+              "max": 2097152,
+              "values": [
+                2097152,
+                2097152,
+                2097152,
+                2097152,
+                2097152
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0900675065427672,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.032258064516129
+      },
+      "speedup": 1.0900675065427672,
+      "peak_rss_difference_bytes": 65536,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "chisq-matrix-64",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "e51837d40000140a73ec9772cf8de982b7f97f72a6116e9b70c55115fa973453",
+      "input_bytes": 5674,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.016065875000000007,
+              "min": 0.014708167000000105,
+              "max": 0.353469875,
+              "values": [
+                0.353469875,
+                0.016065875000000007,
+                0.01801579200000003,
+                0.015564667000000032,
+                0.014708167000000105
+              ]
+            },
+            "user_seconds": {
+              "median": 0.008708,
+              "min": 0.007845,
+              "max": 0.013271999999999999,
+              "values": [
+                0.013271999999999999,
+                0.008708,
+                0.009545999999999999,
+                0.008152999999999999,
+                0.007845
+              ]
+            },
+            "system_seconds": {
+              "median": 0.005927,
+              "min": 0.005469,
+              "max": 0.018414,
+              "values": [
+                0.018414,
+                0.0058579999999999995,
+                0.006869,
+                0.005927,
+                0.005469
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 93503488,
+              "min": 93470720,
+              "max": 93503488,
+              "values": [
+                93503488,
+                93470720,
+                93503488,
+                93470720,
+                93503488
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.01100666699999997,
+              "min": 0.009597500000000037,
+              "max": 0.19747874999999998,
+              "values": [
+                0.19747874999999998,
+                0.01100666699999997,
+                0.011193000000000008,
+                0.010691250000000041,
+                0.009597500000000037
+              ]
+            },
+            "user_seconds": {
+              "median": 0.006937,
+              "min": 0.006045,
+              "max": 0.010671,
+              "values": [
+                0.010671,
+                0.006937,
+                0.00709,
+                0.00658,
+                0.006045
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003293,
+              "min": 0.0027489999999999997,
+              "max": 0.007855,
+              "values": [
+                0.007855,
+                0.003293,
+                0.0032949999999999998,
+                0.00326,
+                0.0027489999999999997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 47824896,
+              "min": 47792128,
+              "max": 47857664,
+              "values": [
+                47824896,
+                47857664,
+                47824896,
+                47792128,
+                47857664
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.459649410670828,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.5114771333450149
+      },
+      "speedup": 1.459649410670828,
+      "peak_rss_difference_bytes": -45678592,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "chisq-matrix-96",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "ffb0cc001a4c4ecc4bd3b671e08bde253e37ab49b5733f014f0fc642fd758653",
+      "input_bytes": 6124,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.07257787500000001,
+              "min": 0.06476058299999998,
+              "max": 0.12086654200000001,
+              "values": [
+                0.12086654200000001,
+                0.07257787500000001,
+                0.06476058299999998,
+                0.08077745799999991,
+                0.067071875
+              ]
+            },
+            "user_seconds": {
+              "median": 0.035553999999999995,
+              "min": 0.033668,
+              "max": 0.039014,
+              "values": [
+                0.039014,
+                0.03614,
+                0.033668,
+                0.035553999999999995,
+                0.034866999999999995
+              ]
+            },
+            "system_seconds": {
+              "median": 0.030841999999999998,
+              "min": 0.026393999999999997,
+              "max": 0.047578999999999996,
+              "values": [
+                0.047578999999999996,
+                0.031719,
+                0.027854,
+                0.030841999999999998,
+                0.026393999999999997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 461897728,
+              "min": 461864960,
+              "max": 461897728,
+              "values": [
+                461881344,
+                461897728,
+                461897728,
+                461897728,
+                461864960
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.043181000000000025,
+              "min": 0.04298279199999999,
+              "max": 0.04583700000000002,
+              "values": [
+                0.04371175000000002,
+                0.04583700000000002,
+                0.04298279199999999,
+                0.043069833,
+                0.043181000000000025
+              ]
+            },
+            "user_seconds": {
+              "median": 0.027771999999999998,
+              "min": 0.027354,
+              "max": 0.028678,
+              "values": [
+                0.027406999999999997,
+                0.028678,
+                0.027354,
+                0.027771999999999998,
+                0.027955999999999998
+              ]
+            },
+            "system_seconds": {
+              "median": 0.012417,
+              "min": 0.012218,
+              "max": 0.014638,
+              "values": [
+                0.014638,
+                0.013446999999999999,
+                0.012386999999999999,
+                0.012417,
+                0.012218
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 232112128,
+              "min": 232095744,
+              "max": 232144896,
+              "values": [
+                232095744,
+                232144896,
+                232112128,
+                232128512,
+                232112128
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.6807826358815212,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.5025184449489217
+      },
+      "speedup": 1.6807826358815212,
+      "peak_rss_difference_bytes": -229785600,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "chisq-six-allele-control",
+      "description": "Complete diploid genotype chi-square with nonempty output; symmetric large matrices, swapped rectangular controls or ordinary repeated pairs.",
+      "input_sha256": "915b37e72efeb6aba6f412c87d2536d5b9a6001c5b6880e8cc861b6a84c0c4a3",
+      "input_bytes": 172731,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq",
+        "--ld-window",
+        "20"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.029463457999999998,
+              "min": 0.029351874999999972,
+              "max": 0.03063887500000001,
+              "values": [
+                0.03032245800000001,
+                0.029393290999999988,
+                0.03063887500000001,
+                0.029463457999999998,
+                0.029351874999999972
+              ]
+            },
+            "user_seconds": {
+              "median": 0.019378,
+              "min": 0.019306999999999998,
+              "max": 0.020141,
+              "values": [
+                0.019378,
+                0.019488,
+                0.020141,
+                0.019322,
+                0.019306999999999998
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009658,
+              "min": 0.009306,
+              "max": 0.009932,
+              "values": [
+                0.009741,
+                0.009306,
+                0.009932,
+                0.009451,
+                0.009658
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2080768,
+              "min": 2064384,
+              "max": 2097152,
+              "values": [
+                2064384,
+                2080768,
+                2097152,
+                2080768,
+                2064384
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.02695429099999999,
+              "min": 0.02670775000000003,
+              "max": 0.02904125000000002,
+              "values": [
+                0.026848459000000005,
+                0.02904125000000002,
+                0.02695429099999999,
+                0.02670775000000003,
+                0.027842499999999992
+              ]
+            },
+            "user_seconds": {
+              "median": 0.016874,
+              "min": 0.0167,
+              "max": 0.017166,
+              "values": [
+                0.016760999999999998,
+                0.016996,
+                0.017166,
+                0.0167,
+                0.016874
+              ]
+            },
+            "system_seconds": {
+              "median": 0.00975,
+              "min": 0.009330999999999999,
+              "max": 0.010530999999999999,
+              "values": [
+                0.00949,
+                0.010302,
+                0.009330999999999999,
+                0.00975,
+                0.010530999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2129920,
+              "min": 2113536,
+              "max": 2146304,
+              "values": [
+                2146304,
+                2113536,
+                2113536,
+                2146304,
+                2129920
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0930897050862887,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0236220472440944
+      },
+      "speedup": 1.0930897050862887,
+      "peak_rss_difference_bytes": 49152,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "filtered-freq-gz-control",
+      "description": "Unchanged control.",
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "input_bytes": 30988398,
+      "repeats": 5,
+      "arguments": [
+        "--freq",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--mac",
+        "1",
+        "--hwe",
+        "0.0001",
+        "--max-missing",
+        "0.25"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.6798474579999993,
+              "min": 1.6631669579999997,
+              "max": 1.7089673750000003,
+              "values": [
+                1.682480959,
+                1.7089673750000003,
+                1.6798474579999993,
+                1.6744789999999998,
+                1.6631669579999997
+              ]
+            },
+            "user_seconds": {
+              "median": 1.644295,
+              "min": 1.63616,
+              "max": 1.665437,
+              "values": [
+                1.644295,
+                1.665437,
+                1.649489,
+                1.63616,
+                1.641691
+              ]
+            },
+            "system_seconds": {
+              "median": 0.008409999999999999,
+              "min": 0.007864,
+              "max": 0.012352,
+              "values": [
+                0.008860999999999999,
+                0.012352,
+                0.008409999999999999,
+                0.007864,
+                0.008263
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5341184,
+              "min": 5324800,
+              "max": 5357568,
+              "values": [
+                5357568,
+                5357568,
+                5324800,
+                5341184,
+                5341184
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.6682646669999999,
+              "min": 1.6560030409999995,
+              "max": 1.7129660419999997,
+              "values": [
+                1.6682646669999999,
+                1.6560030409999995,
+                1.7129660419999997,
+                1.6609629170000009,
+                1.6785250830000003
+              ]
+            },
+            "user_seconds": {
+              "median": 1.6410879999999999,
+              "min": 1.629132,
+              "max": 1.652963,
+              "values": [
+                1.6410879999999999,
+                1.635382,
+                1.652963,
+                1.629132,
+                1.649194
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009602,
+              "min": 0.007836,
+              "max": 0.011949,
+              "values": [
+                0.009602,
+                0.008624,
+                0.011949,
+                0.007836,
+                0.011569999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5390336,
+              "min": 5357568,
+              "max": 5423104,
+              "values": [
+                5390336,
+                5357568,
+                5390336,
+                5423104,
+                5373952
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0069430176333043,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.00920245398773
+      },
+      "speedup": 1.0069430176333043,
+      "peak_rss_difference_bytes": 49152,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-fst-control",
+      "description": "Unchanged control.",
+      "input_sha256": "c43e036375660dfb3e6312222d9cae8e4588f311aa0df28625a25f78c8ca15fb",
+      "input_bytes": 1447,
+      "repeats": 5,
+      "arguments": [
+        "--weir-fst-pop",
+        "work/memory-performance/population-a.txt",
+        "--weir-fst-pop",
+        "work/memory-performance/population-b.txt",
+        "--fst-window-size",
+        "10000",
+        "--fst-window-step",
+        "1000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.02147483299999997,
+              "min": 0.021118583000000024,
+              "max": 0.022604542000000005,
+              "values": [
+                0.022604542000000005,
+                0.021270415999999986,
+                0.021478041000000003,
+                0.02147483299999997,
+                0.021118583000000024
+              ]
+            },
+            "user_seconds": {
+              "median": 0.018036999999999997,
+              "min": 0.017938,
+              "max": 0.018456999999999998,
+              "values": [
+                0.018036999999999997,
+                0.018092999999999998,
+                0.017974,
+                0.018456999999999998,
+                0.017938
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002539,
+              "min": 0.0023539999999999998,
+              "max": 0.002862,
+              "values": [
+                0.002862,
+                0.002539,
+                0.0025789999999999997,
+                0.0023539999999999998,
+                0.002474
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 34078720,
+              "min": 34062336,
+              "max": 34095104,
+              "values": [
+                34095104,
+                34062336,
+                34078720,
+                34078720,
+                34062336
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.02235279100000001,
+              "min": 0.02194870900000001,
+              "max": 0.023265416999999983,
+              "values": [
+                0.022454375000000013,
+                0.023265416999999983,
+                0.02235279100000001,
+                0.02194870900000001,
+                0.022153208000000035
+              ]
+            },
+            "user_seconds": {
+              "median": 0.018699,
+              "min": 0.018403,
+              "max": 0.018980999999999998,
+              "values": [
+                0.018703,
+                0.018980999999999998,
+                0.018639,
+                0.018699,
+                0.018403
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002843,
+              "min": 0.0025039999999999997,
+              "max": 0.002905,
+              "values": [
+                0.002905,
+                0.0028339999999999997,
+                0.002843,
+                0.0025039999999999997,
+                0.0028599999999999997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 34111488,
+              "min": 34078720,
+              "max": 34127872,
+              "values": [
+                34127872,
+                34111488,
+                34078720,
+                34111488,
+                34095104
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9607226676972894,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0009615384615385
+      },
+      "speedup": 0.9607226676972894,
+      "peak_rss_difference_bytes": 32768,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-dense-overlap",
+      "description": "20000 sites, each updating 20000 overlapping bins in the previous implementation; no mask.",
+      "input_sha256": "8790cf1cf4bb663c10116d332dcd0080e728ad3d957bcbf5492882c8e26ab55a",
+      "input_bytes": 1460839,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "20000",
+        "--window-pi-step",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 8.938734583999999,
+              "min": 8.928729417,
+              "max": 9.038900250000001,
+              "values": [
+                8.938734583999999,
+                9.038900250000001,
+                8.928729417,
+                8.928994917,
+                8.954483291999999
+              ]
+            },
+            "user_seconds": {
+              "median": 8.869337,
+              "min": 8.865298,
+              "max": 8.921467,
+              "values": [
+                8.865298,
+                8.921467,
+                8.87452,
+                8.867249,
+                8.869337
+              ]
+            },
+            "system_seconds": {
+              "median": 0.055726,
+              "min": 0.048577999999999996,
+              "max": 0.062334999999999995,
+              "values": [
+                0.059482999999999994,
+                0.062334999999999995,
+                0.048577999999999996,
+                0.055726,
+                0.050921999999999995
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3915776,
+              "min": 3899392,
+              "max": 3932160,
+              "values": [
+                3915776,
+                3932160,
+                3932160,
+                3899392,
+                3899392
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.08490745799999999,
+              "min": 0.07294387499999999,
+              "max": 0.08737508400000138,
+              "values": [
+                0.08490745799999999,
+                0.08545404200000029,
+                0.07294387499999999,
+                0.08737508400000138,
+                0.07731679199999775
+              ]
+            },
+            "user_seconds": {
+              "median": 0.027245,
+              "min": 0.026993999999999997,
+              "max": 0.027753999999999997,
+              "values": [
+                0.027753999999999997,
+                0.027551,
+                0.027134,
+                0.027245,
+                0.026993999999999997
+              ]
+            },
+            "system_seconds": {
+              "median": 0.053552999999999996,
+              "min": 0.044850999999999995,
+              "max": 0.057068999999999995,
+              "values": [
+                0.056243999999999995,
+                0.057068999999999995,
+                0.044850999999999995,
+                0.053552999999999996,
+                0.049500999999999996
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3964928,
+              "min": 3948544,
+              "max": 3997696,
+              "values": [
+                3964928,
+                3964928,
+                3964928,
+                3997696,
+                3948544
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 105.276200637169,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0125523012552302
+      },
+      "speedup": 105.276200637169,
+      "peak_rss_difference_bytes": 49152,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-dense-tiled-control",
+      "description": "100000 sites and disjoint 1-kb windows; ordinary no-mask control with one original bin update per site.",
+      "input_sha256": "8e23d5079c5abe2b535df72f98a6de712d0d372fcf9e879e15676796d78f6e5b",
+      "input_bytes": 7278629,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "1000",
+        "--window-pi-step",
+        "1000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.06153475000000008,
+              "min": 0.05938170800000003,
+              "max": 0.06270733299999998,
+              "values": [
+                0.06245787499999998,
+                0.06002774999999999,
+                0.05938170800000003,
+                0.06270733299999998,
+                0.06153475000000008
+              ]
+            },
+            "user_seconds": {
+              "median": 0.058795999999999994,
+              "min": 0.056943,
+              "max": 0.060053999999999996,
+              "values": [
+                0.058795999999999994,
+                0.057553,
+                0.056943,
+                0.060053999999999996,
+                0.058933
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002129,
+              "min": 0.001958,
+              "max": 0.0024419999999999997,
+              "values": [
+                0.0024419999999999997,
+                0.001958,
+                0.001974,
+                0.002129,
+                0.0021579999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1949696,
+              "min": 1916928,
+              "max": 1966080,
+              "values": [
+                1966080,
+                1949696,
+                1966080,
+                1916928,
+                1949696
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.058585125000000016,
+              "min": 0.057732542,
+              "max": 0.059511082999999965,
+              "values": [
+                0.058247292000000006,
+                0.059333374999999966,
+                0.057732542,
+                0.059511082999999965,
+                0.058585125000000016
+              ]
+            },
+            "user_seconds": {
+              "median": 0.055916999999999994,
+              "min": 0.055342999999999996,
+              "max": 0.056828,
+              "values": [
+                0.055452999999999995,
+                0.056656,
+                0.055342999999999996,
+                0.056828,
+                0.055916999999999994
+              ]
+            },
+            "system_seconds": {
+              "median": 0.00218,
+              "min": 0.0019169999999999999,
+              "max": 0.00224,
+              "values": [
+                0.0022099999999999997,
+                0.002088,
+                0.0019169999999999999,
+                0.00218,
+                0.00224
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1998848,
+              "min": 1982464,
+              "max": 2015232,
+              "values": [
+                1998848,
+                1998848,
+                2015232,
+                1982464,
+                1998848
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0503476778448466,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0252100840336134
+      },
+      "speedup": 1.0503476778448466,
+      "peak_rss_difference_bytes": 49152,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-mask-memory",
+      "description": "32-MiB multiline mask; one output bin isolates packed-mask memory without a full-line 32-MiB string.",
+      "input_sha256": "ff9a597f5dd5c598d28e3b04fa334eebb062379e51cae31c70543c88c397cefb",
+      "input_bytes": 983,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "33554432",
+        "--mask",
+        "work/phase7-window-pi-performance/window_pi_mask_32m.fa",
+        "--mask-min",
+        "9"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.935380958,
+              "min": 2.9134625410000012,
+              "max": 2.973187166999999,
+              "values": [
+                2.935380958,
+                2.9134625410000012,
+                2.973187166999999,
+                2.9440149170000005,
+                2.926958832999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.8653989999999999,
+              "min": 0.861692,
+              "max": 0.8752139999999999,
+              "values": [
+                0.8653989999999999,
+                0.86371,
+                0.8752139999999999,
+                0.8678819999999999,
+                0.861692
+              ]
+            },
+            "system_seconds": {
+              "median": 2.062768,
+              "min": 2.047681,
+              "max": 2.090911,
+              "values": [
+                2.060037,
+                2.047681,
+                2.090911,
+                2.073909,
+                2.062768
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 70025216,
+              "min": 70008832,
+              "max": 70057984,
+              "values": [
+                70057984,
+                70008832,
+                70041600,
+                70008832,
+                70025216
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.9937925409999977,
+              "min": 2.964640708,
+              "max": 3.0342857500000022,
+              "values": [
+                2.964640708,
+                2.975075542,
+                3.014980624999998,
+                2.9937925409999977,
+                3.0342857500000022
+              ]
+            },
+            "user_seconds": {
+              "median": 0.916619,
+              "min": 0.908096,
+              "max": 0.9265209999999999,
+              "values": [
+                0.9115,
+                0.908096,
+                0.9265209999999999,
+                0.916619,
+                0.9193439999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 2.065484,
+              "min": 2.051832,
+              "max": 2.089011,
+              "values": [
+                2.051832,
+                2.065484,
+                2.078703,
+                2.060522,
+                2.089011
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 11517952,
+              "min": 11501568,
+              "max": 11550720,
+              "values": [
+                11517952,
+                11517952,
+                11550720,
+                11501568,
+                11517952
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9804891012987538,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.16448291998128217
+      },
+      "speedup": 0.9804891012987538,
+      "peak_rss_difference_bytes": -58507264,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "window-pi-mask-overlap",
+      "description": "4000 variant sites and overlapping 200-kb windows; rolling mask counts replace repeated scans.",
+      "input_sha256": "4566a63664f1d73e686f234af389e954d953c98842564243270f1aaa80b43e62",
+      "input_bytes": 306613,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "200000",
+        "--window-pi-step",
+        "1000",
+        "--mask",
+        "work/phase7-window-pi-performance/window_pi_mask_4m.fa",
+        "--mask-min",
+        "9"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5797631669999999,
+              "min": 0.570771167,
+              "max": 0.582283417,
+              "values": [
+                0.582283417,
+                0.570771167,
+                0.5797631669999999,
+                0.5793407499999996,
+                0.5813414169999995
+              ]
+            },
+            "user_seconds": {
+              "median": 0.30877299999999996,
+              "min": 0.308764,
+              "max": 0.310847,
+              "values": [
+                0.308764,
+                0.309006,
+                0.310847,
+                0.30877299999999996,
+                0.30876899999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.26615,
+              "min": 0.26084399999999996,
+              "max": 0.269107,
+              "values": [
+                0.266781,
+                0.26084399999999996,
+                0.262069,
+                0.26615,
+                0.269107
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 11091968,
+              "min": 11059200,
+              "max": 11091968,
+              "values": [
+                11091968,
+                11059200,
+                11091968,
+                11075584,
+                11091968
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.38646770799999985,
+              "min": 0.37914850000000033,
+              "max": 0.39025441699999996,
+              "values": [
+                0.39025441699999996,
+                0.38646770799999985,
+                0.3881653749999998,
+                0.38348225000000014,
+                0.37914850000000033
+              ]
+            },
+            "user_seconds": {
+              "median": 0.11964,
+              "min": 0.118943,
+              "max": 0.122226,
+              "values": [
+                0.11964,
+                0.120789,
+                0.122226,
+                0.11931399999999999,
+                0.118943
+              ]
+            },
+            "system_seconds": {
+              "median": 0.263558,
+              "min": 0.259621,
+              "max": 0.270019,
+              "values": [
+                0.270019,
+                0.26497,
+                0.263558,
+                0.263509,
+                0.259621
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3801088,
+              "min": 3784704,
+              "max": 3850240,
+              "values": [
+                3850240,
+                3784704,
+                3801088,
+                3833856,
+                3801088
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.5001594052975833,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.34268833087149186
+      },
+      "speedup": 1.5001594052975833,
+      "peak_rss_difference_bytes": -7290880,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-mask-tiled-control",
+      "description": "Disjoint 1-kb windows control packing overhead when no mask overlap can be reused.",
+      "input_sha256": "4566a63664f1d73e686f234af389e954d953c98842564243270f1aaa80b43e62",
+      "input_bytes": 306613,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "1000",
+        "--window-pi-step",
+        "1000",
+        "--mask",
+        "work/phase7-window-pi-performance/window_pi_mask_4m.fa",
+        "--mask-min",
+        "9"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.37868349999999973,
+              "min": 0.37187650000000017,
+              "max": 0.382878875,
+              "values": [
+                0.382878875,
+                0.37925029200000004,
+                0.37187650000000017,
+                0.3773591660000002,
+                0.37868349999999973
+              ]
+            },
+            "user_seconds": {
+              "median": 0.112616,
+              "min": 0.11201499999999999,
+              "max": 0.11423599999999999,
+              "values": [
+                0.113172,
+                0.11201499999999999,
+                0.11423599999999999,
+                0.112616,
+                0.11261099999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.265209,
+              "min": 0.256975,
+              "max": 0.268188,
+              "values": [
+                0.268188,
+                0.266606,
+                0.256975,
+                0.263879,
+                0.265209
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 11091968,
+              "min": 11075584,
+              "max": 11091968,
+              "values": [
+                11091968,
+                11091968,
+                11075584,
+                11091968,
+                11075584
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.3819365840000002,
+              "min": 0.376883459,
+              "max": 0.39439554200000027,
+              "values": [
+                0.376883459,
+                0.3849223330000001,
+                0.3819365840000002,
+                0.39439554200000027,
+                0.37940179200000035
+              ]
+            },
+            "user_seconds": {
+              "median": 0.11889999999999999,
+              "min": 0.118596,
+              "max": 0.119989,
+              "values": [
+                0.11869299999999999,
+                0.119734,
+                0.11889999999999999,
+                0.119989,
+                0.118596
+              ]
+            },
+            "system_seconds": {
+              "median": 0.262358,
+              "min": 0.257555,
+              "max": 0.273455,
+              "values": [
+                0.257555,
+                0.264559,
+                0.262358,
+                0.273455,
+                0.260131
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3833856,
+              "min": 3817472,
+              "max": 3833856,
+              "values": [
+                3833856,
+                3833856,
+                3833856,
+                3817472,
+                3833856
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9914826593306902,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.345642540620384
+      },
+      "speedup": 0.9914826593306902,
+      "peak_rss_difference_bytes": -7258112,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-revisit-control",
+      "description": "Chromosome shrink-to-one, delayed re-expansion, retained bin0 and duplicate final output; no mask.",
+      "input_sha256": "72cff7abc5d39dd69f3cc4e6c94172ca03ca472a30af0bfd6fe71b23727dde85",
+      "input_bytes": 1541,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "10000",
+        "--window-pi-step",
+        "1000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.002956334000000005,
+              "min": 0.0028562500000000046,
+              "max": 0.004173750000000004,
+              "values": [
+                0.004173750000000004,
+                0.0029499169999999963,
+                0.0029989170000000037,
+                0.002956334000000005,
+                0.0028562500000000046
+              ]
+            },
+            "user_seconds": {
+              "median": 0.001162,
+              "min": 0.001156,
+              "max": 0.001359,
+              "values": [
+                0.001359,
+                0.001194,
+                0.001162,
+                0.001158,
+                0.001156
+              ]
+            },
+            "system_seconds": {
+              "median": 0.001294,
+              "min": 0.0012259999999999999,
+              "max": 0.001651,
+              "values": [
+                0.001651,
+                0.001289,
+                0.001294,
+                0.001322,
+                0.0012259999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 14778368,
+              "min": 14761984,
+              "max": 14794752,
+              "values": [
+                14761984,
+                14778368,
+                14778368,
+                14794752,
+                14778368
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0030635830000000086,
+              "min": 0.002941958999999994,
+              "max": 0.003302083999999997,
+              "values": [
+                0.003302083999999997,
+                0.002941958999999994,
+                0.0031261249999999935,
+                0.002981125000000001,
+                0.0030635830000000086
+              ]
+            },
+            "user_seconds": {
+              "median": 0.00116,
+              "min": 0.001127,
+              "max": 0.0012309999999999999,
+              "values": [
+                0.0012289999999999998,
+                0.00116,
+                0.0012309999999999999,
+                0.001127,
+                0.001153
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0013809999999999998,
+              "min": 0.001346,
+              "max": 0.001536,
+              "values": [
+                0.001536,
+                0.00139,
+                0.0013809999999999998,
+                0.001361,
+                0.001346
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 14794752,
+              "min": 14778368,
+              "max": 14827520,
+              "values": [
+                14794752,
+                14827520,
+                14794752,
+                14827520,
+                14778368
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.964992298233799,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.001108647450111
+      },
+      "speedup": 0.964992298233799,
+      "peak_rss_difference_bytes": 16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "window-pi-sparse-control",
+      "description": "Four sparse 200-Mb chromosomes; bin storage stays four unsigned-long values and output prefix work is measured.",
+      "input_sha256": "5fc7650f6562c4ad4b38dbd2ae18b4de56dcd460b1708efccdb1e7f742d0473f",
+      "input_bytes": 1447,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "10000",
+        "--window-pi-step",
+        "1000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.029725957999999997,
+              "min": 0.02939708300000002,
+              "max": 0.030150666999999992,
+              "values": [
+                0.030150666999999992,
+                0.030149999999999982,
+                0.02939708300000002,
+                0.02959937500000001,
+                0.029725957999999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.026687,
+              "min": 0.026442,
+              "max": 0.027291,
+              "values": [
+                0.026718,
+                0.027291,
+                0.026442,
+                0.026663,
+                0.026687
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002154,
+              "min": 0.0020889999999999997,
+              "max": 0.0022359999999999997,
+              "values": [
+                0.0021449999999999998,
+                0.0020889999999999997,
+                0.002154,
+                0.002208,
+                0.0022359999999999997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 27623424,
+              "min": 27607040,
+              "max": 27639808,
+              "values": [
+                27607040,
+                27623424,
+                27623424,
+                27639808,
+                27623424
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.005394167000000005,
+              "min": 0.0052407499999999885,
+              "max": 0.005510291999999986,
+              "values": [
+                0.005510291999999986,
+                0.0052407499999999885,
+                0.005414499999999989,
+                0.005259290999999999,
+                0.005394167000000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.002639,
+              "min": 0.002613,
+              "max": 0.00268,
+              "values": [
+                0.0026379999999999997,
+                0.002639,
+                0.002669,
+                0.002613,
+                0.00268
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002048,
+              "min": 0.00195,
+              "max": 0.002172,
+              "values": [
+                0.002172,
+                0.00195,
+                0.002113,
+                0.0020369999999999997,
+                0.002048
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 27639808,
+              "min": 27623424,
+              "max": 27656192,
+              "values": [
+                27623424,
+                27639808,
+                27639808,
+                27639808,
+                27656192
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 5.510759678000323,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0005931198102016
+      },
+      "speedup": 5.510759678000323,
+      "peak_rss_difference_bytes": 16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Finite same-platform tests, not a universal guarantee for every input, compiler, architecture, math library or failure mode. Existing undefined behavior is not repaired.",
+    "CLI regressions use fixed clocks for diagnostics/RNG and compare raw bytes without tolerance, normalization or sorting. Normal-clock benchmarks retain elapsed-time diagnostic differences separately.",
+    "Chi-square expected rows remain stored as doubles before use; observed counts, marginal sums, pow, accumulation order and gamma are unchanged. All expected calculations remain, but expectation and chi-square instructions now interleave by row.",
+    "Actual chi-square probes use FE_TONEAREST and nontrapping arithmetic and compare final errno and floating exception flags. Floating traps, instruction-level failure timing and excess-precision architectures not run here are outside the evidence.",
+    "Window-pi difference cells use unsigned-long modular arithmetic, original coordinate expressions, resize behavior and four counter types. Read-only output prefixes preserve duplicate chromosome output; bin storage remains O(B), not reduced by this change.",
+    "Packed masks store exact original char-to-short-to-char threshold/invert decisions. Mask-file reading, filtering, retained strings and chromosome scans remain; a roughly eightfold mask payload reduction does not imply eightfold process RSS reduction.",
+    "Rolling counts reuse monotone overlapping emitted ranges only. Empty/decreasing/disjoint ranges reset; synthetic unsigned endpoint wraps are checked without allocating multi-GiB masks.",
+    "Original signed coordinate/count/dimension overflow, invalid vector indices, chromosome/mask parser undefined behavior and resource-exhaustion timing remain outside a universal byte-equivalence claim.",
+    "No extra prefix array, site cache, floating reassociation, threshold change, window change or alternative statistical method was introduced.",
+    "Perl source is unchanged; previous nondeterminism and missing-tabix limitations remain, with no prior pass counts added to current totals."
+  ]
+}

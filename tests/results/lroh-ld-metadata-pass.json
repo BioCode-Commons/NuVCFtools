@@ -1,0 +1,4152 @@
+{
+  "baseline_commit": "48d19c885e0bb90ad79266e782b3c7d21a80e14c",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "compiler": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "clang++": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "build_flags": [
+    "-O2",
+    "-g",
+    "-std=c++11"
+  ],
+  "benchmark_method": "Five sequential runs per binary per workload, alternating order; normal clocks; posix_spawn and per-child wait4; warm filesystem caches, no explicit warmup; raw outputs compared on every pair.",
+  "phase": "Eighth pass: rolling LROH beta, in-place posteriors, LD metadata-guided decoding and buffer lifetimes",
+  "baseline_scope": "Complete CLI regression against original commit with matching configurations; performance, LROH kernel and LD metadata probes against frozen seventh-pass delivery. Legacy LD reader probe against original commit. No Perl source changes.",
+  "production_source_changes": [
+    "src/cpp/bcf_entry.cpp",
+    "src/cpp/dgeev.cpp",
+    "src/cpp/entry.h",
+    "src/cpp/entry_filters.cpp",
+    "src/cpp/entry_getters.cpp",
+    "src/cpp/variant_file.cpp",
+    "src/cpp/variant_file.h",
+    "src/cpp/variant_file_diff.cpp",
+    "src/cpp/variant_file_filters.cpp",
+    "src/cpp/variant_file_format_convert.cpp",
+    "src/cpp/variant_file_output.cpp",
+    "src/cpp/vcf_entry.cpp",
+    "src/cpp/vcf_file.cpp",
+    "src/perl/Vcf.pm",
+    "src/perl/vcf-phased-join",
+    "src/perl/vcf-validator"
+  ],
+  "eighth_pass_production_changes": [
+    "src/cpp/variant_file.cpp",
+    "src/cpp/variant_file.h",
+    "src/cpp/variant_file_output.cpp"
+  ],
+  "production_source_sha256": {
+    "src/cpp/bcf_entry.cpp": "884ea1c178bc1b2f849fcbdfa337934d84636cd20b6fca45e7e8859360180ee4",
+    "src/cpp/dgeev.cpp": "6f8c4e1a232328c3a3effefeb7166e951aa35cccf61effc9a83bde538d579e9b",
+    "src/cpp/entry.h": "a05772aba443c51f995cf2b627b0aa4ae3a95781714ecc08473bd69187cc6c11",
+    "src/cpp/entry_filters.cpp": "78f30bd12b91fba18563c2584a0747bbe8e0fec322feab542a6a47c3c8bdeb3a",
+    "src/cpp/entry_getters.cpp": "8ac635c7a8440a0220c2afae05b7cd4eb94705ccd1945f3157638001ebb1003c",
+    "src/cpp/variant_file.cpp": "c2929575b916d7b9684e3dda5f5caf188e8fdacc6a04a9a459a6efafa02ff41b",
+    "src/cpp/variant_file.h": "0a3995472f1714a10da63120dcc921bb6f03d418ee7274c1db484924b1099f12",
+    "src/cpp/variant_file_diff.cpp": "898176b6bd860e54607b0f82288c18d592c113e5f22d877d43165269aa0c9820",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_format_convert.cpp": "6e1088bcb42d6b656b1e797a5282c4bae214a1734b61556c0fbd0a2d33edc125",
+    "src/cpp/variant_file_output.cpp": "73d95a11285d0e4392d6eafba1832184308979a444df013788a685910e6a5e60",
+    "src/cpp/vcf_entry.cpp": "344d4738e010030aa15bde248ebf046633e2a7f339558af98adaeb08ee494790",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3",
+    "src/perl/Vcf.pm": "7b5fa81cc64ced91ccf2ba7c1130ced13942bb5ea6fe34bf86bdf99005d0a26f",
+    "src/perl/vcf-phased-join": "a64a7003752dc0342fa8f0e151789ae023b01b905f06ab968b26ed29f8ea399d",
+    "src/perl/vcf-validator": "b6e28787fd76e63a782430cbd45f01bdf76740fe73812b27564e56664de8eef0"
+  },
+  "previous_source_sha256": {
+    "src/cpp/bcf_entry.cpp": "884ea1c178bc1b2f849fcbdfa337934d84636cd20b6fca45e7e8859360180ee4",
+    "src/cpp/dgeev.cpp": "6f8c4e1a232328c3a3effefeb7166e951aa35cccf61effc9a83bde538d579e9b",
+    "src/cpp/entry.h": "a05772aba443c51f995cf2b627b0aa4ae3a95781714ecc08473bd69187cc6c11",
+    "src/cpp/entry_filters.cpp": "78f30bd12b91fba18563c2584a0747bbe8e0fec322feab542a6a47c3c8bdeb3a",
+    "src/cpp/entry_getters.cpp": "8ac635c7a8440a0220c2afae05b7cd4eb94705ccd1945f3157638001ebb1003c",
+    "src/cpp/variant_file.cpp": "ebdca87bbe50b0f9c968b39423f79f91cbf059100bd20e22703b9b89d0926189",
+    "src/cpp/variant_file.h": "f71f3a6785b7dc6fc0fb7f36e2fc7f75348b341394d48368c83ce15798d96d2c",
+    "src/cpp/variant_file_diff.cpp": "898176b6bd860e54607b0f82288c18d592c113e5f22d877d43165269aa0c9820",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_format_convert.cpp": "6e1088bcb42d6b656b1e797a5282c4bae214a1734b61556c0fbd0a2d33edc125",
+    "src/cpp/variant_file_output.cpp": "1c045c98639794af52f876fe433dbbdb632f080f58d6a66c4dbba7503c160e4f",
+    "src/cpp/vcf_entry.cpp": "344d4738e010030aa15bde248ebf046633e2a7f339558af98adaeb08ee494790",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3",
+    "src/perl/Vcf.pm": "7b5fa81cc64ced91ccf2ba7c1130ced13942bb5ea6fe34bf86bdf99005d0a26f",
+    "src/perl/vcf-phased-join": "a64a7003752dc0342fa8f0e151789ae023b01b905f06ab968b26ed29f8ea399d",
+    "src/perl/vcf-validator": "b6e28787fd76e63a782430cbd45f01bdf76740fe73812b27564e56664de8eef0"
+  },
+  "binaries": {
+    "normal": {
+      "original_baseline": {
+        "vcftools": "a5884d02a5dd33ef82c64a1ad83a023b97a1bc973ec13baf8e6618f0c6306203",
+        "vcftools-fixed-clock": "c4076b697d6113a2221ed55162f32d8792f542c41c6994722ab73f7cc8596029"
+      },
+      "candidate": {
+        "vcftools": "728dec057b81a0ba2e810dc1c7edc47685f84f4c04599b0e00144575cbe337d0",
+        "vcftools-fixed-clock": "851ac7db3c40f3b6fe9169c3f91bce1468732d6f7d0caa155918b6080dcff3a5"
+      },
+      "previous_pass_performance_baseline": {
+        "vcftools": "ffa91ecba2afdcd41d10e41cb3eebd80977eefe2b0687ce2797c14ce42d764d3",
+        "vcftools-fixed-clock": "cf1c9b0bd8dd70fb122a7bfa6dd1f0ad4b6601ff59c87d0a55ad1b6722e4e0ee"
+      }
+    },
+    "lapack": {
+      "original_baseline": {
+        "vcftools": "0e0ba1a487632a5af4eb2fee5d1dd537b17808eba460d78e9b2abc8a55e9db11",
+        "vcftools-fixed-clock": "9fa049ec56eef024a3d02585d28eebede6da38c36030195b3bfcb8e765f0d735"
+      },
+      "candidate": {
+        "vcftools": "621f0692047f8bbc381bb44a6dba5cefb31401dfc9f845dc868a75117f05ed70",
+        "vcftools-fixed-clock": "c8991253c1ecbfc478d38eb79f58c0eb26965aee9c555f4dc35667d7d264e42f"
+      },
+      "previous_pass_performance_baseline": {
+        "vcftools": "32bdaab477fab31edb612d1ba165f7d29c2f0d68f5dcb3903f4da5a5b41d781c",
+        "vcftools-fixed-clock": "76c751a594684db6d0d143e3bd3d3cd446d321bee8bec63702bef922667ee059"
+      }
+    }
+  },
+  "regressions": {
+    "normal_core": {
+      "cases": 4990,
+      "passed": 4990,
+      "baseline_successes": 4173,
+      "baseline_nonzero": 817,
+      "baseline_crashes": 0,
+      "file_pairs": 13400,
+      "clock": "fixed_time.c linked in both executables; no output normalization",
+      "failures": []
+    },
+    "normal_ld_metadata": {
+      "cases": 376,
+      "passed": 376,
+      "baseline_successes": 320,
+      "baseline_nonzero": 56,
+      "baseline_crashes": 0,
+      "file_pairs": 940,
+      "clock": "fixed_time.c linked in both executables; no output normalization",
+      "failures": []
+    },
+    "lapack": {
+      "cases": 210,
+      "passed": 210,
+      "baseline_successes": 120,
+      "baseline_nonzero": 90,
+      "baseline_crashes": 0,
+      "file_pairs": 519,
+      "clock": "fixed_time.c linked in both executables; no output normalization",
+      "failures": []
+    }
+  },
+  "regression_totals": {
+    "cases": 5576,
+    "passed": 5576,
+    "baseline_successes": 4613,
+    "baseline_nonzero": 963,
+    "baseline_crashes": 0,
+    "file_pairs": 14859
+  },
+  "lroh_probe": {
+    "passed": true,
+    "cases_per_build": 30688,
+    "builds": [
+      {
+        "optimization": "-O0",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O0",
+          "work/phase8-lroh-probe-final/lroh_beta_probe.cpp",
+          "-o",
+          "work/phase8-lroh-probe-final/probe-O0"
+        ],
+        "result": {
+          "cases": 30688,
+          "observations": 553039,
+          "exhaustive_sequences": 27993,
+          "randomized_cases": 2500,
+          "long_cases": 15,
+          "special_cases": 180
+        },
+        "executable_sha256": "7beacd76a06f1b037f3bf0a3d6a9982d97a95812a3a36362938bbff22e5f5159",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "optimization": "-O2",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "work/phase8-lroh-probe-final/lroh_beta_probe.cpp",
+          "-o",
+          "work/phase8-lroh-probe-final/probe-O2"
+        ],
+        "result": {
+          "cases": 30688,
+          "observations": 553039,
+          "exhaustive_sequences": 27993,
+          "randomized_cases": 2500,
+          "long_cases": 15,
+          "special_cases": 180
+        },
+        "executable_sha256": "97aab86d01ea5b18d8e8bb8b238bfa03429f53a4874ce57f5b5588968bdf984a",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "baseline_source_sha256": "1c045c98639794af52f876fe433dbbdb632f080f58d6a66c4dbba7503c160e4f",
+    "candidate_source_sha256": "73d95a11285d0e4392d6eafba1832184308979a444df013788a685910e6a5e60",
+    "baseline_kernel_sha256": "eff14d784d80236fa95bf997cf0fceb1c24588afc0b7601976b883ae1c72de2d",
+    "candidate_kernel_sha256": "844f4482a9e38e77c48e343648637d76850a506e83b25be2641f4318261c4f4b",
+    "driver_sha256": "b4ac8f4f2a8c8beac90d0a9e510f67ecc55c385f2552789b8eef5f99a1ff33da",
+    "comparison": "Raw posterior doubles from uninstrumented extracted kernels; instrumented variants additionally compare every alpha and beta double and must retain the same posterior bytes, final fenv flags and errno.",
+    "rounding_mode": "FE_TONEAREST, nontrapping",
+    "limits": [
+      "Actual arithmetic blocks only; full CLI corpus separately checks observation collection, reports and buffer lifetimes.",
+      "The baseline can loop forever when a normalization row is exactly zero or negative; such multi-site inputs are excluded, not repaired.",
+      "Quiet NaN payloads are checked; signaling-NaN traps, asynchronous rounding-mode changes and untested excess-precision architectures are outside the evidence.",
+      "Posterior evaluation now runs backwards and interleaves with beta; instruction-level floating-trap and allocation-failure timing are not guaranteed."
+    ]
+  },
+  "ld_metadata_probe": {
+    "all_passed": true,
+    "modes": [
+      {
+        "configuration": "signed-char",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "-fsigned-char",
+          "work/phase8-ld-metadata-probe/ld_metadata_probe.cpp",
+          "-o",
+          "work/phase8-ld-metadata-probe/signed-char"
+        ],
+        "checks": {
+          "cases": 3774,
+          "read_requests_compared": 4017286,
+          "skip_only_cases": 1437,
+          "short_payload_cases": 1632,
+          "exception_or_fault_cases": 1910,
+          "passed": true
+        },
+        "executable_sha256": "69523fad990eabdcd18d3627a48579c0ba67351119936ad93710c6f6a5427587"
+      },
+      {
+        "configuration": "unsigned-char",
+        "compile_command": [
+          "clang++",
+          "-std=c++98",
+          "-O2",
+          "-funsigned-char",
+          "work/phase8-ld-metadata-probe/ld_metadata_probe.cpp",
+          "-o",
+          "work/phase8-ld-metadata-probe/unsigned-char"
+        ],
+        "checks": {
+          "cases": 3774,
+          "read_requests_compared": 4017286,
+          "skip_only_cases": 1437,
+          "short_payload_cases": 1632,
+          "exception_or_fault_cases": 1910,
+          "passed": true
+        },
+        "executable_sha256": "7f7d42f8c317b0428407bc0d745a18f9881bf16772e011cc6d4a1d0a7725d6a7"
+      }
+    ],
+    "baseline_reader_sha256": "ebdca87bbe50b0f9c968b39423f79f91cbf059100bd20e22703b9b89d0926189",
+    "candidate_reader_sha256": "c2929575b916d7b9684e3dda5f5caf188e8fdacc6a04a9a459a6efafa02ff41b",
+    "extracted_candidate_sha256": "3e40bd058aae5b0fe70726bc4b40ed3cecad3e01c7e4956217469f950ac03ba4",
+    "driver_sha256": "19f0fef474a37f9015505c7bf8609177b0e36f276afc7654ed403f0cbc86d4de",
+    "scope": "Actual reader definitions with read-call tracing; metadata, accepted genotype bytes, ifstream::read request lengths/order, final rdstate/gcount/position/remainder and thrown status match. Rejected-only candidate vectors stay unallocated.",
+    "limitations": [
+      "Complete headers only; old packed zero-available-payload uninitialized reads excluded.",
+      "Actual EOF and injected badbit at a payload request; not arbitrary physical-device fault injection.",
+      "Default, badbit-only and failbit/eofbit/badbit exception masks checked; a failed record ends the probe before any malformed next header.",
+      "Reader protocol probe, not complete CLI or performance measurement."
+    ]
+  },
+  "ld_readers_probe": {
+    "cases": 6392,
+    "passed": 6392,
+    "all_passed": true,
+    "candidate_source_sha256": "c2929575b916d7b9684e3dda5f5caf188e8fdacc6a04a9a459a6efafa02ff41b",
+    "baseline_source_sha256": "193595c047c92b47026b9c2a66e32668a0646abf1dc2b8f286bdee039e3b3c21",
+    "extracted_definitions_sha256": "45538bd7ab757aa8699fd55c9c1b5aad48e480e2b0e5543b3db26ef75b1c018f",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "contract": "Exact CHROM, POS, allele count, genotype order and values, final rdstate/gcount/position and remaining raw bytes on binary ifstreams.",
+    "limitations": [
+      "Not a CLI regression or performance benchmark.",
+      "Headers are complete; malformed header behavior is unchanged and not tested.",
+      "Packed rows with zero available genotype bytes and nonzero samples are excluded because the baseline reads an uninitialized char.",
+      "Default stream exception mask; arbitrary OS I/O errors and exception-enabled streams are not modeled."
+    ],
+    "modes": [
+      {
+        "char_mode": "signed",
+        "cases": 3196,
+        "passed": 3196,
+        "all_passed": true,
+        "return_code": 0,
+        "flags": [
+          "-std=c++98",
+          "-O2",
+          "-fsigned-char"
+        ],
+        "probe_sha256": "3d6bff294cae8fe30dd49217de997d87f6626f810fd5e3b6230d8d97ace9f6ad",
+        "failures": []
+      },
+      {
+        "char_mode": "unsigned",
+        "cases": 3196,
+        "passed": 3196,
+        "all_passed": true,
+        "return_code": 0,
+        "flags": [
+          "-std=c++98",
+          "-O2",
+          "-funsigned-char"
+        ],
+        "probe_sha256": "b12bd3b8bf9e9e06d03ee4a240164e82c543aeeef219f0c1413e1f61ebbb8e89",
+        "failures": []
+      }
+    ]
+  },
+  "cxx98_check": {
+    "passed": true,
+    "files": [
+      "src/cpp/variant_file.cpp",
+      "src/cpp/variant_file_output.cpp"
+    ],
+    "included_header": "src/cpp/variant_file.h",
+    "lapack_enabled": true,
+    "log_sha256": "0b96e23ce6344b95856bad9320c3fd02b3b829dc9bd40dd1a9ddefaaa596e53b"
+  },
+  "scratch_comparison": {
+    "cases_checked": 5576,
+    "cases_retaining_scratch": 36,
+    "retained_files_per_version": 180,
+    "all_passed": true,
+    "method": "Complete raw-byte multisets; random private filenames ignored only. Public output files and diagnostics remain byte-exact.",
+    "results": [
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-plink",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-012",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+          },
+          {
+            "bytes": 1,
+            "sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+          },
+          {
+            "bytes": 1,
+            "sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhat",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhat_geno",
+        "files_per_version": 9,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 9,
+            "sha256": "a1852ec81c3b20981618e10c24edce1a85ba43ef5f09aaf13bd44d6a715ed5b5"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhelmet",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/vcf/manifest-ldhelmet-pipe",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-plink",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-012",
+        "files_per_version": 8,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+          },
+          {
+            "bytes": 1,
+            "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+          },
+          {
+            "bytes": 1,
+            "sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+          },
+          {
+            "bytes": 1,
+            "sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhat",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhat_geno",
+        "files_per_version": 9,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 9,
+            "sha256": "a1852ec81c3b20981618e10c24edce1a85ba43ef5f09aaf13bd44d6a715ed5b5"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhelmet",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "memory_conversion_late_error/gzvcf/manifest-ldhelmet-pipe",
+        "files_per_version": 17,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 6,
+            "sha256": "4a1547d4d4d247f66eb1df3b9a673357715e8e64761f48b32fa592ae764d2383"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "8ce86a6ae65d3692e7305e2c58ac62eebd97d3d943e093f577da25c36988246b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-chisq",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-inter_geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-list_geno",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-chisq-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-inter_geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/vcf/manifest-list_geno-pipe",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-chisq",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-inter_geno",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-list_geno",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-chisq-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-inter_geno-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "ld_byte_domain/gzvcf/manifest-list_geno-pipe",
+        "files_per_version": 2,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          {
+            "bytes": 1,
+            "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/vcf/manifest-plain",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/vcf/manifest-kept",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/vcf/manifest-plain-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/vcf/manifest-kept-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-plain",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-kept",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-plain-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      {
+        "suite": "normal_core",
+        "case": "chisq_expected_nondiploid/gzvcf/manifest-kept-pipe",
+        "files_per_version": 1,
+        "all_raw_contents_equal": true,
+        "contents": [
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "workloads": [
+    {
+      "name": "filtered-freq-gz-control",
+      "description": "Unchanged control.",
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "input_bytes": 30988398,
+      "repeats": 5,
+      "arguments": [
+        "--freq",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--mac",
+        "1",
+        "--hwe",
+        "0.0001",
+        "--max-missing",
+        "0.25"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.649043625,
+              "min": 1.63804675,
+              "max": 1.6546455420000008,
+              "values": [
+                1.63804675,
+                1.647956292,
+                1.649043625,
+                1.6546455420000008,
+                1.6545430000000003
+              ]
+            },
+            "user_seconds": {
+              "median": 1.632217,
+              "min": 1.625932,
+              "max": 1.635721,
+              "values": [
+                1.625932,
+                1.635721,
+                1.632217,
+                1.629758,
+                1.632535
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009285,
+              "min": 0.007769,
+              "max": 0.018542,
+              "values": [
+                0.007769,
+                0.007877,
+                0.010073,
+                0.009285,
+                0.018542
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5357568,
+              "min": 5357568,
+              "max": 5373952,
+              "values": [
+                5357568,
+                5357568,
+                5357568,
+                5373952,
+                5373952
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.671749416,
+              "min": 1.6601727090000011,
+              "max": 1.7122087919999984,
+              "values": [
+                1.671749416,
+                1.6695256250000003,
+                1.6601727090000011,
+                1.676032833999999,
+                1.7122087919999984
+              ]
+            },
+            "user_seconds": {
+              "median": 1.654008,
+              "min": 1.645856,
+              "max": 1.671348,
+              "values": [
+                1.656955,
+                1.645856,
+                1.646549,
+                1.654008,
+                1.671348
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009554,
+              "min": 0.008649,
+              "max": 0.010986,
+              "values": [
+                0.009219,
+                0.008649,
+                0.009554,
+                0.010986,
+                0.010416
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5390336,
+              "min": 5357568,
+              "max": 5390336,
+              "values": [
+                5390336,
+                5390336,
+                5357568,
+                5373952,
+                5390336
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9864179459058355,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0061162079510704
+      },
+      "speedup": 0.9864179459058355,
+      "peak_rss_difference_bytes": 32768,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-chisq-accepted-control",
+      "description": "Every visited two-byte candidate passes metadata; six-allele numerical work retained.",
+      "input_sha256": "9332f900a69c931cbebb4858db61c8a6f5fb2930f15726740840d42fd8bafbef",
+      "input_bytes": 110475,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq",
+        "--ld-window",
+        "24"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.014241375,
+              "min": 0.014037083000000006,
+              "max": 0.014593291000000008,
+              "values": [
+                0.014037083000000006,
+                0.014241375,
+                0.014228292000000003,
+                0.014593291000000008,
+                0.014365292000000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.008555,
+              "min": 0.008454,
+              "max": 0.008582,
+              "values": [
+                0.008539999999999999,
+                0.008582,
+                0.008454,
+                0.008555,
+                0.008572
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0052899999999999996,
+              "min": 0.004452,
+              "max": 0.005471,
+              "values": [
+                0.004452,
+                0.00517,
+                0.0052899999999999996,
+                0.0053879999999999996,
+                0.005471
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2162688,
+              "min": 2113536,
+              "max": 2179072,
+              "values": [
+                2179072,
+                2146304,
+                2179072,
+                2162688,
+                2113536
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.014085665999999983,
+              "min": 0.013565458000000002,
+              "max": 0.014318667000000007,
+              "values": [
+                0.013756083000000002,
+                0.014085665999999983,
+                0.014318667000000007,
+                0.01422316600000001,
+                0.013565458000000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.008489,
+              "min": 0.008416,
+              "max": 0.00855,
+              "values": [
+                0.00855,
+                0.008489,
+                0.008487,
+                0.008416,
+                0.008494999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.005077,
+              "min": 0.004625,
+              "max": 0.0053609999999999994,
+              "values": [
+                0.0047669999999999995,
+                0.005077,
+                0.005233,
+                0.0053609999999999994,
+                0.004625
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2146304,
+              "min": 2146304,
+              "max": 2146304,
+              "values": [
+                2146304,
+                2146304,
+                2146304,
+                2146304,
+                2146304
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0110544293752257,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9924242424242424
+      },
+      "speedup": 1.0110544293752257,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-inter-accepted-control",
+      "description": "All three pairs are interchromosomal and accepted; startup-scale control.",
+      "input_sha256": "2e0fb9c47b034dda3f255f9dddf2f4b458d9ca81bc00c01b82f34b209bee38e7",
+      "input_bytes": 5167,
+      "repeats": 5,
+      "arguments": [
+        "--interchrom-hap-r2"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0021749579999999907,
+              "min": 0.0018772080000000052,
+              "max": 0.002987957999999999,
+              "values": [
+                0.002987957999999999,
+                0.0021749579999999907,
+                0.0019351249999999959,
+                0.0018772080000000052,
+                0.0022264580000000006
+              ]
+            },
+            "user_seconds": {
+              "median": 0.000841,
+              "min": 0.000789,
+              "max": 0.000991,
+              "values": [
+                0.000991,
+                0.0008259999999999999,
+                0.000841,
+                0.000789,
+                0.000908
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0008309999999999999,
+              "min": 0.000726,
+              "max": 0.001049,
+              "values": [
+                0.001049,
+                0.0008309999999999999,
+                0.000726,
+                0.0007419999999999999,
+                0.0009329999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2031616,
+              "min": 1998848,
+              "max": 2064384,
+              "values": [
+                2048000,
+                1998848,
+                2031616,
+                2064384,
+                2031616
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0020375419999999894,
+              "min": 0.0019175830000000005,
+              "max": 0.0022073330000000058,
+              "values": [
+                0.0022073330000000058,
+                0.002101958000000001,
+                0.0019175830000000005,
+                0.0020375419999999894,
+                0.0019262089999999982
+              ]
+            },
+            "user_seconds": {
+              "median": 0.000852,
+              "min": 0.0007999999999999999,
+              "max": 0.0009289999999999999,
+              "values": [
+                0.0009289999999999999,
+                0.000877,
+                0.0007999999999999999,
+                0.000852,
+                0.00082
+              ]
+            },
+            "system_seconds": {
+              "median": 0.00081,
+              "min": 0.000745,
+              "max": 0.000879,
+              "values": [
+                0.000879,
+                0.000834,
+                0.000745,
+                0.00081,
+                0.000745
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2015232,
+              "min": 2015232,
+              "max": 2031616,
+              "values": [
+                2015232,
+                2015232,
+                2031616,
+                2015232,
+                2031616
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0674420453664277,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9919354838709677
+      },
+      "speedup": 1.0674420453664277,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-inter-geno",
+      "description": "One large chromosome and two small ones reject most same-chromosome pairs while retaining cross-chromosome results.",
+      "input_sha256": "4f762d7163d9cc68fccbb2bb6e987ec99b2436d241b8af5e4c7e4d3aab84f651",
+      "input_bytes": 3437172,
+      "repeats": 5,
+      "arguments": [
+        "--interchrom-geno-r2"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4178421670000001,
+              "min": 0.41535191699999996,
+              "max": 0.427501625,
+              "values": [
+                0.427501625,
+                0.4178421670000001,
+                0.41535191699999996,
+                0.41700379099999996,
+                0.42137391599999985
+              ]
+            },
+            "user_seconds": {
+              "median": 0.384119,
+              "min": 0.383706,
+              "max": 0.392042,
+              "values": [
+                0.392042,
+                0.38379199999999997,
+                0.384119,
+                0.383706,
+                0.38814099999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.031128,
+              "min": 0.029189,
+              "max": 0.031762,
+              "values": [
+                0.031762,
+                0.031632,
+                0.029189,
+                0.030472,
+                0.031128
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2424832,
+              "min": 2424832,
+              "max": 2457600,
+              "values": [
+                2424832,
+                2424832,
+                2457600,
+                2424832,
+                2424832
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.10981454200000007,
+              "min": 0.10729245899999995,
+              "max": 0.12192266699999998,
+              "values": [
+                0.12192266699999998,
+                0.11131024999999994,
+                0.10729245899999995,
+                0.10981454200000007,
+                0.10886058399999987
+              ]
+            },
+            "user_seconds": {
+              "median": 0.079831,
+              "min": 0.079263,
+              "max": 0.080265,
+              "values": [
+                0.079831,
+                0.080265,
+                0.07985199999999999,
+                0.07961499999999999,
+                0.079263
+              ]
+            },
+            "system_seconds": {
+              "median": 0.028367,
+              "min": 0.026248,
+              "max": 0.029035,
+              "values": [
+                0.029035,
+                0.028367,
+                0.026248,
+                0.027617,
+                0.028440999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2424832,
+              "min": 2408448,
+              "max": 2424832,
+              "values": [
+                2408448,
+                2424832,
+                2424832,
+                2424832,
+                2424832
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 3.8049802821196472,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "speedup": 3.8049802821196472,
+      "peak_rss_difference_bytes": 0,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-inter-hap",
+      "description": "One large chromosome and two small ones reject most same-chromosome pairs while retaining cross-chromosome results.",
+      "input_sha256": "4f762d7163d9cc68fccbb2bb6e987ec99b2436d241b8af5e4c7e4d3aab84f651",
+      "input_bytes": 3437172,
+      "repeats": 5,
+      "arguments": [
+        "--interchrom-hap-r2"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4426074580000001,
+              "min": 0.43693358300000007,
+              "max": 0.45765562499999995,
+              "values": [
+                0.45765562499999995,
+                0.443321791,
+                0.43693358300000007,
+                0.4426074580000001,
+                0.43886775
+              ]
+            },
+            "user_seconds": {
+              "median": 0.406865,
+              "min": 0.40604999999999997,
+              "max": 0.411806,
+              "values": [
+                0.411806,
+                0.40604999999999997,
+                0.406232,
+                0.40854599999999996,
+                0.406865
+              ]
+            },
+            "system_seconds": {
+              "median": 0.032082,
+              "min": 0.029029,
+              "max": 0.037722,
+              "values": [
+                0.037722,
+                0.032396999999999995,
+                0.029029,
+                0.032082,
+                0.029532
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2457600,
+              "min": 2441216,
+              "max": 2490368,
+              "values": [
+                2457600,
+                2457600,
+                2441216,
+                2490368,
+                2473984
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.130263625,
+              "min": 0.12740012499999986,
+              "max": 0.14803933300000005,
+              "values": [
+                0.14803933300000005,
+                0.141508333,
+                0.12906270799999997,
+                0.12740012499999986,
+                0.130263625
+              ]
+            },
+            "user_seconds": {
+              "median": 0.10216599999999999,
+              "min": 0.10196999999999999,
+              "max": 0.104583,
+              "values": [
+                0.10259299999999999,
+                0.104583,
+                0.10210999999999999,
+                0.10216599999999999,
+                0.10196999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.027035999999999998,
+              "min": 0.024277,
+              "max": 0.032366,
+              "values": [
+                0.032366,
+                0.0319,
+                0.02524,
+                0.024277,
+                0.027035999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2441216,
+              "min": 2441216,
+              "max": 2457600,
+              "values": [
+                2441216,
+                2441216,
+                2457600,
+                2441216,
+                2441216
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 3.397782443103362,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9933333333333333
+      },
+      "speedup": 3.397782443103362,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-list-accepted-control",
+      "description": "One anchor versus 255 targets, all accepted; verifies no rejected-pair assumption is needed.",
+      "input_sha256": "26e0002ae3849a73647426ece221a0eef21a9d0eb0a64264543b08e32aafcd38",
+      "input_bytes": 274771,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2-positions",
+        "work/phase8-ld-metadata-performance/ld_metadata_one_position.txt"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.004991375000000006,
+              "min": 0.0049468749999999895,
+              "max": 0.005747124999999992,
+              "values": [
+                0.005747124999999992,
+                0.004991375000000006,
+                0.005209791000000005,
+                0.004960750000000014,
+                0.0049468749999999895
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0029709999999999997,
+              "min": 0.002881,
+              "max": 0.003011,
+              "values": [
+                0.003011,
+                0.0029579999999999997,
+                0.002881,
+                0.0029709999999999997,
+                0.0029749999999999998
+              ]
+            },
+            "system_seconds": {
+              "median": 0.001646,
+              "min": 0.0015609999999999999,
+              "max": 0.0019379999999999998,
+              "values": [
+                0.0016519999999999998,
+                0.001646,
+                0.0019379999999999998,
+                0.001588,
+                0.0015609999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2097152,
+              "min": 2064384,
+              "max": 2113536,
+              "values": [
+                2064384,
+                2097152,
+                2097152,
+                2113536,
+                2064384
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.004968,
+              "min": 0.004860584000000001,
+              "max": 0.005127541999999999,
+              "values": [
+                0.004869708,
+                0.004860584000000001,
+                0.005127541999999999,
+                0.004968,
+                0.005080249999999981
+              ]
+            },
+            "user_seconds": {
+              "median": 0.002924,
+              "min": 0.0028989999999999997,
+              "max": 0.002998,
+              "values": [
+                0.0028989999999999997,
+                0.002902,
+                0.002998,
+                0.002987,
+                0.002924
+              ]
+            },
+            "system_seconds": {
+              "median": 0.001573,
+              "min": 0.001539,
+              "max": 0.0017,
+              "values": [
+                0.001548,
+                0.001539,
+                0.0017,
+                0.001573,
+                0.001607
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2080768,
+              "min": 2064384,
+              "max": 2080768,
+              "values": [
+                2064384,
+                2080768,
+                2080768,
+                2080768,
+                2080768
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0047051127214184,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9921875
+      },
+      "speedup": 1.0047051127214184,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-list-geno",
+      "description": "150 selected anchors versus 450 others; narrow distance and chromosome gates reject most payload decoding.",
+      "input_sha256": "3776e780737d01b59a13e3b9edcfaa326122637e0c246cf2b687b64fecd091b6",
+      "input_bytes": 4952060,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2-positions",
+        "work/phase8-ld-metadata-performance/ld_metadata_positions.txt",
+        "--ld-window-bp",
+        "40"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.32212591699999993,
+              "min": 0.318878875,
+              "max": 0.331942666,
+              "values": [
+                0.325763375,
+                0.331942666,
+                0.318878875,
+                0.3209321250000001,
+                0.32212591699999993
+              ]
+            },
+            "user_seconds": {
+              "median": 0.301824,
+              "min": 0.29970199999999997,
+              "max": 0.305743,
+              "values": [
+                0.303735,
+                0.305743,
+                0.29970199999999997,
+                0.301233,
+                0.301824
+              ]
+            },
+            "system_seconds": {
+              "median": 0.018025,
+              "min": 0.017609,
+              "max": 0.019875999999999998,
+              "values": [
+                0.019875999999999998,
+                0.018025,
+                0.017927,
+                0.018036,
+                0.017609
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2490368,
+              "min": 2490368,
+              "max": 2490368,
+              "values": [
+                2490368,
+                2490368,
+                2490368,
+                2490368,
+                2490368
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.06593370900000006,
+              "min": 0.06551216699999984,
+              "max": 0.06819970799999997,
+              "values": [
+                0.06610037499999999,
+                0.06819970799999997,
+                0.06586654099999989,
+                0.06593370900000006,
+                0.06551216699999984
+              ]
+            },
+            "user_seconds": {
+              "median": 0.048034999999999994,
+              "min": 0.047535999999999995,
+              "max": 0.048288,
+              "values": [
+                0.048288,
+                0.048229999999999995,
+                0.047941,
+                0.047535999999999995,
+                0.048034999999999994
+              ]
+            },
+            "system_seconds": {
+              "median": 0.016425,
+              "min": 0.015788,
+              "max": 0.018385,
+              "values": [
+                0.01681,
+                0.018385,
+                0.016276,
+                0.016425,
+                0.015788
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2473984,
+              "min": 2441216,
+              "max": 2490368,
+              "values": [
+                2473984,
+                2441216,
+                2473984,
+                2490368,
+                2473984
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 4.885602856044389,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.993421052631579
+      },
+      "speedup": 4.885602856044389,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-list-hap",
+      "description": "150 selected anchors versus 450 others; narrow distance and chromosome gates reject most payload decoding.",
+      "input_sha256": "3776e780737d01b59a13e3b9edcfaa326122637e0c246cf2b687b64fecd091b6",
+      "input_bytes": 4952060,
+      "repeats": 5,
+      "arguments": [
+        "--hap-r2-positions",
+        "work/phase8-ld-metadata-performance/ld_metadata_positions.txt",
+        "--ld-window-bp",
+        "40"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.331590209,
+              "min": 0.327314792,
+              "max": 0.33275383299999994,
+              "values": [
+                0.331590209,
+                0.327314792,
+                0.3275219170000001,
+                0.331646125,
+                0.33275383299999994
+              ]
+            },
+            "user_seconds": {
+              "median": 0.308727,
+              "min": 0.307566,
+              "max": 0.310602,
+              "values": [
+                0.308764,
+                0.307566,
+                0.308406,
+                0.308727,
+                0.310602
+              ]
+            },
+            "system_seconds": {
+              "median": 0.019042,
+              "min": 0.017743,
+              "max": 0.020866,
+              "values": [
+                0.019042,
+                0.017932,
+                0.017743,
+                0.019330999999999997,
+                0.020866
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2490368,
+              "min": 2457600,
+              "max": 2506752,
+              "values": [
+                2506752,
+                2457600,
+                2473984,
+                2490368,
+                2506752
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.06822241599999995,
+              "min": 0.06741775000000017,
+              "max": 0.07243058399999969,
+              "values": [
+                0.07150641600000002,
+                0.06822241599999995,
+                0.06750716700000003,
+                0.06741775000000017,
+                0.07243058399999969
+              ]
+            },
+            "user_seconds": {
+              "median": 0.052052,
+              "min": 0.051274,
+              "max": 0.05343,
+              "values": [
+                0.05343,
+                0.052052,
+                0.051274,
+                0.051608,
+                0.052107
+              ]
+            },
+            "system_seconds": {
+              "median": 0.015304,
+              "min": 0.015191,
+              "max": 0.017849,
+              "values": [
+                0.016725,
+                0.015222999999999999,
+                0.015304,
+                0.015191,
+                0.017849
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2473984,
+              "min": 2473984,
+              "max": 2473984,
+              "values": [
+                2473984,
+                2473984,
+                2473984,
+                2473984,
+                2473984
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 4.860428997413405,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.993421052631579
+      },
+      "speedup": 4.860428997413405,
+      "peak_rss_difference_bytes": -16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-local-accepted-control",
+      "description": "Every visited inner candidate passes metadata; ordinary packed-reader control.",
+      "input_sha256": "26e0002ae3849a73647426ece221a0eef21a9d0eb0a64264543b08e32aafcd38",
+      "input_bytes": 274771,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2",
+        "--ld-window",
+        "24"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.022294959000000003,
+              "min": 0.01984766600000004,
+              "max": 0.03175087500000001,
+              "values": [
+                0.021757291999999998,
+                0.022294959000000003,
+                0.03175087500000001,
+                0.024872791000000005,
+                0.01984766600000004
+              ]
+            },
+            "user_seconds": {
+              "median": 0.009963,
+              "min": 0.009779999999999999,
+              "max": 0.010253,
+              "values": [
+                0.009779999999999999,
+                0.009845,
+                0.009963,
+                0.010253,
+                0.010060999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.01196,
+              "min": 0.008902,
+              "max": 0.013035999999999999,
+              "values": [
+                0.01094,
+                0.01196,
+                0.013035999999999999,
+                0.012425,
+                0.008902
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2064384,
+              "min": 2048000,
+              "max": 2064384,
+              "values": [
+                2064384,
+                2048000,
+                2064384,
+                2048000,
+                2064384
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.021582167000000013,
+              "min": 0.019950249999999975,
+              "max": 0.028321417000000015,
+              "values": [
+                0.021582167000000013,
+                0.023047999999999985,
+                0.019950249999999975,
+                0.028321417000000015,
+                0.02060187499999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.009765,
+              "min": 0.009718,
+              "max": 0.009946,
+              "values": [
+                0.00976,
+                0.009814999999999999,
+                0.009765,
+                0.009946,
+                0.009718
+              ]
+            },
+            "system_seconds": {
+              "median": 0.011219,
+              "min": 0.009623999999999999,
+              "max": 0.014922,
+              "values": [
+                0.011219,
+                0.012752999999999999,
+                0.009623999999999999,
+                0.014922,
+                0.010405
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2064384,
+              "min": 2048000,
+              "max": 2064384,
+              "values": [
+                2064384,
+                2048000,
+                2064384,
+                2048000,
+                2064384
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.033026896696703,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "speedup": 1.033026896696703,
+      "peak_rss_difference_bytes": 0,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-local-chisq",
+      "description": "Two-byte six-allele payloads; same rejection pattern with real nonempty chi-square results.",
+      "input_sha256": "57f1e0b360d9ca95ede1b1c73f0568e369a8af21fe43d5fbcc1bbde12dc1eeb0",
+      "input_bytes": 3973580,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq",
+        "--ld-window-bp-min",
+        "3000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.9307208749999996,
+              "min": 0.9196897500000001,
+              "max": 0.959277709,
+              "values": [
+                0.959277709,
+                0.9196897500000001,
+                0.9405469159999997,
+                0.9270355409999995,
+                0.9307208749999996
+              ]
+            },
+            "user_seconds": {
+              "median": 0.8724179999999999,
+              "min": 0.866292,
+              "max": 0.8825069999999999,
+              "values": [
+                0.8825069999999999,
+                0.866292,
+                0.8722249999999999,
+                0.8724179999999999,
+                0.87906
+              ]
+            },
+            "system_seconds": {
+              "median": 0.05178,
+              "min": 0.048583,
+              "max": 0.067874,
+              "values": [
+                0.067874,
+                0.05178,
+                0.058610999999999996,
+                0.051247999999999995,
+                0.048583
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2555904,
+              "min": 2523136,
+              "max": 2555904,
+              "values": [
+                2555904,
+                2555904,
+                2523136,
+                2539520,
+                2555904
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.10599254200000008,
+              "min": 0.10432341600000017,
+              "max": 0.10724370799999994,
+              "values": [
+                0.10724370799999994,
+                0.10720566600000003,
+                0.10582950000000002,
+                0.10432341600000017,
+                0.10599254200000008
+              ]
+            },
+            "user_seconds": {
+              "median": 0.06181,
+              "min": 0.060362,
+              "max": 0.062238999999999996,
+              "values": [
+                0.062100999999999996,
+                0.061773999999999996,
+                0.06181,
+                0.060362,
+                0.062238999999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.043086,
+              "min": 0.041006,
+              "max": 0.043970999999999996,
+              "values": [
+                0.043841,
+                0.043970999999999996,
+                0.042526,
+                0.041006,
+                0.043086
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2523136,
+              "min": 2506752,
+              "max": 2523136,
+              "values": [
+                2506752,
+                2523136,
+                2506752,
+                2523136,
+                2523136
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 8.781003431354621,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9871794871794872
+      },
+      "speedup": 8.781003431354621,
+      "peak_rss_difference_bytes": -32768,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-local-geno",
+      "description": "Most same-chromosome distances and all cross-chromosome pairs reject; a nonempty tail of long-distance pairs remains.",
+      "input_sha256": "83f4495370a0740a91a94f0f2d58efe5a114350cdec75eee8606c94d77d85439",
+      "input_bytes": 3963980,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2",
+        "--ld-window-bp-min",
+        "3000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5254272920000003,
+              "min": 0.517644583,
+              "max": 0.570424834,
+              "values": [
+                0.5598351669999999,
+                0.520828583,
+                0.517644583,
+                0.570424834,
+                0.5254272920000003
+              ]
+            },
+            "user_seconds": {
+              "median": 0.48934999999999995,
+              "min": 0.486317,
+              "max": 0.5062,
+              "values": [
+                0.5062,
+                0.48934999999999995,
+                0.486317,
+                0.5015649999999999,
+                0.487471
+              ]
+            },
+            "system_seconds": {
+              "median": 0.032486,
+              "min": 0.027781,
+              "max": 0.03931,
+              "values": [
+                0.03931,
+                0.027781,
+                0.028697,
+                0.037822,
+                0.032486
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2473984,
+              "min": 2424832,
+              "max": 2473984,
+              "values": [
+                2473984,
+                2441216,
+                2424832,
+                2473984,
+                2473984
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.073892458,
+              "min": 0.07352424999999996,
+              "max": 0.07728683300000005,
+              "values": [
+                0.073892458,
+                0.07352424999999996,
+                0.07373529200000006,
+                0.07614754099999987,
+                0.07728683300000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.048608,
+              "min": 0.048059,
+              "max": 0.051008,
+              "values": [
+                0.048388999999999995,
+                0.048608,
+                0.048975,
+                0.051008,
+                0.048059
+              ]
+            },
+            "system_seconds": {
+              "median": 0.023892999999999998,
+              "min": 0.022702,
+              "max": 0.024578,
+              "values": [
+                0.023655,
+                0.023892999999999998,
+                0.022702,
+                0.02401,
+                0.024578
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2424832,
+              "min": 2424832,
+              "max": 2441216,
+              "values": [
+                2424832,
+                2424832,
+                2441216,
+                2441216,
+                2424832
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 7.110702583476114,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9801324503311258
+      },
+      "speedup": 7.110702583476114,
+      "peak_rss_difference_bytes": -49152,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-local-hap",
+      "description": "Most same-chromosome distances and all cross-chromosome pairs reject; a nonempty tail of long-distance pairs remains.",
+      "input_sha256": "83f4495370a0740a91a94f0f2d58efe5a114350cdec75eee8606c94d77d85439",
+      "input_bytes": 3963980,
+      "repeats": 5,
+      "arguments": [
+        "--hap-r2",
+        "--ld-window-bp-min",
+        "3000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.533455625,
+              "min": 0.5300562500000003,
+              "max": 0.6261989170000001,
+              "values": [
+                0.53692975,
+                0.6261989170000001,
+                0.533455625,
+                0.5300562500000003,
+                0.5324482079999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.49476299999999995,
+              "min": 0.49028,
+              "max": 0.514945,
+              "values": [
+                0.49028,
+                0.514945,
+                0.49749299999999996,
+                0.49332499999999996,
+                0.49476299999999995
+              ]
+            },
+            "system_seconds": {
+              "median": 0.03183,
+              "min": 0.029214999999999998,
+              "max": 0.058101,
+              "values": [
+                0.03183,
+                0.058101,
+                0.031513,
+                0.029214999999999998,
+                0.032565
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2441216,
+              "min": 2424832,
+              "max": 2441216,
+              "values": [
+                2441216,
+                2424832,
+                2441216,
+                2441216,
+                2441216
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.07784833299999971,
+              "min": 0.07567079099999985,
+              "max": 0.09246937499999996,
+              "values": [
+                0.07716891700000006,
+                0.09246937499999996,
+                0.07784833299999971,
+                0.07567079099999985,
+                0.08115229200000007
+              ]
+            },
+            "user_seconds": {
+              "median": 0.050799,
+              "min": 0.050654,
+              "max": 0.051116999999999996,
+              "values": [
+                0.050654,
+                0.050704,
+                0.051116999999999996,
+                0.050949999999999995,
+                0.050799
+              ]
+            },
+            "system_seconds": {
+              "median": 0.024494,
+              "min": 0.023105,
+              "max": 0.026794,
+              "values": [
+                0.024494,
+                0.026794,
+                0.023944999999999998,
+                0.023105,
+                0.025358
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2441216,
+              "min": 2424832,
+              "max": 2441216,
+              "values": [
+                2441216,
+                2424832,
+                2441216,
+                2424832,
+                2441216
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 6.852499012406623,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "speedup": 6.852499012406623,
+      "peak_rss_difference_bytes": 0,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-long-staging-chisq",
+      "description": "A 16-MiB final INFO row precedes 64-allele observed-matrix allocation; measures release of input entry/staging before numerical work.",
+      "input_sha256": "b3a86d1dc60caa5a5ae798ce7d741e00bdec80d783a10f903ee43a742f3815a1",
+      "input_bytes": 16782872,
+      "repeats": 5,
+      "arguments": [
+        "--geno-chisq"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.022026667,
+              "min": 0.02129070900000002,
+              "max": 0.024411500000000003,
+              "values": [
+                0.024411500000000003,
+                0.021670250000000002,
+                0.022536875000000012,
+                0.022026667,
+                0.02129070900000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.010570999999999999,
+              "min": 0.010384,
+              "max": 0.010818,
+              "values": [
+                0.010818,
+                0.010424,
+                0.010570999999999999,
+                0.0107,
+                0.010384
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009632,
+              "min": 0.009505999999999999,
+              "max": 0.010865,
+              "values": [
+                0.010865,
+                0.009590999999999999,
+                0.00975,
+                0.009505999999999999,
+                0.009632
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 149880832,
+              "min": 149880832,
+              "max": 149929984,
+              "values": [
+                149880832,
+                149880832,
+                149880832,
+                149880832,
+                149929984
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.022102542000000003,
+              "min": 0.021535833000000004,
+              "max": 0.022911584000000013,
+              "values": [
+                0.022911584000000013,
+                0.021535833000000004,
+                0.02222866599999998,
+                0.022102542000000003,
+                0.02209583399999998
+              ]
+            },
+            "user_seconds": {
+              "median": 0.010506,
+              "min": 0.010371,
+              "max": 0.010697,
+              "values": [
+                0.010371,
+                0.010461,
+                0.010576,
+                0.010506,
+                0.010697
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009616999999999999,
+              "min": 0.009479999999999999,
+              "max": 0.011153,
+              "values": [
+                0.009554,
+                0.009479999999999999,
+                0.009788999999999999,
+                0.011153,
+                0.009616999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 149913600,
+              "min": 149897216,
+              "max": 149929984,
+              "values": [
+                149913600,
+                149913600,
+                149897216,
+                149929984,
+                149913600
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9965671369383665,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0002186270223
+      },
+      "speedup": 0.9965671369383665,
+      "peak_rss_difference_bytes": 32768,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-wide-accepted",
+      "description": "Same 131072-sample input with accepted adjacent pairs; distinguishes lifetime savings from rejected-only arrays.",
+      "input_sha256": "5ffdabcf4a55c52ab6c847985807357b637c27db8bc73908887ca9295daafea6",
+      "input_bytes": 5132898,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2",
+        "--ld-window",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.040220582999999976,
+              "min": 0.04009729200000001,
+              "max": 0.04254287499999998,
+              "values": [
+                0.040502833,
+                0.040220582999999976,
+                0.04011945899999997,
+                0.04254287499999998,
+                0.04009729200000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.035449999999999995,
+              "min": 0.035047,
+              "max": 0.035898,
+              "values": [
+                0.035047,
+                0.035898,
+                0.035449999999999995,
+                0.035456999999999995,
+                0.03525
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003826,
+              "min": 0.003496,
+              "max": 0.003888,
+              "values": [
+                0.003877,
+                0.003496,
+                0.003888,
+                0.0037359999999999997,
+                0.003826
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 20676608,
+              "min": 20660224,
+              "max": 20692992,
+              "values": [
+                20692992,
+                20676608,
+                20676608,
+                20660224,
+                20676608
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.03983737500000001,
+              "min": 0.03931408400000003,
+              "max": 0.03995399999999999,
+              "values": [
+                0.03993904200000001,
+                0.03995399999999999,
+                0.03931408400000003,
+                0.03983737500000001,
+                0.039668416999999956
+              ]
+            },
+            "user_seconds": {
+              "median": 0.035414999999999995,
+              "min": 0.035109,
+              "max": 0.035518999999999995,
+              "values": [
+                0.035516,
+                0.035359999999999996,
+                0.035109,
+                0.035414999999999995,
+                0.035518999999999995
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0036599999999999996,
+              "min": 0.003469,
+              "max": 0.0038269999999999997,
+              "values": [
+                0.0036599999999999996,
+                0.0038269999999999997,
+                0.003489,
+                0.003715,
+                0.003469
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 19628032,
+              "min": 19611648,
+              "max": 19644416,
+              "values": [
+                19611648,
+                19628032,
+                19628032,
+                19611648,
+                19644416
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.009619308501124,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9492868462757528
+      },
+      "speedup": 1.009619308501124,
+      "peak_rss_difference_bytes": -1048576,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "ld-metadata-wide-rejected",
+      "description": "131072 samples; all candidates reject, exposing lazy second-vector allocation and released input staging. Header-only result is intentional.",
+      "input_sha256": "5ffdabcf4a55c52ab6c847985807357b637c27db8bc73908887ca9295daafea6",
+      "input_bytes": 5132898,
+      "repeats": 5,
+      "arguments": [
+        "--geno-r2",
+        "--ld-window-bp-min",
+        "100000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.04470158399999996,
+              "min": 0.04383933300000001,
+              "max": 0.04494499999999996,
+              "values": [
+                0.04490466600000001,
+                0.04383933300000001,
+                0.044240541999999994,
+                0.04470158399999996,
+                0.04494499999999996
+              ]
+            },
+            "user_seconds": {
+              "median": 0.039556999999999995,
+              "min": 0.038828,
+              "max": 0.040154999999999996,
+              "values": [
+                0.038828,
+                0.039147999999999995,
+                0.039556999999999995,
+                0.039939999999999996,
+                0.040154999999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003964,
+              "min": 0.003805,
+              "max": 0.004967,
+              "values": [
+                0.004967,
+                0.003805,
+                0.0038239999999999997,
+                0.003964,
+                0.004078
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 20660224,
+              "min": 20643840,
+              "max": 20692992,
+              "values": [
+                20676608,
+                20660224,
+                20692992,
+                20643840,
+                20660224
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.03713224999999998,
+              "min": 0.036613916999999996,
+              "max": 0.037759708,
+              "values": [
+                0.036997375,
+                0.03713224999999998,
+                0.037759708,
+                0.036613916999999996,
+                0.03734508399999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.032644,
+              "min": 0.032181999999999995,
+              "max": 0.033000999999999996,
+              "values": [
+                0.032529999999999996,
+                0.032644,
+                0.033000999999999996,
+                0.032181999999999995,
+                0.032854999999999995
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0037519999999999997,
+              "min": 0.003734,
+              "max": 0.003967,
+              "values": [
+                0.0037519999999999997,
+                0.0037589999999999998,
+                0.003967,
+                0.0037459999999999998,
+                0.003734
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 19628032,
+              "min": 19628032,
+              "max": 19644416,
+              "values": [
+                19628032,
+                19644416,
+                19628032,
+                19628032,
+                19628032
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.2038479758161702,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9500396510705789
+      },
+      "speedup": 1.2038479758161702,
+      "peak_rss_difference_bytes": -1032192,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-asymmetric-missing",
+      "description": "One million sites / three samples; first sample has half the observations, so releasing its inputs precedes the later large alpha allocation; nonempty focal report.",
+      "input_sha256": "7479e64c0dc85fc1896b8adeadebd8d606c106f9ee4ff10d07f7c3274f4dafa9",
+      "input_bytes": 58778600,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.551684834,
+              "min": 0.5364539580000001,
+              "max": 0.5869457920000003,
+              "values": [
+                0.551684834,
+                0.5432157920000003,
+                0.5364539580000001,
+                0.5869457920000003,
+                0.5640807079999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.510961,
+              "min": 0.505757,
+              "max": 0.518251,
+              "values": [
+                0.509768,
+                0.510961,
+                0.505757,
+                0.518251,
+                0.516716
+              ]
+            },
+            "system_seconds": {
+              "median": 0.03678,
+              "min": 0.026033999999999998,
+              "max": 0.041178,
+              "values": [
+                0.03678,
+                0.030063,
+                0.026033999999999998,
+                0.041178,
+                0.038314999999999995
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 215220224,
+              "min": 215171072,
+              "max": 215826432,
+              "values": [
+                215187456,
+                215220224,
+                215171072,
+                215826432,
+                215351296
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5293413330000001,
+              "min": 0.521258709,
+              "max": 0.5794205830000001,
+              "values": [
+                0.5283425,
+                0.521258709,
+                0.5321869170000002,
+                0.5293413330000001,
+                0.5794205830000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.501119,
+              "min": 0.49453199999999997,
+              "max": 0.522875,
+              "values": [
+                0.498949,
+                0.49453199999999997,
+                0.502061,
+                0.501119,
+                0.522875
+              ]
+            },
+            "system_seconds": {
+              "median": 0.026463,
+              "min": 0.025774,
+              "max": 0.040105999999999996,
+              "values": [
+                0.025774,
+                0.025935999999999997,
+                0.027025,
+                0.026463,
+                0.040105999999999996
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 199163904,
+              "min": 199081984,
+              "max": 199196672,
+              "values": [
+                199147520,
+                199196672,
+                199163904,
+                199180288,
+                199081984
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0422100062985256,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9253958587088916
+      },
+      "speedup": 1.0422100062985256,
+      "peak_rss_difference_bytes": -16056320,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-eight-samples",
+      "description": "200000 observations / eight equally sized sample histories; controls shared-input storage and early release with nonempty tracts.",
+      "input_sha256": "435b4d4b88554a7c536f9a97b5667abc5115cdc5cb1380e32e47bc44fdf69060",
+      "input_bytes": 15978613,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.17322466700000017,
+              "min": 0.164732333,
+              "max": 0.20721500000000004,
+              "values": [
+                0.164873584,
+                0.20721500000000004,
+                0.164732333,
+                0.17322466700000017,
+                0.18178820800000017
+              ]
+            },
+            "user_seconds": {
+              "median": 0.153878,
+              "min": 0.145722,
+              "max": 0.166869,
+              "values": [
+                0.14771399999999998,
+                0.166869,
+                0.145722,
+                0.153878,
+                0.15584699999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.016205999999999998,
+              "min": 0.014364,
+              "max": 0.024751,
+              "values": [
+                0.014364,
+                0.024751,
+                0.016205999999999998,
+                0.015707,
+                0.018772
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 130531328,
+              "min": 128892928,
+              "max": 135790592,
+              "values": [
+                128892928,
+                135249920,
+                128909312,
+                130531328,
+                135790592
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.16445995800000002,
+              "min": 0.15993258300000002,
+              "max": 0.2103984590000001,
+              "values": [
+                0.16445995800000002,
+                0.19078995800000004,
+                0.16244358299999995,
+                0.15993258300000002,
+                0.2103984590000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.143404,
+              "min": 0.14262,
+              "max": 0.15289,
+              "values": [
+                0.143404,
+                0.14553,
+                0.143174,
+                0.14262,
+                0.15289
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0173,
+              "min": 0.016115,
+              "max": 0.019704,
+              "values": [
+                0.0173,
+                0.019704,
+                0.016115,
+                0.016371999999999998,
+                0.019271999999999997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 125616128,
+              "min": 125583360,
+              "max": 126124032,
+              "values": [
+                126124032,
+                125616128,
+                125599744,
+                125583360,
+                125648896
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.053293878379807,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9623446717710556
+      },
+      "speedup": 1.053293878379807,
+      "peak_rss_difference_bytes": -4915200,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-empty-control",
+      "description": "Header-only input; zero-observation branches and logging remain unchanged.",
+      "input_sha256": "05bf9e166cc13aaf51df83540d87d9131baa583305730f0f5e9f46bea3a551dc",
+      "input_bytes": 839,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0017798750000000002,
+              "min": 0.0016675000000000023,
+              "max": 0.0027360000000000023,
+              "values": [
+                0.0027360000000000023,
+                0.0017657089999999903,
+                0.0018498339999999946,
+                0.0016675000000000023,
+                0.0017798750000000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.000767,
+              "min": 0.0007289999999999999,
+              "max": 0.000922,
+              "values": [
+                0.000922,
+                0.000767,
+                0.0007599999999999999,
+                0.0007289999999999999,
+                0.000771
+              ]
+            },
+            "system_seconds": {
+              "median": 0.000661,
+              "min": 0.0006309999999999999,
+              "max": 0.0008579999999999999,
+              "values": [
+                0.0008579999999999999,
+                0.0006309999999999999,
+                0.000661,
+                0.000717,
+                0.0006439999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1949696,
+              "min": 1933312,
+              "max": 1966080,
+              "values": [
+                1949696,
+                1933312,
+                1966080,
+                1949696,
+                1949696
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.001752957999999999,
+              "min": 0.001714333999999998,
+              "max": 0.0020010000000000028,
+              "values": [
+                0.0020010000000000028,
+                0.0018405830000000067,
+                0.001752957999999999,
+                0.0017193749999999952,
+                0.001714333999999998
+              ]
+            },
+            "user_seconds": {
+              "median": 0.000757,
+              "min": 0.000732,
+              "max": 0.000841,
+              "values": [
+                0.000841,
+                0.0007869999999999999,
+                0.000732,
+                0.0007459999999999999,
+                0.000757
+              ]
+            },
+            "system_seconds": {
+              "median": 0.000655,
+              "min": 0.000611,
+              "max": 0.000766,
+              "values": [
+                0.000766,
+                0.0006789999999999999,
+                0.000655,
+                0.000627,
+                0.000611
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1949696,
+              "min": 1949696,
+              "max": 1949696,
+              "values": [
+                1949696,
+                1949696,
+                1949696,
+                1949696,
+                1949696
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0153551882018859,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "speedup": 1.0153551882018859,
+      "peak_rss_difference_bytes": 0,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-ordinary-control",
+      "description": "50000 observations / eight samples; ordinary tract control matching the earlier workload shape.",
+      "input_sha256": "0f5db8efa6a4862d241973f31670e60a5b7d771d049635b378752059757b9e0a",
+      "input_bytes": 3928613,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.042196709,
+              "min": 0.04196112499999999,
+              "max": 0.04415129200000001,
+              "values": [
+                0.042157290999999986,
+                0.04196112499999999,
+                0.042196709,
+                0.04415129200000001,
+                0.042891124999999974
+              ]
+            },
+            "user_seconds": {
+              "median": 0.037704999999999995,
+              "min": 0.036861,
+              "max": 0.038822999999999996,
+              "values": [
+                0.036861,
+                0.037704999999999995,
+                0.037661,
+                0.038822999999999996,
+                0.037896
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0038299999999999996,
+              "min": 0.003434,
+              "max": 0.0043679999999999995,
+              "values": [
+                0.0038299999999999996,
+                0.003434,
+                0.003708,
+                0.0043679999999999995,
+                0.00404
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 31604736,
+              "min": 31178752,
+              "max": 31653888,
+              "values": [
+                31653888,
+                31621120,
+                31178752,
+                31604736,
+                31588352
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.04327191699999999,
+              "min": 0.03957070799999998,
+              "max": 0.04359787500000001,
+              "values": [
+                0.03957070799999998,
+                0.043398624999999996,
+                0.04327191699999999,
+                0.040822792,
+                0.04359787500000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.035859999999999996,
+              "min": 0.03512,
+              "max": 0.036412,
+              "values": [
+                0.03512,
+                0.036412,
+                0.035859999999999996,
+                0.035715,
+                0.035962
+              ]
+            },
+            "system_seconds": {
+              "median": 0.004273,
+              "min": 0.0034739999999999997,
+              "max": 0.004579,
+              "values": [
+                0.0034739999999999997,
+                0.004307,
+                0.004273,
+                0.004118999999999999,
+                0.004579
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 31178752,
+              "min": 31129600,
+              "max": 31653888,
+              "values": [
+                31129600,
+                31653888,
+                31653888,
+                31178752,
+                31129600
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9751522910343908,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9865215137376879
+      },
+      "speedup": 0.9751522910343908,
+      "peak_rss_difference_bytes": -425984,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-single-sample-control",
+      "description": "A single entirely heterozygous sample exercises repeated scaling and an empty final region list.",
+      "input_sha256": "2348721e9b83b1ecc6613ac31d9f25509626c61236adefffca050f8b586ef2bd",
+      "input_bytes": 199296,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.0037191250000000037,
+              "min": 0.0035402090000000025,
+              "max": 0.004525874999999999,
+              "values": [
+                0.004525874999999999,
+                0.0035402090000000025,
+                0.003587999999999994,
+                0.0037191250000000037,
+                0.0037248339999999824
+              ]
+            },
+            "user_seconds": {
+              "median": 0.0025529999999999997,
+              "min": 0.002515,
+              "max": 0.002708,
+              "values": [
+                0.002708,
+                0.002515,
+                0.002544,
+                0.002554,
+                0.0025529999999999997
+              ]
+            },
+            "system_seconds": {
+              "median": 0.000765,
+              "min": 0.0006479999999999999,
+              "max": 0.000868,
+              "values": [
+                0.000868,
+                0.0006479999999999999,
+                0.000663,
+                0.000779,
+                0.000765
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2523136,
+              "min": 2490368,
+              "max": 2555904,
+              "values": [
+                2523136,
+                2490368,
+                2555904,
+                2523136,
+                2539520
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.003646125,
+              "min": 0.003532208000000009,
+              "max": 0.0037231250000000077,
+              "values": [
+                0.0037231250000000077,
+                0.003647417,
+                0.003532208000000009,
+                0.003646125,
+                0.0035694160000000197
+              ]
+            },
+            "user_seconds": {
+              "median": 0.002516,
+              "min": 0.002492,
+              "max": 0.0025729999999999998,
+              "values": [
+                0.0025729999999999998,
+                0.002513,
+                0.002516,
+                0.0025659999999999997,
+                0.002492
+              ]
+            },
+            "system_seconds": {
+              "median": 0.000704,
+              "min": 0.000642,
+              "max": 0.000752,
+              "values": [
+                0.000752,
+                0.000734,
+                0.000642,
+                0.000704,
+                0.000692
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2441216,
+              "min": 2441216,
+              "max": 2441216,
+              "values": [
+                2441216,
+                2441216,
+                2441216,
+                2441216,
+                2441216
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0200212554424228,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.9675324675324676
+      },
+      "speedup": 1.0200212554424228,
+      "peak_rss_difference_bytes": -81920,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    },
+    {
+      "name": "lroh-beta-two-samples",
+      "description": "One million observations / two samples; long homozygous tracts and a large per-sample alpha/beta/posterior workspace; nonempty report.",
+      "input_sha256": "fbaba7757c43755a9b1a903ae86594835e2d620fba9a8d3aa77c0bcaa445c4dc",
+      "input_bytes": 54778597,
+      "repeats": 5,
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.5242623750000002,
+              "min": 0.493419458,
+              "max": 0.803834709,
+              "values": [
+                0.803834709,
+                0.5242623750000002,
+                0.493419458,
+                0.5020268330000004,
+                0.6256772079999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.47034,
+              "min": 0.466365,
+              "max": 0.492203,
+              "values": [
+                0.492203,
+                0.466369,
+                0.466365,
+                0.47034,
+                0.49079599999999995
+              ]
+            },
+            "system_seconds": {
+              "median": 0.029797999999999998,
+              "min": 0.024038999999999998,
+              "max": 0.035634,
+              "values": [
+                0.034917,
+                0.029797999999999998,
+                0.024038999999999998,
+                0.025996,
+                0.035634
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 182124544,
+              "min": 182124544,
+              "max": 184827904,
+              "values": [
+                184827904,
+                182124544,
+                182288384,
+                182124544,
+                182124544
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4905802500000007,
+              "min": 0.48295062499999997,
+              "max": 0.6755967499999999,
+              "values": [
+                0.6755967499999999,
+                0.48649570799999986,
+                0.4919794580000003,
+                0.48295062499999997,
+                0.4905802500000007
+              ]
+            },
+            "user_seconds": {
+              "median": 0.45903,
+              "min": 0.457626,
+              "max": 0.464676,
+              "values": [
+                0.45903,
+                0.45986099999999996,
+                0.464676,
+                0.457626,
+                0.458404
+              ]
+            },
+            "system_seconds": {
+              "median": 0.024401,
+              "min": 0.0223,
+              "max": 0.027646,
+              "values": [
+                0.025634999999999998,
+                0.023077999999999998,
+                0.024401,
+                0.0223,
+                0.027646
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 166117376,
+              "min": 166100992,
+              "max": 166133760,
+              "values": [
+                166100992,
+                166117376,
+                166117376,
+                166117376,
+                166133760
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0686577272525737,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.912108672184239
+      },
+      "speedup": 1.0686577272525737,
+      "peak_rss_difference_bytes": -16007168,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "passed": true
+    },
+    {
+      "name": "window-pi-dense-tiled-control",
+      "description": "Unchanged control.",
+      "input_sha256": "8e23d5079c5abe2b535df72f98a6de712d0d372fcf9e879e15676796d78f6e5b",
+      "input_bytes": 7278629,
+      "repeats": 5,
+      "arguments": [
+        "--window-pi",
+        "1000",
+        "--window-pi-step",
+        "1000"
+      ],
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.058711792,
+              "min": 0.05786008300000001,
+              "max": 0.06010141599999996,
+              "values": [
+                0.058711792,
+                0.06010141599999996,
+                0.05970970800000003,
+                0.058283167000000025,
+                0.05786008300000001
+              ]
+            },
+            "user_seconds": {
+              "median": 0.055704,
+              "min": 0.054927,
+              "max": 0.057224,
+              "values": [
+                0.054927,
+                0.057224,
+                0.056034999999999995,
+                0.055704,
+                0.05552
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002266,
+              "min": 0.001862,
+              "max": 0.002513,
+              "values": [
+                0.002506,
+                0.002266,
+                0.002513,
+                0.002054,
+                0.001862
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1982464,
+              "min": 1949696,
+              "max": 2015232,
+              "values": [
+                1982464,
+                2015232,
+                1949696,
+                1982464,
+                1998848
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.059430874999999994,
+              "min": 0.05677883299999997,
+              "max": 0.062101957999999985,
+              "values": [
+                0.062101957999999985,
+                0.05801991600000003,
+                0.059789333,
+                0.059430874999999994,
+                0.05677883299999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.056901999999999994,
+              "min": 0.054615,
+              "max": 0.059252,
+              "values": [
+                0.059252,
+                0.055416,
+                0.057252,
+                0.056901999999999994,
+                0.054615
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002026,
+              "min": 0.001723,
+              "max": 0.002268,
+              "values": [
+                0.002245,
+                0.002268,
+                0.002025,
+                0.002026,
+                0.001723
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 1982464,
+              "min": 1982464,
+              "max": 1998848,
+              "values": [
+                1982464,
+                1982464,
+                1998848,
+                1982464,
+                1982464
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9879005146735599,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0
+      },
+      "speedup": 0.9879005146735599,
+      "peak_rss_difference_bytes": 0,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Finite same-platform tests, not a universal guarantee for every input, compiler, architecture, math library or failure mode. Existing undefined behavior is not repaired.",
+    "CLI regressions use fixed clocks for diagnostics/RNG and compare raw bytes without tolerance, normalization or sorting. Normal-clock benchmarks retain elapsed-time diagnostic differences separately.",
+    "LROH forward/backward expressions and renormalization stay unchanged. Two beta rows and posterior reuse of the alpha first column change arithmetic-array payload from 40N to 16N+32 bytes on this platform: lower for N>=2, eight bytes larger for N=1. Vector metadata, observation buffers and whole-process memory are outside this payload bound.",
+    "LROH posterior evaluation now runs backwards and interleaves with beta. Actual kernel probes use FE_TONEAREST and nontrapping arithmetic, raw doubles, final errno and floating exception flags. Instruction-level trap timing, asynchronous rounding changes and untested excess precision are outside the evidence.",
+    "Baseline LROH normalization can loop forever for exactly zero or negative sums; such multi-site probe inputs are excluded, not repaired. Per-sample observation buffers are released only after their final report use.",
+    "LD rejects skip decoding, not payload reads. The same ifstream::read request sizes and order, including the final one-byte request and failed one-byte requests after short reads, are retained; this is not an OS-syscall or device-I/O trace.",
+    "LD stream probes cover complete headers, actual EOF, injected badbit at payload requests and three exception-mask settings; packed rows with zero available payload bytes and nonzero samples invoke baseline uninitialized-char behavior and are excluded. Arbitrary device faults are not exhaustively modeled.",
+    "LD accepted decoders overwrite complete vectors; GTs2 allocation is lazy and no site cache or data-sized skip buffer is introduced. Input entry and staging buffers are released after temporary writers close and original insufficient-site guards, before pair calculations.",
+    "Original signed dimension, coordinate and count overflow, invalid indexing, malformed-input undefined behavior and resource-exhaustion timing remain outside a universal byte-equivalence claim.",
+    "Statistical formulas, floating accumulation order within each recurrence/kernel, thresholds, windows, warning branches, pair ordering and output formatting are unchanged.",
+    "Perl source is unchanged; previous nondeterminism and missing-tabix limitations remain, with no prior pass counts added to current totals."
+  ]
+}

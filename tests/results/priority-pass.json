@@ -1,0 +1,1345 @@
+{
+  "baseline_commit": "48d19c885e0bb90ad79266e782b3c7d21a80e14c",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "compiler": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "clang++": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "build_flags": [
+    "-O2",
+    "-g",
+    "-std=c++11"
+  ],
+  "pca_enabled": false,
+  "benchmark_method": "Five sequential runs per binary per workload, alternating order; normal clocks; posix_spawn and per-child wait4; warm filesystem caches, no explicit warmup; raw outputs compared on every pair.",
+  "phase": "Combined first, second and third passes",
+  "baseline_commit_scope": "Regression compares original commit; performance baseline is the previous delivered second-pass source snapshot, rebuilt with the same flags.",
+  "production_source_changes": [
+    "src/cpp/entry_filters.cpp",
+    "src/cpp/entry_getters.cpp",
+    "src/cpp/variant_file_filters.cpp",
+    "src/cpp/variant_file_output.cpp",
+    "src/cpp/vcf_entry.cpp",
+    "src/cpp/vcf_file.cpp"
+  ],
+  "third_pass_production_changes": [
+    "src/cpp/variant_file_output.cpp"
+  ],
+  "production_source_sha256": {
+    "src/cpp/entry_filters.cpp": "2c76bd82d07468e3a4a8b05511dab403c776e74c5b7f72d600dee00f3a634e88",
+    "src/cpp/entry_getters.cpp": "2ab9ec55c989f4a2dbcdfad25c556a51212cab2115e2b84655f1af24cec405bc",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_output.cpp": "132dbdfc22150e4c96dc9745c33c98d8614eeebc04db376bf587dee74f5ccf31",
+    "src/cpp/vcf_entry.cpp": "b42890d89cc4cfa5efd42b58199b076ce027cc02ef0c7b95279ef0c172a23500",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3"
+  },
+  "previous_source_sha256": {
+    "src/cpp/entry_filters.cpp": "2c76bd82d07468e3a4a8b05511dab403c776e74c5b7f72d600dee00f3a634e88",
+    "src/cpp/entry_getters.cpp": "2ab9ec55c989f4a2dbcdfad25c556a51212cab2115e2b84655f1af24cec405bc",
+    "src/cpp/variant_file_filters.cpp": "4112fb7e29ce47315683d4b283fc858b9674c0ef3b7340d90af1b7a70ff5d06b",
+    "src/cpp/variant_file_output.cpp": "cf46d3993864d91a33a79ad48b826bada06e98e763866b804cf753b817a51956",
+    "src/cpp/vcf_entry.cpp": "b42890d89cc4cfa5efd42b58199b076ce027cc02ef0c7b95279ef0c172a23500",
+    "src/cpp/vcf_file.cpp": "c7c7121974877bbc08f71abf678fc182aac5e4239de03e99a67c7e21461afea3"
+  },
+  "regression": {
+    "cases": 2760,
+    "passed": 2760,
+    "baseline_successes": 2379,
+    "baseline_nonzero": 381,
+    "baseline_crashes": 0,
+    "file_pairs": 7500,
+    "clock": "fixed_time.c linked in both executables; no output normalization",
+    "failures": [],
+    "scratch_files_remaining": 0
+  },
+  "binaries": {
+    "original_baseline": {
+      "vcftools": "95d72e5e838fb2aaf85db449ed7ef631e0a86ee5b92edaa478920f1925cf4e9a",
+      "vcftools-fixed-clock": "8bff9725e8f668296865fba066bac4a0921b98797a80b8dee25cc44837e44a16"
+    },
+    "previous_pass_performance_baseline": {
+      "vcftools": "84a05dc80a37ecea619ff6aeec4ec462d2c335247cc25b30b9f983b358ab2a94",
+      "vcftools-fixed-clock": "5adff0fa204b64ac4e6f665bd60532bf26f06220b9cc3802a2f286de74a17dec"
+    },
+    "candidate": {
+      "vcftools": "8e001b26c73dd54a1a4e3671d9213e019636b06cb8209afa261ff05ef23b48f0",
+      "vcftools-fixed-clock": "3fb36eaf438377797cee7db26fce470a218a67340ed07733a3f43f8a140a2a09"
+    }
+  },
+  "workloads": [
+    {
+      "name": "chisq-6-alleles",
+      "description": "Unchanged algorithm control from second pass",
+      "input_format": "vcf",
+      "input_bytes": 89568,
+      "input_sha256": "4b72be8964580cb7cb49a33723abdf9336040ee2e1b90a0321800c894856e822",
+      "arguments": [
+        "--geno-chisq",
+        "--ld-window",
+        "15"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.018327917,
+              "min": 0.016408541999999998,
+              "max": 0.019887916000000005,
+              "values": [
+                0.019054875,
+                0.017024750000000005,
+                0.016408541999999998,
+                0.019887916000000005,
+                0.018327917
+              ]
+            },
+            "user_seconds": {
+              "median": 0.011463,
+              "min": 0.011174,
+              "max": 0.013330999999999999,
+              "values": [
+                0.011389999999999999,
+                0.011463,
+                0.011174,
+                0.013330999999999999,
+                0.011509
+              ]
+            },
+            "system_seconds": {
+              "median": 0.005971,
+              "min": 0.004752999999999999,
+              "max": 0.006128,
+              "values": [
+                0.006128,
+                0.00496,
+                0.004752999999999999,
+                0.005971,
+                0.006000999999999999
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2080768,
+              "min": 2080768,
+              "max": 2080768,
+              "values": [
+                2080768,
+                2080768,
+                2080768,
+                2080768,
+                2080768
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.01697433299999998,
+              "min": 0.01673354099999999,
+              "max": 0.018145833,
+              "values": [
+                0.017258916,
+                0.01697433299999998,
+                0.01673354099999999,
+                0.01691179200000001,
+                0.018145833
+              ]
+            },
+            "user_seconds": {
+              "median": 0.011287,
+              "min": 0.011183,
+              "max": 0.012085,
+              "values": [
+                0.011308,
+                0.011228,
+                0.011287,
+                0.011183,
+                0.012085
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0052699999999999995,
+              "min": 0.004951,
+              "max": 0.005618,
+              "values": [
+                0.005386999999999999,
+                0.004967,
+                0.004951,
+                0.0052699999999999995,
+                0.005618
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 2097152,
+              "min": 2080768,
+              "max": 2097152,
+              "values": [
+                2097152,
+                2097152,
+                2097152,
+                2080768,
+                2097152
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0797429860719723,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0078740157480315
+      },
+      "speedup": 1.0797429860719723,
+      "time_reduction_percent": 7.385367360622697,
+      "peak_rss_difference_bytes": 16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "filtered-freq-gz",
+      "description": "Unchanged algorithm control from second pass",
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--freq",
+        "--minGQ",
+        "10",
+        "--minDP",
+        "5",
+        "--remove-filtered-geno-all",
+        "--maf",
+        "0.05",
+        "--mac",
+        "1",
+        "--hwe",
+        "0.0001",
+        "--max-missing",
+        "0.25"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.6875618329999984,
+              "min": 1.644542709,
+              "max": 1.693966209,
+              "values": [
+                1.644542709,
+                1.693966209,
+                1.6910448749999993,
+                1.6860032920000005,
+                1.6875618329999984
+              ]
+            },
+            "user_seconds": {
+              "median": 1.65175,
+              "min": 1.631148,
+              "max": 1.665611,
+              "values": [
+                1.631148,
+                1.651534,
+                1.659553,
+                1.65175,
+                1.665611
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009046,
+              "min": 0.006901,
+              "max": 0.010426,
+              "values": [
+                0.006901,
+                0.008591,
+                0.009531,
+                0.010426,
+                0.009046
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5357568,
+              "min": 5324800,
+              "max": 5373952,
+              "values": [
+                5324800,
+                5357568,
+                5341184,
+                5357568,
+                5373952
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.685779415999999,
+              "min": 1.645068459,
+              "max": 1.8373445000000004,
+              "values": [
+                1.6528960000000001,
+                1.645068459,
+                1.7032953329999998,
+                1.8373445000000004,
+                1.685779415999999
+              ]
+            },
+            "user_seconds": {
+              "median": 1.65611,
+              "min": 1.632585,
+              "max": 1.781552,
+              "values": [
+                1.640393,
+                1.632585,
+                1.669258,
+                1.781552,
+                1.65611
+              ]
+            },
+            "system_seconds": {
+              "median": 0.009191,
+              "min": 0.007235999999999999,
+              "max": 0.014306,
+              "values": [
+                0.007235999999999999,
+                0.0076749999999999995,
+                0.009191,
+                0.014306,
+                0.010385
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5373952,
+              "min": 5357568,
+              "max": 5390336,
+              "values": [
+                5357568,
+                5373952,
+                5390336,
+                5390336,
+                5357568
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0010573251654886,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.003058103975535
+      },
+      "speedup": 1.0010573251654886,
+      "time_reduction_percent": 0.10562084097569535,
+      "peak_rss_difference_bytes": 16384,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "lroh-ordinary-tracts",
+      "description": "50000 sites / 8 samples; homozygous tracts separated by focal heterozygotes.",
+      "input_format": "vcf",
+      "input_bytes": 3928613,
+      "input_sha256": "0f5db8efa6a4862d241973f31670e60a5b7d771d049635b378752059757b9e0a",
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.07721633299999997,
+              "min": 0.07445516699999999,
+              "max": 0.08607187499999999,
+              "values": [
+                0.08607187499999999,
+                0.07831354200000001,
+                0.07662829199999999,
+                0.07721633299999997,
+                0.07445516699999999
+              ]
+            },
+            "user_seconds": {
+              "median": 0.070494,
+              "min": 0.069052,
+              "max": 0.07342499999999999,
+              "values": [
+                0.07342499999999999,
+                0.071408,
+                0.070494,
+                0.06923399999999999,
+                0.069052
+              ]
+            },
+            "system_seconds": {
+              "median": 0.004928,
+              "min": 0.004331,
+              "max": 0.005519,
+              "values": [
+                0.005519,
+                0.00545,
+                0.004928,
+                0.004393,
+                0.004331
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 43237376,
+              "min": 43220992,
+              "max": 43253760,
+              "values": [
+                43237376,
+                43253760,
+                43237376,
+                43220992,
+                43237376
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.04170125000000002,
+              "min": 0.04119012500000002,
+              "max": 0.04466466600000002,
+              "values": [
+                0.04466466600000002,
+                0.04390258300000002,
+                0.04155466600000002,
+                0.04119012500000002,
+                0.04170125000000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.037395,
+              "min": 0.036781999999999995,
+              "max": 0.038465,
+              "values": [
+                0.038017999999999996,
+                0.038465,
+                0.036945,
+                0.036781999999999995,
+                0.037395
+              ]
+            },
+            "system_seconds": {
+              "median": 0.0035979999999999996,
+              "min": 0.003404,
+              "max": 0.004896,
+              "values": [
+                0.004896,
+                0.003929,
+                0.0035979999999999996,
+                0.0035369999999999998,
+                0.003404
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 31014912,
+              "min": 31014912,
+              "max": 31096832,
+              "values": [
+                31014912,
+                31064064,
+                31014912,
+                31096832,
+                31014912
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.8516551182518493,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.7173171655930277
+      },
+      "speedup": 1.8516551182518493,
+      "time_reduction_percent": 45.99426263870878,
+      "peak_rss_difference_bytes": -12222464,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": true,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "lroh-repeated-lookahead",
+      "description": "24000 sites / 8 samples; focal sample homozygous throughout, alternating population heterozygosity every 60 sites.",
+      "input_format": "vcf",
+      "input_bytes": 1965051,
+      "input_sha256": "fcdddcaecfb0f004558571ee62b455e49b2a46592f4db97c10860ffb29dba9fa",
+      "arguments": [
+        "--LROH",
+        "--chr",
+        "1"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.037872709000000004,
+              "min": 0.03706799999999999,
+              "max": 0.03864595799999998,
+              "values": [
+                0.037873833999999995,
+                0.03706799999999999,
+                0.037599875000000005,
+                0.03864595799999998,
+                0.037872709000000004
+              ]
+            },
+            "user_seconds": {
+              "median": 0.03394,
+              "min": 0.033587,
+              "max": 0.035081,
+              "values": [
+                0.033761,
+                0.033587,
+                0.03394,
+                0.035081,
+                0.034338
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002714,
+              "min": 0.002666,
+              "max": 0.002783,
+              "values": [
+                0.002773,
+                0.002709,
+                0.002783,
+                0.002714,
+                0.002666
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 21692416,
+              "min": 21676032,
+              "max": 21708800,
+              "values": [
+                21692416,
+                21708800,
+                21708800,
+                21692416,
+                21676032
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.02094770900000001,
+              "min": 0.02071862499999999,
+              "max": 0.02096120800000001,
+              "values": [
+                0.02096120800000001,
+                0.02094770900000001,
+                0.02071862499999999,
+                0.02077033300000003,
+                0.020947875000000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.01798,
+              "min": 0.017776999999999998,
+              "max": 0.018099999999999998,
+              "values": [
+                0.017984999999999998,
+                0.018099999999999998,
+                0.017776999999999998,
+                0.017929999999999998,
+                0.01798
+              ]
+            },
+            "system_seconds": {
+              "median": 0.002206,
+              "min": 0.002147,
+              "max": 0.002242,
+              "values": [
+                0.002206,
+                0.002147,
+                0.002242,
+                0.002218,
+                0.0021809999999999998
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 16760832,
+              "min": 16711680,
+              "max": 16793600,
+              "values": [
+                16793600,
+                16760832,
+                16744448,
+                16760832,
+                16711680
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.8079642504103903,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.7726586102719033
+      },
+      "speedup": 1.8079642504103903,
+      "time_reduction_percent": 44.689171825548556,
+      "peak_rss_difference_bytes": -4931584,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "missing-indv-gz",
+      "description": "Unchanged algorithm control from second pass",
+      "input_format": "gzvcf",
+      "input_bytes": 30988398,
+      "input_sha256": "fb293b7cf8026832fb90f7ce4d664aae08ed8afc1f3170c89430de85ec315bf4",
+      "arguments": [
+        "--missing-indv"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4929619169999997,
+              "min": 0.48837437500000025,
+              "max": 0.5118529999999999,
+              "values": [
+                0.49885312499999995,
+                0.48950650000000007,
+                0.5118529999999999,
+                0.4929619169999997,
+                0.48837437500000025
+              ]
+            },
+            "user_seconds": {
+              "median": 0.487541,
+              "min": 0.482795,
+              "max": 0.492565,
+              "values": [
+                0.49110099999999995,
+                0.485184,
+                0.492565,
+                0.487541,
+                0.482795
+              ]
+            },
+            "system_seconds": {
+              "median": 0.004064,
+              "min": 0.0036209999999999997,
+              "max": 0.005338,
+              "values": [
+                0.0043,
+                0.0036209999999999997,
+                0.005338,
+                0.003864,
+                0.004064
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5226496,
+              "min": 5210112,
+              "max": 5226496,
+              "values": [
+                5210112,
+                5226496,
+                5226496,
+                5226496,
+                5210112
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.4962152500000001,
+              "min": 0.4949467919999999,
+              "max": 0.5048269999999997,
+              "values": [
+                0.49833712499999994,
+                0.4962152500000001,
+                0.49581074999999997,
+                0.4949467919999999,
+                0.5048269999999997
+              ]
+            },
+            "user_seconds": {
+              "median": 0.490679,
+              "min": 0.488898,
+              "max": 0.49169399999999996,
+              "values": [
+                0.490039,
+                0.491231,
+                0.49169399999999996,
+                0.490679,
+                0.488898
+              ]
+            },
+            "system_seconds": {
+              "median": 0.003777,
+              "min": 0.003418,
+              "max": 0.004996,
+              "values": [
+                0.004996,
+                0.003777,
+                0.003418,
+                0.003551,
+                0.004222
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5292032,
+              "min": 5275648,
+              "max": 5308416,
+              "values": [
+                5292032,
+                5275648,
+                5275648,
+                5292032,
+                5308416
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9934437061335772,
+        "median_peak_rss_ratio_candidate_over_baseline": 1.0125391849529781
+      },
+      "speedup": 0.9934437061335772,
+      "time_reduction_percent": -0.6599562537810355,
+      "peak_rss_difference_bytes": 65536,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "relatedness-compute",
+      "description": "400 samples / 2000 sites; missing and swapped heterozygous genotypes.",
+      "input_format": "vcf",
+      "input_bytes": 3286483,
+      "input_sha256": "4d1cf7a1292ebf7e39959b8a9486fb5d037c0f95967b8c2e97def5a43493c647",
+      "arguments": [
+        "--relatedness"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.2715363340000001,
+              "min": 0.2605335420000001,
+              "max": 0.29684133300000015,
+              "values": [
+                0.26729875000000003,
+                0.2715363340000001,
+                0.2605335420000001,
+                0.29684133300000015,
+                0.2759279170000002
+              ]
+            },
+            "user_seconds": {
+              "median": 0.16716499999999998,
+              "min": 0.166239,
+              "max": 0.168967,
+              "values": [
+                0.166239,
+                0.168967,
+                0.166701,
+                0.16838899999999998,
+                0.16716499999999998
+              ]
+            },
+            "system_seconds": {
+              "median": 0.098524,
+              "min": 0.092096,
+              "max": 0.11379399999999999,
+              "values": [
+                0.09823599999999999,
+                0.098524,
+                0.092096,
+                0.11379399999999999,
+                0.106248
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5423104,
+              "min": 5406720,
+              "max": 5439488,
+              "values": [
+                5439488,
+                5423104,
+                5423104,
+                5406720,
+                5439488
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.27870962500000007,
+              "min": 0.26569620800000004,
+              "max": 0.2942991669999999,
+              "values": [
+                0.272176292,
+                0.28474341599999997,
+                0.27870962500000007,
+                0.2942991669999999,
+                0.26569620800000004
+              ]
+            },
+            "user_seconds": {
+              "median": 0.177284,
+              "min": 0.17676,
+              "max": 0.17915999999999999,
+              "values": [
+                0.177284,
+                0.17688099999999998,
+                0.17676,
+                0.17826799999999998,
+                0.17915999999999999
+              ]
+            },
+            "system_seconds": {
+              "median": 0.093911,
+              "min": 0.085868,
+              "max": 0.113663,
+              "values": [
+                0.091014,
+                0.093911,
+                0.099548,
+                0.113663,
+                0.085868
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3719168,
+              "min": 3686400,
+              "max": 3735552,
+              "values": [
+                3719168,
+                3719168,
+                3735552,
+                3686400,
+                3735552
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 0.9742624927287675,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.6858006042296072
+      },
+      "speedup": 0.9742624927287675,
+      "time_reduction_percent": -2.641742596406993,
+      "peak_rss_difference_bytes": -1703936,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "relatedness-matrix",
+      "description": "1200 samples / 32 sites; missing and swapped heterozygous genotypes.",
+      "input_format": "vcf",
+      "input_bytes": 161732,
+      "input_sha256": "15723af17c26c0117b54e80d2e34495797526c534b8ae18a36b39f9b34e7653d",
+      "arguments": [
+        "--relatedness"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.067704333,
+              "min": 1.0360167920000007,
+              "max": 1.1221589170000001,
+              "values": [
+                1.067704333,
+                1.0735675410000005,
+                1.1221589170000001,
+                1.0360167920000007,
+                1.0432009999999998
+              ]
+            },
+            "user_seconds": {
+              "median": 0.221318,
+              "min": 0.21911499999999998,
+              "max": 0.234946,
+              "values": [
+                0.22020499999999998,
+                0.234946,
+                0.21911499999999998,
+                0.223603,
+                0.221318
+              ]
+            },
+            "system_seconds": {
+              "median": 0.820043,
+              "min": 0.792075,
+              "max": 0.885216,
+              "values": [
+                0.827943,
+                0.820043,
+                0.885216,
+                0.792075,
+                0.811994
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 28622848,
+              "min": 28606464,
+              "max": 28655616,
+              "values": [
+                28606464,
+                28639232,
+                28655616,
+                28622848,
+                28622848
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 1.0642062909999996,
+              "min": 1.0381283750000003,
+              "max": 1.105839833,
+              "values": [
+                1.044439416,
+                1.0381283750000003,
+                1.082473791,
+                1.105839833,
+                1.0642062909999996
+              ]
+            },
+            "user_seconds": {
+              "median": 0.222652,
+              "min": 0.21950799999999998,
+              "max": 0.223878,
+              "values": [
+                0.22147399999999998,
+                0.21950799999999998,
+                0.222652,
+                0.223878,
+                0.223216
+              ]
+            },
+            "system_seconds": {
+              "median": 0.820912,
+              "min": 0.802277,
+              "max": 0.8402799999999999,
+              "values": [
+                0.8052159999999999,
+                0.802277,
+                0.8402799999999999,
+                0.822888,
+                0.820912
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 15663104,
+              "min": 15646720,
+              "max": 15679488,
+              "values": [
+                15679488,
+                15663104,
+                15679488,
+                15646720,
+                15646720
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0032869961675508,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.5472238122495707
+      },
+      "speedup": 1.0032869961675508,
+      "time_reduction_percent": 0.32762272212305543,
+      "peak_rss_difference_bytes": -12959744,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "relatedness2-compute",
+      "description": "400 samples / 2000 sites; missing and swapped heterozygous genotypes.",
+      "input_format": "vcf",
+      "input_bytes": 3286483,
+      "input_sha256": "4d1cf7a1292ebf7e39959b8a9486fb5d037c0f95967b8c2e97def5a43493c647",
+      "arguments": [
+        "--relatedness2"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.9314562089999994,
+              "min": 0.9156450409999999,
+              "max": 0.9517858750000001,
+              "values": [
+                0.9517858750000001,
+                0.950373167,
+                0.9156450409999999,
+                0.9314562089999994,
+                0.9274164999999996
+              ]
+            },
+            "user_seconds": {
+              "median": 0.7179329999999999,
+              "min": 0.717634,
+              "max": 0.726923,
+              "values": [
+                0.717645,
+                0.722861,
+                0.7179329999999999,
+                0.726923,
+                0.717634
+              ]
+            },
+            "system_seconds": {
+              "median": 0.19988799999999998,
+              "min": 0.18837399999999999,
+              "max": 0.22660999999999998,
+              "values": [
+                0.22660999999999998,
+                0.217946,
+                0.18837399999999999,
+                0.19988799999999998,
+                0.199322
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 5406720,
+              "min": 5390336,
+              "max": 5439488,
+              "values": [
+                5439488,
+                5406720,
+                5406720,
+                5390336,
+                5423104
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 0.6666892079999993,
+              "min": 0.6443172500000003,
+              "max": 0.692772084,
+              "values": [
+                0.692772084,
+                0.6700406670000001,
+                0.6666892079999993,
+                0.6443172500000003,
+                0.6512646250000005
+              ]
+            },
+            "user_seconds": {
+              "median": 0.455905,
+              "min": 0.45446899999999996,
+              "max": 0.464368,
+              "values": [
+                0.464368,
+                0.45716199999999996,
+                0.45511999999999997,
+                0.455905,
+                0.45446899999999996
+              ]
+            },
+            "system_seconds": {
+              "median": 0.19919199999999998,
+              "min": 0.186352,
+              "max": 0.206087,
+              "values": [
+                0.203955,
+                0.206087,
+                0.19919199999999998,
+                0.186352,
+                0.19243
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 3719168,
+              "min": 3702784,
+              "max": 3735552,
+              "values": [
+                3702784,
+                3719168,
+                3702784,
+                3735552,
+                3719168
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.3971370735012714,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.6878787878787879
+      },
+      "speedup": 1.3971370735012714,
+      "time_reduction_percent": 28.42506158010916,
+      "peak_rss_difference_bytes": -1687552,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    },
+    {
+      "name": "relatedness2-matrix",
+      "description": "1200 samples / 32 sites; missing and swapped heterozygous genotypes.",
+      "input_format": "vcf",
+      "input_bytes": 161732,
+      "input_sha256": "15723af17c26c0117b54e80d2e34495797526c534b8ae18a36b39f9b34e7653d",
+      "arguments": [
+        "--relatedness2"
+      ],
+      "repeats": 5,
+      "measurements": {
+        "baseline": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.8109515000000016,
+              "min": 2.703457375,
+              "max": 3.09109125,
+              "values": [
+                2.703457375,
+                3.09109125,
+                2.877218459,
+                2.8102506249999983,
+                2.8109515000000016
+              ]
+            },
+            "user_seconds": {
+              "median": 1.019098,
+              "min": 1.016128,
+              "max": 1.035269,
+              "values": [
+                1.016128,
+                1.035269,
+                1.024692,
+                1.019098,
+                1.01818
+              ]
+            },
+            "system_seconds": {
+              "median": 1.7494779999999999,
+              "min": 1.657673,
+              "max": 1.929692,
+              "values": [
+                1.657673,
+                1.929692,
+                1.7494779999999999,
+                1.728383,
+                1.759063
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 28622848,
+              "min": 28606464,
+              "max": 28655616,
+              "values": [
+                28655616,
+                28639232,
+                28622848,
+                28606464,
+                28606464
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "runs": 5,
+          "metrics": {
+            "wall_seconds": {
+              "median": 2.7410724580000014,
+              "min": 2.640215916999999,
+              "max": 2.9227271659999996,
+              "values": [
+                2.9227271659999996,
+                2.6524727500000003,
+                2.640215916999999,
+                2.782703415999997,
+                2.7410724580000014
+              ]
+            },
+            "user_seconds": {
+              "median": 0.956604,
+              "min": 0.952754,
+              "max": 0.957903,
+              "values": [
+                0.957903,
+                0.9537329999999999,
+                0.956604,
+                0.952754,
+                0.957434
+              ]
+            },
+            "system_seconds": {
+              "median": 1.718281,
+              "min": 1.635917,
+              "max": 1.780015,
+              "values": [
+                1.718281,
+                1.648476,
+                1.635917,
+                1.780015,
+                1.739997
+              ]
+            },
+            "peak_rss_bytes": {
+              "median": 15646720,
+              "min": 15613952,
+              "max": 15663104,
+              "values": [
+                15663104,
+                15646720,
+                15613952,
+                15646720,
+                15663104
+              ]
+            }
+          }
+        },
+        "median_wall_speedup_baseline_over_candidate": 1.0254933217091922,
+        "median_peak_rss_ratio_candidate_over_baseline": 0.5466514024041214
+      },
+      "speedup": 1.0254933217091922,
+      "time_reduction_percent": 2.485956872610573,
+      "peak_rss_difference_bytes": -12976128,
+      "all_result_bytes_equal": true,
+      "all_diagnostic_bytes_equal": false,
+      "all_runs_succeeded": true,
+      "passed": true
+    }
+  ],
+  "lroh_model_checks": {
+    "passed": true,
+    "model": "Complete reporting rows and per-observation legacy state compared, without HMM changes.",
+    "exhaustive_lengths": {
+      "0": 1,
+      "1": 4,
+      "2": 16,
+      "3": 64,
+      "4": 256,
+      "5": 1024,
+      "6": 4096,
+      "7": 16384,
+      "8": 65536,
+      "9": 262144
+    },
+    "exhaustive_cases": 349525,
+    "deterministic_random_cases": 224,
+    "random_seed": 318,
+    "exhaustive_visit_summary_sha256": "639172a6c5c8602718cb041121f135a380726bec2fa120606e158c7fe2e4b93f",
+    "adversarial_cases": [
+      {
+        "observations": 100,
+        "output_rows": 50,
+        "baseline_lookahead_visits": 2500,
+        "candidate_lookahead_visits": 99,
+        "terminal_heterozygote": false
+      },
+      {
+        "observations": 100,
+        "output_rows": 50,
+        "baseline_lookahead_visits": 2500,
+        "candidate_lookahead_visits": 148,
+        "terminal_heterozygote": true
+      },
+      {
+        "observations": 1000,
+        "output_rows": 500,
+        "baseline_lookahead_visits": 250000,
+        "candidate_lookahead_visits": 999,
+        "terminal_heterozygote": false
+      },
+      {
+        "observations": 1000,
+        "output_rows": 500,
+        "baseline_lookahead_visits": 250000,
+        "candidate_lookahead_visits": 1498,
+        "terminal_heterozygote": true
+      },
+      {
+        "observations": 10000,
+        "output_rows": 5000,
+        "baseline_lookahead_visits": 25000000,
+        "candidate_lookahead_visits": 9999,
+        "terminal_heterozygote": false
+      },
+      {
+        "observations": 10000,
+        "output_rows": 5000,
+        "baseline_lookahead_visits": 25000000,
+        "candidate_lookahead_visits": 14998,
+        "terminal_heterozygote": true
+      }
+    ],
+    "boundaries": [
+      "empty observations",
+      "no region",
+      "final region",
+      "no heterozygotes",
+      "heterozygote at current/last position",
+      "repeated lookahead to same heterozygote",
+      "alternating posterior regions",
+      "duplicate/descending/negative coordinates",
+      "INT_MIN+1 and INT_MAX-1 coordinate range"
+    ],
+    "limitations": [
+      "Boolean posterior inputs model only p_auto > threshold, not HMM numerical output.",
+      "Existing signed integer overflow is undefined; counters remain int and checks stay in baseline-defined range.",
+      "Long adversarial posterior patterns demonstrate reporting complexity, not a claim they are typical HMM output."
+    ],
+    "integer_boundary_cases": 512
+  },
+  "matrix_payload_bytes": {
+    "Manichaikul": {
+      "original": "24*N*N",
+      "second_pass": "16*N*N",
+      "third_pass": "8*N*(N+1)"
+    },
+    "Yang": {
+      "original": "16*N*N",
+      "second_pass": "16*N*N",
+      "third_pass": "8*N*(N+1)"
+    }
+  },
+  "limitations": [
+    "Regression evidence on macOS arm64, Apple Clang21, not a proof for all inputs, compilers or optional features. PCA/LAPACK disabled; Perl unchanged.",
+    "Fixed clocks control elapsed diagnostics and the existing random seed; raw output bytes and exits are compared without normalization. Performance uses normal clocks and reports raw diagnostics separately.",
+    "Performance compares the previous delivered second pass with the third pass, not the original commit. All timings are five-run medians on synthetic data, including process startup and full output.",
+    "Matrix formulas describe only double payloads, not measured RSS. Row allocation, code, libraries and other data also consume RAM.",
+    "LROH uses one extra integer and fixed-width double rows in its HMM to avoid per-observation heap allocations; all numerical expressions are unchanged. The independent reporting model demonstrates complexity, not typical HMM posterior patterns.",
+    "Baseline-defined behavior is retained, including existing malformed/missing-value quirks; existing undefined signed overflow is not repaired.",
+    "Small peak-RSS or timing differences must be reported. No universal RAM nonincrease or production speed guarantee is established."
+  ]
+}

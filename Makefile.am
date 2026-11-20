@@ -1,6 +1,6 @@
 SUBDIRS = src
 
-EXTRA_DIST = LICENSE README.md examples
+EXTRA_DIST = LICENSE README.md examples tests docs
 
 # Create a '.tarball-version' file containing the version string
 # when creating a distribution tarball
