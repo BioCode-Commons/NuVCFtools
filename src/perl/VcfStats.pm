@@ -193,10 +193,24 @@ sub collect_stats
     my ($mandatory_stats,$sample_stats) = $self->select_stats($rec,$filters);
     $self->collect_stats_mandatory($rec,$mandatory_stats);
 
-    # Ts/Tv for samples
+    # Within one record, equal GT strings have identical allele contributions.
+    # Keep each sample's destination hashes (including filter groups) separate,
+    # but classify the genotype once and apply it to all of those destinations.
+    my (%sample_groups,@sample_groups);
     while (my ($sample,$stats) = each %$sample_stats)
     {
-        $self->collect_stats_sample($rec,$sample,$stats);
+        my $gt = $$rec{gtypes}{$sample}{GT};
+        my $key = defined($gt) ? "G$gt" : "M";
+        if ( !exists($sample_groups{$key}) )
+        {
+            $sample_groups{$key} = [$sample,[]];
+            push @sample_groups, $sample_groups{$key};
+        }
+        push @{$sample_groups{$key}[1]}, @$stats;
+    }
+    for my $group (@sample_groups)
+    {
+        $self->collect_stats_sample($rec,$$group[0],$$group[1]);
     }
 
     my %type_keys = ( r=>'ref', s=>'snp', i=>'indel' );
@@ -205,46 +219,47 @@ sub collect_stats
     #   - there is a nonref variant present only in this sample (samples->sample_name->private)
     #   - there is a nonref variant in N samples (samples->all->shared)
     #   - there is a non-empty call (samples->sample_name->count)
+    my %genotype_counts;
     my $shared = 0;
     my $sample_name;
     while (my ($sample,$stats) = each %$sample_stats)
     {
-        my ($alleles,$seps,$is_phased,$is_empty) = $self->parse_haplotype($rec,$sample);
-        if ( $is_empty ) { next; }
-
-        my $is_hom=1;
-        my %types;
-        my $is_ref = 1;
-        for my $al (@$alleles)
+        my $gt = $$rec{gtypes}{$sample}{GT};
+        my $cache_key = defined($gt) ? "G$gt" : "M";
+        my $counts = $genotype_counts{$cache_key};
+        if ( !defined $counts )
         {
-            if ( $$alleles[0] ne $al ) { $is_hom=0; }
-            my ($type,$len,$ht) = $self->event_type($rec,$al);
-            $types{$type} = 1;
-            if ( $type eq 'r' ) { next; }
-            $is_ref = 0;
+            my ($alleles,$seps,$is_phased,$is_empty) = $self->parse_haplotype($rec,$sample);
+            my @keys;
+            my $is_ref = 1;
+            if ( !$is_empty )
+            {
+                my $is_hom = 1;
+                my %types;
+                for my $al (@$alleles)
+                {
+                    if ( $$alleles[0] ne $al ) { $is_hom=0; }
+                    my ($type) = $self->event_type($rec,$al);
+                    $types{$type} = 1;
+                    if ( $type ne 'r' ) { $is_ref=0; }
+                }
+                push @keys, 'count';
+                for my $type (keys %types)
+                {
+                    my $key = exists($type_keys{$type}) ? $type_keys{$type} : 'other';
+                    push @keys, $key.'_count';
+                }
+                my $key = exists($types{r}) ? ($is_hom ? 'hom_RR' : 'het_RA')
+                    : ($is_hom ? 'hom_AA' : 'het_AA');
+                push @keys, $key.'_count', $is_phased ? 'phased' : 'unphased';
+            }
+            $counts = $genotype_counts{$cache_key} = [\@keys,$is_ref];
         }
-        for my $stat (@$stats) { $$stat{count}++; }
-
-        for my $type (keys %types)
+        for my $key (@{$$counts[0]})
         {
-            my $key = exists($type_keys{$type}) ? $type_keys{$type} : 'other';
-            $key .= '_count';
             for my $stat (@$stats) { $$stat{$key}++; }
         }
-        my $key;
-        if ( exists($types{r}) ) 
-        { 
-            if ( $is_hom ) { $key='hom_RR'; }
-            else { $key='het_RA' }
-        }
-        elsif ( $is_hom ) { $key='hom_AA'; }
-        else { $key='het_AA'; }
-        $key .= '_count';
-        for my $stat (@$stats) { $$stat{$key}++; }
-
-        $key = $is_phased ? 'phased' : 'unphased';
-        for my $stat (@$stats) { $$stat{$key}++; }
-
+        my $is_ref = $$counts[1];
         if ( $is_ref ) { next; }
         $shared++;
         if ( !defined $sample_name ) { $sample_name = $sample; }

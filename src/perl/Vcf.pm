@@ -1509,20 +1509,29 @@ sub calc_an_ac
         for (my $i=1; $i<=$nalleles; $i++) { $ac_counts{$i}=0; }
     }
     $an = 0;
+    # Genotypes repeat across samples. Count their multiplicities before splitting.
+    my (%multiplicity,@genotypes);
     for my $gt (keys %$gtypes)
     {
         my $value = $$gtypes{$gt}{GT};
         if ( !defined $value ) { next; } # GT may not be present
+        push @genotypes, $value unless exists($multiplicity{$value});
+        $multiplicity{$value}++;
+    }
+    for my $value (@genotypes)
+    {
+        my $copies = $multiplicity{$value};
+        # Retain the existing first-two-alleles semantics.
         my ($al1,$al2) = split($sep_re,$value);
         if ( defined($al1) && $al1 ne '.' )
         {
-            $an++;
-            if ( $al1 ne '0' ) { $ac_counts{$al1}++; }
+            $an += $copies;
+            if ( $al1 ne '0' ) { $ac_counts{$al1} += $copies; }
         }
         if ( defined($al2) && $al2 ne '.' )
         {
-            $an++;
-            if ( $al2 ne '0' ) { $ac_counts{$al2}++; }
+            $an += $copies;
+            if ( $al2 ne '0' ) { $ac_counts{$al2} += $copies; }
         }
     }
     my @ac;
@@ -1997,9 +2006,17 @@ sub format_genotype_strings
 
     if ( !$columns ) { $columns = [keys %{$$rec{gtypes}}]; }
 
+    # Output allele numbers are append-only within this record. Once converted,
+    # a genotype can be reused without changing first-seen ALT order.
+    my %converted;
     for my $key (@$columns)
     {
         my $gtype = $$rec{gtypes}{$key}{GT};
+        if ( defined($gtype) && exists($converted{$gtype}) )
+        {
+            $$rec{gtypes}{$key}{GT} = $converted{$gtype};
+            next;
+        }
         my $buf = $gtype;
         my $out = '';
         while ($buf ne '')
@@ -2029,6 +2046,7 @@ sub format_genotype_strings
             $out .= $al;
             if ( $sep ) { $out .= $sep; }
         }
+        $converted{$gtype} = $out if defined($gtype);
         $$rec{gtypes}{$key}{GT} = $out;
     }
     if ( !$$self{trim_redundant_ALTs} && exists($$rec{ALT}) && @{$$rec{ALT}} )

@@ -468,6 +468,8 @@ sub merge_vcf_files
                     }
                 }
 
+                # This mapping is fixed for this source record, including REF padding.
+                my %converted_gt;
                 # Now fill in the genotype information for each column
                 for (my $i=0; $i<@{$$vcf{__col_names}}; $i++)
                 {
@@ -475,6 +477,14 @@ sub merge_vcf_files
                     my $out_name = $$vcf{__col_names}->[$i];
 
                     $out{gtypes}{$out_name} = $$line{gtypes}{$ori_name};
+
+                    my $gt = $$line{gtypes}{$ori_name}{GT};
+                    my $cache_key = defined($gt) ? "G$gt" : "M";
+                    if ( exists($converted_gt{$cache_key}) )
+                    {
+                        $out{gtypes}{$out_name}{GT} = $converted_gt{$cache_key};
+                        next;
+                    }
 
                     # This is to convert 0/1 to G/C
                     my ($alleles,$seps,$is_phased,$is_empty) = $vcf->parse_haplotype($line,$ori_name);
@@ -491,6 +501,7 @@ sub merge_vcf_files
                     {
                         $out{gtypes}{$out_name}{GT} = $vcf->format_haplotype($alleles,$seps);
                     }
+                    $converted_gt{$cache_key} = $out{gtypes}{$out_name}{GT};
                 }
                 $out{REF} = defined $new_ref ? $new_ref : $ref;
             }
