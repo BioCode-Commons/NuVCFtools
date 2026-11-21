@@ -38,6 +38,7 @@
 #include "parameters.h"
 #include "entry.h"
 #include "gamma.h"
+#include "ld_bitsets.h"
 #include "vcf_entry.h"
 #include "bcf_entry.h"
 #include "header.h"
@@ -152,8 +153,8 @@ public:
 	virtual void print(const parameters &params) = 0;
 	virtual void print_bcf(const parameters &params) = 0;
 
-	void calc_hap_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, double &D, double &Dprime, int &chr_count);
-	void calc_geno_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, int &indv_count);
+	void calc_hap_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, double &D, double &Dprime, int &chr_count);
+	void calc_geno_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, int &indv_count);
 	void calc_r2_em(entry *e, entry *e2, double &r2, int &indv_count);
 	void calc_geno_chisq(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count);
 	void read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector<ld_genotype> &GTs);

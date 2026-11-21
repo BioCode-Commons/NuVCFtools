@@ -1013,60 +1013,17 @@ void variant_file::output_site_missingness(const parameters &params)
 	delete e;
 }
 
-void variant_file::calc_hap_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, double &D, double &Dprime, int &chr_count)
+void variant_file::calc_hap_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, double &D, double &Dprime, int &chr_count)
 {
-	double x11=0, x12=0, x21=0, x22=0;
-	double X=0, X2=0, Y=0, Y2=0, XY=0;
-	double sx, sy;
+	const ld_moments counts = count_ld_haplotypes(GT1, GT2);
+	const double x11 = counts.xy;
+	const double x12 = double(counts.x) - x11;
+	const double x21 = double(counts.y) - x11;
+	const double x22 = double(counts.n) - double(counts.x) - double(counts.y) + x11;
+	double X=counts.x, X2=counts.xx, Y=counts.y, Y2=counts.yy, XY=counts.xy;
 	double rel_x11, p1, p2, q1, q2, Dmax;
 	double var1, var2, cov12;
-	chr_count = 0;
-	int allele1, allele2;
-
-	for (unsigned int ui=0; ui<GT1.size(); ui++)
-	{
-		for (unsigned int c=0; c<2; c++)
-		{
-			if (c==0)
-			{
-				allele1 = GT1[ui].first;
-				allele2 = GT2[ui].first;
-			}
-			else
-			{
-				allele1 = GT1[ui].second;
-				allele2 = GT2[ui].second;
-			}
-
-			if ((allele1 < 0) || (allele2 < 0))
-				continue;
-
-			if (allele1 == 0 && allele2 == 0){
-			  x11++;
-			} else if (allele1 == 0 && allele2 != 0){
-			  x12++;
-			} else if (allele1 != 0 && allele2 == 0){
-			  x21++;
-			} else { // (allele1 !=0 && allele2 != 0)
-			  x22++;
-			}
-
-			sx=0, sy=0;
-			if (allele1 == 0)
-				sx += 1;
-
-			if (allele2 == 0)
-				sy += 1;
-
-			X += sx; Y += sy;
-			XY += sx*sy;
-			sx *= sx; sy *= sy;
-			X2 += sx;
-			Y2 += sy;
-
-			chr_count++;
-		}
-	}
+	chr_count = counts.n;
 
 	rel_x11 = x11/double(chr_count);
 	p1 = (x11 + x12)/double(chr_count);
@@ -1108,48 +1065,11 @@ void variant_file::calc_r2_em(entry *e, entry *e2, double &r2, int &indv_count)
 	}
 }
 
-void variant_file::calc_geno_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, int &indv_count)
+void variant_file::calc_geno_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, int &indv_count)
 {
-	double X=0, X2=0, Y=0, Y2=0, XY=0;
-	double sx, sy;
-	indv_count = 0;
-	pair<int, int> geno1, geno2;
-
-	for (unsigned int ui=0; ui<GT1.size(); ui++)
-	{
-		geno1 = GT1[ui];
-		geno2 = GT2[ui];
-
-		if ((geno1.first < 0) || (geno1.second < 0))
-			continue;
-
-		if ((geno2.first < 0) || (geno2.second < 0))
-			continue;
-
-		sx=0, sy=0;
-		if (geno1.first == geno1.second)
-		{
-			if (geno1.first == 0)
-				sx = 2;
-		}
-		else
-			sx = 1;
-
-		if (geno2.first == geno2.second)
-		{
-			if (geno2.first == 0)
-				sy = 2;
-		}
-		else
-			sy = 1;
-
-		X += sx; Y += sy;
-		XY += sx*sy;
-		sx *= sx; sy *= sy;
-		X2 += sx; Y2 += sy;
-
-		indv_count++;
-	}
+	const ld_moments counts = count_ld_genotypes(GT1, GT2);
+	double X=counts.x, X2=counts.xx, Y=counts.y, Y2=counts.yy, XY=counts.xy;
+	indv_count = counts.n;
 
 	X /= indv_count; X2 /= indv_count;
 	Y /= indv_count; Y2 /= indv_count;
@@ -1617,31 +1537,31 @@ void variant_file::output_haplotype_r2(const parameters &params)
 	vector<char>().swap(tmp_int);
 
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, true);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 
 	unsigned int uj = 0;
 	for(unsigned int ui=0; ui<site_count-1; ui++)
 	{
-		tmp_file.seekg(file_pos);
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		read_temp_site(tmp_file, CHROM, POS, GTs);
-		file_pos = tmp_file.tellg();
+		reader.seek(file_pos);
+		reader.read_site(CHROM, POS, GTs);
+		file_pos = reader.tell();
 
 		for(uj=ui+1; uj<site_count; uj++)
 		{
 			if (int(uj-ui) > snp_window_size)
 				break;
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
 				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if(uj < (ui+skip))
 				continue;
@@ -1654,7 +1574,7 @@ void variant_file::output_haplotype_r2(const parameters &params)
 			if ((POS2 - POS) > bp_window_size)
 				break;
 
-			calc_hap_r2(GTs, GTs2, r2, D, Dprime, chr_count);
+			calc_hap_r2(GTs, *GTs2, r2, D, Dprime, chr_count);
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))
 					continue;
@@ -1803,32 +1723,32 @@ void variant_file::output_genotype_r2(const parameters &params)
 	vector<char>().swap(tmp_int);
 
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, false);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 
 	unsigned int uj = 0;
 	for(unsigned int ui=0; ui<count-1; ui++)
 	{
-		tmp_file.seekg(file_pos);
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		read_temp_site(tmp_file, CHROM, POS, GTs);
-		file_pos = tmp_file.tellg();
+		reader.seek(file_pos);
+		reader.read_site(CHROM, POS, GTs);
+		file_pos = reader.tell();
 
 		for(uj=ui+1; uj<count; uj++)
 		{
 			if (int(uj-ui) > snp_window_size)
 				break;
 
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
 				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if(uj < (ui+skip))
 				continue;
@@ -1841,7 +1761,7 @@ void variant_file::output_genotype_r2(const parameters &params)
 			if ((POS2 - POS) > bp_window_size)
 				break;
 
-			calc_geno_r2(GTs, GTs2, r2, indv_count);
+			calc_geno_r2(GTs, *GTs2, r2, indv_count);
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))
 					continue;
@@ -2166,33 +2086,33 @@ void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
 	vector<char>().swap(tmp_int);
 
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, false);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 	unsigned int uj=0;
 
 	for(unsigned int ui=0; ui<count-1; ui++)
 	{
-		tmp_file.seekg(file_pos);
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		read_temp_site(tmp_file, CHROM, POS, GTs);
-		file_pos = tmp_file.tellg();
+		reader.seek(file_pos);
+		reader.read_site(CHROM, POS, GTs);
+		file_pos = reader.tell();
 
 		for(uj=ui+1; uj<count; uj++)
 		{
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = CHROM != CHROM2;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if (CHROM == CHROM2)
 				continue;
 
-			calc_geno_r2(GTs, GTs2, r2, indv_count);
+			calc_geno_r2(GTs, *GTs2, r2, indv_count);
 
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))
@@ -2339,33 +2259,33 @@ void variant_file::output_interchromosomal_haplotype_r2(const parameters &params
 	vector<char>().swap(tmp_int);
 
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, true);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 
 	unsigned int uj = 0;
 	for(unsigned int ui=0; ui<site_count-1; ui++)
 	{
-		tmp_file.seekg(file_pos);
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		read_temp_site(tmp_file, CHROM, POS, GTs);
-		file_pos = tmp_file.tellg();
+		reader.seek(file_pos);
+		reader.read_site(CHROM, POS, GTs);
+		file_pos = reader.tell();
 
 		for(uj=ui+1; uj<site_count; uj++)
 		{
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = CHROM != CHROM2;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if (CHROM == CHROM2)
 				continue;
 
-			calc_hap_r2(GTs, GTs2, r2, D, Dprime, chr_count);
+			calc_hap_r2(GTs, *GTs2, r2, D, Dprime, chr_count);
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))
 					continue;
@@ -2580,31 +2500,32 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 
 	ifstream tmp_file(tmpname, ios::binary);
 	ifstream tmp_file2(tmpname2, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, true);
+	ld_site_reader selected_reader(tmp_file2, meta_data.N_indv-indv_miss, true, 0);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 
 	for(unsigned int ui=0; ui<nlist; ui++)
 	{
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		tmp_file2.seekg(file_pos);
-		read_temp_site(tmp_file2, CHROM, POS, GTs);
-		file_pos = tmp_file2.tellg();
+		selected_reader.seek(file_pos);
+		selected_reader.read_site(CHROM, POS, GTs);
+		file_pos = selected_reader.tell();
 
-		tmp_file.seekg(0);
+		reader.seek(0);
 		for(int uj=0; uj<site_count; uj++)
 		{
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = CHROM == CHROM2
 				&& abs(POS2 - POS) >= bp_window_min && abs(POS2 - POS) <= bp_window_size
 				&& abs(list_positions[ui] - uj) >= snp_window_min
 				&& abs(list_positions[ui] - uj) <= snp_window_size;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if (CHROM != CHROM2)
 				continue;
@@ -2619,7 +2540,7 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 			if ( abs(list_pos - uj) > snp_window_size)
 				continue;
 
-			calc_hap_r2(GTs, GTs2, r2, D, Dprime, chr_count);
+			calc_hap_r2(GTs, *GTs2, r2, D, Dprime, chr_count);
 
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))
@@ -2828,31 +2749,32 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 
 	ifstream tmp_file(tmpname, ios::binary);
 	ifstream tmp_file2(tmpname2, ios::binary);
-	vector<ld_genotype> GTs, GTs2;
-	streampos file_pos = 0;
+	ld_site_reader reader(tmp_file, meta_data.N_indv-indv_miss, false);
+	ld_site_reader selected_reader(tmp_file2, meta_data.N_indv-indv_miss, false, 0);
+	ld_bitsets GTs;
+	const ld_bitsets *GTs2 = 0;
+	streamoff file_pos = 0;
 
 	for(unsigned int ui=0; ui<nlist; ui++)
 	{
-		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-		tmp_file2.seekg(file_pos);
-		read_temp_site(tmp_file2, CHROM, POS, GTs);
-		file_pos = tmp_file2.tellg();
+		selected_reader.seek(file_pos);
+		selected_reader.read_site(CHROM, POS, GTs);
+		file_pos = selected_reader.tell();
 
-		tmp_file.seekg(0);
+		reader.seek(0);
 		for(int uj=0; uj<site_count; uj++)
 		{
-			read_temp_site_header(tmp_file, CHROM2, POS2);
+			reader.read_header(CHROM2, POS2);
 			const bool decode_pair = CHROM == CHROM2
 				&& abs(POS2 - POS) >= bp_window_min && abs(POS2 - POS) <= bp_window_size
 				&& abs(list_positions[ui] - uj) >= snp_window_min
 				&& abs(list_positions[ui] - uj) <= snp_window_size;
 			if (decode_pair)
 			{
-				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-				read_temp_site_payload(tmp_file, GTs2);
+				GTs2 = &reader.read_payload();
 			}
 			else
-				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
+				reader.skip_payload();
 
 			if (CHROM != CHROM2)
 				continue;
@@ -2867,7 +2789,7 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 			if ( abs(list_pos - uj) > snp_window_size)
 				continue;
 
-			calc_geno_r2(GTs, GTs2, r2, indv_count);
+			calc_geno_r2(GTs, *GTs2, r2, indv_count);
 
 			if (min_r2 > 0)
 				if ((r2 < min_r2) | (r2 != r2))

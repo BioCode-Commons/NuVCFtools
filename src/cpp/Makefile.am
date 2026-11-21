@@ -25,6 +25,8 @@ vcftools_SOURCES = \
 	khash.h \
 	knetfile.c \
 	knetfile.h \
+	ld_bitsets.cpp \
+	ld_bitsets.h \
 	output_log.cpp \
 	output_log.h \
 	parameters.cpp \
@@ -44,3 +46,7 @@ vcftools_SOURCES = \
 	vcftools.h
 
 dist_man_MANS = vcftools.1
+
+check_PROGRAMS = ld-bitsets-test
+TESTS = ld-bitsets-test
+ld_bitsets_test_SOURCES = tests/ld_bitsets_test.cpp ld_bitsets.cpp ld_bitsets.h
