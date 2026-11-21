@@ -59,6 +59,7 @@ public:
 	void filter_genotypes_by_filter_status(const set<string> &filter_flags_to_remove, bool remove_all = false);
 
 private:
+	bool FORMAT_schema_valid;
 	string ALT_str, FILTER_str, INFO_str, FORMAT_str, QUAL_str;
 	vector<string> GENOTYPE_str;
 };

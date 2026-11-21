@@ -50,6 +50,9 @@ extern output_log LOG;
 
 using namespace std;
 
+// LD temporary alleles fit in a byte, plus -1 for missing data.
+typedef pair<short, short> ld_genotype;
+
 class variant_file
 {
 public:
@@ -149,12 +152,17 @@ public:
 	virtual void print(const parameters &params) = 0;
 	virtual void print_bcf(const parameters &params) = 0;
 
-	void calc_hap_r2(vector<pair<int,int> > &GT1, vector<pair<int,int> > &GT2, double &r2, double &D, double &Dprime, int &chr_count);
-	void calc_geno_r2(vector<pair<int,int> > &GT1, vector<pair<int,int> > &GT2, double &r2, int &indv_count);
+	void calc_hap_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, double &D, double &Dprime, int &chr_count);
+	void calc_geno_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, int &indv_count);
 	void calc_r2_em(entry *e, entry *e2, double &r2, int &indv_count);
-	void calc_geno_chisq(vector<pair<int,int> > &GT1, vector<pair<int,int> > &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count);
-	void read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector< pair<int,int> > &GTs);
-	void read_big_temp_site(ifstream &tmp_file, string &CHROM, int &POS, int &alleles, vector< pair<int,int> > &GTs);
+	void calc_geno_chisq(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count);
+	void read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector<ld_genotype> &GTs);
+	void read_big_temp_site(ifstream &tmp_file, string &CHROM, int &POS, int &alleles, vector<ld_genotype> &GTs);
+	void read_temp_site_header(ifstream &tmp_file, string &CHROM, int &POS);
+	void read_big_temp_site_header(ifstream &tmp_file, string &CHROM, int &POS, int &alleles);
+	void read_temp_site_payload(ifstream &tmp_file, vector<ld_genotype> &GTs);
+	void read_big_temp_site_payload(ifstream &tmp_file, vector<ld_genotype> &GTs);
+	void discard_temp_site_payload(ifstream &tmp_file, size_t bytes);
 	void return_indv_union(variant_file &file2, map<string, pair< int, int> > &combined_individuals, const string &indv_ID_map_file="");
 
 	void get_contigs(const std::string &contigs_file, vector<string> &contig_vector);

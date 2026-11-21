@@ -294,7 +294,7 @@ sub vcf_isec
 sub do_chrm_isec
 {
     my ($opts,$vcfs) = @_;
-
+    local $$opts{_isec_prune_finished} = 1 unless $$opts{split};
     my $debug = $$opts{debug} ? 1 : 0;
     my $win   = $$opts{win} ? $$opts{win} : 0;
     my $complement = $$opts{complement} ? 1 : 0;
@@ -308,10 +308,10 @@ sub do_chrm_isec
         $isec_op     = $$opts{isec_op};
     }
     my $split = $$opts{split};
-
+    my @active_vcfs = $split ? () : @$vcfs; # Split output sorts references: retain its original allocation path.
     while (1)
     {
-        my $grp = read_next_group($opts,$vcfs,$win);
+        my $grp = $split ? read_next_group($opts,$vcfs,$win) : read_next_group($opts,\@active_vcfs,$win);
         if ( !$grp || !scalar @$grp ) { last }
 
         if ( $debug )
@@ -328,7 +328,7 @@ sub do_chrm_isec
             my $vcf = $$rec{vcf};
             my $src = $$vcf{vcf_isec_ID};
 
-            push @{$files{$src}}, $rec;
+            if ($split) { push @{$files{$src}}, $rec; } else { $files{$src} = 1; } # Non-split output needs membership only.
 
             if ( !$$vcf{delim} )
             {
@@ -479,12 +479,12 @@ sub get_min_position
 {
     my ($opts,$vcfs) = @_;
 
-    my ($min_pos,$min_vcf);
+    my ($min_pos,$min_vcf,$finished);
     for my $vcf (@$vcfs)
     {
         # Check if there is a line in the buffer, if not, read. If still empty, the file reached eof
         if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { read_line($opts,$vcf); }
-        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { next; }
+        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { $finished=1; next; }
 
         my $line = $$vcf{buf}[0];
 
@@ -505,7 +505,7 @@ sub get_min_position
             next;
         }
     }
-    return $min_vcf;
+    prune_finished_sources($vcfs) if $$opts{_isec_prune_finished} && $finished; return $min_vcf;
 }
 
 # Read one line from a VCF or Reader, split it and save it to a buffer.
@@ -676,5 +676,16 @@ sub get_chromosomes
     }
     for (my $i=0; $i<@out; $i++) { chomp($out[$i]); }
     return \@out;
+}
+
+# Only the per-chromosome working list is compacted. Finished readers remain in
+# the original list for file IDs, complement/split output and final warnings.
+# Preserve source order, and never discard a buffered record even after EOF.
+# do_chrm_isec enables this only in its dynamic scope, retaining the original
+# function signatures and diagnostic stack argument counts for every caller.
+sub main::prune_finished_sources
+{
+    my ($vcfs) = @_;
+    @$vcfs = grep { !$_->{eof} || ($_->{buf} && @{$_->{buf}}) } @$vcfs;
 }
 

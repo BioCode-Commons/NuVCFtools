@@ -9,10 +9,21 @@ use Carp;
 use Vcf;
 
 
+# Sparse GFF storage is private to this command; callable Record APIs stay dense.
+my %gff_context;
+#line 12
 my $opts = parse_params();
-do_haplotypes($opts);
+{
+    local $gff_context{enabled} = 1;
+    local $gff_context{records} = {};
+#line 13
+    do_haplotypes($opts);
+}
+
+#line 14
 
 exit;
+#line 16
 
 #--------------------------------
 
@@ -318,7 +329,32 @@ package Record;
     
         if ( $$self{gff} ){
             $$self{full_fa_len} += $len;
+            my $sparse;
+            if ( $gff_context{enabled} ) {
+                my $state = $gff_context{records}{$self};
+                if ( !$state || !$$state{disabled} ) {
+                    # += above already made full_fa_len numeric. Keep small
+                    # buffers on the original path without calling sparse helpers.
+                    my $position = $$self{gff_pos};
+                    if ( defined($position) && !ref($position) && $position =~ /\A[0-9]{1,10}\z/ ) {
+                        my $needed = $$self{full_fa_len} - $position;
+                        if ( $state || $needed>=16384 ) {
+                            if ( _gff_coordinate($$self{full_fa_len}) ) {
+                                $sparse = _gff_state($self, $needed);
+                                $$sparse{length} = max($$sparse{length}, $needed) if $sparse;
+                            }
+                            else { _gff_materialize($self); }
+                        }
+                    }
+                    else { _gff_materialize($self); }
+                }
+            }
+            if ( !$sparse ) {
+#line 321
             $#{$$self{features}} = max ( $#{$$self{features}}, $$self{full_fa_len} - 1 - $$self{gff_pos} );
+            }
+#line 321
+
         }
     }
     
@@ -395,6 +431,26 @@ package Record;
             feature => $feature
         };
         my $indel = - $$self{gff_pos} + $$self{gff_indel};
+        if ( $gff_context{enabled} ) {
+            if ( _gff_coordinate($$feature{start}) && _gff_coordinate($$feature{end})
+                && defined($$feature{feature}) && defined($$feature{rest}) ) {
+                my ($start, $end) = ($$feature{start} + $indel, $$feature{end} + $indel);
+                if ( _gff_coordinate($start) && _gff_coordinate($end) ) {
+                    my $sparse = _gff_state($self, max($start, $end) + 1);
+                    if ( $sparse ) {
+                        push @{$$sparse{slots}{$start}}, $startRef;
+                        push @{$$sparse{slots}{$end}}, $endRef;
+                        $$sparse{length} = max($$sparse{length}, $start + 1, $end + 1);
+                        # Dense endpoints are cheaper in the original array.
+                        _gff_materialize($self) if keys(%{$$sparse{slots}}) * 128 > $$sparse{length};
+                        return;
+                    }
+                }
+                else { _gff_materialize($self); }
+            }
+            else { _gff_materialize($self); }
+        }
+#line 398
         push @{$$self{features}[$$feature{start} + $indel]}, $startRef;
         push @{$$self{features}[$$feature{end} + $indel]}, $endRef;
     }
@@ -416,6 +472,13 @@ package Record;
     sub remove_feature {
         my ( $self, $pos, $featRef ) = @_;
 
+        if ( my $sparse = _gff_existing($self) ) {
+            my $bucket = $$sparse{slots}{$pos};
+            my $index = first { $$bucket[$_] == $featRef } 0 .. $#$bucket;
+            splice @$bucket, $index, 1;
+            return;
+        }
+#line 419
         my $index = first { $$self{features}[$pos][$_] == $featRef } 0 .. $#{ $$self{features}[$pos] };
 
         # Remove the position from the array
@@ -428,6 +491,15 @@ package Record;
     sub apply_deletion_to_features 
     {
         my ( $self, $s, $l ) = @_;
+        if ( my $sparse = _gff_existing($self) ) {
+            if ( _gff_coordinate($s) && $s>0 && $l<0 && $s-$l<=$$sparse{length} ) {
+                _gff_delete($self, $sparse, $s, -$l);
+                _gff_materialize($self) if keys(%{$$sparse{slots}}) * 128 > $$sparse{length};
+                return;
+            }
+            _gff_materialize($self);
+        }
+#line 431
         my $e = $s - $l - 1;
         my %olFeatRefs = ();
         for ( my $i = $s ; $i <= $e ; $i++ ) {
@@ -459,6 +531,19 @@ package Record;
     sub apply_insertion_to_features
     {
         my ( $self, $s, $l ) = @_;
+        if ( my $sparse = _gff_existing($self) ) {
+            if ( _gff_coordinate($s) && _gff_coordinate($l) && $s<=$$sparse{length} ) {
+                # Descending moves cannot overwrite a later occupied position.
+                for my $pos (sort { $b<=>$a } keys %{$$sparse{slots}}) {
+                    next if $pos<$s;
+                    $$sparse{slots}{$pos+$l} = delete $$sparse{slots}{$pos} if $l;
+                }
+                $$sparse{length} += $l;
+                return;
+            }
+            _gff_materialize($self);
+        }
+#line 462
         my @repl;
         $#repl = $l - 1;
         splice( @{$$self{features}}, $s, 0, @repl );
@@ -471,7 +556,29 @@ package Record;
         my $end = $self->buf_end_pos() + $$self{gff_indel} - $$self{gff_pos};
         
         my %ranges = ();
+        my $sparse = _gff_existing($self);
+        if ( $sparse && !_gff_coordinate($end) ) {
+            _gff_materialize($self);
+            $sparse = undef;
+        }
+        if ( $sparse ) {
+            # Only occupied coordinates are visited; range identity and sorting
+            # below remain exactly the original reference-keyed operations.
+            for my $i (sort { $a<=>$b } grep { $_<=$end } keys %{$$sparse{slots}}) {
+                for my $featureRef (@{$$sparse{slots}{$i}}) {
+                    my ($type, $feature) = @{$featureRef}{'type', 'feature'};
+                    if ( $type eq 's' ) {
+                        @{$ranges{$feature}}{$type, 'feature'} = ($i, $feature);
+                    }
+                    elsif ( exists $ranges{$feature} ) { $ranges{$feature}{$type} = $i; }
+                }
+            }
+        }
+        else {
+#line 474
         for my $i ( 0..$end ) {
+#line 474
+
             my $featureRefs = $$self{features}[$i];
             next unless $featureRefs;
             for my $featureRef ( @{$featureRefs} ){
@@ -485,6 +592,9 @@ package Record;
             }
         }
     
+        }
+
+#line 488
         #sort by start and end (if existing) positions
         my @sorted = sort { 
             my $c = $$a{s} <=> $$b{s};
@@ -506,7 +616,16 @@ package Record;
         } @sorted;
     
         #remove the features flushed
+        if ( $sparse ) {
+            _gff_drop_prefix($sparse, $first_unflushable_idx);
+            _gff_materialize($self) if keys(%{$$sparse{slots}}) * 128 > $$sparse{length};
+        }
+        else {
+#line 509
         splice @{ $$self{features} }, 0, $first_unflushable_idx;
+        }
+#line 509
+
 
         #store the offset of the feature list
         $$self{gff_pos} += $first_unflushable_idx;
@@ -588,3 +707,103 @@ package Gff;
 
 
 
+
+
+package Record;
+
+# Sparse mode needs at least 16,384 coordinates and 128 slots per occupied bucket.
+# Keep the logical array extent: splice offsets depend on it even without events.
+sub _gff_coordinate {
+    my ($value) = @_;
+    return defined($value) && !ref($value) && $value =~ /\A[0-9]{1,10}\z/;
+}
+
+sub _gff_existing {
+    my ($self) = @_;
+    return unless $gff_context{enabled};
+    my $state = $gff_context{records}{$self};
+    return $state && !$$state{disabled} ? $state : undef;
+}
+
+sub _gff_state {
+    my ($self, $needed) = @_;
+    return unless $gff_context{enabled};
+    my $state = $gff_context{records}{$self};
+    return $$state{disabled} ? undef : $state if $state;
+    return unless ref($self) eq 'Record' && _gff_coordinate($needed) && $needed>=16384;
+    my $features = $$self{features};
+    return unless ref($features) eq 'ARRAY' && !defined(tied(@$features));
+    my @occupied = grep { defined $$features[$_] } 0..$#$features;
+    # Preserve legacy malformed buckets and their original dereference errors.
+    if ( grep { ref($$features[$_]) ne 'ARRAY' } @occupied ) {
+        $gff_context{records}{$self} = {disabled=>1};
+        return;
+    }
+    my $length = max(scalar(@$features), $needed);
+    if ( @occupied * 128 > $length ) {
+        $gff_context{records}{$self} = {disabled=>1};
+        return;
+    }
+    # The caller's records array owns each Record; keeping it here would delay file closure.
+    $state = {length=>$length, slots=>{}};
+    for my $pos (@occupied) { $$state{slots}{$pos} = $$features[$pos]; }
+    @$features = ();
+    $gff_context{records}{$self} = $state;
+    return $state;
+}
+
+sub _gff_materialize {
+    my ($self) = @_;
+    return unless $gff_context{enabled};
+    my $state = $gff_context{records}{$self};
+    return if $state && $$state{disabled};
+    # Unsafe input must also prevent activation by a later, wider feature.
+    if ( !$state ) {
+        $gff_context{records}{$self} = {disabled=>1};
+        return;
+    }
+    my $features = $$self{features};
+    $#$features = $$state{length} - 1;
+    for my $pos (keys %{$$state{slots}}) { $$features[$pos] = delete $$state{slots}{$pos}; }
+    $gff_context{records}{$self} = {disabled=>1};
+}
+
+sub _gff_drop_prefix {
+    my ($state, $length) = @_;
+    return unless $length;
+    # Ascending moves cannot overwrite a position still awaiting its move.
+    for my $pos (sort { $a<=>$b } keys %{$$state{slots}}) {
+        my $bucket = delete $$state{slots}{$pos};
+        $$state{slots}{$pos-$length} = $bucket if $pos >= $length;
+    }
+    $$state{length} = max(0, $$state{length} - $length);
+}
+
+sub _gff_delete {
+    my ($self, $state, $start, $length) = @_;
+    my $end = $start + $length - 1;
+    my %overlapping;
+    for my $pos (sort { $a<=>$b } grep { $_ >= $start && $_ <= $end } keys %{$$state{slots}}) {
+        while ( my $event = shift @{$$state{slots}{$pos}} ) {
+            my $first = $overlapping{$$event{feature}};
+            if ( defined $first ) {
+                $self->remove_feature($end + 1, $first);
+                $self->print_warning('Feature deleted: ',
+                    "$$first{feature}{feature} ",
+                    "($$first{feature}{start}-$$first{feature}{end})",
+                    "$$first{feature}{rest}\n");
+            }
+            elsif ( $$event{type} eq 's' ) {
+                push @{$$state{slots}{$end+1}}, $event;
+                $$state{length} = max($$state{length}, $end + 2);
+                $overlapping{$$event{feature}} = $event;
+            }
+            elsif ( $$event{type} eq 'e' ) { push @{$$state{slots}{$start-1}}, $event; }
+        }
+        delete $$state{slots}{$pos};
+    }
+    for my $pos (sort { $a<=>$b } grep { $_>$end } keys %{$$state{slots}}) {
+        $$state{slots}{$pos-$length} = delete $$state{slots}{$pos};
+    }
+    $$state{length} -= $length;
+}

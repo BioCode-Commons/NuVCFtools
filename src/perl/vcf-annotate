@@ -8,6 +8,10 @@ use warnings;
 use Carp;
 use Vcf;
 
+# Private state for the native CLI only; callable helpers keep their old path.
+my %snpcluster_scope;
+#line 10
+
 my %filters =
 (
     MinAB        => { dflt=>2, usage=>'INT', desc=>'Minimum number of alternate bases (INFO/DP4)', nick=>'a' },
@@ -30,9 +34,13 @@ my %filters =
 );
 
 my $opts = parse_params();
+local $snpcluster_scope{current} = exists($$opts{SnpCluster_count}) && !exists($$opts{udef_filters})
+    ? {opts=>$opts,sorted=>0} : undef;
+#line 33
 annotate($opts);
 
 exit;
+#line 36
 
 #--------------------------------
 
@@ -446,7 +454,11 @@ sub annotate
     my $ref_col  = exists($$cols{REF}) ? $$cols{REF} : undef;
     my $alt_col  = exists($$cols{ALT}) ? $$cols{ALT} : undef;
     my $qual_col = exists($$cols{QUAL}) ? $$cols{QUAL} : undef;
-
+    my $annotation_columns = annotation_column_plan($cols);
+    my $annotation_width = $$annotation_columns{last_used}+1;
+    my $has_ignored_columns = @{$$annotation_columns{unused}};
+    # Keep legacy diagnostic lines for raw stderr compatibility.
+#line 450
     # Initialize the annotation reader
     my $reader;
     if ( exists($$opts{annotations}) )
@@ -483,18 +495,31 @@ sub annotate
                 push @annot_lines, $annot_line;
                 $annot_prev_from = $annot_from;
                 $annot_prev_to   = $annot_to;
+                if ( $has_ignored_columns || @$annot_line>$annotation_width )
+                {
+                    trim_annotation_line($annot_line,$annotation_columns);
+                }
+                # Keep legacy diagnostic lines for raw stderr compatibility.
+#line 486
                 next;
             }
             if ( $annot_from <= $annot_prev_to or $annot_to <= $annot_prev_to )
             {
                 push @annot_lines, $annot_line;
                 if ( $annot_prev_to < $annot_to ) { $annot_prev_to = $annot_to; }
+                if ( $has_ignored_columns || @$annot_line>$annotation_width )
+                {
+                    trim_annotation_line($annot_line,$annotation_columns);
+                }
+#line 492
                 next;
             }
             $reader->unread_line($annot_line);
             last;
         }
-
+        my $annot_blocks;
+        my $queries_before_index = @annot_lines>=128 ? 2 : 0;
+#line 498
         # Now loop through the VCF records
         my $line;
         while ($line = $vcf->next_line())
@@ -550,46 +575,69 @@ sub annotate
                 }
             }
 
-            # Now fill the annotations; Existing annotations with the same tag will be overwritten 
+            # A one-query group does not need an index. Preserve the fast foreach
+            # scan when no blocks can be skipped; otherwise visit bounded slices.
+            if ( $queries_before_index && !--$queries_before_index )
+            {
+                $annot_blocks = prepare_annotation_group(\@annot_lines,$cols);
+            }
+            my $blocks = $annot_blocks && annotation_blocks_for_position($annot_blocks,$pos);
+            my $next_block = 0;
+            # Keep legacy diagnostic lines for raw stderr compatibility.
+#line 554
             my %values = ();
             my %ids = ();
-            for my $annot_line (@annot_lines)
+            while (1)
             {
-                # Skip annotation lines which are not relevant to this VCF record
-                if ( $$annot_line[$from_col] > $pos or $$annot_line[$to_col] < $pos ) { next; }
-                if ( defined $alt_col && $$annot_line[$ref_col] ne '.' )
+                my $batch = \@annot_lines;
+                if ( $blocks )
                 {
-                    my $alt_match = 0;
-                    for my $alt (split(/,/,$$annot_line[$alt_col]))
-                    {
-                        my ($r,@a) =  $vcf->normalize_alleles($$annot_line[$ref_col],$alt);
-                        if ( exists($ref_alt_pairs{$r.'-'.$a[0]}) ) { $alt_match = 1; last; }
-                    }
-                    if ( !$alt_match ) { next; }
+                    my $start = next_annotation_block($blocks,$next_block,$pos);
+                    if ( $start>=@annot_lines ) { last; }
+                    $next_block = $start+$$blocks{size};
+                    my $end = $next_block<@annot_lines ? $next_block-1 : $#annot_lines;
+                    $batch = [@annot_lines[$start..$end]];
                 }
-                for my $info (@annots)
+                for my $annot_line (@$batch)
                 {
-                    my $val = $$annot_line[$$info{col}];
-
-                    if ( $val eq '' or $val eq '.' ) { $val=undef; }       # Existing annotation should be removed
-                    elsif ( $$info{is_flag} )
+#line 559
+                    if ( $$annot_line[$from_col] > $pos or $$annot_line[$to_col] < $pos ) { next; }
+                    if ( defined $alt_col && $$annot_line[$ref_col] ne '.' )
                     {
-                        if ( $val ) { $val=''; }            # Flag annotation should be added
-                        else { $val=undef; }                # Flag annotation should be removed
+                        my $alt_match = 0;
+                        for my $alt (split(/,/,$$annot_line[$alt_col]))
+                        {
+                            my ($r,@a) =  $vcf->normalize_alleles($$annot_line[$ref_col],$alt);
+                            if ( exists($ref_alt_pairs{$r.'-'.$a[0]}) ) { $alt_match = 1; last; }
+                        }
+                        if ( !$alt_match ) { next; }
                     }
-
-                    # A single undef value can be overriden by other overlapping records (?)
-                    if ( !defined $val && exists($values{$$info{id}}) ) { next; }
-                    elsif ( exists($values{$$info{id}}) && !defined $values{$$info{id}}[0] )
+                    for my $info (@annots)
                     {
-                        $values{$$info{id}}[0] = $val;
-                        next;
+                        my $val = $$annot_line[$$info{col}];
+
+                        if ( $val eq '' or $val eq '.' ) { $val=undef; }       # Existing annotation should be removed
+                        elsif ( $$info{is_flag} )
+                        {
+                            if ( $val ) { $val=''; }            # Flag annotation should be added
+                            else { $val=undef; }                # Flag annotation should be removed
+                        }
+
+                        # A single undef value can be overriden by other overlapping records (?)
+                        if ( !defined $val && exists($values{$$info{id}}) ) { next; }
+                        elsif ( exists($values{$$info{id}}) && !defined $values{$$info{id}}[0] )
+                        {
+                            $values{$$info{id}}[0] = $val;
+                            next;
+                        }
+                        push @{$values{$$info{id}}}, $val;
                     }
-                    push @{$values{$$info{id}}}, $val;
+                    if ( defined $id_col && $$annot_line[$id_col] ne '' ) { $ids{$$annot_line[$id_col]} = 1; }
+                    if ( defined $fltr_col && $$annot_line[$fltr_col] ne '' ) { $rec[6] = $$annot_line[$fltr_col]; }
+                    if ( defined $qual_col && $$annot_line[$qual_col] ne '' ) { $rec[5] = $$annot_line[$qual_col]; }
                 }
-                if ( defined $id_col && $$annot_line[$id_col] ne '' ) { $ids{$$annot_line[$id_col]} = 1; }
-                if ( defined $fltr_col && $$annot_line[$fltr_col] ne '' ) { $rec[6] = $$annot_line[$fltr_col]; }
-                if ( defined $qual_col && $$annot_line[$qual_col] ne '' ) { $rec[5] = $$annot_line[$qual_col]; }
+                if ( !$blocks ) { last; }
+#line 593
             }
             if ( scalar keys %ids ) { $rec[2] = join(';', keys %ids); }
             if ( scalar keys %values )
@@ -1285,6 +1333,43 @@ sub apply_snpcluster_filter
         # Does the buffer hold enough lines now?
         my $last_chr = $$buffer[-1]{chr};
         my $last_pos = $$buffer[-1]{pos};
+        my $run = $snpcluster_scope{current};
+        if ( $run && $$run{opts}==$opts )
+        {
+            if ( $n<64 )
+            {
+                # Small windows use the original scan without coordinate checks.
+                if ( $$run{checked} ) { delete @{$run}{'checked','sorted','chr','pos'}; }
+            }
+            else
+            {
+                if ( !$$run{checked} )
+                {
+                    # Certify the whole buffer once when it first reaches 64 rows.
+                    $$run{sorted} = snpcluster_buffer_is_sorted($buffer,$win);
+                    $$run{checked} = 1;
+                }
+                elsif ( $$run{sorted} )
+                {
+                    # Prefix removal preserves the certificate. Only the newly
+                    # appended coordinate needs checking while the buffer is large.
+                    $$run{sorted} = defined($last_chr) && defined($last_pos)
+                        && length($last_chr)<=128
+                        && $last_pos=~/\A[0-9]{1,10}\z/
+                        && $last_chr eq $$run{chr} && $last_pos>=$$run{pos};
+                }
+                if ( $$run{sorted} )
+                {
+                    $$run{chr} = $last_chr;
+                    $$run{pos} = $last_pos;
+                    # No row in a sorted single-chromosome buffer is flushable
+                    # while even its oldest coordinate remains inside the window.
+                    if ( $last_pos-$$buffer[0]{pos}<$win ) { return; }
+                }
+                else { delete @{$run}{'chr','pos'}; }
+            }
+        }
+#line 1288
         for (my $i=$n-1; $i>=0; $i--)
         {
             my $buf = $$buffer[$i];
@@ -1426,3 +1511,107 @@ sub next_line
     return \@items;
 }
 
+package main;
+
+# Release ignored columns as each row joins the group. The original read-ahead
+# and unread-row behavior are unchanged, but unused payloads do not accumulate.
+sub annotation_column_plan
+{
+    my ($cols) = @_;
+    my %used;
+    for my $name (qw(CHROM FROM TO ID FILTER REF ALT QUAL))
+    {
+        if ( exists($$cols{$name}) ) { $used{$$cols{$name}} = 1; }
+    }
+    for my $info (@{$$cols{annots}}) { $used{$$info{col}} = 1; }
+    my $last_used = -1;
+    for my $column (keys %used) { if ( $column>$last_used ) { $last_used=$column; } }
+    my @unused = grep { !exists($used{$_}) } 0..$last_used;
+    return {last_used=>$last_used,unused=>\@unused};
+}
+
+sub trim_annotation_line
+{
+    my ($line,$plan) = @_;
+    if ( @$line>$$plan{last_used}+1 ) { splice(@$line,$$plan{last_used}+1); }
+    for my $column (@{$$plan{unused}})
+    {
+        if ( $column<@$line ) { undef $$line[$column]; }
+    }
+}
+
+# Index only large groups of plain coordinates. Unusual numeric text retains
+# the original comparisons and warning behavior; the bounds are conservative.
+sub prepare_annotation_group
+{
+    my ($lines,$cols) = @_;
+    my $block_size = 64;
+    if ( @$lines<2*$block_size ) { return undef; }
+    my ($from_col,$to_col) = ($$cols{FROM},$$cols{TO});
+    for my $line (@$lines)
+    {
+        for my $column ($from_col,$to_col)
+        {
+            my $value = $$line[$column];
+            if ( !defined($value) || ref($value) || $value!~/\A[0-9]{1,10}\z/ ) { return undef; }
+        }
+    }
+
+    my (@from,@to,$all_from,$all_to);
+    for (my $start=0; $start<@$lines; $start+=$block_size)
+    {
+        my ($low,$high) = @{$$lines[$start]}[$from_col,$to_col];
+        my $end = $start+$block_size;
+        if ( $end>@$lines ) { $end=@$lines; }
+        for (my $i=$start+1; $i<$end; $i++)
+        {
+            if ( $$lines[$i][$from_col]<$low ) { $low=$$lines[$i][$from_col]; }
+            if ( $$lines[$i][$to_col]>$high ) { $high=$$lines[$i][$to_col]; }
+        }
+        push @from,$low;
+        push @to,$high;
+        if ( !defined($all_from) || $all_from<$low ) { $all_from=$low; }
+        if ( !defined($all_to) || $all_to>$high ) { $all_to=$high; }
+    }
+    return {size=>$block_size,from=>\@from,to=>\@to,all_from=>$all_from,all_to=>$all_to};
+}
+
+sub annotation_blocks_for_position
+{
+    my ($blocks,$pos) = @_;
+    if ( !$blocks || !defined($pos) || ref($pos) || $pos!~/\A[0-9]{1,10}\z/ ) { return undef; }
+    # All blocks intersect here: use the original full scan without per-block work.
+    if ( $pos>=$$blocks{all_from} && $pos<=$$blocks{all_to} ) { return undef; }
+    return $blocks;
+}
+
+sub next_annotation_block
+{
+    my ($blocks,$row,$pos) = @_;
+    my $block = int($row/$$blocks{size});
+    while ( $block<@{$$blocks{from}} )
+    {
+        if ( $$blocks{from}[$block]<=$pos && $$blocks{to}[$block]>=$pos ) { last; }
+        $block++;
+    }
+    return $block*$$blocks{size};
+}
+
+
+# Called only by the native CLI when a pending buffer first reaches 64 rows.
+# Unusual coordinates keep the original arithmetic and its warning behavior.
+sub snpcluster_buffer_is_sorted
+{
+    my ($buffer,$win) = @_;
+    if ( !defined($win) || $win!~/\A[0-9]{1,10}\z/ || $win<=0 ) { return 0; }
+    my ($chr,$previous);
+    for my $row (@$buffer)
+    {
+        my ($next_chr,$pos) = @{$row}{'chr','pos'};
+        if ( !defined($next_chr) || length($next_chr)>128
+            || !defined($pos) || $pos!~/\A[0-9]{1,10}\z/ ) { return 0; }
+        if ( defined($previous) && ( $next_chr ne $chr || $pos<$previous ) ) { return 0; }
+        ($chr,$previous) = ($next_chr,$pos);
+    }
+    return 1;
+}

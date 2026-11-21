@@ -25,6 +25,10 @@ use warnings;
 use Carp;
 use Data::Dumper;
 use base 'Vcf';
+use Scalar::Util qw(isdual refaddr);
+# A dynamically scoped private context avoids adding visible keys to user objects.
+my %subtype_scope;
+#line 28
 
 =head2 new
 
@@ -180,6 +184,10 @@ sub select_stats
 sub collect_stats
 {
     my ($self,$rec,$filters) = @_;
+    # Nested collections restore the enclosing context; standalone calls do not
+    # reuse it for a different object. No state is stored in the caller's hash.
+    local $subtype_scope{current} = {owner=>$self};
+#line 183
 
     # Ts/Tv and custom numbers based on INFO, QUAL etc. for the mandatory columns
     my ($mandatory_stats,$sample_stats) = $self->select_stats($rec,$filters);
@@ -368,15 +376,48 @@ sub add_variant
             my $ref_len = length($ref_str);
             if ( $ref_len>1 )
             {
-                for (my $i=0; $i<$ref_len; $i++)
+                # Preserve each fresh subtype hash's insertion order, including
+                # collisions: the unsorted Data::Dumper output observes it.
+                my $context = $subtype_scope{current};
+                my $remember = $ref_len>=64 && $context
+                    && refaddr($$context{owner})==refaddr($self) && !defined(tied(%$self))
+                    && ref($ref) eq 'HASH' && !defined(tied(%$ref))
+                    && !defined(tied($$ref{REF})) && !defined(tied($_[2]))
+                    && !ref($ref_str) && !ref($alt) && defined($alt)
+                    # Legacy/stale event classifications may call a shorter ALT
+                    # a SNP. Repeat that original scan and its substr warnings.
+                    && length($alt)==$ref_len
+                    && !isdual($ref_str) && !isdual($alt);
+                my $cached = $remember ? $$context{entry} : undef;
+                if ( $cached && $ref_str eq $$cached[0] && $alt eq $$cached[1] )
                 {
-                    my $ref_nt = substr($ref_str,$i,1);
-                    my $alt_nt = substr($alt,$i,1);
-                    if ( $ref_nt ne $alt_nt )
+                    for my $item (@{$$cached[2]}) { $key_subt{$$item[0]} = $$item[1]; }
+                }
+                else
+                {
+                    my @subtype_order;
+#line 371
+                    for (my $i=0; $i<$ref_len; $i++)
                     {
-                        $key_subt{$ref_nt.'>'.$alt_nt}++;
+                        my $ref_nt = substr($ref_str,$i,1);
+                        my $alt_nt = substr($alt,$i,1);
+                        if ( $ref_nt ne $alt_nt )
+                        {
+                            if ( $remember && !exists($key_subt{$ref_nt.'>'.$alt_nt}) )
+                            {
+                                push @subtype_order,$ref_nt.'>'.$alt_nt;
+                            }
+#line 377
+                            $key_subt{$ref_nt.'>'.$alt_nt}++;
+                        }
+                    }
+                    if ( $remember )
+                    {
+                        $$context{entry} = [$ref_str,$alt,
+                            [map { [$_,$key_subt{$_}] } @subtype_order]];
                     }
                 }
+#line 380
             }
             else
             {

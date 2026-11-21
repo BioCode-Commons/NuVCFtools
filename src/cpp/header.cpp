@@ -473,11 +473,15 @@ void header::reparse()
 void header::tokenize(const string &in, char token, vector<string> &out)
 {
 	out.resize(0);
-	istringstream ss(in);
-	string tmp;
-	while( getline(ss, tmp, token) )
+	string::size_type start = 0;
+	// Like getline, keep empty fields between delimiters but not after the last one.
+	while (start < in.size())
 	{
-		out.push_back(tmp);
+		const string::size_type end = in.find(token, start);
+		out.push_back(in.substr(start, end == string::npos ? string::npos : end - start));
+		if (end == string::npos)
+			break;
+		start = end + 1;
 	}
 }
 

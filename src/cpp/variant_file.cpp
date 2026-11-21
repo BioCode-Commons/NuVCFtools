@@ -68,7 +68,69 @@ void variant_file::get_contigs(const string &contigs_file, vector<string> &conti
 	LOG.printLOG("Including "+header::int2str(contig_lines)+" header lines from the contig file.\n");
 }
 
-void variant_file::read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector< pair<int,int> > &GTs)
+namespace
+{
+// Read genotype bytes in bounded blocks, leaving the final byte as a normal
+// read so the caller observes the same gcount and stream state. Failed reads
+// leave the supplied byte unchanged, as in the original one-byte reader.
+class ld_temp_byte_reader
+{
+	ifstream &input;
+	char buffer[4096];
+	size_t remaining;
+	size_t next;
+	size_t count;
+public:
+	ld_temp_byte_reader(ifstream &stream, size_t bytes)
+		: input(stream), remaining(bytes), next(0), count(0) {}
+
+	void read(char &value)
+	{
+		if (remaining > 1)
+		{
+			if (next == count && input.good())
+			{
+				const size_t bytes = min(remaining - 1, sizeof(buffer));
+				input.read(buffer, static_cast<streamsize>(bytes));
+				count = static_cast<size_t>(input.gcount());
+				next = 0;
+			}
+			if (next < count)
+				value = buffer[next++];
+			else
+				input.read(&value, sizeof(value));
+		}
+		else
+			input.read(&value, sizeof(value));
+		--remaining;
+	}
+
+	void discard()
+	{
+		// Consume the same reads as read(), but do not visit every buffered byte.
+		// A short read still falls back to the original one-byte failed reads.
+		while (remaining > 1 && input.good())
+		{
+			if (next == count)
+			{
+				const size_t bytes = min(remaining - 1, sizeof(buffer));
+				input.read(buffer, static_cast<streamsize>(bytes));
+				count = static_cast<size_t>(input.gcount());
+				next = 0;
+			}
+			if (next == count)
+				break;
+			remaining -= count - next;
+			next = count;
+		}
+		char ignored;
+		while (remaining != 0)
+			read(ignored);
+	}
+};
+}
+
+void variant_file::read_temp_site_header(ifstream &tmp_file, string &CHROM, int &POS)
 {
 	stringstream chr;
 	char tmp_char;
@@ -82,11 +144,15 @@ void variant_file::read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, v
 	CHROM = chr.str();
 
 	tmp_file.read((char*)&POS,sizeof(POS));
+}
 
+void variant_file::read_temp_site_payload(ifstream &tmp_file, vector<ld_genotype> &GTs)
+{
+	ld_temp_byte_reader bytes(tmp_file, GTs.size());
 	char in_byte, tmp_gt;
 	for(unsigned int ui=0; ui<GTs.size(); ui++)
 	{
-		tmp_file.read(&in_byte,sizeof(in_byte));
+		bytes.read(in_byte);
 		tmp_gt = in_byte & 0x03;
 		if (tmp_gt == 0x02)
 			GTs[ui].second = -1;
@@ -101,7 +167,7 @@ void variant_file::read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, v
 	}
 }
 
-void variant_file::read_big_temp_site(ifstream &tmp_file, string &CHROM, int &POS, int &alleles, vector< pair<int,int> > &GTs)
+void variant_file::read_big_temp_site_header(ifstream &tmp_file, string &CHROM, int &POS, int &alleles)
 {
 	stringstream chr;
 	char tmp_char;
@@ -119,20 +185,42 @@ void variant_file::read_big_temp_site(ifstream &tmp_file, string &CHROM, int &PO
 	int8_t tmp_alleles;
 	tmp_file.read((char*)&tmp_alleles,sizeof(tmp_alleles));
 	alleles = (int)tmp_alleles;
+}
 
+void variant_file::read_big_temp_site_payload(ifstream &tmp_file, vector<ld_genotype> &GTs)
+{
+	ld_temp_byte_reader bytes(tmp_file, GTs.size() * 2);
 	char in_byte = 0xFF;
 	for(unsigned int ui=0; ui<GTs.size(); ui++)
 	{
-		tmp_file.read(&in_byte,sizeof(in_byte));
+		bytes.read(in_byte);
 		if (in_byte == (char)0xFF)
 			GTs[ui].first = -1;
 		else
 			GTs[ui].first = (int)in_byte;
 
-		tmp_file.read(&in_byte,sizeof(in_byte));
+		bytes.read(in_byte);
 		if (in_byte == (char)0xFF)
 			GTs[ui].second = -1;
 		else
 			GTs[ui].second = (int)in_byte;
 	}
+}
+
+void variant_file::discard_temp_site_payload(ifstream &tmp_file, size_t bytes)
+{
+	ld_temp_byte_reader reader(tmp_file, bytes);
+	reader.discard();
+}
+
+void variant_file::read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector<ld_genotype> &GTs)
+{
+	read_temp_site_header(tmp_file, CHROM, POS);
+	read_temp_site_payload(tmp_file, GTs);
+}
+
+void variant_file::read_big_temp_site(ifstream &tmp_file, string &CHROM, int &POS, int &alleles, vector<ld_genotype> &GTs)
+{
+	read_big_temp_site_header(tmp_file, CHROM, POS, alleles);
+	read_big_temp_site_payload(tmp_file, GTs);
 }

@@ -29,12 +29,12 @@ void entry::SNPHWE(int obs_hets, int obs_hom1, int obs_hom2, double &p_hwe, doub
 	int rare_copies = 2 * obs_homr + obs_hets;
 	int genotypes   = obs_hets + obs_homc + obs_homr;
 
-	double * het_probs = (double *) malloc((size_t) (rare_copies + 1) * sizeof(double));
+	// A heterozygote uses one rare copy, so its count has the same parity as
+	// rare_copies. Store only those possible counts: count h is at index h/2.
+	const int n_het_probs = rare_copies / 2 + 1;
+	double * het_probs = (double *) malloc((size_t) n_het_probs * sizeof(double));
 	if (het_probs == NULL)
 		LOG.error("Internal error: SNP-HWE: Unable to allocate array", 90);
-
-	for (int i = 0; i <= rare_copies; i++)
-		het_probs[i] = 0.0;
 
 	/* start at midpoint */
 	int mid = rare_copies * (2 * genotypes - rare_copies) / (2 * genotypes);
@@ -47,12 +47,12 @@ void entry::SNPHWE(int obs_hets, int obs_hom1, int obs_hom2, double &p_hwe, doub
 	int curr_homr = (rare_copies - mid) / 2;
 	int curr_homc = genotypes - curr_hets - curr_homr;
 
-	het_probs[mid] = 1.0;
-	double sum = het_probs[mid];
+	het_probs[mid / 2] = 1.0;
+	double sum = het_probs[mid / 2];
 	for (curr_hets = mid; curr_hets > 1; curr_hets -= 2)
 	{
-	  het_probs[curr_hets - 2] = het_probs[curr_hets] * curr_hets * (curr_hets - 1.0) / (4.0 * (curr_homr + 1.0) * (curr_homc + 1.0));
-	  sum += het_probs[curr_hets - 2];
+	  het_probs[(curr_hets - 2) / 2] = het_probs[curr_hets / 2] * curr_hets * (curr_hets - 1.0) / (4.0 * (curr_homr + 1.0) * (curr_homc + 1.0));
+	  sum += het_probs[(curr_hets - 2) / 2];
 
 	  /* 2 fewer heterozygotes for next iteration -> add one rare, one common homozygote */
 	  curr_homr++;
@@ -64,33 +64,36 @@ void entry::SNPHWE(int obs_hets, int obs_hom1, int obs_hom2, double &p_hwe, doub
 	curr_homc = genotypes - curr_hets - curr_homr;
 	for (curr_hets = mid; curr_hets <= rare_copies - 2; curr_hets += 2)
 	{
-	  het_probs[curr_hets + 2] = het_probs[curr_hets] * 4.0 * curr_homr * curr_homc	/((curr_hets + 2.0) * (curr_hets + 1.0));
-	  sum += het_probs[curr_hets + 2];
+	  het_probs[(curr_hets + 2) / 2] = het_probs[curr_hets / 2] * 4.0 * curr_homr * curr_homc	/((curr_hets + 2.0) * (curr_hets + 1.0));
+	  sum += het_probs[(curr_hets + 2) / 2];
 
 	  /* add 2 heterozygotes for next iteration -> subtract one rare, one common homozygote */
 	  curr_homr--;
 	  curr_homc--;
 	}
 
-	for (int i = 0; i <= rare_copies; i++)
+	// Both recurrences fill every stored element. Impossible counts contributed
+	// only positive zero; omitting them preserves the order of all other terms.
+	for (int i = 0; i < n_het_probs; i++)
 		het_probs[i] /= sum;
 
 	// alternate p-value calculation for p_hi/p_lo
-	p_hi = het_probs[obs_hets];
-	for (int i = obs_hets + 1; i <= rare_copies; i++)
+	const int observed_idx = obs_hets / 2;
+	p_hi = het_probs[observed_idx];
+	for (int i = observed_idx + 1; i < n_het_probs; i++)
 	 p_hi += het_probs[i];
 
-	p_lo = het_probs[obs_hets];
-	for (int i = obs_hets - 1; i >= 0; i--)
+	p_lo = het_probs[observed_idx];
+	for (int i = observed_idx - 1; i >= 0; i--)
 	  p_lo += het_probs[i];
 
 	//p_hi_lo = p_hi < p_lo ? 2.0 * p_hi : 2.0 * p_lo;
 
 	p_hwe = 0.0;
 	/*  p-value calculation for p_hwe  */
-	for (int i = 0; i <= rare_copies; i++)
+	for (int i = 0; i < n_het_probs; i++)
 	{
-		if (het_probs[i] > het_probs[obs_hets])
+		if (het_probs[i] > het_probs[observed_idx])
 			continue;
 		p_hwe += het_probs[i];
 	}
@@ -294,11 +297,40 @@ void entry::encode_genotype(vector<char> &out, string &in, int exp_size)
 	}
 }
 
+// Reparse short numeric text to avoid a full integer matrix. For long text,
+// retaining the converted values avoids paying the conversion cost twice.
+// The limit is the average number of input characters per encoded integer.
+static const size_t bcf_integer_reparse_limit = 64;
+
+// Read one comma-delimited value without copying the complete token list.
+// A trailing delimiter has no token, just as in header::tokenize; absent
+// fields are vector-end sentinels, whereas empty fields and "." are missing.
+static int next_bcf_integer(const string &in, string::size_type &position)
+{
+	if (position == string::npos || position >= in.size())
+		return 0x80000001;
+
+	const string::size_type end = in.find(',', position);
+	const string::size_type length = (end == string::npos ? in.size() : end) - position;
+	int value;
+	if (length == 0 || (length == 1 && in[position] == '.'))
+		value = 0x80000000;
+	else if (length <= 2 && in[position] >= '0' && in[position] <= '9' &&
+		(length == 1 || (in[position+1] >= '0' && in[position+1] <= '9')))
+	{
+		value = in[position] - '0';
+		if (length == 2)
+			value = value * 10 + in[position+1] - '0';
+	}
+	else
+		value = atoi(in.c_str() + position);
+	position = end == string::npos ? string::npos : end + 1;
+	return value;
+}
+
 void entry::make_typed_int_vector(vector<char> &out, const string &in, int number )
 {
 	vector<char> tmp_char;
-	vector<int> tmp_ints;
-	vector<string> split_string;
 	int converted, type;
 	int8_t size_type;
 	unsigned int max = 0;
@@ -315,28 +347,32 @@ void entry::make_typed_int_vector(vector<char> &out, const string &in, int numbe
 		return;
 	}
 
-	header::tokenize(in, ',', split_string);
 	if (number == -1)
 	{
-		if (split_string.size() > max_val)
-			max_val = split_string.size();
+		max_val = count(in.begin(), in.end(), ',');
+		if (in[in.size()-1] != ',')
+			max_val++;
 	}
 	else
 		max_val = number;
 
+	const bool retain_values = max_val != 0 && in.size() / max_val > bcf_integer_reparse_limit;
+	vector<int> retained_values;
+	// Determine the common width first. Short fields are read again below;
+	// expensive long values are retained in their original conversion order.
+	string::size_type position = 0;
 	for (unsigned int ui=0; ui<max_val; ui++)
 	{
-		if ( ui<split_string.size() )
-		{
-			converted = header::str2int(split_string[ui], 0x80000000);
-
-			if ((abs(converted) > (int)max) and ( converted != (int)0x80000000))
-				max = abs(converted);
-		}
-		else
-			converted = 0x80000001;
-
-		tmp_ints.push_back( converted );
+		const bool has_value = position != string::npos && position < in.size();
+		// Padding cannot widen the type, and 32 bits is already the widest.
+		// Retained values still need the complete original conversion pass.
+		if (!retain_values && (!has_value || max >= 32767))
+			break;
+		converted = next_bcf_integer(in, position);
+		if (has_value && (converted != (int)0x80000000) && (abs(converted) > (int)max))
+			max = abs(converted);
+		if (retain_values)
+			retained_values.push_back(converted);
 	}
 
 	if (max < 127)
@@ -366,9 +402,11 @@ void entry::make_typed_int_vector(vector<char> &out, const string &in, int numbe
 		out.insert( out.end(), tmp_char.begin(), tmp_char.begin() );
 	}
 
-	for (unsigned int ui=0; ui<tmp_ints.size(); ui++)
+	position = 0;
+	for (unsigned int ui=0; ui<max_val; ui++)
 	{
-		make_int(tmp_char, tmp_ints[ui], type);
+		converted = retain_values ? retained_values[ui] : next_bcf_integer(in, position);
+		make_int(tmp_char, converted, type);
 		out.insert( out.end(), tmp_char.begin(), tmp_char.end() );
 	}
 }
@@ -376,8 +414,6 @@ void entry::make_typed_int_vector(vector<char> &out, const string &in, int numbe
 void entry::make_typed_int_vector(vector<char> &out, const vector<string> &in, int number )
 {
 	vector<char> tmp_char;
-	vector<int> tmp_ints;
-	vector<string> split_string;
 	int converted, type;
 	int8_t size_type;
 	unsigned int max = 0;
@@ -399,22 +435,31 @@ void entry::make_typed_int_vector(vector<char> &out, const vector<string> &in, i
 	else
 		max_val = number;
 
+	size_t text_size = 0;
+	for (unsigned int ui=0; ui<in.size(); ui++)
+		text_size += in[ui].size();
+	const bool retain_values = !in.empty() && max_val != 0 &&
+		text_size / in.size() / max_val > bcf_integer_reparse_limit;
+	vector<int> retained_values;
+
+	// Only long text needs a retained integer matrix; ordinary columns use
+	// the original strings for a second, bounded-storage pass.
 	for (unsigned int ui=0; ui<in.size(); ui++)
 	{
-		header::tokenize(in[ui], ',', split_string);
+		if (!retain_values && max >= 32767)
+			break;
+		string::size_type position = 0;
 		for (unsigned int uj=0; uj<max_val; uj++)
 		{
-			if ( uj<split_string.size() )
-			{
-				converted = header::str2int(split_string[uj], 0x80000000);
-
-				if ((abs(converted) > (int)max) and (converted != (int)0x80000000))
-					max = abs(converted);
-			}
-			else
-				converted = 0x80000001;
-
-			tmp_ints.push_back( converted );
+			const bool has_value = position != string::npos && position < in[ui].size();
+			// Only present values can widen the type; no type exceeds 32 bits.
+			if (!retain_values && (!has_value || max >= 32767))
+				break;
+			converted = next_bcf_integer(in[ui], position);
+			if (has_value && (converted != (int)0x80000000) && (abs(converted) > (int)max))
+				max = abs(converted);
+			if (retain_values)
+				retained_values.push_back(converted);
 		}
 	}
 
@@ -444,10 +489,16 @@ void entry::make_typed_int_vector(vector<char> &out, const vector<string> &in, i
 		out.insert( out.end(), tmp_char.begin(), tmp_char.begin() );
 	}
 
-	for (unsigned int ui=0; ui<tmp_ints.size(); ui++)
+	size_t retained_index = 0;
+	for (unsigned int ui=0; ui<in.size(); ui++)
 	{
-		make_int(tmp_char, tmp_ints[ui], type);
-		out.insert( out.end(), tmp_char.begin(), tmp_char.end() );
+		string::size_type position = 0;
+		for (unsigned int uj=0; uj<max_val; uj++)
+		{
+			converted = retain_values ? retained_values[retained_index++] : next_bcf_integer(in[ui], position);
+			make_int(tmp_char, converted, type);
+			out.insert( out.end(), tmp_char.begin(), tmp_char.end() );
+		}
 	}
 }
 

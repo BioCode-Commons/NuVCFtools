@@ -238,6 +238,9 @@ sub concat_merge
     for my $chr (@$chroms)
     {
         my $reader = Reader->new(files=>$$opts{files},nsort=>$$opts{sort},seq=>$chr,header_printed=>$header_printed);
+        # Small merges keep the original path; cache only native buffered heads.
+        $$reader{cache_heads} = $$reader{nsort}=~/\A[0-9]+\z/ && $$reader{nsort}>=4;
+#line 241
         $header_printed = 1;
         $reader->open_next();
         while (1)
@@ -335,6 +338,12 @@ sub open_next
 
         shift(@{$$self{idxs}});
         shift(@{$$self{vcfs}});
+        if ( $$self{cache_heads} )
+        {
+            shift(@{$$self{head_cache}});
+            shift(@{$$self{peekable}});
+        }
+#line 338
 
         if ( $prev+1 < @{$$self{files}} ) 
         {
@@ -347,6 +356,12 @@ sub open_next
         if ( exists($$self{vcfs}[$i]) ) { next; }
         my $idx = $$self{idxs}[$i];
         $$self{vcfs}[$i] = $self->open_vcf($$self{files}[$idx]);
+        if ( $$self{cache_heads} )
+        {
+            $$self{head_cache}[$i] = undef;
+            $$self{peekable}[$i] = can_cache_head($$self{vcfs}[$i]);
+        }
+#line 350
     }
     if ( !@{$$self{idxs}} ) { return 0; }
     return 1;
@@ -359,23 +374,50 @@ sub next_line
     my $min = $$self{vcfs}[0]->next_line();
     if ( !defined $min ) { return undef; }
 
-    if ( !($min=~/^(\S+)\t(\d+)/) ) { $self->throw("Could not parse the line: $min\n"); }
-    my $min_chr = $1;
-    my $min_pos = $2;
+    my $cache = $$self{cache_heads} && $$self{head_cache};
+    my ($min_chr,$min_pos);
+    if ( $cache && $$cache[0] ) { ($min_chr,$min_pos) = @{$$cache[0]}; }
+    else
+    {
+#line 362
+        if ( !($min=~/^(\S+)\t(\d+)/) ) { $self->throw("Could not parse the line: $min\n"); }
+        ($min_chr,$min_pos) = ($1,$2);
+    }
+#line 365
     my $min_vcf = $$self{vcfs}[0];
-
+    my $min_index = 0;
     for (my $i=1; $i<@{$$self{vcfs}}; $i++)
     {
         if ( !exists($$self{vcfs}[$i]) ) { next; }
-        my $line = $$self{vcfs}[$i]->next_line();
+        # A saved head is still in the native Vcf buffer. Losing heads can stay
+        # there instead of being shifted, parsed and immediately unshifted.
+        my $head = $cache && $$cache[$i];
+        my $line = $head ? $$self{vcfs}[$i]{buffer}[0] : $$self{vcfs}[$i]->next_line();
+#line 371
         if ( !defined $line ) { next; }
-        if ( !($line=~/^(\S+)\t(\d+)/) ) { $self->throw("Could not parse the line: $line\n"); }
-        my $chr = $1;
-        my $pos = $2;
+        my ($chr,$pos);
+        if ( $head ) { ($chr,$pos) = @$head; }
+        else
+        {
+#line 372
+            if ( !($line=~/^(\S+)\t(\d+)/) ) { $self->throw("Could not parse the line: $line\n"); }
+            ($chr,$pos) = ($1,$2);
+        }
+#line 375
 
         if ( $chr ne $min_chr ) { $self->throw("FIXME: When run with the -s option, only one chromosome can be present.\n"); }
         if ( $min_pos > $pos )
         {
+            if ( $cache )
+            {
+                # The previous winner is put back below; retain only its small
+                # coordinate pair. Wide/unusual coordinates keep legacy parsing.
+                $$cache[$min_index] = $$self{peekable}[$min_index] && length($min_chr)<=128 && $min_pos=~/\A[0-9]{1,10}\z/
+                    ? [$min_chr,$min_pos] : undef;
+            }
+            if ( $head ) { shift @{$$self{vcfs}[$i]{buffer}}; }
+            $min_index = $i;
+#line 379
             $min_pos = $pos;
             $min_vcf->_unread_line($min);
             $min_vcf = $$self{vcfs}[$i];
@@ -383,10 +425,30 @@ sub next_line
         }
         else
         {
-            $$self{vcfs}[$i]->_unread_line($line);
+            if ( !$head )
+            {
+#line 386
+                $$self{vcfs}[$i]->_unread_line($line);
+                if ( $cache && $$self{peekable}[$i] && length($chr)<=128 && $pos=~/\A[0-9]{1,10}\z/ )
+                {
+                    $$cache[$i] = [$chr,$pos];
+                }
+            }
+#line 387
         }
     }
+    if ( $cache ) { $$cache[$min_index] = undef; }
+#line 389
     return $min;
 }
 
-
+# Only the CLI enables this path. Custom readers, tied storage and overrides
+# retain their original method calls; existing Vcf buffers own all line bytes.
+sub can_cache_head
+{
+    my ($vcf) = @_;
+    return 0 unless ref($vcf)=~/\AVcf(?:3_2|3_3|4_0|4_1|4_2)?\z/;
+    return 0 if defined(tied(%$vcf));
+    return 0 unless ref($$vcf{buffer}) eq 'ARRAY' && !defined(tied(@{$$vcf{buffer}}));
+    return $vcf->can('next_line') == \&Vcf::next_line && $vcf->can('_unread_line') == \&Vcf::_unread_line;
+}

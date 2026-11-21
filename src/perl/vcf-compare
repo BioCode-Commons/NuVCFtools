@@ -1155,6 +1155,10 @@ sub cmp_sequence
         }
     }
 
+    # Sorting is deferred until a sizeable pair needs more than a short scan.
+    # These flags apply only to local event arrays, never to input records.
+    my @sequence_ordered;
+#line 1158
     # Now compare the variants: is there a sequence shared across all files?
     my $match = 1;
     my @keys  = keys %events_per_file;
@@ -1165,16 +1169,25 @@ sub cmp_sequence
         {
             my $jvars = $events_per_file{$jkey};
             my $found = 0;
-            for my $ivar (@$ivars)
+            if ( defined($ivars) && defined($jvars) && @$ivars>=16 && @$jvars>=16 )
             {
-                for my $jvar (@$jvars)
+                $found = compare_variant_sequences($ivars,$jvars,\@sequence_ordered,$ikey,$jkey);
+            }
+            else
+            {
+#line 1168
+                for my $ivar (@$ivars)
                 {
-                    if ( $$ivar{length} != $$jvar{length} ) { next; }
-                    if ( $$ivar{seq} ne $$jvar{seq} ) { next; }
-                    $found=1;
-                    last;
+                    for my $jvar (@$jvars)
+                    {
+                        if ( $$ivar{length} != $$jvar{length} ) { next; }
+                        if ( $$ivar{seq} ne $$jvar{seq} ) { next; }
+                        $found=1;
+                        last;
+                    }
                 }
             }
+#line 1178
             if ( !$found ) { $match=0; last; }
         }
         if ( !$match ) { last; }
@@ -1637,3 +1650,44 @@ sub read_line
     return;
 }
 
+# The legacy condition is pairwise intersection, not one haplotype common to
+# every file. Keep exact full-string equality and reuse sorted local lists.
+sub compare_variant_sequences
+{
+    my ($left,$right,$ordered,$left_id,$right_id) = @_;
+    if ( !$$ordered[$left_id] || !$$ordered[$right_id] )
+    {
+        # A common early match needs no sorting or extra sort workspace.
+        my $remaining = 64;
+        QUICK_MATCH: for my $a (@$left)
+        {
+            for my $b (@$right)
+            {
+                if ( $$a{length}==$$b{length} && $$a{seq} eq $$b{seq} ) { return 1; }
+                if ( !--$remaining ) { last QUICK_MATCH; }
+            }
+        }
+        if ( !$$ordered[$left_id] )
+        {
+            @$left = sort { $$a{length}<=>$$b{length} || $$a{seq} cmp $$b{seq} } @$left;
+            $$ordered[$left_id] = 1;
+        }
+        if ( !$$ordered[$right_id] )
+        {
+            @$right = sort { $$a{length}<=>$$b{length} || $$a{seq} cmp $$b{seq} } @$right;
+            $$ordered[$right_id] = 1;
+        }
+    }
+
+    # Advance the smaller head in the shared length/sequence ordering.
+    my ($i,$j) = (0,0);
+    while ( $i<@$left && $j<@$right )
+    {
+        my $order = $$left[$i]{length}<=>$$right[$j]{length};
+        if ( !$order ) { $order = $$left[$i]{seq} cmp $$right[$j]{seq}; }
+        if ( !$order ) { return 1; }
+        if ( $order<0 ) { $i++; }
+        else { $j++; }
+    }
+    return 0;
+}

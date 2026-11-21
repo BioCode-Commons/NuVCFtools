@@ -3321,8 +3321,8 @@ sub is_indel
         return ($del*($LEN-$len), substr($seq2,$ileft), $ileft);
     }
 
-    my $iright;
-    for ($iright=0; $iright<$len; $iright++)
+    my $iright; my $right_limit = $ileft>1 ? $len-$ileft+1 : $len; # Stop once prefix/suffix overlap is proved.
+    for ($iright=0; $iright<$right_limit; $iright++)
     {
         if ( substr($seq1,$len-$iright,1) ne substr($seq2,$LEN-$iright,1) ) { last; }
     }

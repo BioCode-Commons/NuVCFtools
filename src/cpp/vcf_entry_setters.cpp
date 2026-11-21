@@ -24,6 +24,37 @@ void vcf_entry::set_ALT(const string &in)
 
 void vcf_entry::set_FORMAT(const string &in)
 {
+	// reset keeps the previous schema. Compare its existing tokens directly,
+	// avoiding another schema string and repeated map allocations on a match.
+	if (FORMAT_schema_valid)
+	{
+		string::size_type offset = 0;
+		bool same_schema = true;
+		for (unsigned int i=0; i<FORMAT.size(); i++)
+		{
+			if (in.compare(offset, FORMAT[i].size(), FORMAT[i]) != 0)
+			{
+				same_schema = false;
+				break;
+			}
+			offset += FORMAT[i].size();
+			if (i+1 < FORMAT.size())
+			{
+				if ((offset == in.size()) || (in[offset] != ':'))
+				{
+					same_schema = false;
+					break;
+				}
+				offset++;
+			}
+		}
+		if (same_schema && (offset == in.size()))
+		{
+			parsed_FORMAT = true;
+			return;
+		}
+	}
+
 	FORMAT.resize(0);
 	FORMAT_to_idx.clear();
 
@@ -56,10 +87,13 @@ void vcf_entry::set_FORMAT(const string &in)
 		FT_idx = FORMAT_to_idx["FT"];
 
 	parsed_FORMAT = true;
+	FORMAT_schema_valid = true;
 }
 
 void vcf_entry::add_FORMAT_entry(const string &in, unsigned int pos)
 {
+	// Public additions may supply an arbitrary index; rebuild before reuse.
+	FORMAT_schema_valid = false;
 	FORMAT.push_back(in);
 	FORMAT_to_idx[in] = pos;
 }
@@ -234,25 +268,28 @@ void vcf_entry::set_INFO(const string &INFO_str)
 	INFO.resize(0);
 	if ((INFO_str.size() > 0) && (INFO_str != "."))
 	{
-		istringstream ss(INFO_str);
-		string tmpstr;
-		while(!ss.eof())
+		string::size_type start = 0;
+		while (true)
 		{
-			getline(ss, tmpstr, ';');
-
-			istringstream ss2(tmpstr);
-			getline(ss2, tmpstr, '=');
-			pair<string, string> INFO_entry(tmpstr, ".");
-
-			if (!ss2.eof())
-			{	// If there is a value entry, read it now
-				getline(ss2, tmpstr);
-				INFO_entry.second = tmpstr;
+			const string::size_type delimiter = INFO_str.find(';', start);
+			const string::size_type end = delimiter == string::npos ? INFO_str.size() : delimiter;
+			const string::size_type equal = find(INFO_str.begin() + start, INFO_str.begin() + end, '=') - INFO_str.begin();
+			const bool has_value = equal < end;
+			INFO.push_back(make_pair(string(), string()));
+			pair<string, string> &field = INFO.back();
+			field.first.assign(INFO_str, start, (has_value ? equal : end) - start);
+			if (has_value)
+			{
+				// The original value getline stops at newline, even in direct API calls.
+				const string::size_type value_end = find(INFO_str.begin() + equal + 1, INFO_str.begin() + end, '\n') - INFO_str.begin();
+				field.second.assign(INFO_str, equal + 1, value_end - equal - 1);
 			}
-			else	// Otherwise, set it equal to 1
-				INFO_entry.second = "1";
-
-			INFO.push_back(INFO_entry);
+			else
+				field.second = "1";
+			if (delimiter == string::npos)
+				break;
+			// A trailing semicolon still produces the original empty flag entry.
+			start = delimiter + 1;
 		}
 	}
 	parsed_INFO = true;

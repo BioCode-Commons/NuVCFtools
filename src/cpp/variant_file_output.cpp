@@ -498,6 +498,56 @@ void variant_file::output_indv_burden(const parameters &params)
 }
 
 
+namespace
+{
+// Each counter block is allocated at most once. Exact final-block sizing
+// avoids a full-row tail, and the pointer directory is allocated once per row.
+class frequency_burden_matrix
+{
+	enum { block_width = 256 };
+	vector< vector<int*> > rows;
+	const size_t full_width;
+	const size_t blocks_per_row;
+
+	frequency_burden_matrix(const frequency_burden_matrix &);
+	frequency_burden_matrix &operator=(const frequency_burden_matrix &);
+
+public:
+	frequency_burden_matrix(size_t n_rows, size_t width)
+		: rows(n_rows), full_width(width), blocks_per_row((width-1)/block_width+1) {}
+
+	~frequency_burden_matrix()
+	{
+		for (size_t row=0; row<rows.size(); row++)
+			for (size_t block=0; block<rows[row].size(); block++)
+				delete [] rows[row][block];
+	}
+
+	void increment(size_t individual, size_t frequency)
+	{
+		vector<int*> &row = rows[individual];
+		if (row.empty())
+			row.assign(blocks_per_row, static_cast<int*>(0));
+		const size_t block = frequency / block_width;
+		if (row[block] == 0)
+		{
+			const size_t count = min(static_cast<size_t>(block_width), full_width-block*block_width);
+			row[block] = new int[count]();
+		}
+		row[block][frequency % block_width]++;
+	}
+
+	int get(size_t individual, size_t frequency) const
+	{
+		const vector<int*> &row = rows[individual];
+		if (row.empty())
+			return 0;
+		const int *block = row[frequency / block_width];
+		return block == 0 ? 0 : block[frequency % block_width];
+	}
+};
+}
+
 void variant_file::output_indv_freq_burden(const parameters &params, int double_count_hom_alt)
 {
 	// Output the burden within each individual of variants at each frequency.
@@ -519,7 +569,8 @@ void variant_file::output_indv_freq_burden(const parameters &params, int double_
 	ostream out(buf);
 	int N = N_kept_individuals();
 	int max_chr_count = N * 2;	// Assuming diploidy...
-	vector< vector<int> > burden_matrix(N, vector<int>(max_chr_count+1, 0));
+	// Allocate only touched frequency blocks; missing blocks still output zeros.
+	frequency_burden_matrix burden_matrix(N, static_cast<size_t>(max_chr_count) + 1);
 
 	out << "INDV";
 	for (int i=0; i<=max_chr_count; i++)
@@ -600,12 +651,15 @@ void variant_file::output_indv_freq_burden(const parameters &params, int double_
 			{
 				e->get_indv_GENOTYPE_ids(ui, geno);
 
-				if ((geno.first != aa_idx) && (geno.first >= 0))
-					burden_matrix[indv_count][allele_counts[geno.first]]++;
-				if ((double_count_hom_alt == 0) || (geno.first != geno.second))
-				{	// Count the second allele if required
-					if ((geno.second != aa_idx) && (geno.second >= 0))
-						burden_matrix[indv_count][allele_counts[geno.second]]++;
+				const int alleles[2] = {geno.first, geno.second};
+				const int n_alleles = ((double_count_hom_alt == 0) || (geno.first != geno.second)) ? 2 : 1;
+				for (int copy_index=0; copy_index<n_alleles; copy_index++)
+				{
+					const int allele = alleles[copy_index];
+					if ((allele != aa_idx) && (allele >= 0))
+					{
+						burden_matrix.increment(indv_count, allele_counts[allele]);
+					}
 				}
 			}
 			indv_count++;
@@ -620,7 +674,7 @@ void variant_file::output_indv_freq_burden(const parameters &params, int double_
 			continue;
 		out << meta_data.indv[indv_count];
 		for (int i=0; i<=max_chr_count; i++)
-			out << "\t" << LOG.int2str(burden_matrix[indv_count][i]);
+			out << "\t" << LOG.int2str(burden_matrix.get(indv_count, i));
 		out << endl;
 		indv_count++;
 	}
@@ -692,6 +746,42 @@ void variant_file::output_individuals_by_mean_depth(const parameters &params)
 	delete e;
 }
 
+// Density and TajimaD omit leading empty bins from their reports. Keep those
+// bins implicit until an earlier position needs them, without moving later bins.
+template <typename T>
+struct offset_window_bins
+{
+	unsigned int first_bin;
+	vector<T> values;
+	vector<T> leading_values;
+	offset_window_bins() : first_bin(0) {}
+
+	T &ensure_bin(unsigned int index)
+	{
+		if (values.empty())
+			first_bin = index;
+		else if (index < first_bin)
+		{
+			// Allocate the prefix once. Keeping it separate avoids a large
+			// reallocation and copy when input positions arrive out of order.
+			if (leading_values.empty())
+				leading_values.resize(first_bin, T());
+			return leading_values[index];
+		}
+		const unsigned int offset = index - first_bin;
+		if (offset >= values.size())
+			values.resize(offset + 1, T());
+		return values[offset];
+	}
+
+	unsigned int first_index() const { return leading_values.empty() ? first_bin : 0; }
+	size_t end_index() const { return first_bin + values.size(); }
+	const T &at(unsigned int index) const
+	{
+		return index < first_bin ? leading_values[index] : values[index-first_bin];
+	}
+};
+
 void variant_file::output_SNP_density(const parameters &params)
 {
 	// Output SNP density (technically variant density)
@@ -716,7 +806,7 @@ void variant_file::output_SNP_density(const parameters &params)
 	string CHROM; int POS;
 	vector<char> variant_line;
 	entry *e = get_entry_object();
-	map<string, vector<int> > bins;
+	map<string, offset_window_bins<int> > bins;
 	vector<string> chrs;
 	unsigned int idx;
 	double C = 1.0 / double(bin_size);
@@ -742,10 +832,7 @@ void variant_file::output_SNP_density(const parameters &params)
 		{
 			idx = (unsigned int)(POS * C);
 
-			if (idx>=bins[CHROM].size())
-				bins[CHROM].resize(idx+1,0);
-
-			bins[CHROM][idx]++;
+			bins[CHROM].ensure_bin(idx)++;
 		}
 		if (CHROM != prev_chrom)
 			chrs.push_back(CHROM);
@@ -761,9 +848,10 @@ void variant_file::output_SNP_density(const parameters &params)
 	{
 		bool output = false;
 		CHROM = chrs[ui];
-		for (unsigned int s=0; s<bins[CHROM].size(); s++)
+		const offset_window_bins<int> &chrom_bins = bins[CHROM];
+		for (unsigned int s=chrom_bins.first_index(); s<chrom_bins.end_index(); s++)
 		{
-			bin_tot = bins[CHROM][s];
+			bin_tot = chrom_bins.at(s);
 			if (bin_tot > 0)
 				output = true;
 			if (output == true)
@@ -925,7 +1013,7 @@ void variant_file::output_site_missingness(const parameters &params)
 	delete e;
 }
 
-void variant_file::calc_hap_r2(vector<pair<int, int> > &GT1, vector<pair<int,int> > &GT2, double &r2, double &D, double &Dprime, int &chr_count)
+void variant_file::calc_hap_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, double &D, double &Dprime, int &chr_count)
 {
 	double x11=0, x12=0, x21=0, x22=0;
 	double X=0, X2=0, Y=0, Y2=0, XY=0;
@@ -1020,7 +1108,7 @@ void variant_file::calc_r2_em(entry *e, entry *e2, double &r2, int &indv_count)
 	}
 }
 
-void variant_file::calc_geno_r2(vector<pair<int,int> > &GT1, vector<pair<int,int> > &GT2, double &r2, int &indv_count)
+void variant_file::calc_geno_r2(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, double &r2, int &indv_count)
 {
 	double X=0, X2=0, Y=0, Y2=0, XY=0;
 	double sx, sy;
@@ -1074,7 +1162,24 @@ void variant_file::calc_geno_r2(vector<pair<int,int> > &GT1, vector<pair<int,int
 	r2 = cov12 * cov12 / (var1 * var2);
 }
 
-void variant_file::calc_geno_chisq(vector<pair<int,int> > &GT1, vector<pair<int,int> > &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count)
+static int genotype_pair_index(const pair<int, int> &genotype, int n_alleles)
+{
+	// The former map lookup returned zero for alleles outside its keys.
+	if (genotype.first < 0 || genotype.second < 0 ||
+		genotype.first >= n_alleles || genotype.second >= n_alleles)
+		return 0;
+
+	const int64_t a = min(genotype.first, genotype.second);
+	const int64_t b = max(genotype.first, genotype.second);
+	// Count the rows preceding (a,b) in the original upper-triangle order.
+	// Widen before multiplication so calculating the index cannot overflow int.
+	const int64_t index = a * n_alleles - a * (a + 1) / 2 + b;
+	if (index > numeric_limits<int>::max())
+		return 0;
+	return (int)index;
+}
+
+void variant_file::calc_geno_chisq(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count)
 {
 	int N_genotypes0 = N0 * (N0+1) / 2;
 	int N_genotypes1 = N1 * (N1+1) / 2;
@@ -1092,37 +1197,15 @@ void variant_file::calc_geno_chisq(vector<pair<int,int> > &GT1, vector<pair<int,
 		if ((geno2.first < 0) || (geno2.second < 0))
 			continue;
 
-		map<pair<int, int>, int> idx_lookup1;
-		int count = 0;
-		for (int uj=0; uj<N0; uj++)
-		{
-			for (int uk=uj; uk<N0; uk++)
-			{
-				idx_lookup1[make_pair(uj,uk)] = count;
-				idx_lookup1[make_pair(uk,uj)] = count;
-				count++;
-			}
-		}
-		map<pair<int, int>, int> idx_lookup2;
-		count = 0;
-		for (int uj=0; uj<N1; uj++)
-		{
-			for (int uk=uj; uk<N1; uk++)
-			{
-				idx_lookup2[make_pair(uj,uk)] = count;
-				idx_lookup2[make_pair(uk,uj)] = count;
-				count++;
-			}
-		}
-
-		int idx1 = idx_lookup1[geno1];
-		int idx2 = idx_lookup2[geno2];
+		int idx1 = genotype_pair_index(geno1, N0);
+		int idx2 = genotype_pair_index(geno2, N1);
 
 		observed[idx1][idx2]++;
 		indv_count++;
 	}
 
-	vector<vector<double> > expected(N_genotypes0, vector<double>(N_genotypes1,0));
+	// Retain double storage before use, but only keep the current expected row.
+	vector<double> expected(N_genotypes1, 0);
 	vector<double> row_tot(N_genotypes0, 0);
 	vector<double> col_tot(N_genotypes1, 0);
 	double tot=0;
@@ -1136,21 +1219,16 @@ void variant_file::calc_geno_chisq(vector<pair<int,int> > &GT1, vector<pair<int,
 		}
 	}
 
-	for (int ui=0; ui<N_genotypes0; ui++)
-	{
-		for (int uj=0; uj<N_genotypes1; uj++)
-		{
-			expected[ui][uj] = row_tot[ui] * col_tot[uj] / tot;
-		}
-	}
-
 	chisq = 0;
 	for (int ui=0; ui<N_genotypes0; ui++)
 	{
 		for (int uj=0; uj<N_genotypes1; uj++)
+			expected[uj] = row_tot[ui] * col_tot[uj] / tot;
+
+		for (int uj=0; uj<N_genotypes1; uj++)
 		{
 			if ((row_tot[ui] > 0) && (col_tot[uj] > 0))	// Don't use incomplete cases
-				chisq += pow(observed[ui][uj] - expected[ui][uj], 2) / expected[ui][uj];
+				chisq += pow(observed[ui][uj] - expected[uj], 2) / expected[uj];
 		}
 	}
 	int n_col=0, n_row=0;
@@ -1532,8 +1610,14 @@ void variant_file::output_haplotype_r2(const parameters &params)
 		LOG.error("Insufficient sites remained after filtering");
 	}
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 
 	unsigned int uj = 0;
@@ -1548,8 +1632,16 @@ void variant_file::output_haplotype_r2(const parameters &params)
 		{
 			if (int(uj-ui) > snp_window_size)
 				break;
-			GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
+				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if(uj < (ui+skip))
 				continue;
@@ -1572,7 +1664,6 @@ void variant_file::output_haplotype_r2(const parameters &params)
 	}
 	tmp_file.close();
 	remove(tmpname);
-	delete e;
 }
 
 void variant_file::output_genotype_r2(const parameters &params)
@@ -1705,8 +1796,14 @@ void variant_file::output_genotype_r2(const parameters &params)
 		LOG.error("Insufficient sites remained after filtering");
 	}
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 
 	unsigned int uj = 0;
@@ -1722,8 +1819,16 @@ void variant_file::output_genotype_r2(const parameters &params)
 			if (int(uj-ui) > snp_window_size)
 				break;
 
-			GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
+				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if(uj < (ui+skip))
 				continue;
@@ -1746,7 +1851,6 @@ void variant_file::output_genotype_r2(const parameters &params)
 	}
 	tmp_file.close();
 	remove(tmpname);
-	delete e;
 }
 
 void variant_file::output_genotype_chisq(const parameters &params, double min_pval)
@@ -1876,8 +1980,14 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 		LOG.error("Insufficient sites remained after filtering");
 	}
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 
 	unsigned int uj = 0;
@@ -1893,8 +2003,16 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 			if (int(uj-ui) > snp_window_size)
 				break;
 
-			GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-			read_big_temp_site(tmp_file, CHROM2, POS2, alleles2, GTs2);
+			read_big_temp_site_header(tmp_file, CHROM2, POS2, alleles2);
+			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
+				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_big_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss) * 2);
 
 			if(uj < (ui+skip))
 				continue;
@@ -1916,7 +2034,6 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	}
 	tmp_file.close();
 	remove(tmpname);
-	delete e;
 }
 
 void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
@@ -2042,8 +2159,14 @@ void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
 		LOG.error("Insufficient sites remained after filtering");
 	}
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 	unsigned int uj=0;
 
@@ -2056,8 +2179,15 @@ void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
 
 		for(uj=ui+1; uj<count; uj++)
 		{
-			GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = CHROM != CHROM2;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if (CHROM == CHROM2)
 				continue;
@@ -2073,7 +2203,6 @@ void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
 	}
 	tmp_file.close();
 	remove(tmpname);
-	delete e;
 }
 
 void variant_file::output_interchromosomal_haplotype_r2(const parameters &params)
@@ -2203,8 +2332,14 @@ void variant_file::output_interchromosomal_haplotype_r2(const parameters &params
 		LOG.error("Insufficient sites remained after filtering");
 	}
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 
 	unsigned int uj = 0;
@@ -2217,8 +2352,15 @@ void variant_file::output_interchromosomal_haplotype_r2(const parameters &params
 
 		for(uj=ui+1; uj<site_count; uj++)
 		{
-			GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = CHROM != CHROM2;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if (CHROM == CHROM2)
 				continue;
@@ -2233,7 +2375,6 @@ void variant_file::output_interchromosomal_haplotype_r2(const parameters &params
 	}
 	tmp_file.close();
 	remove(tmpname);
-	delete e;
 }
 
 void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameters &params)
@@ -2431,16 +2572,20 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 	fd.close();
 	fd_POS.close();
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
 	ifstream tmp_file2(tmpname2, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
-
-	GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-	GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
 
 	for(unsigned int ui=0; ui<nlist; ui++)
 	{
+		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
 		tmp_file2.seekg(file_pos);
 		read_temp_site(tmp_file2, CHROM, POS, GTs);
 		file_pos = tmp_file2.tellg();
@@ -2448,7 +2593,18 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 		tmp_file.seekg(0);
 		for(int uj=0; uj<site_count; uj++)
 		{
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = CHROM == CHROM2
+				&& abs(POS2 - POS) >= bp_window_min && abs(POS2 - POS) <= bp_window_size
+				&& abs(list_positions[ui] - uj) >= snp_window_min
+				&& abs(list_positions[ui] - uj) <= snp_window_size;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if (CHROM != CHROM2)
 				continue;
@@ -2476,7 +2632,6 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 	tmp_file2.close();
 	remove(tmpname);
 	remove(tmpname2);
-	delete e;
 }
 
 void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters &params)
@@ -2665,15 +2820,20 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 	fd.close();
 	fd_POS.close();
 
+	// The input entry and staging rows are no longer used during pairwise LD.
+	delete e;
+	vector<char>().swap(variant_line);
+	vector<char>().swap(out_line);
+	vector<char>().swap(tmp_int);
+
 	ifstream tmp_file(tmpname, ios::binary);
 	ifstream tmp_file2(tmpname2, ios::binary);
-	vector<pair<int,int> > GTs, GTs2;
+	vector<ld_genotype> GTs, GTs2;
 	streampos file_pos = 0;
 
-	GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
-	GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
 	for(unsigned int ui=0; ui<nlist; ui++)
 	{
+		GTs.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
 		tmp_file2.seekg(file_pos);
 		read_temp_site(tmp_file2, CHROM, POS, GTs);
 		file_pos = tmp_file2.tellg();
@@ -2681,7 +2841,18 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 		tmp_file.seekg(0);
 		for(int uj=0; uj<site_count; uj++)
 		{
-			read_temp_site(tmp_file, CHROM2, POS2, GTs2);
+			read_temp_site_header(tmp_file, CHROM2, POS2);
+			const bool decode_pair = CHROM == CHROM2
+				&& abs(POS2 - POS) >= bp_window_min && abs(POS2 - POS) <= bp_window_size
+				&& abs(list_positions[ui] - uj) >= snp_window_min
+				&& abs(list_positions[ui] - uj) <= snp_window_size;
+			if (decode_pair)
+			{
+				GTs2.resize(meta_data.N_indv-indv_miss, make_pair(-1,-1));
+				read_temp_site_payload(tmp_file, GTs2);
+			}
+			else
+				discard_temp_site_payload(tmp_file, static_cast<size_t>(meta_data.N_indv-indv_miss));
 
 			if (CHROM != CHROM2)
 				continue;
@@ -2709,7 +2880,6 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 	tmp_file2.close();
 	remove(tmpname);
 	remove(tmpname2);
-	delete e;
 }
 
 void variant_file::output_singletons(const parameters &params)
@@ -2758,6 +2928,55 @@ void variant_file::output_singletons(const parameters &params)
 
 		e->get_allele_counts(allele_counts, N_non_missing_chr);
 		N_alleles = e->get_N_alleles();
+
+		unsigned int rare_alleles = 0;
+		// Allow at most two ALT alleles per sample, plus REF. This division
+		// avoids overflow and bounds scratch by sample count when many declared
+		// alleles are unused; those sites retain the original search below.
+		if ((N_alleles >= 4) && (N_alleles / 2 <= meta_data.N_indv))
+			for (a=0; a<(signed)N_alleles; a++)
+				if ((allele_counts[a] == 1) || (allele_counts[a] == 2))
+					rare_alleles++;
+
+		if (rare_alleles >= 4)
+		{
+			// Find owners in sample order once, then emit in the original allele
+			// order. Keep this scratch local to multiallelic sites that need it.
+			const unsigned int no_owner = meta_data.N_indv;
+			vector<unsigned int> first_owner(N_alleles, no_owner);
+			for (ui=0; (ui<meta_data.N_indv) && (rare_alleles != 0); ui++)
+			{
+				if (include_indv[ui] == false)
+					continue;
+				// As in the original search, genotype filters affect the counts
+				// above, but do not exclude a sample from being the first owner.
+				e->get_indv_GENOTYPE_ids(ui, geno);
+				const int genotype_alleles[2] = {geno.first, geno.second};
+				for (unsigned int copy=0; copy<2; copy++)
+				{
+					const int id = genotype_alleles[copy];
+					if ((id < 0) || ((unsigned int)id >= N_alleles))
+						continue;
+					if ((first_owner[id] == no_owner) &&
+						((allele_counts[id] == 1) ||
+						 ((allele_counts[id] == 2) && (geno.first == geno.second))))
+					{
+						first_owner[id] = ui;
+						rare_alleles--;
+					}
+				}
+			}
+			for (a=0; a<(signed)N_alleles; a++)
+			{
+				if (first_owner[a] == no_owner)
+					continue;
+				e->get_allele(a, allele);
+				out << e->get_CHROM() << "\t" << e->get_POS() << "\t"
+					<< (allele_counts[a] == 1 ? "S" : "D") << "\t" << allele
+					<< "\t" << meta_data.indv[first_owner[a]] << endl;
+			}
+			continue;
+		}
 
 		for (a=0; a<(signed)N_alleles; a++)
 		{
@@ -3636,6 +3855,26 @@ void variant_file::output_weir_and_cockerham_fst(const parameters &params)
 	delete e;
 }
 
+namespace
+{
+// Window bins have a fixed number of entries. Keep their values inline so
+// growing the bin vector does not allocate a separate heap block for each bin.
+template<typename T, unsigned int Width>
+struct window_stat_row
+{
+	T values[Width];
+
+	window_stat_row()
+	{
+		for (unsigned int i=0; i<Width; i++)
+			values[i] = T(0);
+	}
+
+	T &operator[](size_t index) { return values[index]; }
+	const T &operator[](size_t index) const { return values[index]; }
+};
+}
+
 void variant_file::output_windowed_weir_and_cockerham_fst(const parameters &params)
 {
 	int fst_window_size = params.fst_window_size;
@@ -3699,8 +3938,8 @@ void variant_file::output_windowed_weir_and_cockerham_fst(const parameters &para
 	// N_variant_site_pairs: Number of possible pairwise mismatches at polymorphic sites within a window
 	// N_mismatches: Number of actual pairwise mismatches at polymorphic sites within a window
 	// N_polymorphic_sites: number of sites within a window where there is at least 1 sample that is polymorphic with respect to the reference allele
-	const vector< double > empty_vector(4, 0);	// sum1, sum2, sum3, count
-	map<string, vector< vector< double > > > bins;
+	const window_stat_row<double, 4> empty_vector;	// sum1, sum2, sum3, count
+	map<string, vector<window_stat_row<double, 4> > > bins;
 	double sum1=0.0, sum2 = 0.0;
 	double sum3=0.0, count = 0.0;
 
@@ -3970,7 +4209,7 @@ void variant_file::output_Tajima_D(const parameters &params)
 	string CHROM;
 	vector<char> variant_line;
 	entry *e = get_entry_object();
-	map<string, vector< pair<int, double> > > bins;
+	map<string, offset_window_bins< pair<int, double> > > bins;
 
 	unsigned int idx;
 	double C = 1.0 / double(window_size);
@@ -4011,8 +4250,7 @@ void variant_file::output_Tajima_D(const parameters &params)
 		e->get_allele_counts(allele_counts, N_non_missing_chr);
 		double p = double(allele_counts[0]) / N_non_missing_chr;
 
-		if(idx>=bins[CHROM].size())
-			bins[CHROM].resize(idx+1, make_pair(0,0));
+		pair<int, double> &bin = bins[CHROM].ensure_bin(idx);
 		if(CHROM != prev_chr)
 		{
 			chrs.push_back(CHROM);
@@ -4021,8 +4259,8 @@ void variant_file::output_Tajima_D(const parameters &params)
 
 		if ((p > 0.0) && (p < 1.0))
 		{
-			bins[CHROM][idx].first++;
-			bins[CHROM][idx].second += p * (1.0-p);
+			bin.first++;
+			bin.second += p * (1.0-p);
 		}
 	}
 	streambuf * buf;
@@ -4043,24 +4281,98 @@ void variant_file::output_Tajima_D(const parameters &params)
 	{
 		CHROM = chrs[ui];
 		bool output = false;
-		for (unsigned int s=0; s<bins[CHROM].size(); s++)
+		const offset_window_bins< pair<int, double> > &chrom_bins = bins[CHROM];
+		for (unsigned int s=chrom_bins.first_index(); s<chrom_bins.end_index(); s++)
 		{
-			int S = bins[CHROM][s].first;
+			const pair<int, double> &bin = chrom_bins.at(s);
+			int S = bin.first;
 			double D = numeric_limits<double>::quiet_NaN();
 			if (S > 0)
 			{
-				double pi = 2.0*bins[CHROM][s].second*n/double(n-1);
+				double pi = 2.0*bin.second*n/double(n-1);
 				double tw = double(S) / a1;
 				double var = (e1*S) + e2*S*(S-1);
 				D = (pi - tw) / sqrt(var);
 				output = true;
 			}
 			if (output == true)
-				out << CHROM << "\t" << s*window_size << "\t" << bins[CHROM][s].first << "\t" << D << endl;
+				out << CHROM << "\t" << s*window_size << "\t" << bin.first << "\t" << D << endl;
 		}
 	}
 	delete e;
 }
+
+// Window-pi counters use unsigned modular differences. The final prefix scan
+// restores each original bin without changing its integer or floating types.
+static void add_window_pi_range(vector<window_stat_row<unsigned long, 4> > &bins,
+	int first, int last, unsigned long comparisons, unsigned int mismatches, bool polymorphic)
+{
+	const window_stat_row<unsigned long, 4> empty_bin;
+	const size_t old_size = bins.size();
+	if (last >= (int)old_size)
+	{
+		bins.resize(last+1, empty_bin);
+		// A chromosome revisit keeps only bin zero. Cancel its retained value
+		// at the first new bin, including a later expansion after an empty range.
+		if (old_size == 1 && bins.size() > 1)
+			for (unsigned int column=0; column<4; column++)
+				bins[1][column] = 0UL - bins[0][column];
+	}
+	if (first < last)
+	{
+		bins[first][0]++; bins[last][0]--;
+		bins[first][1] += comparisons; bins[last][1] -= comparisons;
+		bins[first][2] += mismatches; bins[last][2] -= mismatches;
+		if (polymorphic)
+		{
+			bins[first][3]++; bins[last][3]--;
+		}
+	}
+}
+
+static bool window_pi_mask_keep(char value, int threshold, bool invert)
+{
+	// Narrow to char at the same point as the original decoded mask vector.
+	short digit = value;
+	digit -= '0';
+	const char decoded = digit;
+	const bool keep = decoded <= threshold;
+	return invert ? !keep : keep;
+}
+
+class window_pi_mask_counter
+{
+	unsigned int previous_start, previous_end;
+	unsigned long kept;
+	bool valid;
+public:
+	window_pi_mask_counter() : previous_start(0), previous_end(0), kept(0), valid(false) {}
+	unsigned long count(const vector<bool> &mask, unsigned int start, unsigned int end)
+	{
+		if (start >= end)
+		{
+			valid = false;
+			return 0;
+		}
+		if (valid && start >= previous_start && end >= previous_end && start < previous_end)
+		{
+			for (unsigned int i=previous_start; i<start; i++)
+				if (mask[i]) kept--;
+			for (unsigned int i=previous_end; i<end; i++)
+				if (mask[i]) kept++;
+		}
+		else
+		{
+			kept = 0;
+			for (unsigned int i=start; i<end; i++)
+				if (mask[i]) kept++;
+		}
+		previous_start = start;
+		previous_end = end;
+		valid = true;
+		return kept;
+	}
+};
 
 void variant_file::output_windowed_nucleotide_diversity(const parameters &params)
 {
@@ -4110,8 +4422,8 @@ void variant_file::output_windowed_nucleotide_diversity(const parameters &params
 	const unsigned int N_variant_site_pairs = 1;
 	const unsigned int N_mismatches = 2;
 	const unsigned int N_polymorphic_sites = 3;
-	const vector< unsigned long > empty_vector(4, 0);
-	map<string, vector< vector< unsigned long> > > bins;
+	const window_stat_row<unsigned long, 4> empty_vector;
+	map<string, vector<window_stat_row<unsigned long, 4> > > bins;
 	vector<string> chrs;
 	string prev_chr;
 
@@ -4164,18 +4476,8 @@ void variant_file::output_windowed_nucleotide_diversity(const parameters &params
 			prev_chr = CHROM;
 			bins[CHROM].resize(1,empty_vector);
 		}
-		if(last>= (int)bins[CHROM].size())
-			bins[CHROM].resize(last+1,empty_vector);
-
-		for(int idx = first; idx < last; idx++)
-		{
-			bins[CHROM][idx][N_variant_sites]++;
-			bins[CHROM][idx][N_variant_site_pairs] += N_comparisons;
-			bins[CHROM][idx][N_mismatches] += N_site_mismatches;
-
-			if(allele_counts[0] < (signed)N_non_missing_chr)
-				bins[CHROM][idx][N_polymorphic_sites]++;
-		}
+		add_window_pi_range(bins[CHROM], first, last, N_comparisons,
+			N_site_mismatches, allele_counts[0] < (signed)N_non_missing_chr);
 	}
 
 	// Calculate and print nucleotide diversity statistics
@@ -4198,7 +4500,7 @@ void variant_file::output_windowed_nucleotide_diversity(const parameters &params
 	N_comparisons = (N_kept_chr * (N_kept_chr - 1)); 	// Number of pairwise comparisons at a monomorphic site
 	unsigned long N_pairs = 0; 								// Number of pairwise comparisons within a window
 	double pi = 0;
-	vector<char> mask_data; // Used to store mask data if needed.
+	vector<bool> mask_data; // Only the original keep decision is needed below.
 
 	for (unsigned int ui=0; ui<chrs.size(); ui++)
 	{
@@ -4232,48 +4534,49 @@ void variant_file::output_windowed_nucleotide_diversity(const parameters &params
 
 				if (line[0] == '>')
 					break;
-				vector<short> digits(line.begin(), line.end());
-				for (unsigned int uj=0; uj < digits.size(); uj++)
-					digits[uj] -= '0';
-				mask_data.insert(mask_data.end(), digits.begin(), digits.end());
+				const size_t mask_start = mask_data.size();
+				mask_data.resize(mask_start + line.size());
+				for (unsigned int uj=0; uj < line.size(); uj++)
+				{
+					mask_data[mask_start + uj] = window_pi_mask_keep(line[uj],
+						params.min_kept_mask_value, params.invert_mask);
+				}
 			}
 			mask.close();
 		}
 
-		for (unsigned int s=0; s<bins[CHROM].size(); s++)
+		window_stat_row<unsigned long, 4> totals;
+		window_pi_mask_counter mask_counter;
+		const vector<window_stat_row<unsigned long, 4> > &chromosome_bins = bins[CHROM];
+		for (unsigned int s=0; s<chromosome_bins.size(); s++)
 		{
-			if( (bins[CHROM][s][N_polymorphic_sites] > 0) || (bins[CHROM][s][N_mismatches] > 0) )
+			for (unsigned int column=0; column<4; column++)
+				totals[column] += chromosome_bins[s][column];
+			if( (totals[N_polymorphic_sites] > 0) || (totals[N_mismatches] > 0) )
 			{
 				N_monomorphic_sites = 0;
 				if (use_mask == false)
 				{
 					// This number can be slightly off for the last bin since the
 					// window size can go off the end of the chromosome.
-					N_monomorphic_sites = window_size - bins[CHROM][s][N_variant_sites];
+					N_monomorphic_sites = window_size - totals[N_variant_sites];
 				} else {
-					bool keep;
-					unsigned long N_unmasked_sites = 0;
-					for (unsigned int uj=(s*window_step); uj < min((unsigned int)((s*window_step) + window_size), (unsigned int)mask_data.size()); uj++)
-					{
-						keep = mask_data[uj] <= params.min_kept_mask_value;
-						if (params.invert_mask == true)
-							keep = !keep;
-						if (keep == true)
-							N_unmasked_sites++;
-					}
-					N_monomorphic_sites = N_unmasked_sites - bins[CHROM][s][N_variant_sites];
+					const unsigned int start = s*window_step;
+					const unsigned int end = min((unsigned int)((s*window_step) + window_size), (unsigned int)mask_data.size());
+					const unsigned long N_unmasked_sites = mask_counter.count(mask_data, start, end);
+					N_monomorphic_sites = N_unmasked_sites - totals[N_variant_sites];
 				}
 
 				// The total number of possible pairwise comparisons is the sum of
 				// pairwise comparisons at polymorphic sites and pairwise
 				// comparisons at monomorphic sites.
-				N_pairs = bins[CHROM][s][N_variant_site_pairs] + (N_monomorphic_sites * N_comparisons);
+				N_pairs = totals[N_variant_site_pairs] + (N_monomorphic_sites * N_comparisons);
 
-				pi = bins[CHROM][s][N_mismatches] / double(N_pairs);
+				pi = totals[N_mismatches] / double(N_pairs);
 				out << CHROM << "\t"
 				    << s*window_step + 1 << "\t"
 				    << (s*window_step + window_size) << "\t"
-				    << bins[CHROM][s][N_polymorphic_sites] << "\t"
+				    << totals[N_polymorphic_sites] << "\t"
 				    << N_monomorphic_sites << "\t"
 			        << pi << endl;
 			}
@@ -4372,6 +4675,25 @@ void variant_file::output_removed_sites(const parameters &params)
 	delete e;
 }
 
+namespace
+{
+// Fixed-width HMM rows retain double storage without one allocation per row.
+template<unsigned int Width>
+struct lroh_double_row
+{
+	double values[Width];
+
+	lroh_double_row()
+	{
+		for (unsigned int i=0; i<Width; i++)
+			values[i] = 0.0;
+	}
+
+	double &operator[](size_t index) { return values[index]; }
+	const double &operator[](size_t index) const { return values[index]; }
+};
+}
+
 void variant_file::output_LROH(const parameters &params)
 {
 	// Detect and output Long Runs of Homozygosity, following the method
@@ -4396,7 +4718,7 @@ void variant_file::output_LROH(const parameters &params)
 	pair<int, int> alleles;
 	vector< vector< int > > s_vector;
 	vector< vector<pair<double, double> > > p_emission;
-	vector< vector< vector<double> > > p_trans;
+	vector< vector<lroh_double_row<4> > > p_trans;
 	vector<int> last_POS;
 	vector<vector<bool> > is_het;
 
@@ -4514,7 +4836,7 @@ void variant_file::output_LROH(const parameters &params)
 			double p_trans_nonauto_to_auto = p_auto_prior * e;	//A[2]
 			double p_trans_auto_to_auto = 1.0 - p_trans_nonauto_to_auto;	//A[0]
 			double p_trans_nonauto_to_nonauto = 1.0 - p_trans_auto_to_nonauto; // A[3]
-			vector<double> A(4);
+			lroh_double_row<4> A;
 			A[0] = p_trans_auto_to_auto;
 			A[1] = p_trans_auto_to_nonauto;
 			A[2] = p_trans_nonauto_to_auto;
@@ -4538,8 +4860,8 @@ void variant_file::output_LROH(const parameters &params)
 		if (N_obs == 0)
 			continue;
 
-		vector<vector<double> > alpha(N_obs, vector<double>(2,0));
-		vector<vector<double> > beta(N_obs, vector<double>(2,0));
+		vector<lroh_double_row<2> > alpha(N_obs);
+		lroh_double_row<2> beta[2];
 
 		alpha[0][0] = p_emission[ui][0].first;
 		alpha[0][1] = p_emission[ui][0].second;
@@ -4558,26 +4880,29 @@ void variant_file::output_LROH(const parameters &params)
 				alpha[i][1] *= 1e20;
 			}
 		}
-		beta[N_obs-1][0] = 1.0;
-		beta[N_obs-1][1] = 1.0;
+		// Only adjacent backward rows are live. After the forward pass, reuse
+		// alpha's first column for each completed site's autozygosity posterior.
+		lroh_double_row<2> &last_beta = beta[(N_obs-1) % 2];
+		last_beta[0] = 1.0;
+		last_beta[1] = 1.0;
+		alpha[N_obs-1][0] = alpha[N_obs-1][0] * last_beta[0] / (alpha[N_obs-1][0] * last_beta[0] + alpha[N_obs-1][1] * last_beta[1]);
 		for (int i=N_obs-2; i>=0; i--)
 		{
-			beta[i][0] = beta[i+1][0] * p_trans[ui][i][0] * p_emission[ui][i].first;
-			beta[i][0] += beta[i+1][1] * p_trans[ui][i][2] * p_emission[ui][i].first;
+			lroh_double_row<2> &current_beta = beta[i % 2];
+			const lroh_double_row<2> &next_beta = beta[(i+1) % 2];
+			current_beta[0] = next_beta[0] * p_trans[ui][i][0] * p_emission[ui][i].first;
+			current_beta[0] += next_beta[1] * p_trans[ui][i][2] * p_emission[ui][i].first;
 
-			beta[i][1] = beta[i+1][1] * p_trans[ui][i][3] * p_emission[ui][i].second;
-			beta[i][1] += beta[i+1][0] * p_trans[ui][i][1] * p_emission[ui][i].second;
+			current_beta[1] = next_beta[1] * p_trans[ui][i][3] * p_emission[ui][i].second;
+			current_beta[1] += next_beta[0] * p_trans[ui][i][1] * p_emission[ui][i].second;
 
-			while (beta[i][0] + beta[i][1] < 1e-20)
+			while (current_beta[0] + current_beta[1] < 1e-20)
 			{	// Renormalise to prevent underflow
-				beta[i][0] *= 1e20;
-				beta[i][1] *= 1e20;
+				current_beta[0] *= 1e20;
+				current_beta[1] *= 1e20;
 			}
+			alpha[i][0] = alpha[i][0] * current_beta[0] / (alpha[i][0] * current_beta[0] + alpha[i][1] * current_beta[1]);
 		}
-		// Calculate probability of each site being autozygous
-		vector<double> p_auto(N_obs);
-		for (int i=0; i<N_obs; i++)
-			p_auto[i] = alpha[i][0] * beta[i][0] / (alpha[i][0] * beta[i][0] + alpha[i][1] * beta[i][1]);
 
 		// Generate output
 		bool in_auto=false;
@@ -4587,9 +4912,10 @@ void variant_file::output_LROH(const parameters &params)
 		int N_hets_in_region = 0;
 		int last_het_pos = s_vector[ui][0];
 		int next_het_pos = -1;
+		int next_het_index = 0;
 		for (int i=0; i<N_obs; i++)
 		{
-			if (p_auto[i] > p_auto_threshold)
+			if (alpha[i][0] > p_auto_threshold)
 			{
 				if (in_auto == false)
 				{	// Start of autozygous region
@@ -4605,17 +4931,14 @@ void variant_file::output_LROH(const parameters &params)
 			{
 				if (in_auto == true)
 				{	// end of autozygous region
-					// Find next_het position
-					next_het_pos = s_vector[ui][N_obs-1];
-					for (int j=i; j<N_obs; j++)
-					{
-						if (is_het[ui][j] == true)
-						{
-							next_het_pos = s_vector[ui][j];
-							break;
-						}
-						N_SNPs_between_hets++;
-					}
+					// Reuse the next heterozygote across increasing observation indices.
+					// Count the full lookahead each time, including previously scanned sites.
+					if (next_het_index < i)
+						next_het_index = i;
+					while (next_het_index < N_obs && is_het[ui][next_het_index] == false)
+						next_het_index++;
+					next_het_pos = s_vector[ui][next_het_index < N_obs ? next_het_index : N_obs-1];
+					N_SNPs_between_hets += next_het_index - i;
 
 					end_pos = s_vector[ui][i-1];
 					if (N_SNPs >= min_SNPs)
@@ -4640,6 +4963,11 @@ void variant_file::output_LROH(const parameters &params)
 			if (N_SNPs >= min_SNPs)
 				out << CHROM << "\t" << start_pos << "\t" << end_pos << "\t" << (last_het_pos+1) << "\t" << next_het_pos << "\t" << N_SNPs_between_hets << "\t" << N_hets_in_region << "\t" << meta_data.indv[ui] << endl;
 		}
+		// This individual's observations are no longer read by later reports.
+		vector<pair<double, double> >().swap(p_emission[ui]);
+		vector<lroh_double_row<4> >().swap(p_trans[ui]);
+		vector<int>().swap(s_vector[ui]);
+		vector<bool>().swap(is_het[ui]);
 	}
 }
 
@@ -4673,9 +5001,15 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 	unsigned int N_alleles;
 	pair<int, int> geno_id;
 	pair<int, int> geno_id2;
-	vector<vector<double> > phi(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
-	vector<vector<double> > N_AaAa(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
-	vector<vector<double> > N_AAaa(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+	// Store each symmetric pair once, including the diagonal. Row i contains
+	// pairs (i,i) through (i,N-1), without an additional indexing container.
+	vector<vector<double> > N_AaAa(meta_data.N_indv);
+	vector<vector<double> > N_AAaa(meta_data.N_indv);
+	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+	{
+		N_AaAa[ui].resize(meta_data.N_indv-ui, 0.0);
+		N_AAaa[ui].resize(meta_data.N_indv-ui, 0.0);
+	}
 	vector<double > N_Aa(meta_data.N_indv, 0.0);
 
 	while(!eof())
@@ -4714,7 +5048,7 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 				N_Aa[ui]++;
 			}
 
-			for (unsigned int uj=0; uj<meta_data.N_indv; uj++)
+			for (unsigned int uj=ui; uj<meta_data.N_indv; uj++)
 			{
 				if (include_indv[uj] == false)
 					continue;
@@ -4724,7 +5058,7 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 				{
 					if ((geno_id2.first != geno_id2.second) && (geno_id2.first >= 0) && (geno_id2.second >= 0))
 					{
-						N_AaAa[ui][uj]++;
+						N_AaAa[ui][uj-ui]++;
 					}
 				}
 				if ((geno_id.first == geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
@@ -4733,7 +5067,7 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 					{
 						if (geno_id.first != geno_id2.first)
 						{
-							N_AAaa[ui][uj]++;
+							N_AAaa[ui][uj-ui]++;
 						}
 					}
 				}
@@ -4749,10 +5083,14 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 		{
 			if (include_indv[uj] == false)
 				continue;
-			phi[ui][uj] = (N_AaAa[ui][uj] - 2.0*N_AAaa[ui][uj]) / (N_Aa[ui] + N_Aa[uj]);
+			// Read the mirrored counter while retaining the original full output
+			// order and the original order of the two individual denominators.
+			const unsigned int row = min(ui, uj);
+			const unsigned int offset = max(ui, uj) - row;
+			const double phi = (N_AaAa[row][offset] - 2.0*N_AAaa[row][offset]) / (N_Aa[ui] + N_Aa[uj]);
 			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj];
-			out << "\t" << N_AaAa[ui][uj] << "\t" << N_AAaa[ui][uj] << "\t" << N_Aa[ui] << "\t" << N_Aa[uj];
-			out << "\t" << phi[ui][uj] << endl;
+			out << "\t" << N_AaAa[row][offset] << "\t" << N_AAaa[row][offset] << "\t" << N_Aa[ui] << "\t" << N_Aa[uj];
+			out << "\t" << phi << endl;
 		}
 	}
 	delete e;
@@ -4790,8 +5128,14 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 	unsigned int N_alleles, N_non_missing_chr;
 	double freq;
 	pair<int, int> geno_id;
-	vector<vector<double> > Ajk(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
-	vector<vector<double> > N_sites(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+	// Only the upper triangle is accumulated and emitted by this estimator.
+	vector<vector<double> > Ajk(meta_data.N_indv);
+	vector<vector<double> > N_sites(meta_data.N_indv);
+	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+	{
+		Ajk[ui].resize(meta_data.N_indv-ui, 0.0);
+		N_sites[ui].resize(meta_data.N_indv-ui, 0.0);
+	}
 
 	while(!eof())
 	{
@@ -4839,14 +5183,14 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 		{
 			if ((include_indv[ui] == false) || (e->include_genotype[ui] == false) || (x[ui] < 0))
 				continue;
-			Ajk[ui][ui] += (x[ui]*x[ui] - (1 + 2.0*freq)*x[ui] + 2.0*freq*freq) * div;
-			N_sites[ui][ui]++;
+			Ajk[ui][0] += (x[ui]*x[ui] - (1 + 2.0*freq)*x[ui] + 2.0*freq*freq) * div;
+			N_sites[ui][0]++;
 			for (unsigned int uj=(ui+1); uj<meta_data.N_indv; uj++)
 			{
 				if ((include_indv[uj] == false) || (e->include_genotype[uj] == false) || (x[uj] < 0))
 					continue;
-				Ajk[ui][uj] += (x[ui] - 2.0*freq) * (x[uj] - 2.0*freq) * div;
-				N_sites[ui][uj]++;
+				Ajk[ui][uj-ui] += (x[ui] - 2.0*freq) * (x[uj] - 2.0*freq) * div;
+				N_sites[ui][uj-ui]++;
 			}
 		}
 	}
@@ -4855,14 +5199,14 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 	{
 		if (include_indv[ui] == false)
 			continue;
-		Ajk[ui][ui] = 1.0 + (Ajk[ui][ui] / N_sites[ui][ui]);
-		out << meta_data.indv[ui] << "\t" << meta_data.indv[ui] << "\t" << Ajk[ui][ui] << endl;
+		Ajk[ui][0] = 1.0 + (Ajk[ui][0] / N_sites[ui][0]);
+		out << meta_data.indv[ui] << "\t" << meta_data.indv[ui] << "\t" << Ajk[ui][0] << endl;
 		for (unsigned int uj=(ui+1); uj<meta_data.N_indv; uj++)
 		{
 			if (include_indv[uj] == false)
 				continue;
-			Ajk[ui][uj] /= N_sites[ui][uj];
-			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj] << "\t" << Ajk[ui][uj] << endl;
+			Ajk[ui][uj-ui] /= N_sites[ui][uj-ui];
+			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj] << "\t" << Ajk[ui][uj-ui] << endl;
 		}
 	}
 	delete e;
@@ -4999,6 +5343,10 @@ void variant_file::output_PCA(const parameters &params)
 		for (unsigned int uj=0; uj<N_indvs; uj++)
 			X[ui][uj] /= N_sites;
 
+	// M is no longer read after constructing X. Release its rows before the
+	// eigenvector and LAPACK allocations, without changing Gram accumulation.
+	vector< vector<double> >().swap(M);
+
 	double *Er = new double[N_indvs];
 	double *Ei = new double[N_indvs];
 	double **Evecs = new double*[N_indvs];
@@ -5091,7 +5439,9 @@ void variant_file::output_PCA_SNP_loadings(const parameters &params)
 	}
 
 	vector< vector<double> > M(N_indvs);
-	vector< vector<double> > ids(N_indvs);
+	// Genotype sums originate from int allele IDs; retain those exact integers
+	// and convert to double only when accumulating the SNP loadings below.
+	vector< vector<int> > ids(N_indvs);
     
     map<int, string> idx_to_chrom;
     map<string, int> chrom_to_idx;
@@ -5166,7 +5516,7 @@ void variant_file::output_PCA_SNP_loadings(const parameters &params)
 				else
 					M[ui_prime].push_back((x - mu));
 			}
-			ids[ui_prime].push_back(x);
+			ids[ui_prime].push_back((int)x);
 			ui_prime++;
 		}
 		s_prime++;
@@ -5312,20 +5662,64 @@ void variant_file::output_indel_hist(const parameters &params)
 
 	double total = s_vector.size() + snp_count;
 	double pct;
-	for (int i=smallest_len; i<=largest_len; i++)
+	// A bounded small span keeps the original linear scans, without allocation
+	// or sorting overhead for common short insertions and deletions.
+	if ((int64_t)largest_len - smallest_len <= 32)
 	{
-		int icount = (int) count (s_vector.begin(), s_vector.end(), i);
+		for (int i=smallest_len; i<=largest_len; i++)
+		{
+			int icount = (int) count (s_vector.begin(), s_vector.end(), i);
+			if (icount > 0)
+			{
+				pct = 100.0*icount/total;
+				out << i << "\t" << icount << "\t" << pct << endl;
+			}
+			else if ((i == 0) and (snp_count>0))
+			{
+				pct = 100.0*snp_count/total;
+				out << i << "\t" << snp_count << "\t" << pct << endl;
+			}
+		}
+		return;
+	}
+
+	// Only occupied lengths produce rows. Sort in place instead of rescanning
+	// every indel for every integer between the smallest and largest lengths.
+	sort(s_vector.begin(), s_vector.end());
+	bool output_zero = snp_count > 0;
+	vector<int>::const_iterator it = s_vector.begin();
+	while (it != s_vector.end())
+	{
+		int length = *it;
+		if (output_zero && length > 0)
+		{
+			pct = 100.0*snp_count/total;
+			out << 0 << "\t" << snp_count << "\t" << pct << endl;
+			output_zero = false;
+		}
+
+		vector<int>::const_iterator next = it;
+		while (next != s_vector.end() && *next == length)
+			++next;
+		int icount = (int)distance(it, next);
 		if (icount > 0)
 		{
 			pct = 100.0*icount/total;
-			out << i << "\t" << icount << "\t" << pct << endl;
-
+			out << length << "\t" << icount << "\t" << pct << endl;
 		}
-		else if ((i == 0) and (snp_count>0))
+		else if (length == 0 && output_zero)
 		{
 			pct = 100.0*snp_count/total;
-			out << i << "\t" << snp_count << "\t" << pct << endl;
+			out << 0 << "\t" << snp_count << "\t" << pct << endl;
 		}
+		if (length == 0)
+			output_zero = false;
+		it = next;
+	}
+	if (output_zero)
+	{
+		pct = 100.0*snp_count/total;
+		out << 0 << "\t" << snp_count << "\t" << pct << endl;
 	}
 }
 
@@ -5403,7 +5797,7 @@ void variant_file::output_mendel_inconsistencies(const parameters &params)
 	ostream out(buf);
 
 
-	pair<int, int> child_alleles, child_alleles2;
+	pair<int, int> child_alleles;
 	pair<int, int> mother_alleles;
 	pair<int, int> father_alleles;
 	string CHROM; int POS;
@@ -5447,15 +5841,13 @@ void variant_file::output_mendel_inconsistencies(const parameters &params)
 		//	cout << CHROM << "\t" << POS << "\t" << REF << "\t" << ALT << "\t" << family_ids[trio] << "\t" << child_alleles.first << "/" << child_alleles.second;
 		//	cout << "\t" << father_alleles.first << "/" << father_alleles.second << "\t" << mother_alleles.first << "/" << mother_alleles.second << endl;
 
-			set<pair<int, int> > possible_child_genotypes;
-			possible_child_genotypes.insert(make_pair(mother_alleles.first, father_alleles.first));
-			possible_child_genotypes.insert(make_pair(mother_alleles.first, father_alleles.second));
-			possible_child_genotypes.insert(make_pair(mother_alleles.second, father_alleles.first));
-			possible_child_genotypes.insert(make_pair(mother_alleles.second, father_alleles.second));
+			// The old set contained the Cartesian product of the two parental pairs.
+			const bool first_from_mother = (child_alleles.first == mother_alleles.first) || (child_alleles.first == mother_alleles.second);
+			const bool second_from_mother = (child_alleles.second == mother_alleles.first) || (child_alleles.second == mother_alleles.second);
+			const bool first_from_father = (child_alleles.first == father_alleles.first) || (child_alleles.first == father_alleles.second);
+			const bool second_from_father = (child_alleles.second == father_alleles.first) || (child_alleles.second == father_alleles.second);
 
-			child_alleles2 = make_pair(child_alleles.second, child_alleles.first);
-
-			if ((possible_child_genotypes.find(child_alleles) == possible_child_genotypes.end()) && (possible_child_genotypes.find(child_alleles2) == possible_child_genotypes.end()))
+			if (!((first_from_mother && second_from_father) || (second_from_mother && first_from_father)))
 			{	// Mendel error!
 				CHROM = e->get_CHROM();
 				POS = e->get_POS();

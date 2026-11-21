@@ -263,18 +263,18 @@ sub init_regions
     my ($opts) = @_;
 
     open(my $fh,'<',$$opts{samples}) or error("$$opts{samples}: $!");
-    my (%sexes,%samples);
+    my (%sexes,%samples,$multiple_sexes);
     while (my $line=<$fh>)
     {
         $line =~ s/^\s*//;
         $line =~ s/\s*$//;
         if ( !($line=~/^(\S+)\s+(\S+)$/) ) { error("Could not parse the sample file $$opts{sample}, the offending line was: $line"); }
         push @{$sexes{$2}}, $1;
+        if ( exists($samples{$1}) && $samples{$1} ne $2 ) { $multiple_sexes=1; }
         $samples{$1} = $2;
     }
     close($fh);
     $$opts{samples} = \%samples;
-
     for my $sample ($$opts{vcf}->get_samples())
     {
         if ( !exists($samples{$sample}) )
@@ -285,7 +285,7 @@ sub init_regions
         }
     }
 
-    # Create a quick look-up structure
+    my ($previous_reg, $previous_samples); # Last read-only mapping; no growing cache.
     for my $chr (keys %{$$opts{ploidy}})
     {
         if ( ref($$opts{ploidy}{$chr}) ne 'ARRAY' ) { error("Uh, expected list reference for $chr regions.\n"); }
@@ -299,16 +299,16 @@ sub init_regions
             if ( defined $prev && $prev>=$from ) { error("FIXME: Overlapping regions $chr:$prev>=$from\n"); }
             $prev = $to;
             
-            my $region;
-            for my $sex (keys %sexes)
-            {
-                if ( !exists($$reg{$sex}) ) { next; }
-                for my $sample (@{$sexes{$sex}})
-                {
-                    $$region{samples}{$sample} = $$reg{$sex};
-                }
-            }
-            if ( !defined $region ) { next; }
+            # Capture the original traversal order, including duplicate-sex precedence.
+            my @sex_order = keys %sexes;
+            my $samples = sample_ploidies_for_region(
+                $reg, $previous_reg, $previous_samples, \%sexes, \@sex_order, $multiple_sexes);
+            $previous_reg = $reg;
+            $previous_samples = $samples;
+            if ( !defined $samples ) { next; }
+
+            # These maps are only read after initialization, so equal neighbors can share.
+            my $region = { samples=>$samples };
             $$region{from} = $from;
             $$region{to}   = $to;
             push @{$$opts{regions}{$chr}}, $region;
@@ -317,3 +317,41 @@ sub init_regions
 }
 
 
+# Reuse only the immediately preceding mapping. Different or unusual definitions
+# retain the original construction. No table of earlier patterns is kept.
+sub sample_ploidies_for_region
+{
+    my ($reg, $previous_reg, $previous_samples, $sexes, $sex_order, $multiple_sexes) = @_;
+    # Multiple sex memberships use the original per-region overwrite order.
+    # A tied definition can change on FETCH; retain its original per-sample reads.
+    my $same = defined($previous_samples) && !$multiple_sexes
+        && !defined(tied(%$reg)) && !defined(tied(%$previous_reg));
+    if ( $same )
+    {
+        for my $sex (@$sex_order)
+        {
+            if ( exists($$reg{$sex}) != exists($$previous_reg{$sex}) ) { $same=0; last; }
+            if ( !exists($$reg{$sex}) ) { next; }
+            if ( defined(tied($$reg{$sex})) or defined(tied($$previous_reg{$sex})) ) { $same=0; last; }
+            my $value = $$reg{$sex};
+            my $previous = $$previous_reg{$sex};
+            # Ploidy files are Perl: equal text may still hide different dualvar numbers.
+            # Share only ordinary integer spellings with equal string AND numeric values.
+            if ( !defined($value) or !defined($previous) or ref($value) or ref($previous)
+                or $value !~ /\A(?:0|[1-9][0-9]*)\z/ or $previous !~ /\A(?:0|[1-9][0-9]*)\z/
+                or $value ne $previous or $value != $previous ) { $same=0; last; }
+        }
+    }
+    if ( $same ) { return $previous_samples; }
+
+    my $samples;
+    for my $sex (@$sex_order)
+    {
+        if ( !exists($$reg{$sex}) ) { next; }
+        for my $sample (@{$$sexes{$sex}})
+        {
+            $$samples{$sample} = $$reg{$sex};
+        }
+    }
+    return $samples;
+}

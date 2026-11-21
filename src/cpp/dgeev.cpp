@@ -13,55 +13,68 @@
 #if HAVE_LIBLAPACK
 
 #include "dgeev.h"
+#include <algorithm>
+
+namespace
+{
+struct dgeev_magnitude_order
+{
+	const double *magnitude;
+	dgeev_magnitude_order(const double *values) : magnitude(values) {}
+	bool operator()(int left, int right) const
+	{
+		if (fabs(magnitude[left]) > fabs(magnitude[right])) return true;
+		if (fabs(magnitude[left]) < fabs(magnitude[right])) return false;
+		return left < right; // Preserve the original order of equal magnitudes.
+	}
+};
+
+void dgeev_sort_columns(double *Er, double *Ei, double **Evecs, int N)
+{
+	double *E2 = new double[N];
+	int *order = new int[N];
+	int i, j;
+	for (i=0; i<N; i++)
+	{
+		E2[i] = Er[i]*Er[i]+Ei[i]*Ei[i];
+		order[i] = i;
+	}
+
+	// An unordered magnitude never moved in the adjacent-swap implementation.
+	// Sort each non-NaN run independently so nothing crosses those barriers.
+	for (i=0; i<N; )
+	{
+		if (E2[i] != E2[i]) { i++; continue; }
+		j = i + 1;
+		while (j<N && E2[j] == E2[j]) j++;
+		std::sort(order+i, order+j, dgeev_magnitude_order(E2));
+		i = j;
+	}
+
+	// Reuse the magnitude buffer to move each value/column only once.
+	for (i=0; i<N; i++) E2[i] = Er[order[i]];
+	for (i=0; i<N; i++) Er[i] = E2[i];
+	for (i=0; i<N; i++) E2[i] = Ei[order[i]];
+	for (i=0; i<N; i++) Ei[i] = E2[i];
+	if (Evecs != 0)
+		for (i=0; i<N; i++)
+		{
+			for (j=0; j<N; j++) E2[j] = Evecs[i][order[j]];
+			for (j=0; j<N; j++) Evecs[i][j] = E2[j];
+		}
+	delete [] order;
+	delete [] E2;
+}
+}
 
 void dgeev_sort(double *Er, double *Ei, int N)
 {
-	double temp, *E2;
-	int i, j;
-
-	E2 = new double[N];
-	for (i=0; i<N; i++)
-		E2[i] = Er[i]*Er[i]+Ei[i]*Ei[i];
-
-	for (j=0; j<N; j++)
-		for (i=0; i<N-1; i++)
-			if (fabs(E2[i])<fabs(E2[i+1]))
-			{
-				temp = E2[i]; E2[i] = E2[i+1]; E2[i+1] = temp;
-				temp = Er[i]; Er[i] = Er[i+1]; Er[i+1] = temp;
-				temp = Ei[i]; Ei[i] = Ei[i+1]; Ei[i+1] = temp;
-			}
-
-	delete [] E2;
+	dgeev_sort_columns(Er, Ei, 0, N);
 }
-
 
 void dgeev_sort(double *Er, double *Ei, double **Evecs, int N)
 {
-	double temp, *E2;
-	int i, j, k;
-
-	E2 = new double[N];
-	for (i=0; i<N; i++)
-		E2[i] = Er[i]*Er[i]+Ei[i]*Ei[i];
-
-	for (j=0; j<N; j++)
-		for (i=0; i<N-1; i++)
-			if (fabs(E2[i])<fabs(E2[i+1]))
-			{
-				temp = E2[i]; E2[i] = E2[i+1]; E2[i+1] = temp;
-				temp = Er[i]; Er[i] = Er[i+1]; Er[i+1] = temp;
-				temp = Ei[i]; Ei[i] = Ei[i+1]; Ei[i+1] = temp;
-
-				for (k=0; k<N; k++)
-				{
-					temp = Evecs[k][i];
-					Evecs[k][i] = Evecs[k][i+1];
-					Evecs[k][i+1] = temp;
-				}
-			}
-
-	delete [] E2;
+	dgeev_sort_columns(Er, Ei, Evecs, N);
 }
 
 
@@ -92,7 +105,8 @@ void dgeev(double **H, int n, double *Er, double *Ei)
 {
 	char jobvl, jobvr;
 	int lda, ldvl, ldvr, lwork, info;
-	double *a, *vl, *vr, *work;
+	double *a, *work;
+	double vl, vr;
 
 	jobvl = 'N'; // V/N to calculate/not calculate the left eigenvectors of the matrix H.
 	jobvr = 'N'; // As above, but for the right eigenvectors.
@@ -100,24 +114,19 @@ void dgeev(double **H, int n, double *Er, double *Ei)
 	lda = n; // The leading dimension of the matrix a.
 	a = dgeev_ctof(H, n, lda); // Convert the matrix H from double pointer C form to single pointer Fortran form.
 
-	/* Whether we want them or not, we need to define the matrices
-		 for the eigenvectors, and give their leading dimensions.
-		 We also create a vector for work space. */
+	// LAPACK does not reference VL/VR when their JOB argument is 'N'.
+	// Keep the original dimensions and workspace; only replace unused storage.
 
 	ldvl = n;
-	vl = new double[n*n];
 	ldvr = n;
-	vr = new double[n*n];
 	work = new double[4*n];
 	lwork = 4*n;
 
-	dgeev_(&jobvl, &jobvr, &n, a, &lda, Er, Ei, vl, &ldvl, vr, &ldvr, work, &lwork, &info);
+	dgeev_(&jobvl, &jobvr, &n, a, &lda, Er, Ei, &vl, &ldvl, &vr, &ldvr, work, &lwork, &info);
 
 	dgeev_sort(Er, Ei, n); //Sort the results by eigenvalue in decreasing magnitude.
 
 	delete [] a;
-	delete [] vl;
-	delete [] vr;
 	delete [] work;
 }
 
@@ -126,7 +135,8 @@ void dgeev(double **H, int n, double *Er, double *Ei, double **Evecs)
 {
 	char jobvl, jobvr;
 	int lda,	ldvl, ldvr, lwork, info;
-	double *a, *vl, *vr, *work;
+	double *a, *vr, *work;
+	double vl;
 
 	jobvl = 'N';
 	jobvr = 'V';
@@ -134,19 +144,17 @@ void dgeev(double **H, int n, double *Er, double *Ei, double **Evecs)
 	a = dgeev_ctof(H, n, lda);
 
 	ldvl = n;
-	vl = new double[n*n];
 	ldvr = n;
 	vr = new double[n*n];
 	work = new double[4*n];
 	lwork = 4*n;
 
-	dgeev_(&jobvl, &jobvr, &n, a, &lda, Er, Ei, vl, &ldvl, vr, &ldvr, work, &lwork, &info);
+	dgeev_(&jobvl, &jobvr, &n, a, &lda, Er, Ei, &vl, &ldvl, vr, &ldvr, work, &lwork, &info);
 
 	dgeev_ftoc(vr, Evecs, n, ldvr);
 	dgeev_sort(Er, Ei, Evecs, n);
 
 	delete [] a;
-	delete [] vl;
 	delete [] vr;
 	delete [] work;
 }

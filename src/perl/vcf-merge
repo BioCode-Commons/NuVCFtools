@@ -323,8 +323,11 @@ sub merge_vcf_files
             delete($$vcf{done});
             $vcf->open(region=>$region); 
         }
-
-        while ( my $pos=advance_position($opts,\@vcfs) )
+        my @active_vcfs = @vcfs;
+        local $$opts{retire_finished_sources} = 1;
+        # Keep legacy diagnostic lines for raw stderr compatibility.
+#line 327
+        while ( my $pos=advance_position($opts,\@active_vcfs) )
         {
             my %out;
             $out{POS}    = $pos;
@@ -492,7 +495,7 @@ sub merge_vcf_files
                 $out{REF} = defined $new_ref ? $new_ref : $ref;
             }
 
-            $out{INFO} = { %info }; 
+            $out{INFO} = \%info; # The collected hash is no longer needed separately.
             $out{INFO}{SF} = join(',',@src_files);
 
             # Output the QUAL information
@@ -550,7 +553,7 @@ sub advance_position
 {
     my ($opts,$vcfs) = @_;
 
-    my $min_pos;
+    my ($min_pos,$retire_finished);
     for my $vcf (@$vcfs)
     {
         fill_buffer($opts,$vcf) unless $$vcf{done};
@@ -562,7 +565,7 @@ sub advance_position
     for my $vcf (@$vcfs)
     {
         delete($$vcf{last_line});
-
+        $retire_finished = 1 if $$vcf{done} && !@{$$vcf{line_buffer}};
         if ( @{$$vcf{line_buffer}} && $min_pos ne $$vcf{line_buffer}[0]{POS} ) { next; }
         if ( !defined $first ) 
         { 
@@ -596,7 +599,7 @@ sub advance_position
             $$vcf{last_line} = splice(@{$$vcf{line_buffer}},$irec,1);
         }
     }
-    return $min_pos;
+    return $retire_finished && $$opts{retire_finished_sources} ? retire_finished_merge_files($vcfs,$min_pos) : $min_pos;
 }
 
 sub fill_buffer
@@ -640,6 +643,15 @@ sub joiner_dp4
         $vals1[$i] += $vals2[$i];
     }
     $$ori = join(',',@vals1);
+}
+
+# Keep original file order, and retain the selected record until the next
+# advance_position clears it. The full file list still supplies output columns.
+sub retire_finished_merge_files
+{
+    my ($vcfs,$pos) = @_;
+    @$vcfs = grep { !$_->{done} || @{$_->{line_buffer}} || $_->{last_line} } @$vcfs;
+    return $pos;
 }
 
 

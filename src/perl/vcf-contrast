@@ -141,7 +141,7 @@ sub contrast
     my @x = split(/,/, $$rec[4]);
     my $n_als = 1 + scalar @x;
 
-	my (@bg_pls, @bg_als, @bg_gts, @var_pls,@var_gts, $min_dp);
+	my (@bg_pls, @bg_als, @bg_gts, @var_pls, $min_dp);
 	for my $bg_col (@{$$opts{bg_cols}}) 
 	{
 		if ( defined $idp )
@@ -177,7 +177,7 @@ sub contrast
 			$var_pl  = $vcf->get_field($$rec[$var_col],$ipl);
             ($var_pl,@var_als) = likely_gt($var_pl, $n_als);
 			@var_als = sort @var_als;
-			push @var_pls, $var_pl;
+			push @var_pls, $var_pl if !@var_pls; # Only the first PL controls the missing-value gate below.
 		}
 		else
 		{
@@ -185,7 +185,7 @@ sub contrast
 			@var_als = sort($vcf->split_gt($gt));
 		}
 		my $var_gt  = join('/',sort(@var_als));
-		push @var_gts, $var_gt;
+		# Foreground genotypes are consumed here; no history is needed.
 
 		my $bg_score;
 		my %als;

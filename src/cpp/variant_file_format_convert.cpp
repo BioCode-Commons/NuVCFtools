@@ -7,6 +7,33 @@
  */
 #include "variant_file.h"
 
+namespace
+{
+// Copy the first temporary-file row without retaining its full length in RAM.
+// Counted writes preserve embedded NUL bytes just like string insertion does.
+void copy_temporary_row(istream &input, ostream &output)
+{
+	char buffer[8192];
+	while (input.good())
+	{
+		input.get(buffer, sizeof(buffer), '\n');
+		const streamsize count = input.gcount();
+		if (count > 0)
+			output.write(buffer, count);
+		if (input.bad() || input.eof())
+			break;
+		// get() leaves the delimiter unread and sets failbit for an empty row.
+		if (input.fail())
+			input.clear(input.rdstate() & ~ios::failbit);
+		if (input.peek() == '\n')
+		{
+			input.get();
+			break;
+		}
+	}
+}
+}
+
 void variant_file::output_as_plink(const parameters &params)
 {
 	// Output as PLINK formatted PED/MAP files.
@@ -187,7 +214,6 @@ void variant_file::output_as_plink(const parameters &params)
 
 	ofstream PED(ped_file.c_str());
 	if (!PED.is_open()) LOG.error("Could not open output file: " + ped_file, 12);
-	string tmp_line;
 	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
 	{
 		if (include_indv[ui] == false)
@@ -204,8 +230,8 @@ void variant_file::output_as_plink(const parameters &params)
 					"Most likely this is because the system is not allowing me to open enough temporary files.\n"
 					"Try using ulimit -n <int> to increase the number of allowed open files.\n"
 					"Alternatively, try the --plink-tped command.", 12);
-		getline(read_file, tmp_line);
-		PED << tmp_line << endl;
+		copy_temporary_row(read_file, PED);
+		PED << endl;
 		read_file.close();
 		remove(tmp_filenames[ui].c_str());
 	}
@@ -419,7 +445,6 @@ void variant_file::output_as_012_matrix(const parameters &params)
 	}
 	FAM.close();
 
-	vector<string> alleles;
 	pair<int, int> genotype;
 	vector<char> variant_line;
 	entry *e = get_entry_object();
@@ -441,8 +466,6 @@ void variant_file::output_as_012_matrix(const parameters &params)
 			continue;
 		}
 		MAP << e->get_CHROM() << "\t" << e->get_POS() << endl;
-
-		e->get_alleles_vector(alleles);
 
 		for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
 		{
@@ -474,7 +497,6 @@ void variant_file::output_as_012_matrix(const parameters &params)
 
 	ofstream PED(ped_file.c_str());
 	if (!PED.is_open()) LOG.error("Could not open output file: " + ped_file, 12);
-	string tmp_line;
 	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
 	{
 		if (include_indv[ui] == false)
@@ -490,8 +512,8 @@ void variant_file::output_as_012_matrix(const parameters &params)
 			LOG.error("\n\nCould not open temporary file.\n\n"
 			"Most likely this is because the system is not allowing me to open enough temporary files.\n"
 			"Try using ulimit -n <int> to increase the number of allowed open files.\n", 12);
-		getline(read_file, tmp_line);
-		PED << tmp_line << endl;
+		copy_temporary_row(read_file, PED);
+		PED << endl;
 		read_file.close();
 		remove(tmp_filenames[ui].c_str());
 	}
@@ -596,7 +618,7 @@ void variant_file::output_as_IMPUTE(const parameters &params)
 			if (include_indv[ui] == false)
 				continue;
 
-			e->parse_genotype_entry(ui, true);
+			// The validation pass parsed every included genotype before reaching here.
 			e->get_indv_GENOTYPE_ids(ui, alleles);
 			if (first == true)
 			{
@@ -784,9 +806,9 @@ void variant_file::output_as_LDhat_phased(const parameters &params)
 				LOG.error("\n\nCould not open temporary file.\n\n"
 				"Most likely this is because the system is not allowing me to open enough temporary files.\n"
 				"Try using ulimit -n <int> to increase the number of allowed open files.\n", 12);
-			getline(read_file, tmp_line);
 			sites << ">" << meta_data.indv[ui] << "-" << k << endl;
-			sites << tmp_line << endl;
+			copy_temporary_row(read_file, sites);
+			sites << endl;
 			read_file.close();
 			remove(tmp_filenames[2*ui+k].c_str());
 		}
@@ -968,9 +990,9 @@ void variant_file::output_as_LDhat_unphased(const parameters &params)
 			LOG.error("\n\nCould not open temporary file.\n\n"
 				"Most likely this is because the system is not allowing me to open enough temporary files.\n"
 				"Try using ulimit -n <int> to increase the number of allowed open files.\n", 12);
-		getline(read_file, tmp_line);
 		sites << ">" << meta_data.indv[ui] << endl;
-		sites << tmp_line << endl;
+		copy_temporary_row(read_file, sites);
+		sites << endl;
 		read_file.close();
 		remove(tmp_filenames[ui].c_str());
 	}
@@ -1088,6 +1110,7 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 		POS = e->get_POS();
 		max_pos = max(POS, max_pos);
 		pos_tmp_file << POS << endl;
+		bool alleles_loaded = false;
 		for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
 		{
 			if (include_indv[ui] == false)
@@ -1095,7 +1118,12 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 
 			e->parse_genotype_entry(ui, true);
 			e->get_indv_GENOTYPE_ids(ui, genotypes);
-			e->get_alleles_vector(alleles);
+			// Reuse this site's alleles, without adding work for zero kept samples.
+			if (alleles_loaded == false)
+			{
+				e->get_alleles_vector(alleles);
+				alleles_loaded = true;
+			}
 
 			for (unsigned int k=0; k<2; k++)
 			{
@@ -1144,9 +1172,9 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 				LOG.error("\n\nCould not open temporary file.\n\n"
 				"Most likely this is because the system is not allowing me to open enough temporary files.\n"
 				"Try using ulimit -n <int> to increase the number of allowed open files.\n", 12);
-			getline(read_file, tmp_line);
 			snps << ">" << meta_data.indv[ui] << "-" << k << endl;
-			snps << tmp_line << endl;
+			copy_temporary_row(read_file, snps);
+			snps << endl;
 			read_file.close();
 			remove(tmp_filenames[2*ui+k].c_str());
 		}

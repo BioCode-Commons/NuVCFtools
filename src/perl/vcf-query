@@ -216,7 +216,7 @@ sub read_data
     my @cols = split(/,/,$$opts{columns});
     if ( !@cols ) { @cols = @{get_columns($$opts{vcf})}; }
     my @sample_idxs = get_sample_idxs($$opts{vcf},@cols);
-
+    my ($previous_format, %format_indexes);
     # The hash opts will be filled with the keys 'before','repeat','after' with formatting information
     parse_format($opts);
     while (my $line=$vcf->next_line())
@@ -245,7 +245,7 @@ sub read_data
         {
             my @repeats;
             for my $sample_idx (@sample_idxs) { push @repeats, [ copy_array($$opts{repeat}{format}) ]; }
-
+            reset_format_indexes(\$previous_format, \%format_indexes, $$x[8]);
             my @alt;
             if ( exists($$opts{repeat}{idx}{GT}) )
             {
@@ -271,8 +271,8 @@ sub read_data
                     }
                     next;
                 }
-
-                my $fmt_idx = $vcf->get_tag_index($$x[8],$fieldname eq 'GTR' ? 'GT' : $fieldname,':');
+                my $fmt_idx = $format_indexes{$fieldname};
+                if ( !defined($fmt_idx) ) { $fmt_idx = $format_indexes{$fieldname} = $vcf->get_tag_index($$x[8],$fieldname eq 'GTR' ? 'GT' : $fieldname,':'); }
                 for (my $i=0; $i<@sample_idxs; $i++)
                 {
                     my $sample_idx = $sample_idxs[$i];
@@ -450,3 +450,14 @@ sub read_data_slow_hash
 }
 
 
+# Cache only indexes requested by the template, for the immediately preceding
+# FORMAT schema. Keep get_tag_index's first-match behavior for duplicate tags.
+sub reset_format_indexes
+{
+    my ($previous, $indexes, $format) = @_;
+    if ( !defined($format) || !defined($$previous) || $format ne $$previous )
+    {
+        %$indexes = ();
+        $$previous = $format;
+    }
+}
