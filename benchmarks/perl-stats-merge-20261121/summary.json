@@ -1,0 +1,390 @@
+{
+  "state": "complete",
+  "job": "9465327",
+  "node": "node1827.oscar.ccv.brown.edu",
+  "affinity": [
+    3
+  ],
+  "repetitions": 1,
+  "cases": [
+    {
+      "tool": "vcf-stats",
+      "samples": 100,
+      "records": 22382,
+      "order": [
+        "Original",
+        "Before",
+        "After"
+      ],
+      "runs": {
+        "Original": {
+          "wall_seconds": 23.99,
+          "user_seconds": 23.8,
+          "system_seconds": 0.06,
+          "peak_rss_kib": 13824,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Original/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 337499,
+              "sha256": "053876e21a9cbc87f80ee4024ff3ca5a248ceb31bbc1d742485aa5d7f3439fe3"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 23.99,
+          "user_seconds": 23.79,
+          "system_seconds": 0.06,
+          "peak_rss_kib": 14208,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Before/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 337499,
+              "sha256": "053876e21a9cbc87f80ee4024ff3ca5a248ceb31bbc1d742485aa5d7f3439fe3"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 10.13,
+          "user_seconds": 9.98,
+          "system_seconds": 0.05,
+          "peak_rss_kib": 13824,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/After/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 337499,
+              "sha256": "053876e21a9cbc87f80ee4024ff3ca5a248ceb31bbc1d742485aa5d7f3439fe3"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-merge",
+      "samples": 100,
+      "records": 22382,
+      "order": [
+        "Before",
+        "After",
+        "Original"
+      ],
+      "runs": {
+        "Before": {
+          "wall_seconds": 21.26,
+          "user_seconds": 20.87,
+          "system_seconds": 0.23,
+          "peak_rss_kib": 12288,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Before/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 12394179,
+              "sha256": "904ae5814edaa38055174a8753b4a1f66ec3cbc4ca600ea3b36369cd0458f158"
+            },
+            "stderr": {
+              "bytes": 10900,
+              "sha256": "10d68f93862c561c1dcb2f1158e48e20666645f027a0d3db09b81089cfb10251"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 12.82,
+          "user_seconds": 12.49,
+          "system_seconds": 0.2,
+          "peak_rss_kib": 12288,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/After/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 12394179,
+              "sha256": "904ae5814edaa38055174a8753b4a1f66ec3cbc4ca600ea3b36369cd0458f158"
+            },
+            "stderr": {
+              "bytes": 10900,
+              "sha256": "10d68f93862c561c1dcb2f1158e48e20666645f027a0d3db09b81089cfb10251"
+            }
+          }
+        },
+        "Original": {
+          "wall_seconds": 21.33,
+          "user_seconds": 20.95,
+          "system_seconds": 0.22,
+          "peak_rss_kib": 12288,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Original/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 12394179,
+              "sha256": "904ae5814edaa38055174a8753b4a1f66ec3cbc4ca600ea3b36369cd0458f158"
+            },
+            "stderr": {
+              "bytes": 10900,
+              "sha256": "10d68f93862c561c1dcb2f1158e48e20666645f027a0d3db09b81089cfb10251"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-stats",
+      "samples": 400,
+      "records": 22382,
+      "order": [
+        "After",
+        "Original",
+        "Before"
+      ],
+      "runs": {
+        "After": {
+          "wall_seconds": 37.46,
+          "user_seconds": 37.12,
+          "system_seconds": 0.12,
+          "peak_rss_kib": 23808,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/After/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 1354783,
+              "sha256": "c597c8debb1226b526c65f9eda22da1d883547cd9a42dce413185d62d7f9af32"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Original": {
+          "wall_seconds": 96.45,
+          "user_seconds": 95.8,
+          "system_seconds": 0.15,
+          "peak_rss_kib": 23424,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Original/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 1354783,
+              "sha256": "c597c8debb1226b526c65f9eda22da1d883547cd9a42dce413185d62d7f9af32"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 96.34,
+          "user_seconds": 95.66,
+          "system_seconds": 0.15,
+          "peak_rss_kib": 24576,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Before/bin/vcf-stats",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 1354783,
+              "sha256": "c597c8debb1226b526c65f9eda22da1d883547cd9a42dce413185d62d7f9af32"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-merge",
+      "samples": 400,
+      "records": 22382,
+      "order": [
+        "Original",
+        "Before",
+        "After"
+      ],
+      "runs": {
+        "Original": {
+          "wall_seconds": 76.45,
+          "user_seconds": 75.53,
+          "system_seconds": 0.45,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Original/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 39256653,
+              "sha256": "fceb42729b1fbcb4e2ea74a6c27b85c6ea3dd35eaf8d145f79c59c8711f17189"
+            },
+            "stderr": {
+              "bytes": 43600,
+              "sha256": "bdce83ffe40bdc6242f5f4d9b5486bd60e1f018022642f506a934ebd3615a4f6"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 76.11,
+          "user_seconds": 75.17,
+          "system_seconds": 0.46,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/Before/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 39256653,
+              "sha256": "fceb42729b1fbcb4e2ea74a6c27b85c6ea3dd35eaf8d145f79c59c8711f17189"
+            },
+            "stderr": {
+              "bytes": 43600,
+              "sha256": "bdce83ffe40bdc6242f5f4d9b5486bd60e1f018022642f506a934ebd3615a4f6"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 41.36,
+          "user_seconds": 40.64,
+          "system_seconds": 0.43,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/versions/After/bin/vcf-merge",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/A400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/data/B400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 39256653,
+              "sha256": "fceb42729b1fbcb4e2ea74a6c27b85c6ea3dd35eaf8d145f79c59c8711f17189"
+            },
+            "stderr": {
+              "bytes": 43600,
+              "sha256": "bdce83ffe40bdc6242f5f4d9b5486bd60e1f018022642f506a934ebd3615a4f6"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    }
+  ],
+  "commits": {
+    "Original": "1f87a83402ffd17ea2723a456b7edf5d80b4a22c",
+    "Before": "c8f6c1288d7e40ceea9a24ef8f4835dcac264dfa",
+    "After": "6bec44c1c77e4df65342521dfd95f65af2e58ae0"
+  },
+  "time_scope": "Uninstrumented end-to-end process: startup, reading/decompression, computation, output writing. Input preparation/indexing and output comparison excluded.",
+  "rss_scope": "GNU time maximum RSS (KiB), including accounted child maxima; not the sum of simultaneous process-tree RSS.",
+  "comparison": "Every stdout and stderr byte, no normalization, against Original and Before. Fixed PERL_HASH_SEED=0/PERL_PERTURB_KEYS=0 for legacy hash-ordered output.",
+  "input_scope": "1000 Genomes Phase 3 chr22:20000001-21000000, 22382 real records, first 100/400 samples. FORMAT=GT. Merge joins disjoint halves. Rich FORMAT correctness covered separately.",
+  "regression_checks_passed": 60,
+  "elapsed_seconds": 583.5902766175568,
+  "input_cleanup": "complete",
+  "product_identity_rechecked": true
+}

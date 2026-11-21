@@ -1,0 +1,15 @@
+{
+  "job": "9465363",
+  "passed": true,
+  "cause": "Legacy suite passes bare fix-ploidy.txt to Perl do; current Perl omits . from @INC. Use explicit ./ path; no product changes.",
+  "stdout_sha256": {
+    "Original": "5ea836a57fdbd4d63efa305b771fcf3a8d7de42b4baad19213f433a52d87b518",
+    "Before": "5ea836a57fdbd4d63efa305b771fcf3a8d7de42b4baad19213f433a52d87b518",
+    "After": "5ea836a57fdbd4d63efa305b771fcf3a8d7de42b4baad19213f433a52d87b518"
+  },
+  "stderr_bytes": {
+    "Original": 90,
+    "Before": 90,
+    "After": 90
+  }
+}

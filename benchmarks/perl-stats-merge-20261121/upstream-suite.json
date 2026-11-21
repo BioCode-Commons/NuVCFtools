@@ -1,0 +1,33 @@
+{
+  "state": "complete",
+  "job": "9465329",
+  "runs": {
+    "Before": {
+      "exit_code": 7,
+      "passed": 68,
+      "failed": [
+        "not ok 14 - Testing vcf-stats .. perl -I/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/Before/perl -MVcf /sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/Before/perl/vcf-stats /sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/Before/perl/../examples/valid-4.0.vcf",
+        "not ok 19 - Testing vcf-merge .. perl -I../perl/ -MVcf ../perl/vcf-merge merge-test-a.vcf.gz merge-test-b.vcf.gz merge-test-c.vcf.gz",
+        "not ok 25 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -c FROM,TO,CHROM,-,-,-,INFO/HM2,INFO/GN,INFO/DP -d key=INFO,ID=HM2,Number=0,Type=Flag,Description=\"HapMap2 membership\" -d key=INFO,ID=GN,Number=1,Type=String,Description=\"Gene Name\" -d key=INFO,ID=DP,Number=0,Type=Integer,Description=\"Depth,etc\" concat-a.vcf -a annotate.txt.gz",
+        "not ok 26 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -c FROM,TO,CHROM,ID,REF,ALT,INFO/HM2,INFO/GN,INFO/DP -d key=INFO,ID=HM2,Number=0,Type=Flag,Description=\"HapMap2 membership\" -d key=INFO,ID=GN,Number=1,Type=String,Description=\"Gene Name\" -d key=INFO,ID=DP,Number=0,Type=Integer,Description=\"Depth,etc\" concat-a.vcf -a annotate.txt.gz",
+        "not ok 27 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -f +/D=34/c=2,3 annotate-test.vcf",
+        "not ok 32 - Testing vcf-contrast .. perl -I../perl/ -MVcf ../perl/vcf-contrast -n +D -A,B,C -d 10 contrast.vcf | grep -v ^\\#\\#source",
+        "not ok 33 - Testing vcf-fix-ploidy .. cat fix-ploidy.vcf | perl -I../perl/ -MVcf ../perl/vcf-fix-ploidy -s fix-ploidy.samples -p fix-ploidy.txt 2>/dev/null | vcf-query -f '%POS[\\t%SAMPLE %GTR %PL]\\n'"
+      ]
+    },
+    "After": {
+      "exit_code": 7,
+      "passed": 68,
+      "failed": [
+        "not ok 14 - Testing vcf-stats .. perl -I/sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/After/perl -MVcf /sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/After/perl/vcf-stats /sss/jobtmp/zliu328/nuvcftools-stats-merge-20261121/upstream-suite/After/perl/../examples/valid-4.0.vcf",
+        "not ok 19 - Testing vcf-merge .. perl -I../perl/ -MVcf ../perl/vcf-merge merge-test-a.vcf.gz merge-test-b.vcf.gz merge-test-c.vcf.gz",
+        "not ok 25 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -c FROM,TO,CHROM,-,-,-,INFO/HM2,INFO/GN,INFO/DP -d key=INFO,ID=HM2,Number=0,Type=Flag,Description=\"HapMap2 membership\" -d key=INFO,ID=GN,Number=1,Type=String,Description=\"Gene Name\" -d key=INFO,ID=DP,Number=0,Type=Integer,Description=\"Depth,etc\" concat-a.vcf -a annotate.txt.gz",
+        "not ok 26 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -c FROM,TO,CHROM,ID,REF,ALT,INFO/HM2,INFO/GN,INFO/DP -d key=INFO,ID=HM2,Number=0,Type=Flag,Description=\"HapMap2 membership\" -d key=INFO,ID=GN,Number=1,Type=String,Description=\"Gene Name\" -d key=INFO,ID=DP,Number=0,Type=Integer,Description=\"Depth,etc\" concat-a.vcf -a annotate.txt.gz",
+        "not ok 27 - Testing vcf-annotate .. perl -I../perl/ -MVcf ../perl/vcf-annotate -f +/D=34/c=2,3 annotate-test.vcf",
+        "not ok 32 - Testing vcf-contrast .. perl -I../perl/ -MVcf ../perl/vcf-contrast -n +D -A,B,C -d 10 contrast.vcf | grep -v ^\\#\\#source",
+        "not ok 33 - Testing vcf-fix-ploidy .. cat fix-ploidy.vcf | perl -I../perl/ -MVcf ../perl/vcf-fix-ploidy -s fix-ploidy.samples -p fix-ploidy.txt 2>/dev/null | vcf-query -f '%POS[\\t%SAMPLE %GTR %PL]\\n'"
+      ]
+    }
+  },
+  "elapsed_seconds": 111.70176892355084
+}

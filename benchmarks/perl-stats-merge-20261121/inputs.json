@@ -1,0 +1,130 @@
+{
+  "url": "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz",
+  "source_sha256": "a90c16c4ff2b3196476d506ae13cb3047fae8670163c7c932c4b0239aef3daf5",
+  "region": "GRCh37 chr22:20000001-21000000",
+  "records": 22382,
+  "source_samples": 2504,
+  "selection": "First 100 or 400 VCF-header samples; merge uses disjoint halves; compare second file keeps alternating real records. No genotype or allele fabrication.",
+  "files": {
+    "compare100.vcf.gz": {
+      "bytes": 294009,
+      "sha256": "56ae0a697703586d70edf8b3cfbdb7dede6e15c7cd72d9c2cf483eb32218c118"
+    },
+    "cohort100.vcf": {
+      "bytes": 12168774,
+      "sha256": "972c02c44369456637fc5aa96ef848ca8173fe6fbcb4beba77f587b985f1fb7e"
+    },
+    "A400.samples": {
+      "bytes": 1600,
+      "sha256": "6c701557f673d0fb7c26b6c4043b7705c4af7dc898d960677ca687ea894794aa"
+    },
+    "A100.vcf.gz": {
+      "bytes": 445862,
+      "sha256": "657b008aa4d36a8db2f7536da3a59cced64e709e23b6f9fb4db250142698cfa4"
+    },
+    "compare100.vcf": {
+      "bytes": 6093010,
+      "sha256": "eda7124d99e51beb54a6ba0d337c1e493228e6cfc01cc23d9cf9e2b2834de7ba"
+    },
+    "cohort400.samples": {
+      "bytes": 3200,
+      "sha256": "7705565e6b9236169550834b91636bb7a5e5f8a26c9cf2426276d36aaa7912d2"
+    },
+    "A100.samples": {
+      "bytes": 400,
+      "sha256": "00d23f4ff5d4b895fd562e3f8a4c81dfe6444418932e813e8d73366fd2136668"
+    },
+    "B400.vcf.gz": {
+      "bytes": 741364,
+      "sha256": "a6ee94cd3a829c8fd0815aa25438f6fa3cb5660138e86a6e5ee9e49b4b855488"
+    },
+    "compare100.vcf.gz.tbi": {
+      "bytes": 667,
+      "sha256": "8ff0eb595192b0c9a4fd9d627fb04a67217b7430e16bfa31bf1d18c3aeba7ef7"
+    },
+    "B100.vcf.gz": {
+      "bytes": 445963,
+      "sha256": "88036885b20bbd53c841818bd6190ebf50e2b1f9c8ed2ef3482e6e3f95a411e6"
+    },
+    "A100.vcf.gz.tbi": {
+      "bytes": 667,
+      "sha256": "9dc9d02c567f2ec3ed7d93e94f64f20774ab23a8bc2d079ee0b95a8bbb3bbad8"
+    },
+    "B100.samples": {
+      "bytes": 400,
+      "sha256": "dd72ae1615b164aa520bdf21a68b8dbf9a59e34dc6c3eb191c9292e24ff0f5b1"
+    },
+    "B100.vcf": {
+      "bytes": 7690954,
+      "sha256": "037698ff2172d36dbc6615de052d71fa717348a25e9c1abdc36b84e021ae7b6c"
+    },
+    "cohort100.vcf.gz": {
+      "bytes": 568179,
+      "sha256": "391e7df528197e8db2596f9e79ce7f8233fbc55ea3695b38351e82746cb7fd4f"
+    },
+    "compare400.vcf.gz": {
+      "bytes": 537470,
+      "sha256": "a5fb0e8991305910dc0e301ec33bf37244caa90ec3ef9b8d2736f9d556f3a648"
+    },
+    "compare400.vcf": {
+      "bytes": 19525460,
+      "sha256": "d7534494db4ab779ae6594cf639cbe020c7a98835232c277e66a44f8a8fb321e"
+    },
+    "A400.vcf.gz": {
+      "bytes": 730778,
+      "sha256": "38219a36250d42f62404d3cb6bbab87e673a3044c50f2ac25ce2d5377d42ee2f"
+    },
+    "A400.vcf": {
+      "bytes": 21123215,
+      "sha256": "06d0177e6db534109e405322de40eb3791c2b0e88e29b1141d135d8f0f5a08ec"
+    },
+    "cohort400.vcf.gz": {
+      "bytes": 1050147,
+      "sha256": "a1541537ca36fa8e7b4d34aacf211cb55892b92423de8c21acf8520748dc5a69"
+    },
+    "A400.vcf.gz.tbi": {
+      "bytes": 681,
+      "sha256": "5720f62cf785dd984a24526f4e6a63160d168c92c8fdfe5f6ab6ed9edd7e27ff"
+    },
+    "B100.vcf.gz.tbi": {
+      "bytes": 665,
+      "sha256": "6d57fa62abc8493e23deb3842954db45e698578d36c0c87c2cb770fce767f466"
+    },
+    "cohort100.vcf.gz.tbi": {
+      "bytes": 677,
+      "sha256": "7f8bd79586c64c972e206b60179727a2f7ac98719e28f23c5060d9c564d352e8"
+    },
+    "cohort400.vcf": {
+      "bytes": 39031248,
+      "sha256": "3c17e95a6c9a37a6811deedec0596fb0b7d3f54bead160748ed537b98038de0b"
+    },
+    "B400.samples": {
+      "bytes": 1600,
+      "sha256": "e6fc4944123efceaa77afd3d099f2339ec7c45329d4c5d2e873b07016d8bdbd5"
+    },
+    "cohort400.vcf.gz.tbi": {
+      "bytes": 690,
+      "sha256": "fd492f598ede4ad2beac1d8f361664106b0a02659816c324dc47854cced5aad7"
+    },
+    "B400.vcf": {
+      "bytes": 21123358,
+      "sha256": "68f4c6baf452f6bfc0117fc1aecd4a6fcfe2f35bfe909358961cede331f17e60"
+    },
+    "cohort100.samples": {
+      "bytes": 800,
+      "sha256": "f540b2454beeb87a34cb872c7c2c85eaa93ec2e82945e372dbab273d8ab79425"
+    },
+    "A100.vcf": {
+      "bytes": 7690974,
+      "sha256": "dbff3032983c09e9c0864b83f5e2a14ce37585ff238762e49bb6855b29a57b09"
+    },
+    "B400.vcf.gz.tbi": {
+      "bytes": 683,
+      "sha256": "fbd1fbc41879773ebce7018337ffe2f6a87be68486774ddbe37ee86d354ae934"
+    },
+    "compare400.vcf.gz.tbi": {
+      "bytes": 701,
+      "sha256": "0a582047c2522ad3b13f08112dec02a5843573c298889ca3f732787eb5653009"
+    }
+  }
+}

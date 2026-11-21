@@ -1,0 +1,105 @@
+{
+  "job": "9465350",
+  "state": "failed",
+  "cases": [
+    {
+      "name": "stats",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "488b473904b8a853fb528f5f56c38e3c31a30d42e08d41b16e832ca03e263b41",
+        "Before": "488b473904b8a853fb528f5f56c38e3c31a30d42e08d41b16e832ca03e263b41",
+        "After": "488b473904b8a853fb528f5f56c38e3c31a30d42e08d41b16e832ca03e263b41"
+      }
+    },
+    {
+      "name": "merge",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "043976c436e7c2d937aebcf251afba56c89cd033b306bfdb6c3bf8450beb1393",
+        "Before": "043976c436e7c2d937aebcf251afba56c89cd033b306bfdb6c3bf8450beb1393",
+        "After": "043976c436e7c2d937aebcf251afba56c89cd033b306bfdb6c3bf8450beb1393"
+      }
+    },
+    {
+      "name": "annotate",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "d7836869df43f8db75f9fe55223087cf7bc6494853d3e4b58a9704b31b309b69",
+        "Before": "d7836869df43f8db75f9fe55223087cf7bc6494853d3e4b58a9704b31b309b69",
+        "After": "d7836869df43f8db75f9fe55223087cf7bc6494853d3e4b58a9704b31b309b69"
+      }
+    },
+    {
+      "name": "annotate-id",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "383a4a8f7eaefeab9ef80fd7283be897223b882fbfe8d9db8dd423e4e2d126d5",
+        "Before": "383a4a8f7eaefeab9ef80fd7283be897223b882fbfe8d9db8dd423e4e2d126d5",
+        "After": "383a4a8f7eaefeab9ef80fd7283be897223b882fbfe8d9db8dd423e4e2d126d5"
+      }
+    },
+    {
+      "name": "annotate-filter",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "6497d69610fc24b7b8d18ba82a6a159c4dc17cd751804e470af6e8acdd5517c2",
+        "Before": "6497d69610fc24b7b8d18ba82a6a159c4dc17cd751804e470af6e8acdd5517c2",
+        "After": "6497d69610fc24b7b8d18ba82a6a159c4dc17cd751804e470af6e8acdd5517c2"
+      }
+    },
+    {
+      "name": "contrast",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "e4e27ada6d45423ae9b170e3f611a17cf6cf67233cc5842196394f01c73acae1",
+        "Before": "e4e27ada6d45423ae9b170e3f611a17cf6cf67233cc5842196394f01c73acae1",
+        "After": "e4e27ada6d45423ae9b170e3f611a17cf6cf67233cc5842196394f01c73acae1"
+      }
+    },
+    {
+      "name": "ploidy",
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      },
+      "passed": false,
+      "stdout_sha256": {
+        "Original": "75b89c73ab69c7dd89a24d455628f3fbe05aa4ac31e4519f33a772f801627165",
+        "Before": "75b89c73ab69c7dd89a24d455628f3fbe05aa4ac31e4519f33a772f801627165",
+        "After": "75b89c73ab69c7dd89a24d455628f3fbe05aa4ac31e4519f33a772f801627165"
+      }
+    }
+  ],
+  "error": "Mismatch: ploidy"
+}
