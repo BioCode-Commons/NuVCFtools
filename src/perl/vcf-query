@@ -226,7 +226,7 @@ sub read_data
         # Fill everything what comes before the repeat []
         if ( $$opts{before} )
         {
-            my (@out) = copy_array($$opts{before}{format});
+            my (@out) = @{$$opts{before}{format}};
             while (my ($fieldname,$idx) = each %{$$opts{before}{idx}})
             {
                 if ( $fieldname eq 'LINE' ) { chomp($line); $out[$idx] = $line; }
@@ -244,7 +244,7 @@ sub read_data
         if ( $$opts{repeat} )
         {
             my @repeats;
-            for my $sample_idx (@sample_idxs) { push @repeats, [ copy_array($$opts{repeat}{format}) ]; }
+            for my $sample_idx (@sample_idxs) { push @repeats, [ @{$$opts{repeat}{format}} ]; }
             reset_format_indexes(\$previous_format, \%format_indexes, $$x[8]);
             my @alt;
             if ( exists($$opts{repeat}{idx}{GT}) )
@@ -303,7 +303,7 @@ sub read_data
         # Fill everything what comes after the repeat ([])
         if ( $$opts{after} )
         {
-            my (@out) = copy_array($$opts{after}{format});
+            my (@out) = @{$$opts{after}{format}};
             while (my ($fieldname,$idx) = each %{$$opts{after}{idx}})
             {
                 if ( $fieldname eq 'LINE' ) { chomp($line); $out[$idx] = $line; }
