@@ -69,7 +69,7 @@ NuVCFtools starts from [upstream commit `1f87a83`](https://github.com/vcftools/v
 
 ## Benchmarks <sup><sub>[↑ Contents](#contents)</sub></sup>
 
-No NuVCFtools benchmark results have been published yet.
+No NuVCFtools benchmark results have been published yet. See the [publication instructions](AGENTS.md) to add the first comparison.
 
 <a id="ai-use-and-review"></a>
 
