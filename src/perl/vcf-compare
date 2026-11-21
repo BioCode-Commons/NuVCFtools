@@ -1293,7 +1293,7 @@ sub cmp_genotypes
     my $ref = $$grp[0]{rec}{REF};
 
     # Allele signatures repeat across samples at one position.
-    my (%sorted_first,%sorted_other);
+    my %signatures;
     my %gtype_matches = ();
     my %gtype_mismatches = ();
 
@@ -1303,14 +1303,26 @@ sub cmp_genotypes
     {
         my (@sorted_als1,$nploid,$type,$max_gl);
 
-        my ($als1,$seps1,$is_phased1,$is_empty1) = $$grp[0]{vcf}->parse_haplotype($$grp[0]{rec},$id);
-        if ( !$is_empty1 ) 
+        my $gt1 = $$grp[0]{rec}{gtypes}{$id}{GT};
+        my $sig1;
+        if ( defined($gt1) && exists($signatures{0}{$gt1}) )
         {
-            my $gt = $$grp[0]{rec}{gtypes}{$id}{GT};
-            if ( exists($sorted_first{$gt}) ) { @sorted_als1 = @{$sorted_first{$gt}}; }
-            else { @sorted_als1 = @{$sorted_first{$gt} = [sort @$als1]}; }
+            $sig1 = $signatures{0}{$gt1};
+        }
+        else
+        {
+            my @parsed = $$grp[0]{vcf}->parse_haplotype($$grp[0]{rec},$id);
+            $sig1 = [@parsed];
+            $signatures{0}{$gt1} = $sig1 if defined($gt1);
+        }
+        my ($als1,$seps1,$is_phased1,$is_empty1) = @$sig1;
+        if ( !$is_empty1 )
+        {
+            $$sig1[4] ||= [sort @$als1];
+            @sorted_als1 = @{$$sig1[4]};
             $nploid = scalar @sorted_als1;
-            $type = snp_type($als1,$ref);
+            $$sig1[5] = snp_type($als1,$ref) unless defined($$sig1[5]);
+            $type = $$sig1[5];
         }
 
         if ( exists($$opts{high_confidence_gls}) )
@@ -1340,7 +1352,19 @@ sub cmp_genotypes
         my $type2;
         for (my $i=1; $i<$nrecs; $i++)
         {
-            my ($als2,$seps2,$is_phased2,$is_empty2) = $$grp[$i]{vcf}->parse_haplotype($$grp[$i]{rec},$id);
+            my $gt2 = $$grp[$i]{rec}{gtypes}{$id}{GT};
+            my $sig2;
+            if ( defined($gt2) && exists($signatures{$i}{$gt2}) )
+            {
+                $sig2 = $signatures{$i}{$gt2};
+            }
+            else
+            {
+                my @parsed = $$grp[$i]{vcf}->parse_haplotype($$grp[$i]{rec},$id);
+                $sig2 = [@parsed];
+                $signatures{$i}{$gt2} = $sig2 if defined($gt2);
+            }
+            my ($als2,$seps2,$is_phased2,$is_empty2) = @$sig2;
             if ( $is_empty1 ) 
             { 
                 $gtype_match = 0;
@@ -1389,11 +1413,8 @@ sub cmp_genotypes
                 }
             }
 
-            my $gt = $$grp[$i]{rec}{gtypes}{$id}{GT};
-            my $cache = $sorted_other{$i} ||= {};
-            my @sorted_als2;
-            if ( exists($$cache{$gt}) ) { @sorted_als2 = @{$$cache{$gt}}; }
-            else { @sorted_als2 = @{$$cache{$gt} = [sort @$als2]}; }
+            $$sig2[4] ||= [sort @$als2];
+            my @sorted_als2 = @{$$sig2[4]};
             for (my $ial=0; $ial<$nploid; $ial++)
             {
                 if ( $sorted_als1[$ial] ne $sorted_als2[$ial] ) 
