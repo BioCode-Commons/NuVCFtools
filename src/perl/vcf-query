@@ -157,8 +157,7 @@ sub copy_array
 {
     my ($arr) = @_;
     my @out;
-    for my $item (@$arr) { push @out,$item; }
-    return @out;
+    return @$arr;
 }
 
 sub get_columns
@@ -223,6 +222,7 @@ sub read_data
     {
         my $x = $vcf->next_data_array($line);
 
+        my $rendered = "";
         # Fill everything what comes before the repeat []
         if ( $$opts{before} )
         {
@@ -237,7 +237,7 @@ sub read_data
                 }
             }
             for (my $i=0; $i<@out; $i++) { if (!defined($out[$i])) { $out[$i]='.'; } }
-            print join('',@out);
+            $rendered .= join('',@out);
         }
 
         # Fill the repeaty stuff (the sample columns)
@@ -296,7 +296,7 @@ sub read_data
             for my $repeat (@repeats)
             {
                 for (my $i=0; $i<@$repeat; $i++) { if (!defined($$repeat[$i])) { $$repeat[$i]='.'; } }
-                print join('',@$repeat);
+                $rendered .= join('',@$repeat);
             }
         }
 
@@ -314,8 +314,9 @@ sub read_data
                 }
             }
             for (my $i=0; $i<@out; $i++) { if (!defined($out[$i])) { $out[$i]='.'; } }
-            print join('',@out);
+            $rendered .= join('',@out);
         }
+        print $rendered;
     }
 }
 

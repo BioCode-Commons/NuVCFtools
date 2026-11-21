@@ -1292,6 +1292,8 @@ sub cmp_genotypes
     if ( $$grp[0]{vcf}{vcf_compare_ID} != 0 ) { error("FIXME: different order than expected: $$grp[0]{vcf}{vcf_compare_ID}\n"); }
     my $ref = $$grp[0]{rec}{REF};
 
+    # Allele signatures repeat across samples at one position.
+    my (%sorted_first,%sorted_other);
     my %gtype_matches = ();
     my %gtype_mismatches = ();
 
@@ -1304,7 +1306,9 @@ sub cmp_genotypes
         my ($als1,$seps1,$is_phased1,$is_empty1) = $$grp[0]{vcf}->parse_haplotype($$grp[0]{rec},$id);
         if ( !$is_empty1 ) 
         {
-            @sorted_als1 = sort @$als1;
+            my $gt = $$grp[0]{rec}{gtypes}{$id}{GT};
+            if ( exists($sorted_first{$gt}) ) { @sorted_als1 = @{$sorted_first{$gt}}; }
+            else { @sorted_als1 = @{$sorted_first{$gt} = [sort @$als1]}; }
             $nploid = scalar @sorted_als1;
             $type = snp_type($als1,$ref);
         }
@@ -1385,7 +1389,11 @@ sub cmp_genotypes
                 }
             }
 
-            my @sorted_als2 = sort @$als2;
+            my $gt = $$grp[$i]{rec}{gtypes}{$id}{GT};
+            my $cache = $sorted_other{$i} ||= {};
+            my @sorted_als2;
+            if ( exists($$cache{$gt}) ) { @sorted_als2 = @{$$cache{$gt}}; }
+            else { @sorted_als2 = @{$$cache{$gt} = [sort @$als2]}; }
             for (my $ial=0; $ial<$nploid; $ial++)
             {
                 if ( $sorted_als1[$ial] ne $sorted_als2[$ial] ) 
