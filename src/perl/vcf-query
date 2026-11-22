@@ -273,15 +273,26 @@ sub read_data
                 }
                 my $fmt_idx = $format_indexes{$fieldname};
                 if ( !defined($fmt_idx) ) { $fmt_idx = $format_indexes{$fieldname} = $vcf->get_tag_index($$x[8],$fieldname eq 'GTR' ? 'GT' : $fieldname,':'); }
+                my %values_by_sample_field;
                 for (my $i=0; $i<@sample_idxs; $i++)
                 {
                     my $sample_idx = $sample_idxs[$i];
                     if ( $fmt_idx!=-1 )
                     {
-                        my $value = $vcf->get_field($$x[$sample_idx],$fmt_idx);
-                        if ( $fieldname eq 'GT' )
+                        my $sample_field = $$x[$sample_idx];
+                        my $value;
+                        if ( exists($values_by_sample_field{$sample_field}) )
                         {
-                            $value = $vcf->decode_genotype($$x[3],\@alt,$value);
+                            $value = $values_by_sample_field{$sample_field};
+                        }
+                        else
+                        {
+                            $value = $vcf->get_field($sample_field,$fmt_idx);
+                            if ( $fieldname eq 'GT' )
+                            {
+                                $value = $vcf->decode_genotype($$x[3],\@alt,$value);
+                            }
+                            $values_by_sample_field{$sample_field} = $value;
                         }
                         $repeats[$i][$idx] = $value;
                     }
