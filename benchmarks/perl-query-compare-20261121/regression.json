@@ -1,0 +1,245 @@
+{
+  "state": "complete",
+  "cases": [
+    {
+      "name": "query-basic",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33",
+        "Before": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33",
+        "After": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-rich",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2",
+        "Before": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2",
+        "After": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-subset",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124",
+        "Before": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124",
+        "After": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-plain",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7",
+        "Before": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7",
+        "After": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-genotypes",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd",
+        "Before": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd",
+        "After": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-subset",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107",
+        "Before": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107",
+        "After": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-filter",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6",
+        "Before": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6",
+        "After": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-positions",
+      "seed": "0",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94",
+        "Before": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94",
+        "After": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-basic",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33",
+        "Before": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33",
+        "After": "31dd521b42144c004089dee23eb80f4f3ca23568bbe11ebc72900320dced9a33"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-rich",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2",
+        "Before": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2",
+        "After": "367b22bf90787d644a4145f2986fd53ed7958f2d632c7df871767edc452a8ee2"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-subset",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124",
+        "Before": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124",
+        "After": "b4e513bc70ede4541bd159325dd7a5dfc2664ef90a68a12608785d41f89be124"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "query-plain",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7",
+        "Before": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7",
+        "After": "95fbd95f456cdd868df7aea3b77c1bfe8d699d616e1da29b21c00d35129313f7"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-genotypes",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd",
+        "Before": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd",
+        "After": "9cf064d1542321f223046ee2691e64bc3a76f9b24f06d9bbf71b4a0a166c51bd"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-subset",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107",
+        "Before": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107",
+        "After": "2c4a862720c849b3f9a6e20657a48a523d09583557e40fae8f24ca8df71b9107"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-filter",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6",
+        "Before": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6",
+        "After": "4041b41035e7f4c8c8c29674fd005ecf18358f058e61259c593791ce8b47e8b6"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    },
+    {
+      "name": "compare-positions",
+      "seed": "1",
+      "passed": true,
+      "stdout_sha256": {
+        "Original": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94",
+        "Before": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94",
+        "After": "8db188d6330add66575674a4a2356be704b504db0f4a7fa172af81859d925b94"
+      },
+      "exit_codes": {
+        "Original": 0,
+        "Before": 0,
+        "After": 0
+      }
+    }
+  ]
+}

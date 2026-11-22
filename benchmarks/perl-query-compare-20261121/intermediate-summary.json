@@ -1,0 +1,408 @@
+{
+  "state": "complete",
+  "job": "9465789",
+  "node": "node1920.oscar.ccv.brown.edu",
+  "affinity": [
+    23
+  ],
+  "repetitions": 1,
+  "cases": [
+    {
+      "tool": "vcf-query",
+      "samples": 100,
+      "records": 22382,
+      "order": [
+        "Original",
+        "Before",
+        "After"
+      ],
+      "runs": {
+        "Original": {
+          "wall_seconds": 8.23,
+          "user_seconds": 8.13,
+          "system_seconds": 0.07,
+          "peak_rss_kib": 10752,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Original/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 27126984,
+              "sha256": "8a61909039605e8887241481a723398a00d991f9364dffcdc2d602bcf8f4cf47"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 8.21,
+          "user_seconds": 8.11,
+          "system_seconds": 0.05,
+          "peak_rss_kib": 10368,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Before/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 27126984,
+              "sha256": "8a61909039605e8887241481a723398a00d991f9364dffcdc2d602bcf8f4cf47"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 5.71,
+          "user_seconds": 5.61,
+          "system_seconds": 0.06,
+          "peak_rss_kib": 10368,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/After/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 27126984,
+              "sha256": "8a61909039605e8887241481a723398a00d991f9364dffcdc2d602bcf8f4cf47"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-compare",
+      "samples": 100,
+      "records": 22382,
+      "order": [
+        "Before",
+        "After",
+        "Original"
+      ],
+      "runs": {
+        "Before": {
+          "wall_seconds": 11.08,
+          "user_seconds": 10.84,
+          "system_seconds": 0.13,
+          "peak_rss_kib": 14592,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Before/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 13298,
+              "sha256": "f04bf263a15b84e594a370cc0803967b52bcfdb987bc53bcddee0532379ae98d"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 9.42,
+          "user_seconds": 9.21,
+          "system_seconds": 0.14,
+          "peak_rss_kib": 14592,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/After/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 13298,
+              "sha256": "f04bf263a15b84e594a370cc0803967b52bcfdb987bc53bcddee0532379ae98d"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Original": {
+          "wall_seconds": 10.93,
+          "user_seconds": 10.73,
+          "system_seconds": 0.14,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Original/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort100.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare100.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 13298,
+              "sha256": "f04bf263a15b84e594a370cc0803967b52bcfdb987bc53bcddee0532379ae98d"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-query",
+      "samples": 400,
+      "records": 22382,
+      "order": [
+        "After",
+        "Original",
+        "Before"
+      ],
+      "runs": {
+        "After": {
+          "wall_seconds": 23.01,
+          "user_seconds": 22.76,
+          "system_seconds": 0.15,
+          "peak_rss_kib": 10752,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/After/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 107702184,
+              "sha256": "bdfc5364d501af702f112b1133668f6a9aba5869feadd5e0a830db662afcd879"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Original": {
+          "wall_seconds": 33.33,
+          "user_seconds": 33.03,
+          "system_seconds": 0.14,
+          "peak_rss_kib": 10752,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Original/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 107702184,
+              "sha256": "bdfc5364d501af702f112b1133668f6a9aba5869feadd5e0a830db662afcd879"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 33.48,
+          "user_seconds": 33.16,
+          "system_seconds": 0.12,
+          "peak_rss_kib": 11136,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Before/bin/vcf-query",
+            "-f",
+            "%CHROM\t%POS[\t%SAMPLE=%GTR]\n",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 107702184,
+              "sha256": "bdfc5364d501af702f112b1133668f6a9aba5869feadd5e0a830db662afcd879"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    },
+    {
+      "tool": "vcf-compare",
+      "samples": 400,
+      "records": 22382,
+      "order": [
+        "Original",
+        "Before",
+        "After"
+      ],
+      "runs": {
+        "Original": {
+          "wall_seconds": 42.05,
+          "user_seconds": 41.61,
+          "system_seconds": 0.18,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Original/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 35443,
+              "sha256": "2c7dbd70443e026c9fedf826fb3625f0ba54a6eb13a236a5422ef08452c11e38"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "Before": {
+          "wall_seconds": 41.88,
+          "user_seconds": 41.45,
+          "system_seconds": 0.2,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/Before/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 35443,
+              "sha256": "2c7dbd70443e026c9fedf826fb3625f0ba54a6eb13a236a5422ef08452c11e38"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "After": {
+          "wall_seconds": 35.64,
+          "user_seconds": 35.26,
+          "system_seconds": 0.19,
+          "peak_rss_kib": 14976,
+          "exit_code": 0,
+          "command": [
+            "perl",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/versions/After/bin/vcf-compare",
+            "-g",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/cohort400.vcf.gz",
+            "/sss/jobtmp/zliu328/nuvcftools-query-compare-final-20261121/data/compare400.vcf.gz"
+          ],
+          "outputs": {
+            "stdout": {
+              "bytes": 35443,
+              "sha256": "2c7dbd70443e026c9fedf826fb3625f0ba54a6eb13a236a5422ef08452c11e38"
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      },
+      "comparison": {
+        "Original": {
+          "stdout": true,
+          "stderr": true
+        },
+        "Before": {
+          "stdout": true,
+          "stderr": true
+        }
+      },
+      "passed": true,
+      "verified_output_cleanup": "complete"
+    }
+  ],
+  "commits": {
+    "Original": "1f87a83402ffd17ea2723a456b7edf5d80b4a22c",
+    "Before": "be50ce72d8ec05894317e385d9fd6d7802f18d70",
+    "After": "0c9b776c9d8b7882e33d4ad71be975920e839255"
+  },
+  "time_scope": "Uninstrumented end-to-end process: startup, reading/decompression, computation, output writing. Input preparation/indexing and output comparison excluded.",
+  "rss_scope": "GNU time maximum RSS (KiB), including accounted child maxima; not the sum of simultaneous process-tree RSS.",
+  "comparison": "Every stdout and stderr byte, no normalization, against Original and Before. Fixed PERL_HASH_SEED=0/PERL_PERTURB_KEYS=0 for legacy hash-ordered output.",
+  "input_scope": "1000 Genomes Phase 3 chr22:20000001-21000000, 22382 real records, first 100/400 samples. Compare uses alternate-record subset. FORMAT=GT. Rich FORMAT correctness checked separately.",
+  "regression_checks_passed": true,
+  "elapsed_seconds": 283.90696715191007,
+  "input_cleanup": "complete",
+  "product_identity_rechecked": true
+}
