@@ -1,0 +1,210 @@
+{
+  "node": "node1807.oscar.ccv.brown.edu",
+  "job": "9647476",
+  "results": [
+    {
+      "case": "real-cohort100-same-0",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 0.98,
+        "rss_kib": 10368,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.68,
+        "rss_kib": 10368,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort100-same-1",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 0.8,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.67,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort100-same-2",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 0.78,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.68,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort100-reverse-0",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 0.78,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.67,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort100-reverse-1",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 0.79,
+        "rss_kib": 10368,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.67,
+        "rss_kib": 10368,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort100-reverse-2",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 0.79,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.68,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-same-0",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 15.72,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 13.24,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-same-1",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 15.69,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 13.22,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-same-2",
+      "mode": "same",
+      "before": {
+        "wall_seconds": 15.76,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 13.19,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-reverse-0",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 15.79,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 13.22,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-reverse-1",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 15.7,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 13.3,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    },
+    {
+      "case": "real-cohort_all-reverse-2",
+      "mode": "reverse",
+      "before": {
+        "wall_seconds": 15.7,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "candidate": {
+        "wall_seconds": 14.38,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 227444048
+      },
+      "passed": true
+    }
+  ]
+}
