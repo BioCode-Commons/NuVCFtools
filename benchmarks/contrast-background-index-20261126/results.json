@@ -1,0 +1,415 @@
+{
+  "fuzz": [
+    {
+      "seed": 0,
+      "flags": [],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 0,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 1,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 2,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 3,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-n"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-f"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 0,
+      "passed": true
+    },
+    {
+      "seed": 4,
+      "flags": [
+        "-d",
+        "10"
+      ],
+      "hash_seed": 19,
+      "passed": true
+    }
+  ],
+  "benchmark": [
+    {
+      "foreground": 16,
+      "background": 16,
+      "records": 300,
+      "repetition": 0,
+      "before_wall": 0.10025074999430217,
+      "after_wall": 0.0486810420115944,
+      "before_rss_bytes": 10698752,
+      "after_rss_bytes": 10633216,
+      "passed": true
+    },
+    {
+      "foreground": 16,
+      "background": 16,
+      "records": 300,
+      "repetition": 1,
+      "before_wall": 0.09288208300131373,
+      "after_wall": 0.04903579200617969,
+      "before_rss_bytes": 10698752,
+      "after_rss_bytes": 10649600,
+      "passed": true
+    },
+    {
+      "foreground": 16,
+      "background": 16,
+      "records": 300,
+      "repetition": 2,
+      "before_wall": 0.09501937500317581,
+      "after_wall": 0.048205708008026704,
+      "before_rss_bytes": 10797056,
+      "after_rss_bytes": 10715136,
+      "passed": true
+    },
+    {
+      "foreground": 64,
+      "background": 64,
+      "records": 300,
+      "repetition": 0,
+      "before_wall": 0.884161000023596,
+      "after_wall": 0.11902566600474529,
+      "before_rss_bytes": 10715136,
+      "after_rss_bytes": 10797056,
+      "passed": true
+    },
+    {
+      "foreground": 64,
+      "background": 64,
+      "records": 300,
+      "repetition": 1,
+      "before_wall": 0.8691440419934224,
+      "after_wall": 0.11776762499357574,
+      "before_rss_bytes": 10780672,
+      "after_rss_bytes": 10764288,
+      "passed": true
+    },
+    {
+      "foreground": 64,
+      "background": 64,
+      "records": 300,
+      "repetition": 2,
+      "before_wall": 1.061080709012458,
+      "after_wall": 0.12048437501653098,
+      "before_rss_bytes": 10780672,
+      "after_rss_bytes": 10797056,
+      "passed": true
+    },
+    {
+      "foreground": 128,
+      "background": 128,
+      "records": 300,
+      "repetition": 0,
+      "before_wall": 3.2515912499802653,
+      "after_wall": 0.2141541659948416,
+      "before_rss_bytes": 10862592,
+      "after_rss_bytes": 10862592,
+      "passed": true
+    },
+    {
+      "foreground": 128,
+      "background": 128,
+      "records": 300,
+      "repetition": 1,
+      "before_wall": 3.2528457500156946,
+      "after_wall": 0.20910745798028074,
+      "before_rss_bytes": 10928128,
+      "after_rss_bytes": 10813440,
+      "passed": true
+    },
+    {
+      "foreground": 128,
+      "background": 128,
+      "records": 300,
+      "repetition": 2,
+      "before_wall": 3.2380777910002507,
+      "after_wall": 0.20358070899965242,
+      "before_rss_bytes": 10911744,
+      "after_rss_bytes": 10829824,
+      "passed": true
+    }
+  ]
+}
