@@ -1,0 +1,7504 @@
+{
+  "node": "node1827.oscar.ccv.brown.edu",
+  "job": "9640270",
+  "results": [
+    {
+      "case": "fuzz-0-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.02,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3072
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3072
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 570
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 570
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18892
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18892
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 19037
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 19037
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4326
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4326
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18980
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18980
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-0-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2211
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2211
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 140
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 140
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5656
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5656
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5686
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5686
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1640
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1640
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5688
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5688
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-1-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1281
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1281
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3076
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3076
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 661
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 661
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18773
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18773
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18931
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18931
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4101
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4101
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18859
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18859
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-2-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2528
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2528
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 206
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 206
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7211
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7211
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7233
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7233
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1916
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1916
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7229
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7229
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-3-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2591
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2591
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.0,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 195
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.0,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 195
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6920
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6920
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6944
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6944
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1898
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1898
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6934
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6934
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-4-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2945
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2945
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 442
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 442
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13965
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13965
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14057
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14057
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3209
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3209
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13993
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13993
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-5-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3115
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3115
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 551
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 551
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 16905
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 16905
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17054
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17054
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3678
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3678
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 16984
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 16984
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-6-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2769
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2769
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 255
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 255
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8498
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8498
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8550
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8550
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2276
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2276
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8520
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8520
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-7-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1302
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1302
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2633
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2633
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 198
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 198
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6980
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6980
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7036
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7036
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1906
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1906
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6992
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6992
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-8-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2821
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2821
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 344
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 344
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11082
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11082
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11118
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11118
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2767
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2767
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11134
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11134
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-9-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1309
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1309
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2963
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2963
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 411
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 411
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13255
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13255
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13311
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13311
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3097
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3097
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13321
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13321
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-10-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2842
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2842
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 342
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 342
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10923
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10923
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10983
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10983
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2748
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2748
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10949
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 10949
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-11-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1310
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1310
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2856
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2856
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 370
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 370
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11279
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11279
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11337
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11337
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2825
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2825
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11307
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11307
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-12-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2671
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2671
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 216
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 216
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7230
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7230
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7292
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7292
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1841
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1841
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7250
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 7250
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-13-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2240
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2240
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 125
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 125
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4864
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4864
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4884
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4884
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1484
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1484
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4872
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4872
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-14-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1281
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1281
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3016
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3016
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 660
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 660
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17916
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17916
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18083
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18083
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3844
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3844
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17970
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17970
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-15-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2798
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2798
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 283
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 283
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8980
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8980
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9004
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9004
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2315
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2315
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9010
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9010
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-16-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1301
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1301
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2979
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2979
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 390
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 390
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12037
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12037
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12103
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12103
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2906
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2906
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12095
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12095
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-17-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1312
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2332
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2332
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 160
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 160
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5686
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5686
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5710
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5710
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1618
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1618
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5698
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5698
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-18-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2988
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2988
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 468
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 468
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14525
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14525
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14609
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14609
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3325
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3325
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14577
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14577
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-19-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3065
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3065
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 622
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 622
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17820
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17820
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17928
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17928
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3945
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3945
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17864
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 17864
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-20-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2320
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2320
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 165
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 165
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5956
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5956
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5989
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5989
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.02,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1686
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1686
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5964
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 5964
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-21-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3050
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 3050
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 658
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 658
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20408
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20408
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20524
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20524
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4471
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4471
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20486
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 20486
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-22-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2999
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2999
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 658
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 658
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18753
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18753
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18873
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18873
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4079
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 4079
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18827
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 18827
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-23-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2999
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2999
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 507
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 507
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15299
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15299
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15355
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15355
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3418
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3418
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15375
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15375
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-24-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2784
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2784
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 300
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 300
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9172
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9172
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9230
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9230
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2378
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2378
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9186
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 9186
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-25-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1307
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1307
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3003
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3003
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 537
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 537
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15512
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15512
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15592
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15592
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3558
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3558
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15588
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 15588
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-26-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.12,
+        "rss_kib": 3840,
+        "exit": 134,
+        "files": {
+          ".frq": 2920
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.14,
+        "rss_kib": 3840,
+        "exit": 134,
+        "files": {
+          ".frq": 2920
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 470
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 470
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14529
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14529
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14612
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14612
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3408
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3408
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14573
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14573
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-27-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1311
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1311
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2139
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2139
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 126
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 126
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4729
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4729
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4739
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4739
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1441
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1441
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4741
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4741
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-28-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1284
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1284
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2937
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2937
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 398
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 398
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11934
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11934
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11974
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11974
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2904
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2904
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11948
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11948
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-29-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2881
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2881
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 392
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 392
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12819
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12819
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12903
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12903
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3056
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3056
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12855
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12855
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-30-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 1815
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 1815
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 67
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 67
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3180
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3180
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3184
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3184
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1027
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1027
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3182
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 3182
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-31-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1293
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1293
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2158
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2158
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 106
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 106
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4187
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4187
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4195
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4195
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1302
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1302
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4193
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 4193
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-32-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2952
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2952
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 433
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 433
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13120
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13120
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13170
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13170
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3201
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3201
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13156
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 13156
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-33-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2836
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2836
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 381
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 381
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11763
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11763
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11807
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11807
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3013
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3013
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11793
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 11793
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-34-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2924
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2924
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 391
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 391
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12206
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12206
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12256
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12256
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2950
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2950
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12232
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 12232
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-35-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2739
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2739
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 247
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 247
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8208
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8208
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8236
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8236
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2157
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 2157
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8224
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 8224
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-36-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1298
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1298
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".frq": 2913
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2913
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 482
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 482
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14682
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14682
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14782
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14782
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3338
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3338
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14782
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14782
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-37-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3009
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 3009
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".imiss": 448
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 448
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14529
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14529
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14575
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14575
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3477
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 3477
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14579
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 14579
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-38-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1313
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3456,
+        "exit": 0,
+        "files": {
+          ".frq": 2492
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".frq": 2492
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 170
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".imiss": 170
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6696
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6696
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-3",
+      "flags": [
+        "--minDP",
+        "10",
+        "--minGQ",
+        "5",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6722
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6722
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-4",
+      "flags": [
+        "--recode-bcf"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1820
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".recode.bcf": 1820
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-5",
+      "flags": [
+        "--remove-filtered-geno-all",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6708
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 6708
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fuzz-39-6",
+      "flags": [
+        "--diff",
+        "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/other.vcf",
+        "--diff-site-discordance"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-genotype-runs-20261126/data/fuzz.vcf",
+      "before": {
+        "wall_seconds": 0.02,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.01,
+        "rss_kib": 3840,
+        "exit": 0,
+        "files": {
+          ".diff.sites": 1278
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-freq-0",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.62,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.15,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-freq-1",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.61,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.16,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-freq-2",
+      "flags": [
+        "--freq"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.59,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.15,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".frq": 954923
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-0",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.36,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.31,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.35,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.32,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-2",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.37,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.33,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-het-0",
+      "flags": [
+        "--het"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.06,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.6,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-het-1",
+      "flags": [
+        "--het"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.05,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.59,
+        "rss_kib": 6144,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-het-2",
+      "flags": [
+        "--het"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.04,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.59,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".het": 90973
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-recode-0",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 18.08,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 16.45,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-recode-1",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 18.06,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 16.46,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-recode-2",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 18.1,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 16.46,
+        "rss_kib": 6144,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filter-0",
+      "flags": [
+        "--minQ",
+        "50",
+        "--max-missing",
+        "0.95",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 19.64,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 17.84,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filter-1",
+      "flags": [
+        "--minQ",
+        "50",
+        "--max-missing",
+        "0.95",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 19.65,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 17.58,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filter-2",
+      "flags": [
+        "--minQ",
+        "50",
+        "--max-missing",
+        "0.95",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 19.6,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "candidate": {
+        "wall_seconds": 17.58,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".recode.vcf": 227444048
+        }
+      },
+      "passed": true
+    }
+  ]
+}

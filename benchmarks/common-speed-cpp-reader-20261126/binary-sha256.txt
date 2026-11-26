@@ -1,0 +1,2 @@
+34c5800a217b6e034d4869049356fa56ec3509c1c3d6f8aa8488ee47cd0a7caa  install/before/bin/vcftools
+00a997fab024476a2e4fcbc2f5a7aefe4457f4b382860513a4a1becc6e86ef6c  install/candidate/bin/vcftools
