@@ -27,6 +27,7 @@ vcftools_SOURCES = \
 	knetfile.h \
 	ld_bitsets.cpp \
 	ld_bitsets.h \
+	ld_chisq.h \
 	output_log.cpp \
 	output_log.h \
 	parameters.cpp \

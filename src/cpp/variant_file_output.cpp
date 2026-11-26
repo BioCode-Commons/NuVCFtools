@@ -6,6 +6,7 @@
  *      ($Revision: 249 $)
  */
 #include "variant_file.h"
+#include "ld_chisq.h"
 
 void variant_file::output_frequency(const parameters &params, bool output_counts)
 {
@@ -1082,85 +1083,10 @@ void variant_file::calc_geno_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, do
 	r2 = cov12 * cov12 / (var1 * var2);
 }
 
-static int genotype_pair_index(const pair<int, int> &genotype, int n_alleles)
-{
-	// The former map lookup returned zero for alleles outside its keys.
-	if (genotype.first < 0 || genotype.second < 0 ||
-		genotype.first >= n_alleles || genotype.second >= n_alleles)
-		return 0;
-
-	const int64_t a = min(genotype.first, genotype.second);
-	const int64_t b = max(genotype.first, genotype.second);
-	// Count the rows preceding (a,b) in the original upper-triangle order.
-	// Widen before multiplication so calculating the index cannot overflow int.
-	const int64_t index = a * n_alleles - a * (a + 1) / 2 + b;
-	if (index > numeric_limits<int>::max())
-		return 0;
-	return (int)index;
-}
-
 void variant_file::calc_geno_chisq(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count)
 {
-	int N_genotypes0 = N0 * (N0+1) / 2;
-	int N_genotypes1 = N1 * (N1+1) / 2;
-
-	vector<vector<double> > observed(N_genotypes0, vector<double>(N_genotypes1,0));
-	indv_count = 0;
-	pair<int, int> geno1, geno2;
-	for (unsigned int ui=0; ui<GT1.size(); ui++)
-	{
-		geno1 = GT1[ui];
-		geno2 = GT2[ui];
-		if ((geno1.first < 0) || (geno1.second < 0))
-			continue;
-
-		if ((geno2.first < 0) || (geno2.second < 0))
-			continue;
-
-		int idx1 = genotype_pair_index(geno1, N0);
-		int idx2 = genotype_pair_index(geno2, N1);
-
-		observed[idx1][idx2]++;
-		indv_count++;
-	}
-
-	// Retain double storage before use, but only keep the current expected row.
-	vector<double> expected(N_genotypes1, 0);
-	vector<double> row_tot(N_genotypes0, 0);
-	vector<double> col_tot(N_genotypes1, 0);
-	double tot=0;
-	for (int ui=0; ui<N_genotypes0; ui++)
-	{
-		for (int uj=0; uj<N_genotypes1; uj++)
-		{
-			row_tot[ui] += observed[ui][uj];
-			col_tot[uj] += observed[ui][uj];
-			tot += observed[ui][uj];
-		}
-	}
-
-	chisq = 0;
-	for (int ui=0; ui<N_genotypes0; ui++)
-	{
-		for (int uj=0; uj<N_genotypes1; uj++)
-			expected[uj] = row_tot[ui] * col_tot[uj] / tot;
-
-		for (int uj=0; uj<N_genotypes1; uj++)
-		{
-			if ((row_tot[ui] > 0) && (col_tot[uj] > 0))	// Don't use incomplete cases
-				chisq += pow(observed[ui][uj] - expected[uj], 2) / expected[uj];
-		}
-	}
-	int n_col=0, n_row=0;
-	for (int ui=0; ui<N_genotypes0; ui++)
-		if (row_tot[ui] > 0)
-			n_row++;
-	for (int ui=0; ui<N_genotypes1; ui++)
-		if (col_tot[ui] > 0)
-			n_col++;
-
-	dof = (n_row-1) * (n_col-1);
-	pval = 1.0-gammp(dof/2, chisq/2);
+    ld_chisq_workspace workspace;
+    workspace.calculate(GT1, GT2, N0, N1, chisq, dof, pval, indv_count);
 }
 
 // Count the number of haplotypes within user-defined bins
@@ -1805,6 +1731,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	ostream out(buf);
 	out << "CHR\tPOS1\tPOS2\tN_INDV\tCHI^2\tDOF\tPVAL" << endl;
 
+	ld_chisq_workspace workspace;
 	double chisq, dof, pval;
 	int indv_count;
 	unsigned int skip = (unsigned int)max((int)1, snp_window_min);
@@ -1948,7 +1875,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 				continue;
 			if ((POS2 - POS) > bp_window_size)
 				break;
-			calc_geno_chisq(GTs, GTs2, alleles, alleles2, chisq, dof, pval, indv_count);
+			workspace.calculate(GTs, GTs2, alleles, alleles2, chisq, dof, pval, indv_count);
 
 			if (min_pval > 0)
 				if ((pval < min_pval) | (pval != pval))
