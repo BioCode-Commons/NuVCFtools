@@ -148,7 +148,7 @@ sub vcf_stats
         $vcf->set_samples(include=>\@include); 
     }
 
-    while (my $rec=$vcf->next_data_hash())
+    while (my $rec=$vcf->next_data_hash_readonly())
     {
        $vcf->collect_stats($rec,$$opts{filters});
     }

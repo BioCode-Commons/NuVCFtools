@@ -461,9 +461,18 @@ sub new
 
 =cut
 
-sub next_data_hash
+# Read-only consumers may share equal neighboring genotype hashes within a
+# record. Ordinary next_data_hash calls retain independent, mutable hashes.
+# Callers must not modify any returned gtypes entry through this interface.
+sub next_data_hash_readonly
 {
     my ($self,$line) = @_;
+    return $self->next_data_hash($line,1);
+}
+
+sub next_data_hash
+{
+    my ($self,$line,$share_genotypes) = @_;
     if ( !$line ) { $line = $self->next_line(); }
     if ( !$line ) { return undef; }
     my @items;
@@ -558,12 +567,18 @@ sub next_data_hash
 
     # Genotype fields
     my %gtypes;
+    my ($previous_text,$previous_genotype);
     my $check_nformat = $$self{drop_trailings} ? 0 : 1;
     for (my $icol=9; $icol<@items; $icol++)
     {
         if ( $items[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items[0]:$items[1]\n"); next; }
         if ( exists($$self{samples_to_parse}) && !$$self{samples_to_parse}[$icol] ) { next; }
 
+        if ( $share_genotypes && defined($previous_genotype) && $items[$icol] eq $previous_text )
+        {
+            $gtypes{$$cols[$icol]} = $previous_genotype;
+            next;
+        }
         my @fields = split(/:/, $items[$icol]);
         if ( $check_nformat && @fields != @$format ) 
         {
@@ -576,6 +591,12 @@ sub next_data_hash
             $hash{$$format[$ifield]} = $fields[$ifield];
         }
         $gtypes{$$cols[$icol]} = \%hash;
+        if ( $share_genotypes )
+        {
+            # Malformed columns retain their per-sample diagnostics and parsing.
+            $previous_genotype = @fields==@$format ? \%hash : undef;
+            $previous_text = $items[$icol];
+        }
     }
     $out{gtypes} = \%gtypes;
 
