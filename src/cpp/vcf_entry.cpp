@@ -228,17 +228,49 @@ void vcf_entry::parse_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
 	if (parsed_FORMAT == false)
 		set_FORMAT(FORMAT_str);
 
-	// Reuse fields across bulk filter/output passes without adding cache checks
-	// to the single-sample parsing path. reset() clears these flags per row;
-	// genotype filters change include_genotype, not the parsed field values.
+	// Identical neighbouring sample text has identical requested fields within
+	// this row's FORMAT schema. Reuse decoded values without re-tokenizing or
+	// repeating setters; each sample still owns its own values and parse flags.
+	unsigned int previous = N_indv;
+	unsigned int previous_fields = 0;
 	for (unsigned int ui=0; ui<N_indv; ui++)
 	{
 		const bool need_GT = GT && !parsed_GT[ui];
 		const bool need_GQ = GQ && !parsed_GQ[ui];
 		const bool need_DP = DP && !parsed_DP[ui];
 		const bool need_FT = FT && !parsed_FT[ui];
-		if (need_GT || need_GQ || need_DP || need_FT)
+		const unsigned int requested = need_GT | (need_GQ << 1) | (need_DP << 2) | (need_FT << 3);
+		if (!requested)
+			continue;
+		if (previous < N_indv && requested == previous_fields && GENOTYPE_str[ui] == GENOTYPE_str[previous])
+		{
+			if (need_GT)
+			{
+				GENOTYPE[ui] = GENOTYPE[previous];
+				PHASE[ui] = PHASE[previous];
+				ploidy[ui] = ploidy[previous];
+				parsed_GT[ui] = true;
+			}
+			if (need_GQ)
+			{
+				if (!GQUALITY.empty()) GQUALITY[ui] = GQUALITY[previous];
+				parsed_GQ[ui] = true;
+			}
+			if (need_DP)
+			{
+				if (!DEPTH.empty()) DEPTH[ui] = DEPTH[previous];
+				parsed_DP[ui] = true;
+			}
+			if (need_FT)
+			{
+				GFILTER[ui] = GFILTER[previous];
+				parsed_FT[ui] = true;
+			}
+		}
+		else
 			parse_genotype_entry(ui, need_GT, need_GQ, need_DP, need_FT);
+		previous = ui;
+		previous_fields = requested;
 	}
 }
 
