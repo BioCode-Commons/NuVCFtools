@@ -1,0 +1,5 @@
+make: Entering directory '/sss/jobtmp/zliu328/nuvcftools-ld-workspace-20261126/source/src/cpp'
+g++ -DHAVE_CONFIG_H -I. -I../..     -O2 -MT vcftools-variant_file_output.o -MD -MP -MF .deps/vcftools-variant_file_output.Tpo -c -o vcftools-variant_file_output.o `test -f 'variant_file_output.cpp' || echo './'`variant_file_output.cpp
+mv -f .deps/vcftools-variant_file_output.Tpo .deps/vcftools-variant_file_output.Po
+g++  -O2   -o vcftools vcftools-bcf_entry.o vcftools-bcf_entry_setters.o vcftools-bcf_file.o vcftools-bgzf.o vcftools-dgeev.o vcftools-entry.o vcftools-entry_filters.o vcftools-entry_getters.o vcftools-entry_setters.o vcftools-gamma.o vcftools-header.o vcftools-knetfile.o vcftools-ld_bitsets.o vcftools-output_log.o vcftools-parameters.o vcftools-variant_file.o vcftools-variant_file_diff.o vcftools-variant_file_filters.o vcftools-variant_file_format_convert.o vcftools-variant_file_output.o vcftools-vcf_entry.o vcftools-vcf_entry_setters.o vcftools-vcf_file.o vcftools-vcftools.o -lz  
+make: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-ld-workspace-20261126/source/src/cpp'
