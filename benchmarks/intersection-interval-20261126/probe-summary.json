@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "assertions": 3700,
+  "tap_sha256": "fa96bd02f4aa6314926b21f71c9ade838d80958bc8098dc5022557fd205b851c",
+  "command": "perl tests/intersection_interval_probe.pl /path/to/before /path/to/candidate"
+}

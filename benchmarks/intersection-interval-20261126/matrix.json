@@ -1,0 +1,202 @@
+[
+  {
+    "case": "real-sites-intersection-2",
+    "before_seconds": 0.56,
+    "after_seconds": 0.6,
+    "speedup": 0.9333333333333335,
+    "before_rss_mib": 10.125,
+    "after_rss_mib": 10.5,
+    "rss_reduction_percent": -3.703703703703698,
+    "passed": true
+  },
+  {
+    "case": "real-sites-union-2",
+    "before_seconds": 0.66,
+    "after_seconds": 0.69,
+    "speedup": 0.9565217391304349,
+    "before_rss_mib": 10.5,
+    "after_rss_mib": 10.5,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-sites-windowed-intersection-2",
+    "before_seconds": 0.65,
+    "after_seconds": 0.69,
+    "speedup": 0.9420289855072465,
+    "before_rss_mib": 41.25,
+    "after_rss_mib": 37.125,
+    "rss_reduction_percent": 9.999999999999998,
+    "passed": true
+  },
+  {
+    "case": "real-sites-intersection-8",
+    "before_seconds": 1.65,
+    "after_seconds": 1.66,
+    "speedup": 0.9939759036144579,
+    "before_rss_mib": 10.125,
+    "after_rss_mib": 10.5,
+    "rss_reduction_percent": -3.703703703703698,
+    "passed": true
+  },
+  {
+    "case": "real-sites-union-8",
+    "before_seconds": 1.75,
+    "after_seconds": 1.72,
+    "speedup": 1.0174418604651163,
+    "before_rss_mib": 10.5,
+    "after_rss_mib": 10.125,
+    "rss_reduction_percent": 3.57142857142857,
+    "passed": true
+  },
+  {
+    "case": "real-sites-windowed-intersection-8",
+    "before_seconds": 1.75,
+    "after_seconds": 1.81,
+    "speedup": 0.9668508287292817,
+    "before_rss_mib": 78.0,
+    "after_rss_mib": 68.25,
+    "rss_reduction_percent": 12.5,
+    "passed": true
+  },
+  {
+    "case": "real-sites-intersection-32",
+    "before_seconds": 8.12,
+    "after_seconds": 6.17,
+    "speedup": 1.3160453808752024,
+    "before_rss_mib": 11.25,
+    "after_rss_mib": 11.25,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-sites-union-32",
+    "before_seconds": 8.26,
+    "after_seconds": 6.28,
+    "speedup": 1.3152866242038215,
+    "before_rss_mib": 10.875,
+    "after_rss_mib": 11.25,
+    "rss_reduction_percent": -3.4482758620689724,
+    "passed": true
+  },
+  {
+    "case": "real-sites-windowed-intersection-32",
+    "before_seconds": 8.21,
+    "after_seconds": 6.72,
+    "speedup": 1.2217261904761907,
+    "before_rss_mib": 226.5,
+    "after_rss_mib": 193.5,
+    "rss_reduction_percent": 14.569536423841056,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-intersection-2",
+    "before_seconds": 0.95,
+    "after_seconds": 0.96,
+    "speedup": 0.9895833333333334,
+    "before_rss_mib": 12.375,
+    "after_rss_mib": 12.375,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-union-2",
+    "before_seconds": 1.09,
+    "after_seconds": 1.09,
+    "speedup": 1.0,
+    "before_rss_mib": 12.375,
+    "after_rss_mib": 12.375,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-windowed-intersection-2",
+    "before_seconds": 1.23,
+    "after_seconds": 1.07,
+    "speedup": 1.1495327102803738,
+    "before_rss_mib": 164.25,
+    "after_rss_mib": 44.625,
+    "rss_reduction_percent": 72.8310502283105,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-intersection-8",
+    "before_seconds": 2.56,
+    "after_seconds": 2.58,
+    "speedup": 0.9922480620155039,
+    "before_rss_mib": 10.875,
+    "after_rss_mib": 10.875,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-union-8",
+    "before_seconds": 2.75,
+    "after_seconds": 2.74,
+    "speedup": 1.0036496350364963,
+    "before_rss_mib": 10.875,
+    "after_rss_mib": 10.875,
+    "rss_reduction_percent": 0.0,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-windowed-intersection-8",
+    "before_seconds": 3.16,
+    "after_seconds": 2.83,
+    "speedup": 1.11660777385159,
+    "before_rss_mib": 385.875,
+    "after_rss_mib": 86.25,
+    "rss_reduction_percent": 77.64820213799806,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-intersection-32",
+    "before_seconds": 10.87,
+    "after_seconds": 9.37,
+    "speedup": 1.16008537886873,
+    "before_rss_mib": 12.375,
+    "after_rss_mib": 12.0,
+    "rss_reduction_percent": 3.0303030303030276,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-union-32",
+    "before_seconds": 11.09,
+    "after_seconds": 9.53,
+    "speedup": 1.1636935991605457,
+    "before_rss_mib": 12.375,
+    "after_rss_mib": 12.0,
+    "rss_reduction_percent": 3.0303030303030276,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-windowed-intersection-32",
+    "before_seconds": 12.56,
+    "after_seconds": 9.84,
+    "speedup": 1.2764227642276424,
+    "before_rss_mib": 1272.75,
+    "after_rss_mib": 254.6171875,
+    "rss_reduction_percent": 79.99472107640935,
+    "passed": true
+  },
+  {
+    "case": "real-sites-annot",
+    "before_seconds": 0.51,
+    "after_seconds": 0.5,
+    "speedup": 1.02,
+    "before_rss_mib": 10.875,
+    "after_rss_mib": 11.25,
+    "rss_reduction_percent": -3.4482758620689724,
+    "passed": true
+  },
+  {
+    "case": "real-cohort100-annot",
+    "before_seconds": 0.86,
+    "after_seconds": 0.79,
+    "speedup": 1.0886075949367089,
+    "before_rss_mib": 10.875,
+    "after_rss_mib": 11.25,
+    "rss_reduction_percent": -3.4482758620689724,
+    "passed": true
+  }
+]

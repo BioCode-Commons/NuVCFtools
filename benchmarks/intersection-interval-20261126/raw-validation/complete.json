@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "cases": 140,
+  "initial_job": 9638611,
+  "resume_job": "9638905",
+  "resumption_reason": "stalled duplicate UCSC download; reused SHA256-verified cached annotation",
+  "comparison": "raw stdout bytes, no normalization"
+}

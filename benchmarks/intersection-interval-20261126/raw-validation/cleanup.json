@@ -1,0 +1,15 @@
+{
+  "state": "complete",
+  "removed_files": 232,
+  "removed_bytes": 208754693,
+  "scope": "/jobtmp/zliu328/nuvcftools-bytecheck-20261126/data",
+  "scientific_outputs": "already byte-compared and removed per successful pair",
+  "retained": [
+    "source snapshots",
+    "status.json",
+    "complete.json",
+    "input.json",
+    "annotation-input.json"
+  ],
+  "time_epoch": 1795677862.6096733
+}

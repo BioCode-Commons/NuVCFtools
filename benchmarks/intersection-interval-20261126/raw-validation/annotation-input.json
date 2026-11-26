@@ -1,0 +1,6 @@
+{
+  "url": "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz",
+  "sha256": "28e7fe22cf1923a6887c7b60e6004c75987f810b8374d4d396021a34ac0410d1",
+  "intervals": 91,
+  "reused_verified_file": "/jobtmp/zliu328/nuvcftools-prefix-20261126/data/refGene.txt.gz"
+}

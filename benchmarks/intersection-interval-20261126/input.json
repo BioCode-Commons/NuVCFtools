@@ -1,0 +1,6 @@
+{
+  "source": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+  "sha256": "391e7df528197e8db2596f9e79ce7f8233fbc55ea3695b38351e82746cb7fd4f",
+  "records": 22382,
+  "sample_columns": "removed for site intersection/annotation"
+}
