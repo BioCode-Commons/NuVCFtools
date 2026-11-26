@@ -1,0 +1,439 @@
+{
+  "node": "node1934.oscar.ccv.brown.edu",
+  "job": "9647879",
+  "results": [
+    {
+      "case": "frequency",
+      "tool": "cpp",
+      "flags": [
+        "--freq"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 4.72,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".frq": 954923
+          }
+        },
+        "before": {
+          "wall_seconds": 4.87,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".frq": 954923
+          }
+        },
+        "candidate": {
+          "wall_seconds": 2.98,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".frq": 954923
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "individual-missingness",
+      "tool": "cpp",
+      "flags": [
+        "--missing-indv"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 4.47,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".imiss": 50127,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 3.06,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".imiss": 50127,
+            ".stdout": 0
+          }
+        },
+        "original": {
+          "wall_seconds": 4.57,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".imiss": 50127
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "site-missingness",
+      "tool": "cpp",
+      "flags": [
+        "--missing-site"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 3.17,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".lmiss": 514835,
+            ".stdout": 0
+          }
+        },
+        "original": {
+          "wall_seconds": 4.73,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".lmiss": 514835,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 4.75,
+          "rss_kib": 5376,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".lmiss": 514835
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "heterozygosity",
+      "tool": "cpp",
+      "flags": [
+        "--het"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 5.16,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".het": 90973,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 5.27,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".het": 90973,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 3.47,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".het": 90973
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "rewrite-vcf",
+      "tool": "cpp",
+      "flags": [
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 17.95,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".recode.vcf": 227444048,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 7.06,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".recode.vcf": 227444048,
+            ".stdout": 0
+          }
+        },
+        "original": {
+          "wall_seconds": 17.81,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".recode.vcf": 227444048,
+            ".stdout": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "filter-rewrite",
+      "tool": "cpp",
+      "flags": [
+        "--minQ",
+        "50",
+        "--max-missing",
+        "0.95",
+        "--recode",
+        "--recode-INFO-all"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 8.12,
+          "rss_kib": 5760,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".recode.vcf": 227444048
+          }
+        },
+        "original": {
+          "wall_seconds": 20.54,
+          "rss_kib": 6144,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".recode.vcf": 227444048
+          }
+        },
+        "before": {
+          "wall_seconds": 19.49,
+          "rss_kib": 6144,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".recode.vcf": 227444048
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "validator",
+      "tool": "vcf-validator",
+      "flags": [],
+      "measurements": {
+        "original": {
+          "wall_seconds": 19.7,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 17.95,
+          "rss_kib": 10368,
+          "exit": 0,
+          "files": {
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 12.62,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "subset-all",
+      "tool": "vcf-subset",
+      "flags": [
+        "-c",
+        "HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107,HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116,HG00117,HG00118,HG00119,HG00120,HG00121,HG00122,HG00123,HG00125,HG00126,HG00127,HG00128,HG00129,HG00130,HG00131,HG00132,HG00133,HG00136,HG00137,HG00138,HG00139,HG00140,HG00141,HG00142,HG00143,HG00145,HG00146,HG00148,HG00149,HG00150,HG00151,HG00154,HG00155,HG00157,HG00158,HG00159,HG00160,HG00171,HG00173,HG00174,HG00176,HG00177,HG00178,HG00179,HG00180,HG00181,HG00182,HG00183,HG00185,HG00186,HG00187,HG00188,HG00189,HG00190,HG00231,HG00232,HG00233,HG00234,HG00235,HG00236,HG00237,HG00238,HG00239,HG00240,HG00242,HG00243,HG00244,HG00245,HG00246,HG00250,HG00251,HG00252,HG00253,HG00254,HG00255,HG00256,HG00257,HG00258,HG00259,HG00260,HG00261,HG00262"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 24.5,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 12169696
+          }
+        },
+        "candidate": {
+          "wall_seconds": 10.96,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 12169696
+          }
+        },
+        "original": {
+          "wall_seconds": 29.39,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 12169696
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "subset-types",
+      "tool": "vcf-subset",
+      "flags": [
+        "-t",
+        "SNPs,indels"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 6.46,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 2128078
+          }
+        },
+        "original": {
+          "wall_seconds": 23.17,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 2128078
+          }
+        },
+        "before": {
+          "wall_seconds": 22.21,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 2128078
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "subset-private",
+      "tool": "vcf-subset",
+      "flags": [
+        "-p",
+        "-c",
+        "HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 14.66,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 31630
+          }
+        },
+        "before": {
+          "wall_seconds": 14.75,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 31630
+          }
+        },
+        "candidate": {
+          "wall_seconds": 5.17,
+          "rss_kib": 10752,
+          "exit": 0,
+          "files": {
+            ".stdout": 31630
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "stats",
+      "tool": "vcf-stats",
+      "flags": [],
+      "measurements": {
+        "before": {
+          "wall_seconds": 10.15,
+          "rss_kib": 13824,
+          "exit": 0,
+          "files": {
+            ".stdout": 337499
+          }
+        },
+        "candidate": {
+          "wall_seconds": 10.13,
+          "rss_kib": 14208,
+          "exit": 0,
+          "files": {
+            ".stdout": 337499
+          }
+        },
+        "original": {
+          "wall_seconds": 24.38,
+          "rss_kib": 13824,
+          "exit": 0,
+          "files": {
+            ".stdout": 337499
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "shuffle-columns",
+      "tool": "vcf-shuffle-cols",
+      "flags": [
+        "-t",
+        "/sss/jobtmp/zliu328/nuvcftools-integrated-20261126/data/reverse-template.vcf"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 13.18,
+          "rss_kib": 11904,
+          "exit": 0,
+          "files": {
+            ".stdout": 227444048
+          }
+        },
+        "original": {
+          "wall_seconds": 15.69,
+          "rss_kib": 12288,
+          "exit": 0,
+          "files": {
+            ".stdout": 227444048
+          }
+        },
+        "before": {
+          "wall_seconds": 15.74,
+          "rss_kib": 12288,
+          "exit": 0,
+          "files": {
+            ".stdout": 227444048
+          }
+        }
+      },
+      "passed": true
+    }
+  ]
+}

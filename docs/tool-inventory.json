@@ -1,0 +1,209 @@
+{
+  "installation_source": "src/perl/Makefile.am and src/cpp/Makefile.am",
+  "work_baseline": "2b8421435a61a67ce39dcd48df3fd0b82d6d1a4c",
+  "installed_entrypoints": 25,
+  "targeted_entrypoints": 12,
+  "untargeted_entrypoints": 13,
+  "note": "Counts targeted source work since this work baseline. Untouched scripts can use changed shared modules. Source changes do not establish a speedup for every option.",
+  "commands": [
+    {
+      "command": "vcftools",
+      "language": "C++",
+      "targeted": true,
+      "scope": "shared parser, LD, statistics and output paths; not all flags remeasured"
+    },
+    {
+      "command": "fill-aa",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "fill-an-ac",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "fill-fs",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "fill-ref-md5",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-annotate",
+      "language": "Perl",
+      "family": "selection",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-compare",
+      "language": "Perl",
+      "family": "multi-file",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-concat",
+      "language": "Perl",
+      "family": "multi-file",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-consensus",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-contrast",
+      "language": "Perl",
+      "family": "selection",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "real_speed_limit": "synthetic-only performance evidence"
+    },
+    {
+      "command": "vcf-convert",
+      "language": "Perl",
+      "family": "filling-reference",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-fix-newlines",
+      "language": "Perl",
+      "family": "format-maintenance",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-fix-ploidy",
+      "language": "Perl",
+      "family": "format-maintenance",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-indel-stats",
+      "language": "Perl",
+      "family": "summary-validation",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-isec",
+      "language": "Perl",
+      "family": "multi-file",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-merge",
+      "language": "Perl",
+      "family": "multi-file",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-phased-join",
+      "language": "Perl",
+      "family": "multi-file",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-query",
+      "language": "Perl",
+      "family": "selection",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-shuffle-cols",
+      "language": "Perl",
+      "family": "selection",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-sort",
+      "language": "Perl",
+      "family": "format-maintenance",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-stats",
+      "language": "Perl",
+      "family": "summary-validation",
+      "targeted": true,
+      "direct_script_edit": false,
+      "shared_module_target": "VcfStats.pm grouping and counters"
+    },
+    {
+      "command": "vcf-subset",
+      "language": "Perl",
+      "family": "selection",
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-to-tab",
+      "language": "Perl",
+      "family": "format-maintenance",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-tstv",
+      "language": "Perl",
+      "family": "summary-validation",
+      "targeted": false,
+      "direct_script_edit": false,
+      "shared_module_target": null
+    },
+    {
+      "command": "vcf-validator",
+      "language": "Perl",
+      "family": "summary-validation",
+      "targeted": true,
+      "direct_script_edit": false,
+      "shared_module_target": "Vcf.pm genotype validation"
+    }
+  ]
+}

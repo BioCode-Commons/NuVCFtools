@@ -1,0 +1,123 @@
+{
+  "node": "node1938.oscar.ccv.brown.edu",
+  "job": "9648253",
+  "results": [
+    {
+      "case": "genotype-ld",
+      "tool": "cpp",
+      "flags": [
+        "--geno-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 5.01,
+          "rss_kib": 4992,
+          "exit": 0,
+          "files": {
+            ".geno.ld": 22328291,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 2.93,
+          "rss_kib": 11136,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".geno.ld": 22328291
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.84,
+          "rss_kib": 11520,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".geno.ld": 22328291
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "haplotype-ld",
+      "tool": "cpp",
+      "flags": [
+        "--hap-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 3.53,
+          "rss_kib": 11136,
+          "exit": 0,
+          "files": {
+            ".hap.ld": 27618501,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 1.32,
+          "rss_kib": 11520,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".hap.ld": 27618501
+          }
+        },
+        "original": {
+          "wall_seconds": 5.66,
+          "rss_kib": 4608,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".hap.ld": 27618501
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "genotype-chisq",
+      "tool": "cpp",
+      "flags": [
+        "--geno-chisq",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 3.18,
+          "rss_kib": 4992,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 24971831
+          }
+        },
+        "original": {
+          "wall_seconds": 34.99,
+          "rss_kib": 4992,
+          "exit": 0,
+          "files": {
+            ".geno.chisq": 24971831,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 5.56,
+          "rss_kib": 4992,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 24971831
+          }
+        }
+      },
+      "passed": true
+    }
+  ]
+}
