@@ -1,0 +1,208 @@
+{
+  "node": "node2304.oscar.ccv.brown.edu",
+  "job": "9648098",
+  "results": [
+    {
+      "case": "real-geno-0",
+      "flags": [
+        "--geno-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.19,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.75,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-geno-1",
+      "flags": [
+        "--geno-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.23,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.73,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-geno-2",
+      "flags": [
+        "--geno-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.26,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.72,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".geno.ld": 22328291
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-geno-stdout",
+      "flags": [
+        "--geno-r2",
+        "--ld-window-bp",
+        "1000",
+        "--stdout"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.24,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {}
+      },
+      "candidate": {
+        "wall_seconds": 3.17,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "real-hap-0",
+      "flags": [
+        "--hap-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.77,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "candidate": {
+        "wall_seconds": 1.14,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-hap-1",
+      "flags": [
+        "--hap-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.67,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "candidate": {
+        "wall_seconds": 1.14,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-hap-2",
+      "flags": [
+        "--hap-r2",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.64,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "candidate": {
+        "wall_seconds": 1.11,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {
+          ".hap.ld": 27618501
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-hap-stdout",
+      "flags": [
+        "--hap-r2",
+        "--ld-window-bp",
+        "1000",
+        "--stdout"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 3.8,
+        "rss_kib": 11136,
+        "exit": 0,
+        "files": {}
+      },
+      "candidate": {
+        "wall_seconds": 3.8,
+        "rss_kib": 11520,
+        "exit": 0,
+        "files": {}
+      },
+      "passed": true
+    }
+  ]
+}
