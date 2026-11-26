@@ -7,6 +7,14 @@
 
 #include "entry.h"
 
+// Parse only calls that the consuming statistic would visit.
+void entry::parse_kept_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
+{
+	for (unsigned int i=0; i<N_indv; ++i)
+		if (include_indv[i] && include_genotype[i])
+			parse_genotype_entry(i, GT, GQ, DP, FT);
+}
+
 /*
 // This function implements an exact SNP test of Hardy-Weinberg
 // Equilibrium as described in Wigginton, JE, Cutler, DJ, and

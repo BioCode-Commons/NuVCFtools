@@ -902,6 +902,7 @@ void variant_file::output_indv_missingness(const parameters &params)
 		N_kept_entries++;
 
 		e->parse_basic_entry();
+		e->parse_kept_genotype_entries(true);
 		for (ui=0; ui<meta_data.N_indv; ui++)
 		{
 			if (include_indv[ui] == false)
@@ -912,7 +913,6 @@ void variant_file::output_indv_missingness(const parameters &params)
 				continue;
 			}
 
-			e->parse_genotype_entry(ui, true);
 			e->get_indv_GENOTYPE_ids(ui, alleles);
 			if (alleles.first == -1)
 				indv_N_missing[ui]++;
@@ -974,6 +974,7 @@ void variant_file::output_site_missingness(const parameters &params)
 		N_kept_entries++;
 
 		e->parse_basic_entry();
+		e->parse_kept_genotype_entries(true);
 
 		site_N_missing = 0;
 		site_N_tot = 0;
@@ -988,7 +989,6 @@ void variant_file::output_site_missingness(const parameters &params)
 				continue;
 			}
 
-			e->parse_genotype_entry(ui, true);
 			e->get_indv_GENOTYPE_ids(ui, alleles);
 			if (alleles.first == -1)
 				site_N_missing++;
