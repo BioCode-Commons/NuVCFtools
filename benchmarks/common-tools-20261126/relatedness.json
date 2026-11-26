@@ -1,0 +1,349 @@
+{
+  "job": "9656192",
+  "node": "node1831.oscar.ccv.brown.edu",
+  "binary_sha256": {
+    "original": "5565f6c48f947dc7d7b5e818acc7cf1ae8cae339e98118019df1b927ef03dddd",
+    "before": "32ce56517676937ab9ec26ef210aa3326157dfa8b39cb2038ccb92dbafb966db",
+    "candidate": "ab0980a044eedd7288a9a607bec8d00204edfd598252c268853168b2065b476e"
+  },
+  "results": [
+    {
+      "case": "mixed",
+      "flags": [],
+      "input_sha256": "622b0e9add3797a47d3edfddfa8ee9a5e1eab08a1898f50db8dfd2f53f2643ed",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 710,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 710,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 710
+          }
+        }
+      }
+    },
+    {
+      "case": "keep",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-common-tools-20261126/relatedness/yang/data/keep.txt"
+      ],
+      "input_sha256": "622b0e9add3797a47d3edfddfa8ee9a5e1eab08a1898f50db8dfd2f53f2643ed",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 117
+          }
+        },
+        "before": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 117
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 117,
+            ".stdout": 0
+          }
+        }
+      }
+    },
+    {
+      "case": "filters",
+      "flags": [
+        "--minGQ",
+        "20",
+        "--max-missing",
+        "0.1"
+      ],
+      "input_sha256": "622b0e9add3797a47d3edfddfa8ee9a5e1eab08a1898f50db8dfd2f53f2643ed",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 612,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 612
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 612
+          }
+        }
+      }
+    },
+    {
+      "case": "stream",
+      "flags": [
+        "--stdout"
+      ],
+      "input_sha256": "622b0e9add3797a47d3edfddfa8ee9a5e1eab08a1898f50db8dfd2f53f2643ed",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 710
+          }
+        },
+        "before": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 710
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 710
+          }
+        }
+      }
+    },
+    {
+      "case": "empty",
+      "flags": [],
+      "input_sha256": "10e4bfa730157e0029558ea477206241b995231532de914855dcb118cc55c5da",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 523,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 0.0,
+          "rss_kib": 3840,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 523,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.01,
+          "rss_kib": 3456,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 523,
+            ".stdout": 0
+          }
+        }
+      }
+    },
+    {
+      "case": "bcf",
+      "flags": [],
+      "input_sha256": "e88c7e65072806b6e9f5dc71c1314d576e2bb885ba2f2521ce5889c9728770d5",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.0,
+          "rss_kib": 4224,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 710,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 0.0,
+          "rss_kib": 4224,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".stdout": 0,
+            ".relatedness": 710
+          }
+        },
+        "candidate": {
+          "wall_seconds": 0.0,
+          "rss_kib": 4224,
+          "user_seconds": 0.0,
+          "sys_seconds": 0.0,
+          "exit": 0,
+          "files": {
+            ".relatedness": 710,
+            ".stdout": 0
+          }
+        }
+      }
+    },
+    {
+      "case": "real500",
+      "flags": [],
+      "input_sha256": "866c96e45cf0a8cb62c0f5adda0fbc849b234c44b451954ee4042c2923a273b4",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 5.81,
+          "rss_kib": 9216,
+          "user_seconds": 5.39,
+          "sys_seconds": 0.38,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 3.98,
+          "rss_kib": 7296,
+          "user_seconds": 3.57,
+          "sys_seconds": 0.38,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 3.19,
+          "rss_kib": 7296,
+          "user_seconds": 3.15,
+          "sys_seconds": 0.01,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        }
+      }
+    },
+    {
+      "case": "real2504-keep500",
+      "flags": [
+        "--keep",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/samples500.txt"
+      ],
+      "input_sha256": "b551375464ce12a553f08245e449f84909ed5d0a12db19895ac4fe52f9240468",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "wall_seconds": 16.74,
+          "rss_kib": 104064,
+          "user_seconds": 16.19,
+          "sys_seconds": 0.44,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        },
+        "before": {
+          "wall_seconds": 18.78,
+          "rss_kib": 54912,
+          "user_seconds": 18.25,
+          "sys_seconds": 0.41,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        },
+        "candidate": {
+          "wall_seconds": 5.04,
+          "rss_kib": 7680,
+          "user_seconds": 4.99,
+          "sys_seconds": 0.01,
+          "exit": 0,
+          "files": {
+            ".relatedness": 3328878,
+            ".stdout": 0
+          }
+        }
+      }
+    }
+  ]
+}

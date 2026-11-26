@@ -48,6 +48,14 @@ The main gains came from reducing repeated genotype parsing/classification, reta
 
 Changes to a shared module can help commands whose entry script was untouched. For example, `fill-an-ac` calls `Vcf.pm::calc_an_ac`. Such indirect benefits require their own measurement; they are not counted as a newly measured speedup merely because the dependency changed.
 
+## Common-tool follow-up
+
+All retained changes now share `codex/common-tool-speed-round2`. The [larger-cohort report](../benchmarks/common-tools-20261126.md) covers `vcf-stats`, `--relatedness2` and `--relatedness`, separately from the LD benchmarks.
+
+`--relatedness2` packs one machine word of accepted sites into genotype masks, then counts sample-pair contributions with bit operations. Homozygous allele IDs are bit-sliced rather than restricted to two hardcoded values. Its temporary genotype storage is bounded independently of the number of sites. Both relatedness estimators allocate their matrices only for retained samples; the Yang estimator preserves its original per-site floating-point addition order. These changes use one core.
+
+`vcf-stats` reuses its genotype groups when updating shared/private and sample counters. A sample's multiplicity is distinct from the number of statistic destinations selected by filters. Its CLI uses `next_data_hash_readonly`, which shares equal neighboring genotype objects within one record. This interface requires read-only genotype hashes; the ordinary parser still returns independent mutable hashes.
+
 ## Parallel work
 
 The C++ parser/filter path is not currently safe to run concurrently by constructing more `entry` objects. Shared mutable state includes:

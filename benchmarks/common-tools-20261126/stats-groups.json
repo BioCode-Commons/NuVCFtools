@@ -1,0 +1,64 @@
+{
+  "node": "node1829.oscar.ccv.brown.edu",
+  "job": "9655803",
+  "results": [
+    {
+      "tool": "vcf-stats",
+      "samples": 500,
+      "input_sha256": "866c96e45cf0a8cb62c0f5adda0fbc849b234c44b451954ee4042c2923a273b4",
+      "measurements": {
+        "original": {
+          "wall_seconds": 100.92,
+          "rss_kib": 26880,
+          "user_seconds": 100.19,
+          "sys_seconds": 0.21,
+          "exit": 0
+        },
+        "before": {
+          "wall_seconds": 38.95,
+          "rss_kib": 26880,
+          "user_seconds": 38.53,
+          "sys_seconds": 0.15,
+          "exit": 0
+        },
+        "candidate": {
+          "wall_seconds": 29.06,
+          "rss_kib": 26880,
+          "user_seconds": 28.7,
+          "sys_seconds": 0.16,
+          "exit": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "tool": "vcf-stats",
+      "samples": 2504,
+      "input_sha256": "b551375464ce12a553f08245e449f84909ed5d0a12db19895ac4fe52f9240468",
+      "measurements": {
+        "original": {
+          "wall_seconds": 658.31,
+          "rss_kib": 90748,
+          "user_seconds": 654.12,
+          "sys_seconds": 0.81,
+          "exit": 0
+        },
+        "before": {
+          "wall_seconds": 250.93,
+          "rss_kib": 90328,
+          "user_seconds": 248.69,
+          "sys_seconds": 0.78,
+          "exit": 0
+        },
+        "candidate": {
+          "wall_seconds": 182.22,
+          "rss_kib": 90188,
+          "user_seconds": 180.17,
+          "sys_seconds": 0.77,
+          "exit": 0
+        }
+      },
+      "passed": true
+    }
+  ]
+}

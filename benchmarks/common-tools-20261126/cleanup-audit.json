@@ -1,0 +1,15 @@
+{
+  "state": "complete",
+  "verified_experiments": [
+    "/sss/jobtmp/zliu328/nuvcftools-common-tools-20261126",
+    "/sss/jobtmp/zliu328/nuvcftools-common-tools-20261126/readonly",
+    "/sss/jobtmp/zliu328/nuvcftools-common-tools-20261126/relatedness",
+    "/sss/jobtmp/zliu328/nuvcftools-common-tools-20261126/relatedness/yang"
+  ],
+  "remaining_scientific_outputs": [],
+  "retained_inputs_bytes": {
+    "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz": 1213934,
+    "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz": 4044615
+  },
+  "retained": "frozen source and executables, small regression fixtures, metadata and replay scripts"
+}

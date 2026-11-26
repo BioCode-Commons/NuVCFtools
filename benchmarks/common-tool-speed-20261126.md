@@ -68,3 +68,7 @@ The [concat experiment](common-speed-concat-20261126.md) passed 16 actual-data p
 ## Optional parallel chi-square follow-up
 
 The [larger-data LD report](parallel-ld-20261126.md) measures `--geno-chisq --ld-threads 1/4/8` on 500 and 2,504 samples. Eight workers improve wall time by 3.61–3.89× over the preceding optimized one-core version, while using more memory. Default one-core execution is about 3% slower in those measurements. These results apply to that command and tested region, and do not replace the different revisions and inputs measured in the table above.
+
+## Larger-cohort common-tool follow-up
+
+The [November 26 common-tool report](common-tools-20261126.md) adds fresh comparisons for statistics and both relatedness estimators on 500/2,504-sample inputs. It records each command separately and includes the memory effect of retaining only a subset of samples. All accepted implementations are on `codex/common-tool-speed-round2`.
