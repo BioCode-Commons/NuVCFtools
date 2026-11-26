@@ -77,13 +77,13 @@ sub concat
 
     while (my $x=$vcf->next_data_array())
     {
-        print $$x[0];
+        my $row = $$x[0];
         for (my $i=1; $i<=$ncols; $i++)
         {
             my $idx = $new_to_old[$i];
-            print "\t".$$x[$idx];
+            $row .= "\t".$$x[$idx];
         }
-        print "\n";
+        print $row,"\n";
     }
 }
 
