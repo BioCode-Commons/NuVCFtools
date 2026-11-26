@@ -412,6 +412,11 @@ sub annotate
 
     # Open VCF file and add all required header lines
     my %args = exists($$opts{file}) ? (file=>$$opts{file}) : (fh=>\*STDIN);
+    # Sample fields are needed only by genotype calculations, FORMAT removal,
+    # and user filter expressions. Otherwise retain the suffix as opaque text.
+    my $sample_fields = $$opts{fill_ac_an} || exists($$opts{udef_filters})
+        || ($$opts{remove} && $$opts{remove}{FORMAT} && keys %{$$opts{remove}{FORMAT}});
+    my $record_split_limit = $sample_fields ? 0 : 9;
     my $vcf = $$opts{vcf} = Vcf->new(%args);
     $vcf->parse_header();
     if ( exists($$opts{remove}) )
@@ -472,7 +477,9 @@ sub annotate
         }
         else
         {
-            my @rec = split(/\t/,$line);
+            my @rec = split(/\t/,$line,$record_split_limit);
+            $rec[-1] =~ s/\t+\z// if @rec;
+            pop @rec while @rec && $rec[-1] eq '';
             $prev_chr = $rec[0];
             $prev_pos = $rec[1];
             $vcf->_unread_line($line);
@@ -523,7 +530,9 @@ sub annotate
         my $line;
         while ($line = $vcf->next_line())
         {
-            my @rec = split(/\t/,$line);
+            my @rec = split(/\t/,$line,$record_split_limit);
+            $rec[-1] =~ s/\t+\z// if @rec;
+            pop @rec while @rec && $rec[-1] eq '';
             if ( $$opts{normalize} ) 
             { 
                 my ($ref,@alts) = $vcf->normalize_alleles($rec[3],$rec[4]);  
@@ -639,7 +648,9 @@ sub annotate
     # Finish the VCF, no annotations for this part
     while (my $line=$vcf->next_line)
     {
-        my @rec = split(/\t/,$line);
+        my @rec = split(/\t/,$line,$record_split_limit);
+            $rec[-1] =~ s/\t+\z// if @rec;
+            pop @rec while @rec && $rec[-1] eq '';
         if ( $$opts{normalize} ) 
         {
             my ($ref,@alts) = $vcf->normalize_alleles($rec[3],$rec[4]);  

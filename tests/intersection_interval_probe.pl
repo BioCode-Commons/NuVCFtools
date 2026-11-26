@@ -36,4 +36,28 @@ for my $case (0..299) {
   is_deeply(annotation_rows_for_position($index,$pos),\@expected,"inclusive interval hits/order case $case position $pos");
  }
 }
+# Exercise the real record reader through reconstructed output, including the
+# default split contract for an unterminated final line and trailing columns.
+{
+ package ProbeReader;
+ sub next_line { return shift @{$_[0]{input}}; }
+}
+for my $spec (['ReadRef',$before],['ReadOpt',$after]) {
+ my ($pkg,$dir)=@$spec;my $text=code("$dir/src/perl/vcf-isec");
+ $text=~/(sub read_line\n.*?)(?=\n#---)/s or die 'extract reader';
+ eval "package $pkg; $1";die $@ if $@;
+}
+for my $case (0..199) {
+ my $tail=join("\t",'GT:DP',map {int(rand(2)).'/'.int(rand(2)).':'.int(rand(40))} 1..int(rand(150)));
+ my $line="22\t10\t.\tA\tG\t50\tPASS\t.\t".$tail;
+ $line.="\t" x ($case%4);
+ $line.="\n" if $case%2;
+ my @out;
+ for my $pkg ('ReadRef','ReadOpt') {
+  my $file=bless {input=>[$line],file=>'probe',buf=>[]},'ProbeReader';
+  no strict 'refs'; &{"${pkg}::read_line"}({},$file);
+  push @out,join("\t",@{$file->{buf}[0]{line}});
+ }
+ is($out[1],$out[0],"opaque genotype suffix output case $case");
+}
 done_testing();
