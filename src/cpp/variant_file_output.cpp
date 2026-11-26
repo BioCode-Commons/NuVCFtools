@@ -1745,8 +1745,9 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	vector<char> out_line, tmp_int;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -1836,6 +1837,26 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	vector<char>().swap(variant_line);
 	vector<char>().swap(out_line);
 	vector<char>().swap(tmp_int);
+
+	if (params.ld_threads > 1)
+	{
+		try
+		{
+			output_genotype_chisq_parallel(params, tmpname, meta_data.N_indv-indv_miss, min_pval, out);
+		}
+		catch (const std::exception &error)
+		{
+			remove(tmpname);
+			LOG.error(string("Parallel LD failed: ") + error.what(), 12);
+		}
+		catch (...)
+		{
+			remove(tmpname);
+			LOG.error("Parallel LD calculation failed.", 12);
+		}
+		remove(tmpname);
+		return;
+	}
 
 	ifstream tmp_file(tmpname, ios::binary);
 	vector<ld_genotype> GTs, GTs2;

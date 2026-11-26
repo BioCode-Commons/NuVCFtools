@@ -156,6 +156,7 @@ public:
 	void calc_hap_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, double &D, double &Dprime, int &chr_count);
 	void calc_geno_r2(const ld_bitsets &GT1, const ld_bitsets &GT2, double &r2, int &indv_count);
 	void calc_r2_em(entry *e, entry *e2, double &r2, int &indv_count);
+	void output_genotype_chisq_parallel(const parameters &params, const string &staged_file, size_t samples, double min_pval, ostream &out);
 	void calc_geno_chisq(vector<ld_genotype> &GT1, vector<ld_genotype> &GT2, int &N0, int &N1, double &chisq, double &dof, double &pval, int &indv_count);
 	void read_temp_site(ifstream &tmp_file, string &CHROM, int &POS, vector<ld_genotype> &GTs);
 	void read_big_temp_site(ifstream &tmp_file, string &CHROM, int &POS, int &alleles, vector<ld_genotype> &GTs);

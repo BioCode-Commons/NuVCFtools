@@ -8,6 +8,7 @@
 
 // Class for reading in, checking and storing user parameters
 #include "parameters.h"
+#include <cerrno>
 
 parameters::parameters(int argc, char *argv[])
 {
@@ -48,6 +49,7 @@ parameters::parameters(int argc, char *argv[])
 	invert_mask = false;
 	keep_only_indels = false;
 	recode_all_INFO = false;
+	ld_threads = 1;
 	ld_bp_window_size = numeric_limits<int>::max();
 	ld_snp_window_size = numeric_limits<int>::max();
 	ld_bp_window_min = -1;
@@ -266,6 +268,17 @@ void parameters::read_parameters()
 		else if (in_str == "--keep-INFO") { site_INFO_flags_to_keep.insert(get_arg(i+1)); i++; }	// Filter sites by INFO flags
 		else if (in_str == "--keep-INFO-all") { recode_all_INFO=true; }	// Old command (soon to be depreciated)
 		else if (in_str == "--kept-sites") {output_kept_sites = true; num_outputs++;}			//Output sites that pass filters
+		else if (in_str == "--ld-threads")
+		{
+			const string value = get_arg(i+1);
+			char *end = 0;
+			errno = 0;
+			const long threads = strtol(value.c_str(), &end, 10);
+			if (errno || end == value.c_str() || *end || threads < 1 || threads > numeric_limits<int>::max())
+				error("--ld-threads requires a positive integer.", 1);
+			ld_threads = static_cast<int>(threads);
+			i++;
+		}
 		else if (in_str == "--ld-window-bp") { ld_bp_window_size = atoi(get_arg(i+1).c_str()); i++; }	// Max bp distance for LD output
 		else if (in_str == "--ld-window") { ld_snp_window_size = atoi(get_arg(i+1).c_str()); i++; }		// Max SNP distance for LD output
 		else if (in_str == "--ld-window-bp-min") { ld_bp_window_min = atoi(get_arg(i+1).c_str()); i++; }	// Max bp distance for LD output
@@ -424,6 +437,7 @@ void parameters::print_params()
 	}
 	if (recode_all_INFO == true) LOG.printLOG("\t--recode-INFO-all\n");
 	if (keep_only_indels != defaults.keep_only_indels) LOG.printLOG("\t--keep-only-indels\n");
+	if (ld_threads != defaults.ld_threads) LOG.printLOG("\t--ld-threads " + output_log::int2str(ld_threads) + "\n");
 	if (ld_bp_window_size != defaults.ld_bp_window_size) LOG.printLOG("\t--ld-window-bp " + output_log::int2str(ld_bp_window_size) + "\n");
 	if (ld_snp_window_size != defaults.ld_snp_window_size) LOG.printLOG("\t--ld-window " + output_log::int2str(ld_snp_window_size) + "\n");
 	if (ld_bp_window_min != defaults.ld_bp_window_min) LOG.printLOG("\t--ld-window-bp-min " + output_log::int2str(ld_bp_window_min) + "\n");
@@ -681,6 +695,8 @@ void parameters::check_parameters()
 	if (isatty(STDIN_FILENO) && stream_in)
 		LOG.error("No input detected via stream.");
 
+	if (ld_threads > 1 && !output_geno_chisq) error("--ld-threads currently requires --geno-chisq.", 1);
+	if (ld_threads > 1 && stream_out) error("Parallel LD requires file output; use one thread with --stdout.", 1);
 	if (!weir_fst_populations.empty()) num_outputs++;
 	if (num_outputs > 1) error("Only one output function may be called.",0);
 	if (vcf_filename == "" && !stream_in) error("Input file required.", 0);

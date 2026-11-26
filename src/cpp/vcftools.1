@@ -452,6 +452,16 @@ If your data contains sites with more than two alleles, then this option can be 
 Outputs a file reporting the r2 statistics of the sites contained in the provided file verses all other sites. The output files have the suffix ".list.hap.ld" or ".list.geno.ld", depending on which option is used.
 .RE
 .PP
+.B --ld-threads
+.I <integer>
+.RS 2
+Use this many workers for the pair-calculation stage of --geno-chisq (default: 1).
+Input filtering remains serial. Workers use private scratch storage and temporary
+output files in --temp; the final file retains serial row order. Temporary output
+can be as large as the result. Values greater than one require file output and
+cannot be combined with --stdout or other output functions.
+.RE
+.PP
 .B --ld-window 
 .I <integer>
 .RS 2
