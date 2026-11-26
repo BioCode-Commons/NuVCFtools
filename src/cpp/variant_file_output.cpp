@@ -1579,7 +1579,9 @@ void variant_file::output_haplotype_r2(const parameters &params)
 				if ((r2 < min_r2) | (r2 != r2))
 					continue;
 
-			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << chr_count << "\t" << r2 << "\t" << D << "\t" << Dprime << endl;
+			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << chr_count << "\t" << r2 << "\t" << D << "\t" << Dprime << '\n';
+			// Preserve interactive stdout flushing; regular files use their buffer.
+			if (params.stream_out) out.flush();
 		}
 	}
 	tmp_file.close();
@@ -1766,7 +1768,9 @@ void variant_file::output_genotype_r2(const parameters &params)
 				if ((r2 < min_r2) | (r2 != r2))
 					continue;
 
-			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << indv_count << "\t" << r2 << endl;
+			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << indv_count << "\t" << r2 << '\n';
+			// Preserve interactive stdout flushing; regular files use their buffer.
+			if (params.stream_out) out.flush();
 		}
 	}
 	tmp_file.close();
