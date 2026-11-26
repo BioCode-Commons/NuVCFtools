@@ -4965,13 +4965,16 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 	unsigned int N_alleles, N_non_missing_chr;
 	double freq;
 	pair<int, int> geno_id;
+	vector<unsigned int> individuals;
+	for (unsigned int ui=0; ui<meta_data.N_indv; ++ui)
+		if (include_indv[ui]) individuals.push_back(ui);
 	// Only the upper triangle is accumulated and emitted by this estimator.
-	vector<vector<double> > Ajk(meta_data.N_indv);
-	vector<vector<double> > N_sites(meta_data.N_indv);
-	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+	vector<vector<double> > Ajk(individuals.size());
+	vector<vector<double> > N_sites(individuals.size());
+	for (unsigned int ui=0; ui<individuals.size(); ui++)
 	{
-		Ajk[ui].resize(meta_data.N_indv-ui, 0.0);
-		N_sites[ui].resize(meta_data.N_indv-ui, 0.0);
+		Ajk[ui].resize(individuals.size()-ui, 0.0);
+		N_sites[ui].resize(individuals.size()-ui, 0.0);
 	}
 
 	while(!eof())
@@ -5005,26 +5008,23 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 		if ((freq <= numeric_limits<double>::epsilon()) || (freq >= (1.0-numeric_limits<double>::epsilon())))
 			continue;
 
-		vector<double> x(meta_data.N_indv, -1.0);
-		for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+		vector<double> x(individuals.size(), -1.0);
+		for (unsigned int ui=0; ui<individuals.size(); ui++)
 		{
-			if (include_indv[ui] == false)
-				continue;
-
-			e->get_indv_GENOTYPE_ids(ui, geno_id);
+			e->get_indv_GENOTYPE_ids(individuals[ui], geno_id);
 			x[ui] = geno_id.first + geno_id.second;
 		}
 
 		double div = 1.0/(2.0*freq*(1.0-freq));
-		for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+		for (unsigned int ui=0; ui<individuals.size(); ui++)
 		{
-			if ((include_indv[ui] == false) || (e->include_genotype[ui] == false) || (x[ui] < 0))
+			if ((e->include_genotype[individuals[ui]] == false) || (x[ui] < 0))
 				continue;
 			Ajk[ui][0] += (x[ui]*x[ui] - (1 + 2.0*freq)*x[ui] + 2.0*freq*freq) * div;
 			N_sites[ui][0]++;
-			for (unsigned int uj=(ui+1); uj<meta_data.N_indv; uj++)
+			for (unsigned int uj=(ui+1); uj<individuals.size(); uj++)
 			{
-				if ((include_indv[uj] == false) || (e->include_genotype[uj] == false) || (x[uj] < 0))
+				if ((e->include_genotype[individuals[uj]] == false) || (x[uj] < 0))
 					continue;
 				Ajk[ui][uj-ui] += (x[ui] - 2.0*freq) * (x[uj] - 2.0*freq) * div;
 				N_sites[ui][uj-ui]++;
@@ -5032,18 +5032,18 @@ void variant_file::output_indv_relatedness_Yang(const parameters &params)
 		}
 	}
 
-	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+	for (unsigned int ui=0; ui<individuals.size(); ui++)
 	{
-		if (include_indv[ui] == false)
-			continue;
 		Ajk[ui][0] = 1.0 + (Ajk[ui][0] / N_sites[ui][0]);
-		out << meta_data.indv[ui] << "\t" << meta_data.indv[ui] << "\t" << Ajk[ui][0] << endl;
-		for (unsigned int uj=(ui+1); uj<meta_data.N_indv; uj++)
+		out << meta_data.indv[individuals[ui]] << "\t" << meta_data.indv[individuals[ui]] << "\t" << Ajk[ui][0];
+		if (params.stream_out) out << endl;
+		else out << '\n';
+		for (unsigned int uj=(ui+1); uj<individuals.size(); uj++)
 		{
-			if (include_indv[uj] == false)
-				continue;
 			Ajk[ui][uj-ui] /= N_sites[ui][uj-ui];
-			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj] << "\t" << Ajk[ui][uj-ui] << endl;
+			out << meta_data.indv[individuals[ui]] << "\t" << meta_data.indv[individuals[uj]] << "\t" << Ajk[ui][uj-ui];
+			if (params.stream_out) out << endl;
+			else out << '\n';
 		}
 	}
 	delete e;
