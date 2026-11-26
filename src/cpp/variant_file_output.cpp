@@ -1953,7 +1953,8 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 			if (min_pval > 0)
 				if ((pval < min_pval) | (pval != pval))
 					continue;
-			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << indv_count << "\t" << chisq << "\t" << dof << "\t" << pval << endl;
+			out << CHROM << "\t" << POS << "\t" << POS2 << "\t" << indv_count << "\t" << chisq << "\t" << dof << "\t" << pval << '\n';
+			if (params.stream_out) out.flush();
 		}
 	}
 	tmp_file.close();
