@@ -1,0 +1,294 @@
+{
+  "job": "9648432",
+  "node": "node1838.oscar.ccv.brown.edu",
+  "results": [
+    {
+      "case": "real-contiguous-2",
+      "input_files": 2,
+      "window": 2,
+      "before": {
+        "wall_seconds": 0.45,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.27,
+        "rss_kib": 11136,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-contiguous-8",
+      "input_files": 8,
+      "window": 8,
+      "before": {
+        "wall_seconds": 0.64,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.54,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-contiguous-32",
+      "input_files": 32,
+      "window": 32,
+      "before": {
+        "wall_seconds": 2.25,
+        "rss_kib": 16896,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.46,
+        "rss_kib": 16512,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-contiguous-128",
+      "input_files": 128,
+      "window": 128,
+      "before": {
+        "wall_seconds": 8.41,
+        "rss_kib": 35712,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 5.52,
+        "rss_kib": 35328,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-interleaved-2",
+      "input_files": 2,
+      "window": 2,
+      "before": {
+        "wall_seconds": 0.29,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.28,
+        "rss_kib": 11136,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-interleaved-8",
+      "input_files": 8,
+      "window": 8,
+      "before": {
+        "wall_seconds": 0.76,
+        "rss_kib": 11520,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 0.57,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-interleaved-32",
+      "input_files": 32,
+      "window": 32,
+      "before": {
+        "wall_seconds": 2.53,
+        "rss_kib": 16896,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.53,
+        "rss_kib": 16512,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-interleaved-128",
+      "input_files": 128,
+      "window": 128,
+      "before": {
+        "wall_seconds": 9.05,
+        "rss_kib": 35328,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 5.61,
+        "rss_kib": 35712,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-window-2",
+      "input_files": 32,
+      "window": 2,
+      "before": {
+        "wall_seconds": 2.04,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.44,
+        "rss_kib": 11136,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-window-8",
+      "input_files": 32,
+      "window": 8,
+      "before": {
+        "wall_seconds": 2.2,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.49,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-empty-first",
+      "input_files": 33,
+      "window": 8,
+      "before": {
+        "wall_seconds": 2.26,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.56,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-empty-middle",
+      "input_files": 33,
+      "window": 8,
+      "before": {
+        "wall_seconds": 2.2,
+        "rss_kib": 12288,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.52,
+        "rss_kib": 11904,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-repeat-contiguous-32-0",
+      "input_files": 32,
+      "window": 32,
+      "before": {
+        "wall_seconds": 2.2,
+        "rss_kib": 16512,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.47,
+        "rss_kib": 16512,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-repeat-contiguous-32-1",
+      "input_files": 32,
+      "window": 32,
+      "before": {
+        "wall_seconds": 2.18,
+        "rss_kib": 16896,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 1.5,
+        "rss_kib": 16896,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-repeat-interleaved-128-0",
+      "input_files": 128,
+      "window": 128,
+      "before": {
+        "wall_seconds": 9.08,
+        "rss_kib": 35328,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 5.26,
+        "rss_kib": 35712,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    },
+    {
+      "case": "real-repeat-interleaved-128-1",
+      "input_files": 128,
+      "window": 128,
+      "before": {
+        "wall_seconds": 9.26,
+        "rss_kib": 35328,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "candidate": {
+        "wall_seconds": 5.15,
+        "rss_kib": 35712,
+        "exit": 0,
+        "bytes": 12168774
+      },
+      "passed": true
+    }
+  ]
+}

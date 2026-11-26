@@ -1,0 +1,42 @@
+{
+  "job": "9648554",
+  "node": "node1814.oscar.ccv.brown.edu",
+  "results": [
+    {
+      "case": "real-single-input",
+      "input_files": 1,
+      "window": 1,
+      "before": {
+        "wall_seconds": 0.34,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 6091561
+      },
+      "candidate": {
+        "wall_seconds": 0.18,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 6091561
+      },
+      "passed": true
+    },
+    {
+      "case": "real-duplicate-input",
+      "input_files": 2,
+      "window": 2,
+      "before": {
+        "wall_seconds": 0.34,
+        "rss_kib": 10752,
+        "exit": 0,
+        "bytes": 12166453
+      },
+      "candidate": {
+        "wall_seconds": 0.32,
+        "rss_kib": 11136,
+        "exit": 0,
+        "bytes": 12166453
+      },
+      "passed": true
+    }
+  ]
+}
