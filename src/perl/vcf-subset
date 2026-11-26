@@ -149,6 +149,7 @@ sub vcf_subset
         my $site_has_nonref = 0;
         my $site_is_private = 1;
         my $ref = $$x{REF};
+        my (%genotype_analysis,%formatted);
 
         for my $col (keys %{$$x{gtypes}})
         {
@@ -159,53 +160,59 @@ sub vcf_subset
                 next;
             }
 
-            my ($alleles,$seps,$is_phased,$is_empty) = $vcf->parse_haplotype($x,$col);
-            my $sample_has_call = 0;
-            my $sample_has_nonref = 0;
-            my @out_alleles;
-
-            for (my $i=0; $i<@$alleles; $i++)
+            my $gt = $$x{gtypes}{$col}{GT};
+            my $key = !exists($$x{gtypes}{$col}{GT}) ? 'M' : defined($gt) ? 'G'.$gt : 'U';
+            my $analysis = $genotype_analysis{$key};
+            if ( !defined $analysis )
             {
-                my ($type,$len,$ht) = $vcf->event_type($ref,$$alleles[$i]);
-                $out_alleles[$i] = $$alleles[$i];
+                my ($alleles,$seps,$is_phased,$is_empty) = $vcf->parse_haplotype($x,$col);
+                my $sample_has_call = 0;
+                my $sample_has_nonref = 0;
+                my @out_alleles;
 
-                # Exclude unwanted variant types if requested
-                if ( exists($$opts{types}) )
+                for (my $i=0; $i<@$alleles; $i++)
                 {
-                    if ( $type eq 's' && $len>1 ) { $type = 'm'; }
-                    elsif ( $type eq 'b' or $type eq 'u' ) { $type = 'o'; }
-                    if ( !exists($$opts{types}{$type}) )
+                    my ($type,$len,$ht) = $vcf->event_type($ref,$$alleles[$i]);
+                    $out_alleles[$i] = $$alleles[$i];
+
+                    # Exclude unwanted variant types if requested
+                    if ( exists($$opts{types}) )
                     {
-                        $out_alleles[$i] = $$opts{replace_with_ref} ? $ref : '.';
-                        next;
+                        if ( $type eq 's' && $len>1 ) { $type = 'm'; }
+                        elsif ( $type eq 'b' or $type eq 'u' ) { $type = 'o'; }
+                        if ( !exists($$opts{types}{$type}) )
+                        {
+                            $out_alleles[$i] = $$opts{replace_with_ref} ? $ref : '.';
+                            next;
+                        }
+                        $sample_has_call = 1;
                     }
-                    $sample_has_call = 1;
+                    elsif ( !$is_empty ) { $sample_has_call = 1; }
+                    if ( $type ne 'r' ) { $sample_has_nonref = 1; }
                 }
-                elsif ( !$is_empty ) { $sample_has_call = 1; }
-                if ( $type ne 'r' ) { $site_has_nonref = 1; $sample_has_nonref = 1; }
+                $analysis = $genotype_analysis{$key} = [$sample_has_call,$sample_has_nonref,$alleles,$seps,\@out_alleles];
             }
+            my ($sample_has_call,$sample_has_nonref) = @$analysis;
+            $site_has_nonref = 1 if $sample_has_nonref;
             if ( $check_private && !$has_col{$col} )
             {
                 if ( $sample_has_nonref ) { $site_is_private=0; }
                 delete($$x{gtypes}{$col});
                 next;
             }
-            if ( !$sample_has_call )
+            $site_has_call = 1 if $sample_has_call;
+            # Formatting is delayed until a selected sample needs it: private
+            # background checks never formatted their genotype in the old path.
+            if ( !exists($formatted{$key}) )
             {
-                if ( $$opts{replace_with_ref} )
+                my @out_alleles = @{$$analysis[4]};
+                if ( !$sample_has_call )
                 {
-                    for (my $i=0; $i<@$alleles; $i++) { $out_alleles[$i] = $ref; }
+                    @out_alleles = map { $$opts{replace_with_ref} ? $ref : '.' } @{$$analysis[2]};
                 }
-                else
-                {
-                    for (my $i=0; $i<@$alleles; $i++) { $out_alleles[$i] = '.'; }
-                }
+                $formatted{$key} = $vcf->format_haplotype(\@out_alleles,$$analysis[3]);
             }
-            else
-            {
-                $site_has_call = 1;
-            }
-            $$x{gtypes}{$col}{GT} = $vcf->format_haplotype(\@out_alleles,$seps);
+            $$x{gtypes}{$col}{GT} = $formatted{$key};
         }
 
         if ( !$site_has_call && !$$opts{keep_uncalled} ) { next; }
