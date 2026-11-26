@@ -2452,14 +2452,24 @@ sub binom
 
 sub validate_gtype_field
 {
-    my ($self,$data,$alts,$format) = @_;
+    my ($self,$data,$alts,$format,$work) = @_;
 
     my @errs;
     my $ploidy = 2; 
     if ( !exists($$data{GT}) ) { push @errs, "The mandatory tag GT not present." unless $$self{ignore_missing_GT}; }
     else
     {
-        my (@als) = $self->split_by($$data{GT},@{$$self{gt_sep}});
+        my @als;
+        if ( $work )
+        {
+            my $tokens = $$work{splits}{$$data{GT}};
+            if ( !defined $tokens )
+            {
+                $tokens = $$work{splits}{$$data{GT}} = [$self->split_by($$data{GT},@{$$self{gt_sep}})];
+            }
+            @als = @$tokens;
+        }
+        else { @als = $self->split_by($$data{GT},@{$$self{gt_sep}}); }
         for my $al (@als)
         {
             if ( $al eq '.' or $al eq '0' ) { next; }
@@ -2469,19 +2479,16 @@ sub validate_gtype_field
         $ploidy = @als;
     }
 
-    # Expected numbers
-    my $ng = -1;
+    # Number=G cardinality is needed only by a field declaring Number=G.
+    # GT-only records should not calculate a binomial for every sample.
+    my ($ng,$no_alt);
     my $na = -1;
     my $nr = -1;
     if ( $$self{version}>4.0 )
     {
-        if ( $$alts[0] eq '.' ) { $ng=1; $na=1; $nr=1; }
-        else
-        {
-            $na = @$alts;
-            $ng = binom($ploidy+$na,$ploidy);
-            $nr = $na+1;
-        }
+        $no_alt = $$alts[0] eq '.';
+        $na = $no_alt ? 1 : scalar @$alts;
+        $nr = $no_alt ? 1 : $na+1;
     }
 
     while (my ($key,$value) = each %$data)
@@ -2497,6 +2504,10 @@ sub validate_gtype_field
         my @vals = split(/,/, $value);
         if ( $$type{Number} eq 'G' )
         {
+            if ( !defined $ng )
+            {
+                $ng = $$self{version}<=4.0 ? -1 : $no_alt ? 1 : binom($ploidy+$na,$ploidy);
+            }
             if ( $ng != @vals && !(@vals==1 && $vals[0] eq '.') ) { push @errs, "FORMAT tag [$key] expected different number of values (expected $ng, found ".scalar @vals.")"; }
         }
         elsif ( $$type{Number} eq 'A' )
@@ -2649,9 +2660,12 @@ sub run_validation
         $err = $self->validate_info_field($$x{INFO},$$x{ALT});
         if ( $err ) { $self->warn("INFO field at $$x{CHROM}:$$x{POS} .. $err\n"); } 
 
+        # Tokens are shared only within this record. Every sample still runs
+        # validation, emits its own diagnostics and invokes its field handlers.
+        my %validation_work = (splits=>{});
         while (my ($gt,$data) = each %{$$x{gtypes}})
         {
-            $err = $self->validate_gtype_field($data,$$x{ALT},$$x{FORMAT});
+            $err = $self->validate_gtype_field($data,$$x{ALT},$$x{FORMAT},\%validation_work);
             if ( $err ) { $self->warn("column $gt at $$x{CHROM}:$$x{POS} .. $err\n"); }
         }
 
