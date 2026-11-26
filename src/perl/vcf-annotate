@@ -517,8 +517,7 @@ sub annotate
             $reader->unread_line($annot_line);
             last;
         }
-        my $annot_blocks;
-        my $queries_before_index = @annot_lines>=128 ? 2 : 0;
+        my $annot_index = prepare_annotation_group(\@annot_lines,$cols);
 #line 498
         # Now loop through the VCF records
         my $line;
@@ -575,31 +574,15 @@ sub annotate
                 }
             }
 
-            # A one-query group does not need an index. Preserve the fast foreach
-            # scan when no blocks can be skipped; otherwise visit bounded slices.
-            if ( $queries_before_index && !--$queries_before_index )
-            {
-                $annot_blocks = prepare_annotation_group(\@annot_lines,$cols);
-            }
-            my $blocks = $annot_blocks && annotation_blocks_for_position($annot_blocks,$pos);
-            my $next_block = 0;
             # Keep legacy diagnostic lines for raw stderr compatibility.
 #line 554
             my %values = ();
             my %ids = ();
-            while (1)
             {
-                my $batch = \@annot_lines;
-                if ( $blocks )
+                my $hits = annotation_rows_for_position($annot_index,$pos);
+                for my $row (@$hits)
                 {
-                    my $start = next_annotation_block($blocks,$next_block,$pos);
-                    if ( $start>=@annot_lines ) { last; }
-                    $next_block = $start+$$blocks{size};
-                    my $end = $next_block<@annot_lines ? $next_block-1 : $#annot_lines;
-                    $batch = [@annot_lines[$start..$end]];
-                }
-                for my $annot_line (@$batch)
-                {
+                    my $annot_line = $annot_lines[$row];
 #line 559
                     if ( $$annot_line[$from_col] > $pos or $$annot_line[$to_col] < $pos ) { next; }
                     if ( defined $alt_col && $$annot_line[$ref_col] ne '.' )
@@ -636,7 +619,6 @@ sub annotate
                     if ( defined $fltr_col && $$annot_line[$fltr_col] ne '' ) { $rec[6] = $$annot_line[$fltr_col]; }
                     if ( defined $qual_col && $$annot_line[$qual_col] ne '' ) { $rec[5] = $$annot_line[$qual_col]; }
                 }
-                if ( !$blocks ) { last; }
 #line 593
             }
             if ( scalar keys %ids ) { $rec[2] = join(';', keys %ids); }
@@ -1540,61 +1522,73 @@ sub trim_annotation_line
     }
 }
 
-# Index only large groups of plain coordinates. Unusual numeric text retains
-# the original comparisons and warning behavior; the bounds are conservative.
+# Balanced interval index: sorted starts and maximum endpoint per subtree.
+# The annotation group owns payloads; the index retains row numbers only.
 sub prepare_annotation_group
 {
     my ($lines,$cols) = @_;
-    my $block_size = 64;
-    if ( @$lines<2*$block_size ) { return undef; }
-    my ($from_col,$to_col) = ($$cols{FROM},$$cols{TO});
-    for my $line (@$lines)
-    {
-        for my $column ($from_col,$to_col)
-        {
-            my $value = $$line[$column];
-            if ( !defined($value) || ref($value) || $value!~/\A[0-9]{1,10}\z/ ) { return undef; }
-        }
-    }
-
-    my (@from,@to,$all_from,$all_to);
-    for (my $start=0; $start<@$lines; $start+=$block_size)
-    {
-        my ($low,$high) = @{$$lines[$start]}[$from_col,$to_col];
-        my $end = $start+$block_size;
-        if ( $end>@$lines ) { $end=@$lines; }
-        for (my $i=$start+1; $i<$end; $i++)
-        {
-            if ( $$lines[$i][$from_col]<$low ) { $low=$$lines[$i][$from_col]; }
-            if ( $$lines[$i][$to_col]>$high ) { $high=$$lines[$i][$to_col]; }
-        }
-        push @from,$low;
-        push @to,$high;
-        if ( !defined($all_from) || $all_from<$low ) { $all_from=$low; }
-        if ( !defined($all_to) || $all_to>$high ) { $all_to=$high; }
-    }
-    return {size=>$block_size,from=>\@from,to=>\@to,all_from=>$all_from,all_to=>$all_to};
+    my ($from,$to) = @{$cols}{'FROM','TO'};
+    my @order = sort { $$lines[$a][$from] <=> $$lines[$b][$from] || $a <=> $b } 0..$#$lines;
+    my $index = {lines=>$lines,from=>$from,to=>$to,order=>\@order,ends=>[sort {$a<=>$b} map { $$_[$to] } @$lines],max=>[]};
+    annotation_index_build($index,1,0,scalar @order) if @order;
+    return $index;
 }
 
-sub annotation_blocks_for_position
+sub annotation_index_build
 {
-    my ($blocks,$pos) = @_;
-    if ( !$blocks || !defined($pos) || ref($pos) || $pos!~/\A[0-9]{1,10}\z/ ) { return undef; }
-    # All blocks intersect here: use the original full scan without per-block work.
-    if ( $pos>=$$blocks{all_from} && $pos<=$$blocks{all_to} ) { return undef; }
-    return $blocks;
+    my ($index,$node,$start,$end) = @_;
+    if ( $end-$start==1 )
+    {
+        return $$index{max}[$node] = $$index{lines}[$$index{order}[$start]][$$index{to}];
+    }
+    my $mid = int(($start+$end)/2);
+    my $left = annotation_index_build($index,2*$node,$start,$mid);
+    my $right = annotation_index_build($index,2*$node+1,$mid,$end);
+    return $$index{max}[$node] = $left>$right ? $left : $right;
 }
 
-sub next_annotation_block
+sub annotation_rows_for_position
 {
-    my ($blocks,$row,$pos) = @_;
-    my $block = int($row/$$blocks{size});
-    while ( $block<@{$$blocks{from}} )
+    my ($index,$pos) = @_;
+    # The hit set changes only when a start is reached or an end is passed.
+    # Cache one such cell; arbitrary query order remains valid.
+    if ( exists($$index{hits})
+        && (!defined($$index{lower_start}) || $pos>=$$index{lower_start})
+        && (!defined($$index{lower_end}) || $pos>$$index{lower_end})
+        && (!defined($$index{upper_start}) || $pos<$$index{upper_start})
+        && (!defined($$index{upper_end}) || $pos<=$$index{upper_end}) ) { return $$index{hits}; }
+    my ($lo,$hi) = (0,scalar @{$$index{order}});
+    while ( $lo<$hi )
     {
-        if ( $$blocks{from}[$block]<=$pos && $$blocks{to}[$block]>=$pos ) { last; }
-        $block++;
+        my $mid=int(($lo+$hi)/2);
+        if ( $$index{lines}[$$index{order}[$mid]][$$index{from}]<=$pos ) { $lo=$mid+1; } else { $hi=$mid; }
     }
-    return $block*$$blocks{size};
+    my $starts=$lo;
+    ($lo,$hi)=(0,scalar @{$$index{ends}});
+    while ( $lo<$hi )
+    {
+        my $mid=int(($lo+$hi)/2);
+        if ( $$index{ends}[$mid]<$pos ) { $lo=$mid+1; } else { $hi=$mid; }
+    }
+    $$index{lower_start}=$starts ? $$index{lines}[$$index{order}[$starts-1]][$$index{from}] : undef;
+    $$index{upper_start}=$starts<@{$$index{order}} ? $$index{lines}[$$index{order}[$starts]][$$index{from}] : undef;
+    $$index{lower_end}=$lo ? $$index{ends}[$lo-1] : undef;
+    $$index{upper_end}=$lo<@{$$index{ends}} ? $$index{ends}[$lo] : undef;
+    my @hits;
+    annotation_index_query($index,1,0,scalar @{$$index{order}},$pos,\@hits) if @{$$index{order}};
+    # Original annotation order controls INFO lists and last-writer fields.
+    return $$index{hits} = [sort {$a<=>$b} @hits];
+}
+
+sub annotation_index_query
+{
+    my ($index,$node,$start,$end,$pos,$hits) = @_;
+    return if $$index{max}[$node]<$pos;
+    return if $$index{lines}[$$index{order}[$start]][$$index{from}]>$pos;
+    if ( $end-$start==1 ) { push @$hits,$$index{order}[$start]; return; }
+    my $mid = int(($start+$end)/2);
+    annotation_index_query($index,2*$node,$start,$mid,$pos,$hits);
+    annotation_index_query($index,2*$node+1,$mid,$end,$pos,$hits);
 }
 
 

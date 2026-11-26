@@ -294,7 +294,7 @@ sub vcf_isec
 sub do_chrm_isec
 {
     my ($opts,$vcfs) = @_;
-    local $$opts{_isec_prune_finished} = 1 unless $$opts{split};
+    local $$opts{_position_tree};
     my $debug = $$opts{debug} ? 1 : 0;
     my $win   = $$opts{win} ? $$opts{win} : 0;
     my $complement = $$opts{complement} ? 1 : 0;
@@ -308,10 +308,9 @@ sub do_chrm_isec
         $isec_op     = $$opts{isec_op};
     }
     my $split = $$opts{split};
-    my @active_vcfs = $split ? () : @$vcfs; # Split output sorts references: retain its original allocation path.
     while (1)
     {
-        my $grp = $split ? read_next_group($opts,$vcfs,$win) : read_next_group($opts,\@active_vcfs,$win);
+        my $grp = read_next_group($opts,$vcfs,$win);
         if ( !$grp || !scalar @$grp ) { last }
 
         if ( $debug )
@@ -479,33 +478,59 @@ sub get_min_position
 {
     my ($opts,$vcfs) = @_;
 
-    my ($min_pos,$min_vcf,$finished);
-    for my $vcf (@$vcfs)
+    my $tree = $$opts{_position_tree};
+    if ( !$tree )
     {
-        # Check if there is a line in the buffer, if not, read. If still empty, the file reached eof
-        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { read_line($opts,$vcf); }
-        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { $finished=1; next; }
-
-        my $line = $$vcf{buf}[0];
-
-        # Designate this position as the minimum of all the files if:
-        # .. is this the first file?
-        if ( !$min_pos )
+        my $base = 1;
+        $base *= 2 while $base < @$vcfs;
+        $tree = $$opts{_position_tree} = {base=>$base,files=>[@$vcfs],winner=>[],reset=>[]};
+        for (my $i=0; $i<@$vcfs; $i++)
         {
-            $min_pos = $$line{pos};
-            $min_vcf = $vcf;
-            next;
-        }
-
-        # .. has this file lower position?
-        if ( $min_pos>$$line{pos} )
-        {
-            $min_pos = $$line{pos};
-            $min_vcf = $vcf;
-            next;
+            read_line($opts,$$vcfs[$i]) unless $$vcfs[$i]{buf} && @{$$vcfs[$i]{buf}};
+            position_tree_update($tree,$i);
         }
     }
-    prune_finished_sources($vcfs) if $$opts{_isec_prune_finished} && $finished; return $min_vcf;
+    # Only the previous winner can have had its head consumed by the caller.
+    if ( defined $$tree{previous} )
+    {
+        my $i = $$tree{previous};
+        my $file = $$tree{files}[$i];
+        if ( !$$file{buf} || !@{$$file{buf}} )
+        {
+            read_line($opts,$file);
+            position_tree_update($tree,$i);
+        }
+    }
+    my $i = $$tree{winner}[1];
+    $$tree{previous} = $i;
+    return defined($i) ? $$tree{files}[$i] : undef;
+}
+
+# An ordered tournament preserves the original left-to-right tie rule. A
+# false-valued position resets that scan, including tab-delimited position 0.
+sub position_tree_update
+{
+    my ($tree,$i) = @_;
+    my $node = $$tree{base}+$i;
+    my $file = $$tree{files}[$i];
+    my $present = $$file{buf} && @{$$file{buf}};
+    $$tree{winner}[$node] = $present ? $i : undef;
+    $$tree{reset}[$node] = $present && !$$file{buf}[0]{pos};
+    while ( $node>1 )
+    {
+        $node = int($node/2);
+        my ($left,$right) = @{$$tree{winner}}[2*$node,2*$node+1];
+        my $winner;
+        if ( !defined $left ) { $winner=$right; }
+        elsif ( !defined $right ) { $winner=$left; }
+        elsif ( $$tree{reset}[2*$node+1] || !$$tree{files}[$left]{buf}[0]{pos} ) { $winner=$right; }
+        else
+        {
+            $winner = $$tree{files}[$left]{buf}[0]{pos} > $$tree{files}[$right]{buf}[0]{pos} ? $right : $left;
+        }
+        $$tree{winner}[$node] = $winner;
+        $$tree{reset}[$node] = $$tree{reset}[2*$node] || $$tree{reset}[2*$node+1];
+    }
 }
 
 # Read one line from a VCF or Reader, split it and save it to a buffer.
