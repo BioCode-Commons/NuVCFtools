@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "cases": 7,
+  "successful_runs": 28,
+  "error_checks": 8,
+  "audit_note": "Prior job exited on an invalid expectation that old undefined behavior must always fail. All candidate checks passed, and retained path-test outputs were compared again. Initial failure metadata retained."
+}

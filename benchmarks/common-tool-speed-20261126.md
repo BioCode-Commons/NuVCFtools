@@ -64,3 +64,7 @@ These are GT-only cohort measurements, not performance evidence for every FORMAT
 ## Concat follow-up
 
 The [concat experiment](common-speed-concat-20261126.md) passed 16 actual-data pairs, two additional input-lifecycle pairs and the existing chromosome-list object interface. For interleaved 128-file input, medians were 9.08 → 5.26 seconds (1.73×); for contiguous 32-file input, 2.20 → 1.47 seconds (1.50×). These compare against the previous concat implementation, not upstream, and are separate from the 15-task table above.
+
+## Optional parallel chi-square follow-up
+
+The [larger-data LD report](parallel-ld-20261126.md) measures `--geno-chisq --ld-threads 1/4/8` on 500 and 2,504 samples. Eight workers improve wall time by 3.61–3.89× over the preceding optimized one-core version, while using more memory. Default one-core execution is about 3% slower in those measurements. These results apply to that command and tested region, and do not replace the different revisions and inputs measured in the table above.

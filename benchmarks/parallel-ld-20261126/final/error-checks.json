@@ -1,0 +1,44 @@
+[
+  {
+    "case": "invalid-option-0",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "invalid-option-1",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "invalid-option-2",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "invalid-option-3",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "invalid-option-4",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "invalid-option-5",
+    "exit": 1,
+    "passed": true
+  },
+  {
+    "case": "full-output",
+    "exit": 12,
+    "temp_files_remaining": 0,
+    "passed": true
+  },
+  {
+    "case": "descriptor-limit",
+    "exit": 12,
+    "temp_files_remaining": 0,
+    "passed": true
+  }
+]

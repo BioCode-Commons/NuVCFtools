@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH --job-name=nuvcf-native-controls
+#SBATCH --partition=batch
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=8
+#SBATCH --hint=nomultithread
+#SBATCH --mem=8G
+#SBATCH --time=00:20:00
+#SBATCH --output=resume-%j.out
+#SBATCH --error=resume-%j.err
+set -euo pipefail
+cd "${SLURM_SUBMIT_DIR:?}"
+module purge
+module load bcftools/1.21-yc5i
+python3 -u run.py controls-resume
