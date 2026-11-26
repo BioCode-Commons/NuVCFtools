@@ -203,10 +203,11 @@ sub collect_stats
         my $key = defined($gt) ? "G$gt" : "M";
         if ( !exists($sample_groups{$key}) )
         {
-            $sample_groups{$key} = [$sample,[]];
+            $sample_groups{$key} = [$sample,[],0];
             push @sample_groups, $sample_groups{$key};
         }
         push @{$sample_groups{$key}[1]}, @$stats;
+        $sample_groups{$key}[2]++;
     }
     for my $group (@sample_groups)
     {
@@ -219,49 +220,43 @@ sub collect_stats
     #   - there is a nonref variant present only in this sample (samples->sample_name->private)
     #   - there is a nonref variant in N samples (samples->all->shared)
     #   - there is a non-empty call (samples->sample_name->count)
-    my %genotype_counts;
     my $shared = 0;
     my $sample_name;
-    while (my ($sample,$stats) = each %$sample_stats)
+    # Reuse the exact GT groups above. Count samples separately from statistic
+    # destinations: a filtered sample can contribute to several destinations.
+    for my $group (@sample_groups)
     {
-        my $gt = $$rec{gtypes}{$sample}{GT};
-        my $cache_key = defined($gt) ? "G$gt" : "M";
-        my $counts = $genotype_counts{$cache_key};
-        if ( !defined $counts )
+        my ($sample,$stats,$copies) = @$group;
+        my ($alleles,$seps,$is_phased,$is_empty) = $self->parse_haplotype($rec,$sample);
+        my @keys;
+        my $is_ref = 1;
+        if ( !$is_empty )
         {
-            my ($alleles,$seps,$is_phased,$is_empty) = $self->parse_haplotype($rec,$sample);
-            my @keys;
-            my $is_ref = 1;
-            if ( !$is_empty )
+            my $is_hom = 1;
+            my %types;
+            for my $al (@$alleles)
             {
-                my $is_hom = 1;
-                my %types;
-                for my $al (@$alleles)
-                {
-                    if ( $$alleles[0] ne $al ) { $is_hom=0; }
-                    my ($type) = $self->event_type($rec,$al);
-                    $types{$type} = 1;
-                    if ( $type ne 'r' ) { $is_ref=0; }
-                }
-                push @keys, 'count';
-                for my $type (keys %types)
-                {
-                    my $key = exists($type_keys{$type}) ? $type_keys{$type} : 'other';
-                    push @keys, $key.'_count';
-                }
-                my $key = exists($types{r}) ? ($is_hom ? 'hom_RR' : 'het_RA')
-                    : ($is_hom ? 'hom_AA' : 'het_AA');
-                push @keys, $key.'_count', $is_phased ? 'phased' : 'unphased';
+                if ( $$alleles[0] ne $al ) { $is_hom=0; }
+                my ($type) = $self->event_type($rec,$al);
+                $types{$type} = 1;
+                if ( $type ne 'r' ) { $is_ref=0; }
             }
-            $counts = $genotype_counts{$cache_key} = [\@keys,$is_ref];
+            push @keys, 'count';
+            for my $type (keys %types)
+            {
+                my $key = exists($type_keys{$type}) ? $type_keys{$type} : 'other';
+                push @keys, $key.'_count';
+            }
+            my $key = exists($types{r}) ? ($is_hom ? 'hom_RR' : 'het_RA')
+                : ($is_hom ? 'hom_AA' : 'het_AA');
+            push @keys, $key.'_count', $is_phased ? 'phased' : 'unphased';
         }
-        for my $key (@{$$counts[0]})
+        for my $key (@keys)
         {
             for my $stat (@$stats) { $$stat{$key}++; }
         }
-        my $is_ref = $$counts[1];
         if ( $is_ref ) { next; }
-        $shared++;
+        $shared += $copies;
         if ( !defined $sample_name ) { $sample_name = $sample; }
     }
     $$self{stats}{all}{shared}{$shared}++;
