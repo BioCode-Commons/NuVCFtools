@@ -1,0 +1,438 @@
+{
+  "node": "node1807.oscar.ccv.brown.edu",
+  "job": "9647522",
+  "results": [
+    {
+      "case": "real-missing-indv-0",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.33,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.14,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-indv-1",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.31,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.14,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-indv-2",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.33,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.13,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-site-0",
+      "flags": [
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.53,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.28,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-site-1",
+      "flags": [
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.53,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.28,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-missing-site-2",
+      "flags": [
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 4.5,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.28,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-indv-0",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.13,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.59,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-indv-1",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.14,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.58,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-indv-2",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.14,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.58,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 25087
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-site-0",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.3,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.72,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-site-1",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.28,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.73,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-kept-site-2",
+      "flags": [
+        "--keep",
+        "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/keep.txt",
+        "--missing-site"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 3.29,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "candidate": {
+        "wall_seconds": 2.72,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".lmiss": 514835
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filtered-0",
+      "flags": [
+        "--minGQ",
+        "5",
+        "--minDP",
+        "10",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.92,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.55,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filtered-1",
+      "flags": [
+        "--minGQ",
+        "5",
+        "--minDP",
+        "10",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.92,
+        "rss_kib": 5760,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.55,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-filtered-2",
+      "flags": [
+        "--minGQ",
+        "5",
+        "--minDP",
+        "10",
+        "--missing-indv"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "before": {
+        "wall_seconds": 5.92,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "candidate": {
+        "wall_seconds": 4.55,
+        "rss_kib": 5376,
+        "exit": 0,
+        "files": {
+          ".imiss": 50127
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-bcf-missing-indv",
+      "flags": [
+        "--missing-indv"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/prepared.recode.bcf",
+      "before": {
+        "wall_seconds": 0.1,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 2047
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.11,
+        "rss_kib": 4224,
+        "exit": 0,
+        "files": {
+          ".imiss": 2047
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-bcf-missing-site",
+      "flags": [
+        "--missing-site"
+      ],
+      "input": "/sss/jobtmp/zliu328/nuvcftools-kept-batch-20261126/data/prepared.recode.bcf",
+      "before": {
+        "wall_seconds": 0.23,
+        "rss_kib": 4608,
+        "exit": 0,
+        "files": {
+          ".lmiss": 492453
+        }
+      },
+      "candidate": {
+        "wall_seconds": 0.22,
+        "rss_kib": 4608,
+        "exit": 0,
+        "files": {
+          ".lmiss": 492453
+        }
+      },
+      "passed": true
+    }
+  ]
+}
