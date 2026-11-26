@@ -218,14 +218,24 @@ void vcf_entry::parse_genotype_entry(unsigned int indv, bool GT, bool GQ, bool D
 // Read the VCF entry and fully populate the object
 void vcf_entry::parse_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
 {
+	parse_genotype_batch(GT, GQ, DP, FT, false);
+}
+
+void vcf_entry::parse_kept_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
+{
+	parse_genotype_batch(GT, GQ, DP, FT, true);
+}
+
+void vcf_entry::parse_genotype_batch(bool GT, bool GQ, bool DP, bool FT, bool kept_only)
+{
 	if (N_indv == 0)
 		return;
 
 	// Preserve the initialization performed by the first single-entry call,
 	// even when no fields were requested or every requested field is cached.
-	if (fully_parsed == false)
+	if (!kept_only && fully_parsed == false)
 		parse_full_entry(true);
-	if (parsed_FORMAT == false)
+	if (!kept_only && parsed_FORMAT == false)
 		set_FORMAT(FORMAT_str);
 
 	// Identical neighbouring sample text has identical requested fields within
@@ -235,6 +245,17 @@ void vcf_entry::parse_genotype_entries(bool GT, bool GQ, bool DP, bool FT)
 	unsigned int previous_fields = 0;
 	for (unsigned int ui=0; ui<N_indv; ui++)
 	{
+		if (kept_only && (!include_indv[ui] || !include_genotype[ui]))
+			continue;
+		// Existing values may have been set through the public API. The kept
+		// path preserves its former single-call behavior for those samples.
+		if (kept_only && ((GT && parsed_GT[ui]) || (GQ && parsed_GQ[ui]) ||
+			(DP && parsed_DP[ui]) || (FT && parsed_FT[ui])))
+		{
+			parse_genotype_entry(ui, GT, GQ, DP, FT);
+			previous = N_indv;
+			continue;
+		}
 		const bool need_GT = GT && !parsed_GT[ui];
 		const bool need_GQ = GQ && !parsed_GQ[ui];
 		const bool need_DP = DP && !parsed_DP[ui];

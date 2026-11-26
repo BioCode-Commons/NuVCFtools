@@ -34,6 +34,7 @@ public:
 	virtual void parse_full_entry(bool parse_FORMAT=true) = 0;
 	virtual void parse_genotype_entry(unsigned int indv, bool GT=false, bool GQ=false, bool DP=false, bool FT=false) = 0;
 	virtual void parse_genotype_entries(bool GT=false, bool GQ=false, bool DP=false, bool FT=false) = 0;
+	virtual void parse_kept_genotype_entries(bool GT=false, bool GQ=false, bool DP=false, bool FT=false);
 
 	virtual void reset(const vector<char> &data_line) = 0;
 	int apply_filters(const parameters &params);
