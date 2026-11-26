@@ -622,7 +622,12 @@ sub read_line
         if ( $$prev{pos} == $pos ) { warn("Position $chr:$pos appeared twice in $$vcf{file}\n"); }
     }
 
-    push @{$$vcf{buf}}, { chr=>$chr, pos=>$pos, ref=>$ref, alt=>$alt, line=>$line, vcf=>$vcf };
+    # The intersection algorithm uses positions and source membership only.
+    # REF and ALT remain in the original line; duplicating their hash entries
+    # for every buffered record wastes memory in windowed clusters.
+    push @{$$vcf{buf}}, $$opts{split}
+        ? { chr=>$chr, pos=>$pos, ref=>$ref, alt=>$alt, line=>$line, vcf=>$vcf }
+        : { chr=>$chr, pos=>$pos, line=>$line, vcf=>$vcf };
     return;
 }
 
