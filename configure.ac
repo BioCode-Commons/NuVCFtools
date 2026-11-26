@@ -20,10 +20,10 @@ AC_PROG_CPP
 # compiler/runtime cannot provide them, rather than silently ignoring the option.
 AC_LANG_PUSH([C++])
 ld_saved_CXXFLAGS="$CXXFLAGS"
-CXXFLAGS="$CXXFLAGS -std=c++11 -pthread"
+CXXFLAGS="$CXXFLAGS -pthread"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <thread>]],
     [[std::thread worker([] {}); worker.join();]])], [],
-    [AC_MSG_ERROR([A C++11 compiler with POSIX thread support is required])])
+    [AC_MSG_ERROR([A C++11-capable compiler with POSIX threads is required; set CXXFLAGS=-std=c++11 if needed])])
 CXXFLAGS="$ld_saved_CXXFLAGS"
 AC_LANG_POP([C++])
 

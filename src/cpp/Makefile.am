@@ -2,7 +2,7 @@ bin_PROGRAMS = vcftools
 
 vcftools_CPPFLAGS = $(ZLIB_CFLAGS)
 vcftools_LDADD = $(ZLIB_LIBS)
-vcftools_CXXFLAGS = $(AM_CXXFLAGS) -std=c++11 -pthread
+vcftools_CXXFLAGS = $(AM_CXXFLAGS) -pthread
 vcftools_LDFLAGS = -pthread
 
 vcftools_SOURCES = \
