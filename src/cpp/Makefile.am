@@ -30,6 +30,7 @@ vcftools_SOURCES = \
 	ld_bitsets.cpp \
 	ld_bitsets.h \
 	ld_chisq.h \
+	relatedness_block.h \
 	output_log.cpp \
 	output_log.h \
 	parameters.cpp \
@@ -57,3 +58,7 @@ TESTS = ld-bitsets-test
 ld_bitsets_test_SOURCES = tests/ld_bitsets_test.cpp ld_bitsets.cpp ld_bitsets.h
 
 EXTRA_DIST = tests/tab_field_reader_fuzz.cpp
+
+check_PROGRAMS += relatedness-block-test
+TESTS += relatedness-block-test
+relatedness_block_test_SOURCES = tests/relatedness_block_test.cpp relatedness_block.h

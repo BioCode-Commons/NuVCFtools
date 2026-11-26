@@ -7,6 +7,7 @@
  */
 #include "variant_file.h"
 #include "ld_chisq.h"
+#include "relatedness_block.h"
 
 void variant_file::output_frequency(const parameters &params, bool output_counts)
 {
@@ -4875,17 +4876,10 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 	vector<int> allele_counts;
 	unsigned int N_alleles;
 	pair<int, int> geno_id;
-	pair<int, int> geno_id2;
-	// Store each symmetric pair once, including the diagonal. Row i contains
-	// pairs (i,i) through (i,N-1), without an additional indexing container.
-	vector<vector<double> > N_AaAa(meta_data.N_indv);
-	vector<vector<double> > N_AAaa(meta_data.N_indv);
+	vector<unsigned int> individuals;
 	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
-	{
-		N_AaAa[ui].resize(meta_data.N_indv-ui, 0.0);
-		N_AAaa[ui].resize(meta_data.N_indv-ui, 0.0);
-	}
-	vector<double > N_Aa(meta_data.N_indv, 0.0);
+		if (include_indv[ui]) individuals.push_back(ui);
+	relatedness_block counts(individuals.size());
 
 	while(!eof())
 	{
@@ -4912,62 +4906,30 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
 			continue;
 		}
 
-		for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+		for (size_t i=0; i<individuals.size(); ++i)
 		{
-			if (include_indv[ui] == false)
-				continue;
-
-			e->get_indv_GENOTYPE_ids(ui, geno_id);
-			if ((geno_id.first != geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
-			{
-				N_Aa[ui]++;
-			}
-
-			for (unsigned int uj=ui; uj<meta_data.N_indv; uj++)
-			{
-				if (include_indv[uj] == false)
-					continue;
-
-				e->get_indv_GENOTYPE_ids(uj, geno_id2);
-				if ((geno_id.first != geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
-				{
-					if ((geno_id2.first != geno_id2.second) && (geno_id2.first >= 0) && (geno_id2.second >= 0))
-					{
-						N_AaAa[ui][uj-ui]++;
-					}
-				}
-				if ((geno_id.first == geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
-				{
-					if ((geno_id2.first == geno_id2.second) && (geno_id2.first >= 0) && (geno_id2.second >= 0))
-					{
-						if (geno_id.first != geno_id2.first)
-						{
-							N_AAaa[ui][uj-ui]++;
-						}
-					}
-				}
-			}
+			e->get_indv_GENOTYPE_ids(individuals[i], geno_id);
+			counts.append(i, geno_id.first, geno_id.second);
 		}
+		counts.finish_site();
 	}
+	counts.flush();
 
-	for (unsigned int ui=0; ui<meta_data.N_indv; ui++)
+	for (size_t i=0; i<individuals.size(); ++i)
 	{
-		if (include_indv[ui] == false)
-			continue;
-		for (unsigned int uj=0; uj<meta_data.N_indv; uj++)
+		for (size_t j=0; j<individuals.size(); ++j)
 		{
-			if (include_indv[uj] == false)
-				continue;
-			// Read the mirrored counter while retaining the original full output
-			// order and the original order of the two individual denominators.
-			const unsigned int row = min(ui, uj);
-			const unsigned int offset = max(ui, uj) - row;
-			const double phi = (N_AaAa[row][offset] - 2.0*N_AAaa[row][offset]) / (N_Aa[ui] + N_Aa[uj]);
-			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj];
-			out << "\t" << N_AaAa[row][offset] << "\t" << N_AAaa[row][offset] << "\t" << N_Aa[ui] << "\t" << N_Aa[uj];
-			out << "\t" << phi << endl;
+			const size_t row = min(i, j), offset = max(i, j)-row;
+			const double phi = (counts.both_het[row][offset] - 2.0*counts.opposite_hom[row][offset])
+				/ (counts.heterozygotes[i] + counts.heterozygotes[j]);
+			out << meta_data.indv[individuals[i]] << "\t" << meta_data.indv[individuals[j]];
+			out << "\t" << counts.both_het[row][offset] << "\t" << counts.opposite_hom[row][offset]
+				<< "\t" << counts.heterozygotes[i] << "\t" << counts.heterozygotes[j] << "\t" << phi;
+			if (params.stream_out) out << endl;
+			else out << '\n';
 		}
 	}
+
 	delete e;
 }
 
