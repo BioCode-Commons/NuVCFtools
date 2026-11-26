@@ -2698,13 +2698,21 @@ sub run_validation
 sub get_chromosomes
 {
     my ($self) = @_;
-    if ( !$$self{file} ) { $self->throw(qq[The parameter "file" not set.\n]); }
-    my (@out) = `tabix -l '$$self{file}'`;
+    return $self->_get_file_chromosomes($$self{file});
+}
+
+# Index discovery does not require opening or decompressing the VCF body.
+# Both object and class callers use the same tabix command and errors.
+sub _get_file_chromosomes
+{
+    my ($self,$file) = @_;
+    if ( !$file ) { $self->throw(qq[The parameter "file" not set.\n]); }
+    my (@out) = `tabix -l '$file'`;
     if ( $? ) 
     { 
         my @has_tabix = `which tabix`;
         if ( !@has_tabix ) { $self->throw(qq[The command "tabix" not found, please add it to your PATH\n]); }
-        $self->throw(qq[The command "tabix -l $$self{file}" exited with an error. Is the file tabix indexed?\n]); 
+        $self->throw(qq[The command "tabix -l $file" exited with an error. Is the file tabix indexed?\n]);
     }
     for (my $i=0; $i<@out; $i++) { chomp($out[$i]); }
     return \@out;

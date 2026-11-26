@@ -217,8 +217,7 @@ sub get_chromosomes
     my %has_chrm;
     for my $file (@$files)
     {
-        my $vcf = Vcf->new(file=>$file);
-        my $chrms = $vcf->get_chromosomes();
+        my $chrms = VcfReader->_get_file_chromosomes($file);
         for my $chr (@$chrms)
         {
             if ( exists($has_chrm{$chr}) ) { next; }
@@ -237,9 +236,8 @@ sub concat_merge
     my $chroms = get_chromosomes($$opts{files});
     for my $chr (@$chroms)
     {
-        my $reader = Reader->new(files=>$$opts{files},nsort=>$$opts{sort},seq=>$chr,header_printed=>$header_printed);
-        # Small merges keep the original path; cache only native buffered heads.
-        $$reader{cache_heads} = $$reader{nsort}=~/\A[0-9]+\z/ && $$reader{nsort}>=4;
+        my $reader = Reader->new(files=>$$opts{files},nsort=>$$opts{sort},seq=>$chr,header_printed=>$header_printed,position_tree=>1);
+        # Each CLI reader maintains its own active-window position tree.
 #line 241
         $header_printed = 1;
         $reader->open_next();
@@ -338,6 +336,19 @@ sub open_next
 
         shift(@{$$self{idxs}});
         shift(@{$$self{vcfs}});
+        if ( my $state = $$self{_position_state} )
+        {
+            if ( defined $$state{head}[0] )
+            {
+                my $chr = $$state{chromosome}[0];
+                delete $$state{chromosomes}{$chr} unless --$$state{chromosomes}{$chr};
+            }
+            shift @{$$state{head}};
+            shift @{$$state{chromosome}};
+            shift @{$$state{position}};
+            shift @{$$state{loaded}};
+            $$state{ready} = 0;
+        }
         if ( $$self{cache_heads} )
         {
             shift(@{$$self{head_cache}});
@@ -370,6 +381,7 @@ sub open_next
 sub next_line
 {
     my ($self) = @_;
+    return $self->next_tree_line() if $$self{position_tree};
 
     my $min = $$self{vcfs}[0]->next_line();
     if ( !defined $min ) { return undef; }
@@ -440,6 +452,92 @@ sub next_line
     if ( $cache ) { $$cache[$min_index] = undef; }
 #line 389
     return $min;
+}
+
+# A consumed head is reloaded only on the next request. In particular, EOF
+# on the first active file still returns control to open_next before any other
+# file advances: -s is a sliding window, not a global sort of all input files.
+sub next_tree_line
+{
+    my ($self) = @_;
+    my $state = $$self{_position_state} ||= {
+        head=>[], chromosome=>[], position=>[], loaded=>[], chromosomes=>{}, ready=>0,
+    };
+    $self->load_tree_head($state,0) unless $$state{loaded}[0];
+    return undef unless defined $$state{head}[0];
+    my $chromosome = $$state{chromosome}[0];
+
+    if ( !$$state{ready} )
+    {
+        my $nfiles = @{$$self{vcfs}};
+        for (my $i=1; $i<$nfiles; $i++)
+        {
+            $self->load_tree_head($state,$i) unless $$state{loaded}[$i];
+            if ( defined($$state{head}[$i]) && $$state{chromosome}[$i] ne $chromosome )
+            {
+                $self->throw("FIXME: When run with the -s option, only one chromosome can be present.\n");
+            }
+        }
+        my $base = 1;
+        $base *= 2 while $base<$nfiles;
+        $$state{base} = $base;
+        $$state{winner} = [(undef) x (2*$base)];
+        for (my $i=0; $i<$nfiles; $i++)
+        {
+            $$state{winner}[$base+$i] = $i if defined $$state{head}[$i];
+        }
+        for (my $node=$base-1; $node>0; $node--)
+        {
+            $$state{winner}[$node] = tree_winner($state,$$state{winner}[2*$node],$$state{winner}[2*$node+1]);
+        }
+        $$state{ready} = 1;
+    }
+    else
+    {
+        my $previous = $$state{previous};
+        $self->load_tree_head($state,$previous) unless $$state{loaded}[$previous];
+        my $node = $$state{base}+$previous;
+        $$state{winner}[$node] = defined($$state{head}[$previous]) ? $previous : undef;
+        while ( ($node=int($node/2))>0 )
+        {
+            $$state{winner}[$node] = tree_winner($state,$$state{winner}[2*$node],$$state{winner}[2*$node+1]);
+        }
+        if ( keys(%{$$state{chromosomes}})>1 || !exists($$state{chromosomes}{$chromosome}) )
+        {
+            $self->throw("FIXME: When run with the -s option, only one chromosome can be present.\n");
+        }
+    }
+
+    my $winner = $$state{winner}[1];
+    my $line = $$state{head}[$winner];
+    my $chr = $$state{chromosome}[$winner];
+    delete $$state{chromosomes}{$chr} unless --$$state{chromosomes}{$chr};
+    $$state{head}[$winner] = undef;
+    $$state{loaded}[$winner] = 0;
+    $$state{previous} = $winner;
+    return $line;
+}
+
+sub load_tree_head
+{
+    my ($self,$state,$i) = @_;
+    my $line = $$self{vcfs}[$i]->next_line();
+    $$state{loaded}[$i] = 1;
+    $$state{head}[$i] = $line;
+    return unless defined $line;
+    if ( !($line=~/^(\S+)\t(\d+)/) ) { $self->throw("Could not parse the line: $line\n"); }
+    $$state{chromosome}[$i] = $1;
+    $$state{position}[$i] = $2;
+    $$state{chromosomes}{$1}++;
+}
+
+sub tree_winner
+{
+    my ($state,$left,$right) = @_;
+    return $right unless defined $left;
+    return $left unless defined $right;
+    my $order = $$state{position}[$left] <=> $$state{position}[$right];
+    return $order<0 || ($order==0 && $left<$right) ? $left : $right;
 }
 
 # Only the CLI enables this path. Custom readers, tied storage and overrides
