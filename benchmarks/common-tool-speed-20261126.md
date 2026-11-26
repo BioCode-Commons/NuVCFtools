@@ -64,3 +64,7 @@ These are GT-only cohort measurements, not performance evidence for every FORMAT
 ## Concat follow-up
 
 The [concat experiment](common-speed-concat-20261126.md) passed 16 actual-data pairs, two additional input-lifecycle pairs and the existing chromosome-list object interface. For interleaved 128-file input, medians were 9.08 → 5.26 seconds (1.73×); for contiguous 32-file input, 2.20 → 1.47 seconds (1.50×). These compare against the previous concat implementation, not upstream, and are separate from the 15-task table above.
+
+## Chi-square workspace follow-up
+
+The [workspace experiment](common-speed-ld-workspace-20261126.md) passed six actual-data pairs with complete byte comparisons. Relative to the buffered chi-square candidate used above, the 1 kb file-output median fell from 3.24 to 2.52 seconds (1.29×), and one 10 kb run fell from 27.62 to 22.03 seconds (1.25×). Peak RSS was essentially unchanged. These are incremental single-core measurements; the upstream table retains its original measured values. Parallel scheduling remains unimplemented.

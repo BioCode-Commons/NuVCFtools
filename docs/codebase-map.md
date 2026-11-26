@@ -60,7 +60,7 @@ The C++ parser/filter path is not currently safe to run concurrently by construc
 
 Some filters also depend on record order. Floating-point aggregate reductions can change output bytes when their addition order changes.
 
-The first parallel candidate is the LD chi-square pair stage. Its numerical kernel uses local scratch arrays; the gamma coefficient table is immutable. A small interface accepting read-only genotypes and returning a result would isolate the parallel work. Each worker needs its own input handle and scratch space. Results must be emitted in the original outer-site/inner-site order, with bounded buffering or temporary storage. Input parsing/filtering can remain serial initially.
+The first parallel candidate is the LD chi-square pair stage. Its numerical kernel is now isolated in [`ld_chisq_workspace`](../src/cpp/ld_chisq.h), which accepts read-only genotypes and owns reusable scratch arrays. The gamma coefficient table is immutable. The [single-core workspace experiment](../benchmarks/common-speed-ld-workspace-20261126.md) passed all six actual-data comparisons and reduced file-output wall time by about 20–22%. Each worker needs its own input handle and scratch space. Results must be emitted in the original outer-site/inner-site order, with bounded buffering or temporary storage. Input parsing/filtering can remain serial initially.
 
 A 1/4/8-core comparison must include worker setup, temporary storage and ordered writing in wall time and peak memory. No parallel implementation or parallel benchmark result is included in the current matrix. Speedup over upstream and scaling relative to the optimized one-core version are different measurements.
 
@@ -69,7 +69,7 @@ For reference-based Perl commands, persistent readers and batching index queries
 ## Next implementation order
 
 1. Keep the validated one-core changes as a reviewable baseline.
-2. Isolate the LD chi-square numerical kernel without changing operation order.
+2. The LD chi-square kernel is isolated and tested; preserve its per-pair operation order when adding workers.
 3. Add a bounded, ordered parallel pair stage and measure 1/4/8 physical cores.
 4. Measure external-process overhead in reference filling and the remaining commands.
 5. Extend the per-command matrix; do not infer unmeasured gains from shared code changes.
