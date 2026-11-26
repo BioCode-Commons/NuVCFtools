@@ -1,0 +1,107 @@
+{
+  "node": "node1837.oscar.ccv.brown.edu",
+  "job": "9648185",
+  "results": [
+    {
+      "case": "real-chisq-0",
+      "flags": [
+        "--geno-chisq",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 6.05,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.17,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-chisq-1",
+      "flags": [
+        "--geno-chisq",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 5.92,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.21,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-chisq-2",
+      "flags": [
+        "--geno-chisq",
+        "--ld-window-bp",
+        "1000"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 5.99,
+        "rss_kib": 4608,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "candidate": {
+        "wall_seconds": 3.19,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {
+          ".geno.chisq": 24971831
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "real-chisq-stdout",
+      "flags": [
+        "--geno-chisq",
+        "--ld-window-bp",
+        "1000",
+        "--stdout"
+      ],
+      "input": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+      "before": {
+        "wall_seconds": 6.12,
+        "rss_kib": 4608,
+        "exit": 0,
+        "files": {}
+      },
+      "candidate": {
+        "wall_seconds": 6.37,
+        "rss_kib": 4992,
+        "exit": 0,
+        "files": {}
+      },
+      "passed": true
+    }
+  ]
+}
