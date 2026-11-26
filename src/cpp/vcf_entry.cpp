@@ -375,6 +375,12 @@ void vcf_entry::print(ostream &out, const set<string> &INFO_to_keep, bool keep_a
 
 	pair<int, int> genotype;
 	string GFILTER_tmp;
+	// Adjacent equal decoded calls share their serialized GT, while every
+	// sample retains independent filters and all other FORMAT fields.
+	pair<int, int> previous_genotype;
+	char previous_phase = 0;
+	bool previous_genotype_valid = false;
+	string genotype_text;
 	if (FORMAT.size() > 0)
 	{
 		char PHASE;
@@ -394,12 +400,19 @@ void vcf_entry::print(ostream &out, const set<string> &INFO_to_keep, bool keep_a
 					{
 						get_indv_GENOTYPE_ids(ui, genotype);
 						PHASE = get_indv_PHASE(ui);
-						if ((genotype.first != -1) && (genotype.second != -1))
-							out << header::int2str(genotype.first) << PHASE << header::int2str(genotype.second);
-						else if ((PHASE == '|') && (genotype.second == -1))
-							out << header::int2str(genotype.first);	// Handle haploid case
-						else
-							out << header::int2str(genotype.first) << PHASE << header::int2str(genotype.second);
+						if (!previous_genotype_valid || genotype != previous_genotype || PHASE != previous_phase)
+						{
+							genotype_text = header::int2str(genotype.first);
+							if (!((PHASE == '|') && (genotype.second == -1)))
+							{
+								genotype_text += PHASE;
+								genotype_text += header::int2str(genotype.second);
+							}
+							previous_genotype = genotype;
+							previous_phase = PHASE;
+							previous_genotype_valid = true;
+						}
+						out << genotype_text;
 					}
 					else
 						out << "./.";
