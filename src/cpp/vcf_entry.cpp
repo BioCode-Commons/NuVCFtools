@@ -49,10 +49,10 @@ void vcf_entry::reset(const vector<char> &data_line)
 	data_stream.clear();
 	line_empty = data_line.empty();
 
-	// VCF parsing owns its bytes in data_stream; filters only need row emptiness.
-	// Keep the raw line vector for BCF rather than duplicating every VCF row.
+	// Preserve the conversion scratch string, but give this entry an owned row
+	// for independent parsing when comparisons interleave two input files.
 	convert_line.assign(data_line.begin(), data_line.end());
-	data_stream.str(convert_line);
+	fields.reset(convert_line);
 
 	fill(parsed_GT.begin(), parsed_GT.end(), 0);
 	fill(parsed_GQ.begin(), parsed_GQ.end(), 0);
@@ -69,16 +69,16 @@ void vcf_entry::parse_basic_entry(bool parse_ALT, bool parse_FILTER, bool parse_
 {
 	if(!basic_parsed)
 	{
-		getline(data_stream, CHROM, '\t');
+		fields.read(CHROM);
 
-		getline(data_stream, ID, '\t');
+		fields.read(ID);
 		POS = atoi(ID.c_str());
-		getline(data_stream, ID, '\t');
-		getline(data_stream, REF, '\t');
-		getline(data_stream, ALT_str, '\t');
-		getline(data_stream, QUAL_str, '\t');
-		getline(data_stream, FILTER_str, '\t');
-		getline(data_stream, INFO_str, '\t');
+		fields.read(ID);
+		fields.read(REF);
+		fields.read(ALT_str);
+		fields.read(QUAL_str);
+		fields.read(FILTER_str);
+		fields.read(INFO_str);
 
 		QUAL = header::str2double(QUAL_str);
 
@@ -108,7 +108,7 @@ void vcf_entry::parse_full_entry(bool parse_FORMAT)
 	if (basic_parsed == false)
 		parse_basic_entry();
 
-	getline(data_stream, FORMAT_str, '\t');
+	fields.read(FORMAT_str);
 
 	if (parse_FORMAT)
 		set_FORMAT(FORMAT_str);
@@ -117,7 +117,7 @@ void vcf_entry::parse_full_entry(bool parse_FORMAT)
 	GENOTYPE_str.resize(N_indv, tmpstr);
 
 	for (unsigned int ui=0; ui<N_indv; ui++)
-		getline(data_stream, GENOTYPE_str[ui], '\t');
+		fields.read(GENOTYPE_str[ui]);
 
 	fully_parsed = true;
 }

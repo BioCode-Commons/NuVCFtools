@@ -37,6 +37,7 @@ vcftools_SOURCES = \
 	variant_file_format_convert.cpp \
 	variant_file.h \
 	variant_file_output.cpp \
+	tab_field_reader.h \
 	vcf_entry.cpp \
 	vcf_entry.h \
 	vcf_entry_setters.cpp \
@@ -50,3 +51,5 @@ dist_man_MANS = vcftools.1
 check_PROGRAMS = ld-bitsets-test
 TESTS = ld-bitsets-test
 ld_bitsets_test_SOURCES = tests/ld_bitsets_test.cpp ld_bitsets.cpp ld_bitsets.h
+
+EXTRA_DIST = tests/tab_field_reader_fuzz.cpp
