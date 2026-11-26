@@ -16,6 +16,17 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 
+# The ordered LD workers require C++11 threads. Fail during configure if the
+# compiler/runtime cannot provide them, rather than silently ignoring the option.
+AC_LANG_PUSH([C++])
+ld_saved_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS="$CXXFLAGS -pthread"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <thread>]],
+    [[std::thread worker([] {}); worker.join();]])], [],
+    [AC_MSG_ERROR([A C++11-capable compiler with POSIX threads is required; set CXXFLAGS=-std=c++11 if needed])])
+CXXFLAGS="$ld_saved_CXXFLAGS"
+AC_LANG_POP([C++])
+
 # Checks for perl.
 AC_PATH_PROGS([PERL], [perl] [perl5], [false])
 AS_IF([test "x$PERL" = "xfalse"],[

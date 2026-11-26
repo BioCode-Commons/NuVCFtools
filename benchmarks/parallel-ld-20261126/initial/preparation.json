@@ -1,0 +1,17 @@
+{
+  "seconds": 2.1467221826314926,
+  "records": 22382,
+  "samples": [
+    100,
+    500,
+    2504
+  ],
+  "files": {
+    "cohort500.vcf.gz": 1213934,
+    "small.bcf": 25387,
+    "small.vcf": 558784,
+    "samples500.txt": 4000,
+    "unsorted.vcf": 38307,
+    "two.vcf": 17750
+  }
+}

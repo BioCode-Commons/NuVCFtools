@@ -2,6 +2,8 @@ bin_PROGRAMS = vcftools
 
 vcftools_CPPFLAGS = $(ZLIB_CFLAGS)
 vcftools_LDADD = $(ZLIB_LIBS)
+vcftools_CXXFLAGS = $(AM_CXXFLAGS) -pthread
+vcftools_LDFLAGS = -pthread
 
 vcftools_SOURCES = \
 	bcf_entry.cpp \
@@ -38,6 +40,7 @@ vcftools_SOURCES = \
 	variant_file_format_convert.cpp \
 	variant_file.h \
 	variant_file_output.cpp \
+	variant_file_ld_parallel.cpp \
 	tab_field_reader.h \
 	vcf_entry.cpp \
 	vcf_entry.h \

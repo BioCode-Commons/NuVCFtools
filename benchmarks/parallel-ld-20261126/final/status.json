@@ -1,0 +1,102 @@
+{
+  "job": "9650801",
+  "node": "node1829.oscar.ccv.brown.edu",
+  "results": [
+    {
+      "trial": 0,
+      "order": [
+        "previous",
+        "cxx11",
+        "native"
+      ],
+      "passed": true,
+      "measurements": {
+        "previous": {
+          "exit": 0,
+          "wall_seconds": 5.36,
+          "rss_kib": 5376,
+          "user_seconds": 5.22,
+          "system_seconds": 0.11
+        },
+        "cxx11": {
+          "exit": 0,
+          "wall_seconds": 5.84,
+          "rss_kib": 4992,
+          "user_seconds": 5.71,
+          "system_seconds": 0.1
+        },
+        "native": {
+          "exit": 0,
+          "wall_seconds": 5.52,
+          "rss_kib": 5376,
+          "user_seconds": 5.39,
+          "system_seconds": 0.09
+        }
+      }
+    },
+    {
+      "trial": 1,
+      "order": [
+        "cxx11",
+        "native",
+        "previous"
+      ],
+      "passed": true,
+      "measurements": {
+        "cxx11": {
+          "exit": 0,
+          "wall_seconds": 5.85,
+          "rss_kib": 4992,
+          "user_seconds": 5.7,
+          "system_seconds": 0.12
+        },
+        "native": {
+          "exit": 0,
+          "wall_seconds": 5.55,
+          "rss_kib": 5376,
+          "user_seconds": 5.4,
+          "system_seconds": 0.12
+        },
+        "previous": {
+          "exit": 0,
+          "wall_seconds": 5.37,
+          "rss_kib": 4992,
+          "user_seconds": 5.23,
+          "system_seconds": 0.11
+        }
+      }
+    },
+    {
+      "trial": 2,
+      "order": [
+        "native",
+        "previous",
+        "cxx11"
+      ],
+      "passed": true,
+      "measurements": {
+        "native": {
+          "exit": 0,
+          "wall_seconds": 5.53,
+          "rss_kib": 5760,
+          "user_seconds": 5.38,
+          "system_seconds": 0.12
+        },
+        "previous": {
+          "exit": 0,
+          "wall_seconds": 5.4,
+          "rss_kib": 4992,
+          "user_seconds": 5.29,
+          "system_seconds": 0.09
+        },
+        "cxx11": {
+          "exit": 0,
+          "wall_seconds": 5.85,
+          "rss_kib": 4992,
+          "user_seconds": 5.72,
+          "system_seconds": 0.09
+        }
+      }
+    }
+  ]
+}

@@ -75,6 +75,7 @@ public:
 	vector<string> INFO_to_extract;
 	bool invert_mask;
 	bool keep_only_indels;
+	int ld_threads;
 	int ld_bp_window_size;
 	int ld_snp_window_size;
 	int ld_bp_window_min;

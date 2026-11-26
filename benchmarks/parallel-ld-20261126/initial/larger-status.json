@@ -1,0 +1,280 @@
+{
+  "job": "9650573",
+  "node": "node1849.oscar.ccv.brown.edu",
+  "results": [
+    {
+      "case": "500-samples",
+      "passed": true,
+      "measurements": {
+        "original": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 159.09,
+          "rss_kib": 5760,
+          "user_cpu_seconds": 155.15,
+          "system_cpu_seconds": 3.24,
+          "command": [
+            "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcftools",
+            "--gzvcf",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/500-samples/original"
+          ],
+          "files": {
+            ".geno.chisq": 26099674,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        },
+        "candidate4": {
+          "exit": 0,
+          "cores": 4,
+          "wall_seconds": 2.7,
+          "rss_kib": 7348,
+          "user_cpu_seconds": 7.1,
+          "system_cpu_seconds": 1.09,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "4",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/500-samples/candidate4"
+          ],
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 26099674
+          },
+          "temp_files_remaining": 0
+        },
+        "before": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 6.76,
+          "rss_kib": 5760,
+          "user_cpu_seconds": 6.3,
+          "system_cpu_seconds": 0.41,
+          "command": [
+            "/jobtmp/zliu328/nuvcftools-ld-workspace-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/500-samples/before"
+          ],
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 26099674
+          },
+          "temp_files_remaining": 0
+        },
+        "candidate8": {
+          "exit": 0,
+          "cores": 8,
+          "wall_seconds": 1.9,
+          "rss_kib": 13980,
+          "user_cpu_seconds": 7.14,
+          "system_cpu_seconds": 2.04,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "8",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/500-samples/candidate8"
+          ],
+          "files": {
+            ".geno.chisq": 26099674,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        },
+        "candidate1": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 7.37,
+          "rss_kib": 5760,
+          "user_cpu_seconds": 6.88,
+          "system_cpu_seconds": 0.45,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "1",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/500-samples/candidate1"
+          ],
+          "files": {
+            ".geno.chisq": 26099674,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        }
+      }
+    },
+    {
+      "case": "2504-samples",
+      "passed": true,
+      "measurements": {
+        "candidate1": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 30.73,
+          "rss_kib": 5760,
+          "user_cpu_seconds": 28.73,
+          "system_cpu_seconds": 1.85,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "1",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/2504-samples/candidate1"
+          ],
+          "files": {
+            ".geno.chisq": 34692152,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        },
+        "candidate8": {
+          "exit": 0,
+          "cores": 8,
+          "wall_seconds": 7.38,
+          "rss_kib": 10264,
+          "user_cpu_seconds": 28.97,
+          "system_cpu_seconds": 4.25,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "8",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/2504-samples/candidate8"
+          ],
+          "files": {
+            ".geno.chisq": 34692152,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        },
+        "original": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 772.98,
+          "rss_kib": 6144,
+          "user_cpu_seconds": 764.51,
+          "system_cpu_seconds": 5.47,
+          "command": [
+            "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcftools",
+            "--gzvcf",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/2504-samples/original"
+          ],
+          "files": {
+            ".geno.chisq": 34692152,
+            ".stdout": 0
+          },
+          "temp_files_remaining": 0
+        },
+        "candidate4": {
+          "exit": 0,
+          "cores": 4,
+          "wall_seconds": 10.77,
+          "rss_kib": 10244,
+          "user_cpu_seconds": 28.9,
+          "system_cpu_seconds": 3.0,
+          "command": [
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--ld-threads",
+            "4",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/2504-samples/candidate4"
+          ],
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 34692152
+          },
+          "temp_files_remaining": 0
+        },
+        "before": {
+          "exit": 0,
+          "cores": 1,
+          "wall_seconds": 27.79,
+          "rss_kib": 5760,
+          "user_cpu_seconds": 25.84,
+          "system_cpu_seconds": 1.82,
+          "command": [
+            "/jobtmp/zliu328/nuvcftools-ld-workspace-20261126/install/candidate/bin/vcftools",
+            "--gzvcf",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+            "--geno-chisq",
+            "--ld-window-bp",
+            "1000",
+            "--temp",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/temp",
+            "--out",
+            "/sss/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/runs/2504-samples/before"
+          ],
+          "files": {
+            ".stdout": 0,
+            ".geno.chisq": 34692152
+          },
+          "temp_files_remaining": 0
+        }
+      }
+    }
+  ]
+}

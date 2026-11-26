@@ -60,16 +60,16 @@ The C++ parser/filter path is not currently safe to run concurrently by construc
 
 Some filters also depend on record order. Floating-point aggregate reductions can change output bytes when their addition order changes.
 
-The first parallel candidate is the LD chi-square pair stage. Its numerical kernel is now isolated in [`ld_chisq_workspace`](../src/cpp/ld_chisq.h), which accepts read-only genotypes and owns reusable scratch arrays. The gamma coefficient table is immutable. The [single-core workspace experiment](../benchmarks/common-speed-ld-workspace-20261126.md) passed all six actual-data comparisons and reduced file-output wall time by about 20–22%. Each worker needs its own input handle and scratch space. Results must be emitted in the original outer-site/inner-site order, with bounded buffering or temporary storage. Input parsing/filtering can remain serial initially.
+The LD chi-square pair stage now supports `--ld-threads N`. Each worker owns its readers and an `ld_chisq_workspace`; the gamma coefficient table is immutable. Workers write framed temporary files, and the caller merges them in the original outer-site/inner-site order. This bounds RAM independently of the number of pairs, at the cost of temporary output proportional to the result size. Parsing/filtering remain serial. Other LD modes do not yet use this worker option.
 
-A 1/4/8-core comparison must include worker setup, temporary storage and ordered writing in wall time and peak memory. No parallel implementation or parallel benchmark result is included in the current matrix. Speedup over upstream and scaling relative to the optimized one-core version are different measurements.
+The [500/2,504-sample comparison](../benchmarks/parallel-ld-20261126.md) includes worker setup, staging, temporary output and ordered writing. Eight workers reduced wall time by 3.61–3.89× relative to the preceding optimized one-core executable, with higher RSS. Default one-core execution was about 3% slower in these measurements. Upstream ratios and thread scaling are reported separately; the earlier 15-task matrix remains a record of its original single-core revisions.
 
 For reference-based Perl commands, persistent readers and batching index queries should be measured before adding workers. For merge/intersection/concatenation, decompression of separate files can overlap, while the ordered reducer and its file-order rules remain explicit.
 
 ## Next implementation order
 
 1. Keep the validated one-core changes as a reviewable baseline.
-2. The LD chi-square kernel is isolated and tested; preserve its per-pair operation order when adding workers.
-3. Add a bounded, ordered parallel pair stage and measure 1/4/8 physical cores.
+2. The chi-square kernel is isolated and its optional parallel stage is measured. Preserve its arithmetic and row order when changing it.
+3. Investigate the remaining single-core overhead before considering a default change; other commands need their own measurements before adding workers.
 4. Measure external-process overhead in reference filling and the remaining commands.
 5. Extend the per-command matrix; do not infer unmeasured gains from shared code changes.

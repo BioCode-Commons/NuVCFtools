@@ -1,0 +1,26 @@
+[
+  {
+    "label": "reference",
+    "exit": 0,
+    "temp_template_bytes": 90,
+    "expected_behavior_observed": true
+  },
+  {
+    "label": "candidate1",
+    "exit": 0,
+    "temp_template_bytes": 96,
+    "expected_behavior_observed": true
+  },
+  {
+    "label": "candidate4",
+    "exit": 0,
+    "temp_template_bytes": 96,
+    "expected_behavior_observed": true
+  },
+  {
+    "label": "before-bounded-failure",
+    "exit": "timeout",
+    "temp_template_bytes": 96,
+    "expected_behavior_observed": true
+  }
+]
