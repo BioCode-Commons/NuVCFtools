@@ -598,7 +598,7 @@ sub read_line
     else
     {
         # We are reading VCF, not a tab-delimited file. Apply filters when requested.
-        my @items = split(/\t/,$line);
+        my @items = split(/\t/,$line,$$opts{split} ? 0 : 9);
         while ( $$opts{apply_filters} && $items[6] ne 'PASS' && $items[6] ne '.' )
         {
             $line = $vcf->next_line();
@@ -607,8 +607,12 @@ sub read_line
                 $$vcf{eof} = 1;
                 return;
             }
-            @items = split(/\t/,$line);
+            @items = split(/\t/,$line,$$opts{split} ? 0 : 9);
         }
+        # Only mandatory columns are inspected. Keep the genotype suffix intact,
+        # preserving the default split behavior for trailing empty fields.
+        $items[-1] =~ s/\t+\z// if @items;
+        pop @items while @items && $items[-1] eq '';
         chomp($items[-1]);
         $chr  = $items[0];
         $pos  = $items[1];
