@@ -26,6 +26,7 @@ sub error
         "   -f, --format <string>               The default is '%CHROM:%POS\\t%REF[\\t%SAMPLE=%GT]\\n'\n",
         "   -l, --list-columns                  List columns.\n",
         "   -r, --region chr:from-to            Retrieve the region. (Runs tabix.)\n",
+        "       --reuse-sample-templates      Reuse repeated complete sample fields; may be slower for distinct fields.\n",
         "       --use-old-method                Use old version of API, which is slow but more robust.\n",
         "   -h, -?, --help                      This help message.\n",
         "Expressions:\n",
@@ -54,6 +55,7 @@ sub parse_params
     my $opts = { columns=>'', format_string=>"%CHROM:%POS\t%REF[\t%SAMPLE=%GT]\n" };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if ( $arg eq '--reuse-sample-templates' ) { $$opts{reuse_sample_templates}=1; next }
         if (                 $arg eq '--use-old-method' ) { $$opts{use_old_method}=1; next }
         if ( $arg eq '-f' || $arg eq '--format' ) { $$opts{format_string}=shift(@ARGV); next }
         if ( $arg eq '-c' || $arg eq '--columns' ) { $$opts{columns}=shift(@ARGV); next }
@@ -215,6 +217,7 @@ sub read_data
     my @cols = split(/,/,$$opts{columns});
     if ( !@cols ) { @cols = @{get_columns($$opts{vcf})}; }
     my @sample_idxs = get_sample_idxs($$opts{vcf},@cols);
+    my @sample_order = (0..$#sample_idxs);
     my ($previous_format, %format_indexes);
     # The hash opts will be filled with the keys 'before','repeat','after' with formatting information
     parse_format($opts);
@@ -243,8 +246,34 @@ sub read_data
         # Fill the repeaty stuff (the sample columns)
         if ( $$opts{repeat} )
         {
-            my @repeats;
-            for my $sample_idx (@sample_idxs) { push @repeats, [ @{$$opts{repeat}{format}} ]; }
+            # Equal complete sample fields share a rendering template. Sample
+            # names are inserted only when emitting, so the template is reusable.
+            my (@repeats,@groups,@group_sizes,%by_sample_field);
+            if ( $$opts{reuse_sample_templates} )
+            {
+                for (my $i=0; $i<@sample_idxs; $i++)
+                {
+                    my $text = $$x[$sample_idxs[$i]];
+                    my $first = defined($text) ? $by_sample_field{$text} : undef;
+                    if ( defined($first) )
+                    {
+                        push @repeats,$repeats[$first];
+                        $group_sizes[$first]++;
+                    }
+                    else
+                    {
+                        push @repeats,[ @{$$opts{repeat}{format}} ];
+                        push @groups,$i;
+                        $group_sizes[$i] = 1;
+                        $by_sample_field{$text} = $i if defined($text);
+                    }
+                }
+            }
+            else
+            {
+                for my $sample_idx (@sample_idxs) { push @repeats,[ @{$$opts{repeat}{format}} ]; }
+            }
+            my $groups = $$opts{reuse_sample_templates} ? \@groups : \@sample_order;
             reset_format_indexes(\$previous_format, \%format_indexes, $$x[8]);
             my @alt;
             if ( exists($$opts{repeat}{idx}{GT}) )
@@ -274,12 +303,11 @@ sub read_data
                 my $fmt_idx = $format_indexes{$fieldname};
                 if ( !defined($fmt_idx) ) { $fmt_idx = $format_indexes{$fieldname} = $vcf->get_tag_index($$x[8],$fieldname eq 'GTR' ? 'GT' : $fieldname,':'); }
                 my %values_by_sample_field;
-                for (my $i=0; $i<@sample_idxs; $i++)
+                for my $i (@$groups)
                 {
-                    my $sample_idx = $sample_idxs[$i];
                     if ( $fmt_idx!=-1 )
                     {
-                        my $sample_field = $$x[$sample_idx];
+                        my $sample_field = $$x[$sample_idxs[$i]];
                         my $value;
                         if ( exists($values_by_sample_field{$sample_field}) )
                         {
@@ -298,16 +326,42 @@ sub read_data
                     }
                 }
             }
-            if ( exists($$opts{repeat}{idx}{SAMPLE}) )
+            if ( $$opts{reuse_sample_templates} )
             {
-                my $idx = $$opts{repeat}{idx}{SAMPLE};
-                for (my $i=0; $i<@cols; $i++) { $repeats[$i][$idx] = $cols[$i] }
+                my $sample_slot = $$opts{repeat}{idx}{SAMPLE};
+                for my $i (@$groups)
+                {
+                    my $values = $repeats[$i];
+                    for (my $i=0; $i<@$values; $i++) { if (!defined($$values[$i])) { $$values[$i]='.'; } }
+                    if ( defined($sample_slot) && $group_sizes[$i]>1 )
+                    {
+                        # Only shared templates need a hole for the sample name.
+                        @$values = (join('',@$values[0..$sample_slot-1]),join('',@$values[$sample_slot+1..$#$values]));
+                    }
+                    else
+                    {
+                        $$values[$sample_slot] = $cols[$i] if defined($sample_slot);
+                        @$values = (join('',@$values));
+                    }
+                }
+                for (my $i=0; $i<@repeats; $i++)
+                {
+                    $rendered .= $repeats[$i][0];
+                    if ( @{$repeats[$i]}>1 ) { $rendered .= $cols[$i].$repeats[$i][1]; }
+                }
             }
-
-            for my $repeat (@repeats)
+            else
             {
-                for (my $i=0; $i<@$repeat; $i++) { if (!defined($$repeat[$i])) { $$repeat[$i]='.'; } }
-                $rendered .= join('',@$repeat);
+                if ( exists($$opts{repeat}{idx}{SAMPLE}) )
+                {
+                    my $idx = $$opts{repeat}{idx}{SAMPLE};
+                    for (my $i=0; $i<@cols; $i++) { $repeats[$i][$idx] = $cols[$i]; }
+                }
+                for my $repeat (@repeats)
+                {
+                    for (my $i=0; $i<@$repeat; $i++) { if (!defined($$repeat[$i])) { $$repeat[$i]='.'; } }
+                    $rendered .= join('',@$repeat);
+                }
             }
         }
 

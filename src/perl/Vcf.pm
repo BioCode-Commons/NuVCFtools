@@ -574,9 +574,11 @@ sub next_data_hash
         if ( $items[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items[0]:$items[1]\n"); next; }
         if ( exists($$self{samples_to_parse}) && !$$self{samples_to_parse}[$icol] ) { next; }
 
-        if ( $share_genotypes && defined($previous_genotype) && $items[$icol] eq $previous_text )
+        if ( defined($previous_genotype) && $items[$icol] eq $previous_text )
         {
-            $gtypes{$$cols[$icol]} = $previous_genotype;
+            # Mutable consumers get independent hashes; only read-only callers
+            # may share one. Reuse parsing without aliasing sample mutations.
+            $gtypes{$$cols[$icol]} = $share_genotypes ? $previous_genotype : { %$previous_genotype };
             next;
         }
         my @fields = split(/:/, $items[$icol]);
@@ -591,12 +593,9 @@ sub next_data_hash
             $hash{$$format[$ifield]} = $fields[$ifield];
         }
         $gtypes{$$cols[$icol]} = \%hash;
-        if ( $share_genotypes )
-        {
-            # Malformed columns retain their per-sample diagnostics and parsing.
-            $previous_genotype = @fields==@$format ? \%hash : undef;
-            $previous_text = $items[$icol];
-        }
+        # Malformed columns retain their per-sample diagnostics and parsing.
+        $previous_genotype = @fields==@$format ? \%hash : undef;
+        $previous_text = $items[$icol];
     }
     $out{gtypes} = \%gtypes;
 

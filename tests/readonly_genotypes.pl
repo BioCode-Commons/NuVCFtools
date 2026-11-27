@@ -32,4 +32,20 @@ for my $format ('GT:DP','DP:GT','GT:GT','GT','DP') {
 }
 $r=reader();$r->set_samples(include=>['A','C']);
 is_deeply([sort keys %{$r->next_data_hash_readonly($line)->{gtypes}}],['A','C'],'sample selection retained');
+# Mutable records must remain independent even when repeated fields can reuse
+# the parser's intermediate result, including after deletion and insertion.
+$v=reader();
+$line="22\t3\t.\tA\tC\t.\tPASS\t.\tGT:DP\t0/1:8\t0/1:8\t0/1:8\n";
+$normal=$v->next_data_hash($line);
+for my $pair (['A','B'],['A','C'],['B','C']) {
+ isnt(refaddr($normal->{gtypes}{$pair->[0]}),refaddr($normal->{gtypes}{$pair->[1]}),'each mutable sample owns its hash');
+}
+delete $normal->{gtypes}{B}{DP};
+$normal->{gtypes}{B}{FA}='new';
+is($normal->{gtypes}{A}{DP},'8','deleting B depth leaves A intact');
+is($normal->{gtypes}{C}{DP},'8','deleting B depth leaves C intact');
+ok(!exists $normal->{gtypes}{A}{FA},'inserting B field leaves A intact');
+ok(!exists $normal->{gtypes}{C}{FA},'inserting B field leaves C intact');
+$second=$v->next_data_hash($line);
+is_deeply($second->{gtypes}{B},{GT=>'0/1',DP=>'8'},'next record has original parsed values');
 done_testing();
