@@ -1,0 +1,11 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9658499
+##  Job Name : vcf-sort-life
+##  Nodelist : node2349
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /oscar/home/zliu328
+##   Job Started : Thu Nov 26 07:48:23 PM EST 2026
+###############################################################################
+{"tool_return_seconds": 2.077060539275408, "bytes_at_return": 15, "returncode": 0}
+{"bytes_after_child_should_finish": 15}

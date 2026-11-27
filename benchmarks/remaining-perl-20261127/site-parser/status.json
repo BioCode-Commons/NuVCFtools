@@ -1,0 +1,119 @@
+{
+  "state": "complete",
+  "node": "node2349.oscar.ccv.brown.edu",
+  "job": "9658330",
+  "before": "f7b152dfb10e674c65f2fa016409f61a65c7bedb",
+  "results": [
+    {
+      "case": "ploidy-pass-through-500",
+      "tool": "vcf-fix-ploidy",
+      "args": [
+        "-s",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/site-parser/data/sexes500.txt"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 1.08,
+          "rss_kib": 10752,
+          "user_seconds": 0.97,
+          "sys_seconds": 0.09,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "before": {
+          "wall_seconds": 1.08,
+          "rss_kib": 11136,
+          "user_seconds": 0.99,
+          "sys_seconds": 0.08,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "candidate": {
+          "wall_seconds": 0.34,
+          "rss_kib": 10752,
+          "user_seconds": 0.26,
+          "sys_seconds": 0.07,
+          "exit": 0,
+          "output_bytes": 48007969
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "ploidy-active-500",
+      "tool": "vcf-fix-ploidy",
+      "args": [
+        "-s",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/site-parser/data/sexes500.txt",
+        "-p",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/site-parser/data/ploidy.pl"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 41.63,
+          "rss_kib": 10752,
+          "user_seconds": 41.34,
+          "sys_seconds": 0.12,
+          "exit": 0,
+          "output_bytes": 25625969
+        },
+        "before": {
+          "wall_seconds": 43.15,
+          "rss_kib": 11136,
+          "user_seconds": 42.83,
+          "sys_seconds": 0.12,
+          "exit": 0,
+          "output_bytes": 25625969
+        },
+        "candidate": {
+          "wall_seconds": 42.02,
+          "rss_kib": 11136,
+          "user_seconds": 41.74,
+          "sys_seconds": 0.11,
+          "exit": 0,
+          "output_bytes": 25625969
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "ploidy-pass-through-2504",
+      "tool": "vcf-fix-ploidy",
+      "args": [
+        "-s",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/site-parser/data/sexes2504.txt"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 4.81,
+          "rss_kib": 12288,
+          "user_seconds": 4.44,
+          "sys_seconds": 0.32,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "before": {
+          "wall_seconds": 4.78,
+          "rss_kib": 11904,
+          "user_seconds": 4.48,
+          "sys_seconds": 0.27,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "candidate": {
+          "wall_seconds": 1.07,
+          "rss_kib": 12288,
+          "user_seconds": 0.85,
+          "sys_seconds": 0.21,
+          "exit": 0,
+          "output_bytes": 227444048
+        }
+      },
+      "passed": true
+    }
+  ],
+  "controls": []
+}

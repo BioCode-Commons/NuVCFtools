@@ -1,0 +1,32 @@
+{
+  "case": "sort-2504",
+  "tool": "vcf-sort",
+  "args": [],
+  "stdin": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+  "measurements": {
+    "original": {
+      "wall_seconds": 1.51,
+      "rss_kib": 9548,
+      "user_seconds": 0.82,
+      "sys_seconds": 0.65,
+      "exit": 0,
+      "output_bytes": 227444048
+    },
+    "before": {
+      "wall_seconds": 1.52,
+      "rss_kib": 9520,
+      "user_seconds": 0.8,
+      "sys_seconds": 0.68,
+      "exit": 0,
+      "output_bytes": 227444048
+    },
+    "candidate": {
+      "wall_seconds": 1.5,
+      "rss_kib": 9388,
+      "user_seconds": 0.82,
+      "sys_seconds": 0.64,
+      "exit": 0,
+      "output_bytes": 227444048
+    }
+  }
+}

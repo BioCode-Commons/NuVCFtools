@@ -2,8 +2,8 @@
   "installation_source": "src/perl/Makefile.am and src/cpp/Makefile.am",
   "work_baseline": "2b8421435a61a67ce39dcd48df3fd0b82d6d1a4c",
   "installed_entrypoints": 25,
-  "targeted_entrypoints": 12,
-  "untargeted_entrypoints": 13,
+  "targeted_entrypoints": 19,
+  "untargeted_entrypoints": 6,
   "note": "Counts targeted source work since this work baseline. Untouched scripts can use changed shared modules. Source changes do not establish a speedup for every option.",
   "commands": [
     {
@@ -16,9 +16,11 @@
       "command": "fill-aa",
       "language": "Perl",
       "family": "filling-reference",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md",
+      "real_speed_limit": "functional controls only; no real ancestral-data timing claim"
     },
     {
       "command": "fill-an-ac",
@@ -32,17 +34,19 @@
       "command": "fill-fs",
       "language": "Perl",
       "family": "filling-reference",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "fill-ref-md5",
       "language": "Perl",
       "family": "filling-reference",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "vcf-annotate",
@@ -89,9 +93,10 @@
       "command": "vcf-convert",
       "language": "Perl",
       "family": "filling-reference",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "vcf-fix-newlines",
@@ -105,9 +110,10 @@
       "command": "vcf-fix-ploidy",
       "language": "Perl",
       "family": "format-maintenance",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "vcf-indel-stats",
@@ -137,9 +143,10 @@
       "command": "vcf-phased-join",
       "language": "Perl",
       "family": "multi-file",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "vcf-query",
@@ -185,9 +192,10 @@
       "command": "vcf-to-tab",
       "language": "Perl",
       "family": "format-maintenance",
-      "targeted": false,
-      "direct_script_edit": false,
-      "shared_module_target": null
+      "targeted": true,
+      "direct_script_edit": true,
+      "shared_module_target": null,
+      "evidence": "benchmarks/remaining-perl-20261127.md"
     },
     {
       "command": "vcf-tstv",

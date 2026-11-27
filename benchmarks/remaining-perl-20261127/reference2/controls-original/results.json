@@ -1,0 +1,812 @@
+[
+  {
+    "case": "tab",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa-filter",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-cluster",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-masks",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "iupac",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "haploid",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "no-gt",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "bad-gt",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "bad-iupac",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "range",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-0",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-1",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-2",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-3",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-4",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-5",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-6",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-7",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-8",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-9",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-10",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-11",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-12",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-13",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-14",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort-natural",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "md5",
+    "seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tab",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa-filter",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-cluster",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-masks",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "iupac",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "haploid",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "no-gt",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "bad-gt",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "bad-iupac",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "range",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-0",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-1",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-2",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-3",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-4",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-5",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-6",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-7",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-8",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-9",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-10",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-11",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-12",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-13",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-14",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort-natural",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "md5",
+    "seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tab",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "aa-filter",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-cluster",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fs-masks",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "iupac",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "haploid",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "no-gt",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "bad-gt",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "bad-iupac",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "range",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-0",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-1",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-2",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-3",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-4",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-5",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-6",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-7",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-8",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-9",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-10",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-11",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-12",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-13",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "tail-14",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "sort-natural",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "md5",
+    "seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ]
+  }
+]

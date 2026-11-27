@@ -81,3 +81,5 @@ For reference-based Perl commands, persistent readers and batching index queries
 3. Investigate the remaining single-core overhead before considering a default change; other commands need their own measurements before adding workers.
 4. Measure external-process overhead in reference filling and the remaining commands.
 5. Extend the per-command matrix; do not infer unmeasured gains from shared code changes.
+
+Latest remaining-tool audit and measured changes: [remaining Perl tools](../benchmarks/remaining-perl-20261127.md). The source-work inventory is now 19 targeted entrypoints and six untargeted since its recorded baseline; this is not a count of proven speedups.

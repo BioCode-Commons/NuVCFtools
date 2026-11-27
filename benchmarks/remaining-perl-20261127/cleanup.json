@@ -1,0 +1,64 @@
+{
+  "state": "complete",
+  "removed": [
+    {
+      "path": "audit/data/cohort500.vcf",
+      "bytes": 48007969
+    },
+    {
+      "path": "audit/data/windows.vcf",
+      "bytes": 48030606
+    },
+    {
+      "path": "audit/data/left.vcf.gz",
+      "bytes": 638641
+    },
+    {
+      "path": "audit/data/left.vcf.gz.tbi",
+      "bytes": 500
+    },
+    {
+      "path": "audit/data/right.vcf.gz",
+      "bytes": 619360
+    },
+    {
+      "path": "audit/data/right.vcf.gz.tbi",
+      "bytes": 438
+    },
+    {
+      "path": "md5/data/cohort500.vcf.gz",
+      "bytes": 1213934
+    },
+    {
+      "path": "md5/data/cohort500.vcf.gz.tbi",
+      "bytes": 692
+    },
+    {
+      "path": "md5/data/md5.vcf.gz",
+      "bytes": 0
+    },
+    {
+      "path": "reference/data/GRCh37.22.fa",
+      "bytes": 52159700
+    },
+    {
+      "path": "reference/data/GRCh37.22.fa.fai",
+      "bytes": 21
+    },
+    {
+      "path": "reference/data/GRCh37.22.fa.gz",
+      "bytes": 10529959
+    },
+    {
+      "path": "reference/data/snps.vcf.gz",
+      "bytes": 1088425
+    },
+    {
+      "path": "reference/data/snps.vcf.gz.tbi",
+      "bytes": 780
+    }
+  ],
+  "canonical_inputs_preserved": true,
+  "GRCh37_reference_preserved": "reference2/data/GRCh37.22.fa",
+  "timed_raw_outputs": "Removed by each runner only after full comparison passed; synthetic negative-case diagnostics retained."
+}

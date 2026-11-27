@@ -2,7 +2,24 @@
 
 This is an inventory of the latest available measurements for implementations retained on `codex/common-tool-speed-round2`, not a fresh all-command benchmark of one final commit. Rows marked **current** were measured in the merge/query/subset continuation. Other rows retain their earlier source revisions, inputs and output-validation scope; shared-module changes do not establish new timing or correctness results for every consumer.
 
-The installation has **25 entrypoints: one C++ executable and 24 Perl scripts**. Twelve entrypoints have targeted optimization work; thirteen have not. C++ analysis flags below are tasks within one executable, not additional installed tools.
+The installation has **25 entrypoints: one C++ executable and 24 Perl scripts**. Nineteen entrypoints have targeted source work; six have not. Source coverage does not imply nineteen measured speedups. C++ analysis flags below are tasks within one executable, not additional installed tools.
+
+## Remaining Perl tools: new measurements
+
+These measurements use progressive snapshots retained in the branch, with upstream and frozen `f7b152d` controls. See [the complete report](remaining-perl-20261127.md) for scope, RSS, original/before timings, controls and rejected changes. In particular, ploidy gains apply to pass-through records, and fill-fs gains require the explicit larger cache.
+
+| Task | Original (s) | Before (s) | Measured candidate (s) | vs Original | vs Before | RSS Original → Before → candidate (MiB) | Full output |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| vcf-to-tab, 500 samples | 38.24 | 36.41 | 11.78 | 3.25× | 3.09× | 10.500 → 10.500 → 10.500 | Passed |
+| vcf-to-tab, 2,504 samples | 209.43 | 203.69 | 65.68 | 3.19× | 3.10× | 11.250 → 12.000 → 11.250 | Passed |
+| fill-fs, 500 samples, 1 MiB prefetch | 21.25 | 21.59 | 1.59 | 13.36× | 13.58× | 10.875 → 10.500 → 16.125 | Passed |
+| fill-fs, 2,504 samples, 1 MiB prefetch | 26.85 | 27.02 | 6.10 | 4.40× | 4.43× | 10.875 → 11.250 → 16.500 | Passed |
+| fill-ref-md5, chr22 reference | 3.33 | 3.26 | 0.85 | 3.92× | 3.84× | 54.109 → 53.988 → 54.082 | Passed |
+| vcf-convert, 500-sample SNPs | 38.22 | 27.93 | 25.65 | 1.49× | 1.09× | 11.250 → 11.625 → 11.625 | Passed |
+| vcf-phased-join, 500 samples | 6.07 | 5.98 | 5.33 | 1.14× | 1.12× | 64.500 → 64.500 → 64.500 | Passed |
+| vcf-fix-ploidy, 500, pass-through | 1.08 | 1.08 | 0.34 | 3.18× | 3.18× | 10.500 → 10.875 → 10.500 | Passed |
+| vcf-fix-ploidy, 2,504, pass-through | 4.81 | 4.78 | 1.07 | 4.50× | 4.47× | 12.000 → 11.625 → 12.000 | Passed |
+| vcf-fix-ploidy, 500, active conversion | 41.63 | 43.15 | 42.02 | 0.99× | 1.03× | 10.500 → 10.875 → 10.875 | Passed |
 
 ## Direct upstream comparisons
 
@@ -60,11 +77,11 @@ These reports compare against a previous NuVCFtools revision. Their ratios must 
 | `vcf-annotate` | Interval index and operation-dependent sample parsing | [Previous-version comparison](intersection-interval-20261126.md) |
 | `vcf-contrast` | Background genotype membership index instead of foreground/background Cartesian comparisons | [Previous-version comparison](contrast-background-index-20261126.md) |
 
-## Entry points without targeted optimization
+## Entry points without targeted optimization since the inventory baseline
 
-`fill-aa`, `fill-an-ac`, `fill-fs`, `fill-ref-md5`, `vcf-consensus`, `vcf-convert`, `vcf-fix-newlines`, `vcf-fix-ploidy`, `vcf-indel-stats`, `vcf-phased-join`, `vcf-sort`, `vcf-to-tab`, `vcf-tstv`.
+`fill-an-ac`, `vcf-consensus`, `vcf-fix-newlines`, `vcf-indel-stats`, `vcf-sort`, `vcf-tstv`.
 
-Some use shared modules that changed, but no independent current-versus-upstream speedup is claimed for them. The C++ executable also has additional analysis/conversion flags without a fresh final-version result in this inventory.
+These were examined and measured in the [remaining Perl tool round](remaining-perl-20261127.md). `fill-an-ac` benefits from earlier shared-module work; no command-specific change was added. The rejected sort trial and the lack of gain from four sort threads are recorded there. `fill-aa` now has an opaque-suffix implementation and functional controls, but no real ancestral-genome timing claim.
 
 ## What changed
 

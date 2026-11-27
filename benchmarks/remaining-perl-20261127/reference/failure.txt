@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference.py", line 22, in <module>
+    subprocess.run(['bcftools','view','--no-version','-r','22:20000001-20100000','-Oz','-o',str(subset),str(src)],check=True)
+  File "/oscar/rt/9.6/25/spack/x86_64_v3/python-3.11.11-5e66epfh6bxt72bivuccajllo5eixfnq/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['bcftools', 'view', '--no-version', '-r', '22:20000001-20100000', '-Oz', '-o', '/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference/data/small.vcf.gz', '/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz']' returned non-zero exit status 255.

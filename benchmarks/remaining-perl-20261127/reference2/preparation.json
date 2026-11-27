@@ -1,0 +1,7 @@
+{
+  "seconds": 41.72644294798374,
+  "excluded": true,
+  "url": "https://ftp.ensembl.org/pub/grch37/current/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.dna.chromosome.22.fa.gz",
+  "fasta_sha256": "1c527e93115f28bfc59f951687f005f75fb85fd01a570588f0d822a608c3d8cc",
+  "input_sha256": "866c96e45cf0a8cb62c0f5adda0fbc849b234c44b451954ee4042c2923a273b4"
+}

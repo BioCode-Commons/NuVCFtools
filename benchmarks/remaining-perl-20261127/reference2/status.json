@@ -1,0 +1,123 @@
+{
+  "state": "failed",
+  "node": "node1827.oscar.ccv.brown.edu",
+  "job": "9658000",
+  "before": "f7b152dfb10e674c65f2fa016409f61a65c7bedb",
+  "results": [
+    {
+      "case": "flanks-500",
+      "tool": "fill-fs",
+      "args": [
+        "-r",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa",
+        "-l",
+        "100"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 26.82,
+          "rss_kib": 11136,
+          "user_seconds": 4.22,
+          "sys_seconds": 16.29,
+          "exit": 0,
+          "output_bytes": 52687684
+        },
+        "before": {
+          "wall_seconds": 24.26,
+          "rss_kib": 11136,
+          "user_seconds": 4.29,
+          "sys_seconds": 16.09,
+          "exit": 0,
+          "output_bytes": 52687684
+        },
+        "candidate": {
+          "wall_seconds": 24.47,
+          "rss_kib": 11136,
+          "user_seconds": 4.07,
+          "sys_seconds": 16.3,
+          "exit": 0,
+          "output_bytes": 52687684
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "flanks-mask-500-small",
+      "tool": "fill-fs",
+      "args": [
+        "-r",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa",
+        "-l",
+        "100",
+        "-v",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/small.vcf.gz"
+      ],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/small.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 56.59,
+          "rss_kib": 11136,
+          "user_seconds": 9.11,
+          "sys_seconds": 34.02,
+          "exit": 0,
+          "output_bytes": 7308767
+        },
+        "before": {
+          "wall_seconds": 56.76,
+          "rss_kib": 11136,
+          "user_seconds": 9.16,
+          "sys_seconds": 33.9,
+          "exit": 0,
+          "output_bytes": 7308767
+        },
+        "candidate": {
+          "wall_seconds": 53.94,
+          "rss_kib": 10752,
+          "user_seconds": 9.26,
+          "sys_seconds": 34.04,
+          "exit": 0,
+          "output_bytes": 7308767
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "convert-snps-500",
+      "tool": "vcf-convert",
+      "args": [
+        "-v",
+        "4.2"
+      ],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/snps.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 38.22,
+          "rss_kib": 11520,
+          "user_seconds": 37.76,
+          "sys_seconds": 0.25,
+          "exit": 0,
+          "output_bytes": 45921642
+        },
+        "before": {
+          "wall_seconds": 27.93,
+          "rss_kib": 11904,
+          "user_seconds": 27.52,
+          "sys_seconds": 0.23,
+          "exit": 0,
+          "output_bytes": 45921642
+        },
+        "candidate": {
+          "wall_seconds": 25.65,
+          "rss_kib": 11904,
+          "user_seconds": 25.28,
+          "sys_seconds": 0.22,
+          "exit": 0,
+          "output_bytes": 45921642
+        }
+      },
+      "passed": true
+    }
+  ],
+  "controls": []
+}

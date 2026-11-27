@@ -1,0 +1,67 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9658135
+##  Job Name : vcf-controls
+##  Nodelist : node1830
+##      CPUs : 1
+##  Mem/Node : 4096 MB
+## Directory : /oscar/home/zliu328
+##   Job Started : Thu Nov 26 07:41:31 PM EST 2026
+###############################################################################
+{"passed": true, "cases": 111}
+{"passed": true, "cases": 111}
+ok 1 - equal record values
+ok 2 - equal neighboring fields share one object
+ok 3 - different fields remain separate
+ok 4 - mutable API remains independent
+ok 5 - mutating one sample does not affect its neighbor
+ok 6 - sharing ends at record boundary
+ok 7 - values for GT:DP / 0/1:8
+ok 8 - diagnostics for GT:DP / 0/1:8
+ok 9 - values for GT:DP / 0/1
+ok 10 - diagnostics for GT:DP / 0/1
+ok 11 - values for GT:DP / .:.
+ok 12 - diagnostics for GT:DP / .:.
+ok 13 - values for GT:DP / 0/1:8:9
+ok 14 - diagnostics for GT:DP / 0/1:8:9
+ok 15 - values for DP:GT / 0/1:8
+ok 16 - diagnostics for DP:GT / 0/1:8
+ok 17 - values for DP:GT / 0/1
+ok 18 - diagnostics for DP:GT / 0/1
+ok 19 - values for DP:GT / .:.
+ok 20 - diagnostics for DP:GT / .:.
+ok 21 - values for DP:GT / 0/1:8:9
+ok 22 - diagnostics for DP:GT / 0/1:8:9
+ok 23 - values for GT:GT / 0/1:8
+ok 24 - diagnostics for GT:GT / 0/1:8
+ok 25 - values for GT:GT / 0/1
+ok 26 - diagnostics for GT:GT / 0/1
+ok 27 - values for GT:GT / .:.
+ok 28 - diagnostics for GT:GT / .:.
+ok 29 - values for GT:GT / 0/1:8:9
+ok 30 - diagnostics for GT:GT / 0/1:8:9
+ok 31 - values for GT / 0/1:8
+ok 32 - diagnostics for GT / 0/1:8
+ok 33 - values for GT / 0/1
+ok 34 - diagnostics for GT / 0/1
+ok 35 - values for GT / .:.
+ok 36 - diagnostics for GT / .:.
+ok 37 - values for GT / 0/1:8:9
+ok 38 - diagnostics for GT / 0/1:8:9
+ok 39 - values for DP / 0/1:8
+ok 40 - diagnostics for DP / 0/1:8
+ok 41 - values for DP / 0/1
+ok 42 - diagnostics for DP / 0/1
+ok 43 - values for DP / .:.
+ok 44 - diagnostics for DP / .:.
+ok 45 - values for DP / 0/1:8:9
+ok 46 - diagnostics for DP / 0/1:8:9
+ok 47 - sample selection retained
+ok 48 - each mutable sample owns its hash
+ok 49 - each mutable sample owns its hash
+ok 50 - each mutable sample owns its hash
+ok 51 - deleting B depth leaves A intact
+ok 52 - deleting B depth leaves C intact
+ok 53 - inserting B field leaves A intact
+ok 54 - inserting B field leaves C intact
+ok 55 - next record has original parsed values
+1..55

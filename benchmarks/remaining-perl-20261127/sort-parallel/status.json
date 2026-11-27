@@ -1,0 +1,81 @@
+{
+  "state": "complete",
+  "node": "node2349.oscar.ccv.brown.edu",
+  "job": "9658166",
+  "before": "f7b152dfb10e674c65f2fa016409f61a65c7bedb",
+  "results": [
+    {
+      "case": "sort-shuffled-threads1",
+      "tool": "vcf-sort",
+      "args": [
+        "-p",
+        "1"
+      ],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/sort-parallel/data/shuffled.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 1.27,
+          "rss_kib": 9416,
+          "user_seconds": 0.75,
+          "sys_seconds": 0.69,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "before": {
+          "wall_seconds": 1.2,
+          "rss_kib": 9672,
+          "user_seconds": 0.74,
+          "sys_seconds": 0.69,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "candidate": {
+          "wall_seconds": 1.2,
+          "rss_kib": 9576,
+          "user_seconds": 0.73,
+          "sys_seconds": 0.7,
+          "exit": 0,
+          "output_bytes": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "sort-shuffled-threads4",
+      "tool": "vcf-sort",
+      "args": [
+        "-p",
+        "4"
+      ],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/sort-parallel/data/shuffled.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 1.21,
+          "rss_kib": 15616,
+          "user_seconds": 0.74,
+          "sys_seconds": 0.7,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "before": {
+          "wall_seconds": 1.21,
+          "rss_kib": 15456,
+          "user_seconds": 0.76,
+          "sys_seconds": 0.68,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "candidate": {
+          "wall_seconds": 1.21,
+          "rss_kib": 15652,
+          "user_seconds": 0.75,
+          "sys_seconds": 0.68,
+          "exit": 0,
+          "output_bytes": 227444048
+        }
+      },
+      "passed": true
+    }
+  ],
+  "controls": []
+}

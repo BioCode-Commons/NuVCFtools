@@ -1,0 +1,291 @@
+{
+  "state": "complete",
+  "node": "node2333.oscar.ccv.brown.edu",
+  "job": "9658143",
+  "before": "f7b152dfb10e674c65f2fa016409f61a65c7bedb",
+  "results": [
+    {
+      "case": "phase-overlap-500",
+      "tool": "vcf-phased-join",
+      "args": [
+        "-o",
+        "-",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/left.vcf.gz",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/right.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "original": {
+          "wall_seconds": 6.07,
+          "rss_kib": 66048,
+          "user_seconds": 5.85,
+          "sys_seconds": 0.27,
+          "exit": 0,
+          "output_bytes": 148794387
+        },
+        "before": {
+          "wall_seconds": 5.98,
+          "rss_kib": 66048,
+          "user_seconds": 5.8,
+          "sys_seconds": 0.25,
+          "exit": 0,
+          "output_bytes": 148794387
+        },
+        "candidate": {
+          "wall_seconds": 5.33,
+          "rss_kib": 66048,
+          "user_seconds": 5.19,
+          "sys_seconds": 0.23,
+          "exit": 0,
+          "output_bytes": 148794387
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fill-an-ac-500",
+      "tool": "fill-an-ac",
+      "args": [],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 30.43,
+          "rss_kib": 10752,
+          "user_seconds": 30.29,
+          "sys_seconds": 0.16,
+          "exit": 0,
+          "output_bytes": 48007941
+        },
+        "before": {
+          "wall_seconds": 21.51,
+          "rss_kib": 10368,
+          "user_seconds": 21.48,
+          "sys_seconds": 0.1,
+          "exit": 0,
+          "output_bytes": 48007941
+        },
+        "candidate": {
+          "wall_seconds": 21.64,
+          "rss_kib": 10752,
+          "user_seconds": 21.59,
+          "sys_seconds": 0.12,
+          "exit": 0,
+          "output_bytes": 48007941
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fix-ploidy-pass-through-500",
+      "tool": "vcf-fix-ploidy",
+      "args": [
+        "-s",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/sexes.txt"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.93,
+          "rss_kib": 10752,
+          "user_seconds": 1.0,
+          "sys_seconds": 0.07,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "before": {
+          "wall_seconds": 0.91,
+          "rss_kib": 10752,
+          "user_seconds": 0.99,
+          "sys_seconds": 0.07,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "candidate": {
+          "wall_seconds": 1.07,
+          "rss_kib": 10368,
+          "user_seconds": 1.14,
+          "sys_seconds": 0.07,
+          "exit": 0,
+          "output_bytes": 48007969
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "tstv-500",
+      "tool": "vcf-tstv",
+      "args": [],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.19,
+          "rss_kib": 6144,
+          "user_seconds": 0.19,
+          "sys_seconds": 0.04,
+          "exit": 0,
+          "output_bytes": 70
+        },
+        "before": {
+          "wall_seconds": 0.19,
+          "rss_kib": 6144,
+          "user_seconds": 0.18,
+          "sys_seconds": 0.04,
+          "exit": 0,
+          "output_bytes": 70
+        },
+        "candidate": {
+          "wall_seconds": 0.18,
+          "rss_kib": 5760,
+          "user_seconds": 0.18,
+          "sys_seconds": 0.04,
+          "exit": 0,
+          "output_bytes": 70
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "indel-stats-region-500",
+      "tool": "vcf-indel-stats",
+      "args": [
+        "-e",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/region.tsv"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.21,
+          "rss_kib": 10368,
+          "user_seconds": 0.26,
+          "sys_seconds": 0.04,
+          "exit": 0,
+          "output_bytes": 53
+        },
+        "before": {
+          "wall_seconds": 0.21,
+          "rss_kib": 10368,
+          "user_seconds": 0.25,
+          "sys_seconds": 0.05,
+          "exit": 0,
+          "output_bytes": 53
+        },
+        "candidate": {
+          "wall_seconds": 0.21,
+          "rss_kib": 10368,
+          "user_seconds": 0.26,
+          "sys_seconds": 0.04,
+          "exit": 0,
+          "output_bytes": 53
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "fix-newlines-500",
+      "tool": "vcf-fix-newlines",
+      "args": [],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/windows.vcf",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.08,
+          "rss_kib": 6144,
+          "user_seconds": 0.02,
+          "sys_seconds": 0.08,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "before": {
+          "wall_seconds": 0.08,
+          "rss_kib": 6144,
+          "user_seconds": 0.02,
+          "sys_seconds": 0.08,
+          "exit": 0,
+          "output_bytes": 48007969
+        },
+        "candidate": {
+          "wall_seconds": 0.08,
+          "rss_kib": 6144,
+          "user_seconds": 0.02,
+          "sys_seconds": 0.08,
+          "exit": 0,
+          "output_bytes": 48007969
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "sort-parallel4-2504",
+      "tool": "vcf-sort",
+      "args": [
+        "-p",
+        "4"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 1.24,
+          "rss_kib": 15392,
+          "user_seconds": 0.81,
+          "sys_seconds": 0.65,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "before": {
+          "wall_seconds": 1.24,
+          "rss_kib": 15736,
+          "user_seconds": 0.82,
+          "sys_seconds": 0.65,
+          "exit": 0,
+          "output_bytes": 227444048
+        },
+        "candidate": {
+          "wall_seconds": 1.28,
+          "rss_kib": 15732,
+          "user_seconds": 0.8,
+          "sys_seconds": 0.66,
+          "exit": 0,
+          "output_bytes": 227444048
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "consensus-sample-500",
+      "tool": "vcf-consensus",
+      "args": [
+        "-s",
+        "HG00096",
+        "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/snps.vcf.gz"
+      ],
+      "stdin": "/sss/jobtmp/zliu328/nuvcftools-remaining-20261127/audit/data/snippet.fa",
+      "measurements": {
+        "original": {
+          "wall_seconds": 1.03,
+          "rss_kib": 14976,
+          "user_seconds": 1.03,
+          "sys_seconds": 0.09,
+          "exit": 0,
+          "output_bytes": 1016689
+        },
+        "before": {
+          "wall_seconds": 1.01,
+          "rss_kib": 14976,
+          "user_seconds": 0.99,
+          "sys_seconds": 0.11,
+          "exit": 0,
+          "output_bytes": 1016689
+        },
+        "candidate": {
+          "wall_seconds": 1.07,
+          "rss_kib": 14976,
+          "user_seconds": 1.06,
+          "sys_seconds": 0.11,
+          "exit": 0,
+          "output_bytes": 1016689
+        }
+      },
+      "passed": true
+    }
+  ],
+  "controls": []
+}
