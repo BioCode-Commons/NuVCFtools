@@ -327,14 +327,30 @@ sub _unread_line
 
 sub next_data_array
 {
-    my ($self,$line) = @_;
+    my ($self,$line,$site_only) = @_;
     if ( !$line ) { $line = $self->next_line(); }
     if ( !$line ) { return undef; }
     if ( ref($line) eq 'ARRAY' ) { return $line; }
-    my @items = split(/\t/,$line);
+    # Site-only readers keep FORMAT and all samples as one opaque tail.
+    # Strip only empty trailing fields, matching split's default semantics.
+    my @items = $site_only ? split(/\t/,$line,9) : split(/\t/,$line);
+    if ( $site_only )
+    {
+        $items[-1] =~ s/\t+\z// if @items==9 && substr($items[-1],-1) eq "\t";
+        pop @items while @items && $items[-1] eq '';
+    }
     if ( @items<8 ) { $line=~s/\n/\\n/g; $self->throw("Could not parse the line, wrong number of columns: [$line]"); }
     chomp($items[-1]);
     return \@items;
+}
+
+# First eight columns followed by an opaque FORMAT/sample suffix. Intended for
+# INFO-only transformations; joining the array reconstructs the original tail.
+# Route through next_data_array so version-specific REF/ALT handling is retained.
+sub next_site_array
+{
+    my ($self,$line) = @_;
+    return $self->next_data_array($line,1);
 }
 
 

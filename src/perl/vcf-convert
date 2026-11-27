@@ -73,12 +73,13 @@ sub convert_file
     while (my $x=$vcf_in->next_data_hash())
     {
         # Convert missing (default) FORMAT values
-        for my $gt (values %{$$x{gtypes}})
+        # GT is never converted. Compile the remaining field list once per
+        # record; GT-only records need no per-sample conversion pass.
+        my @fields_to_convert = grep { $_ ne 'GT' } @{$$x{FORMAT}};
+        for my $gt (@fields_to_convert ? values %{$$x{gtypes}} : ())
         {
-            for my $field (@{$$x{FORMAT}})
+            for my $field (@fields_to_convert)
             {
-                # Skip the GT tag, so that ploidy information is not lost ("./." would become ".")
-                if ( $field eq 'GT' ) { next; }
                 if ( $field eq 'FT' && $$gt{$field} eq $$vcf_in{filter_passed} ) { $$gt{$field}=$$vcf_out{filter_passed}; }
                 if ( exists($$vcf_in{defaults}{$field}) && $$vcf_in{defaults}{$field} eq $$gt{$field} )
                 {

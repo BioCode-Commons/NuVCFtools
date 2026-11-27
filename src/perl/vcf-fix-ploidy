@@ -99,7 +99,7 @@ sub fix_ploidy
     my %nchanged;
     while (my $line = $vcf->next_line)
     {
-        my $rec = $vcf->next_data_array($line);
+        my $rec = $vcf->next_site_array($line);
         if ( !defined $prev_chr or $$rec[0] ne $prev_chr )
         {
             $prev_chr = $$rec[0];
@@ -138,6 +138,8 @@ sub fix_ploidy
 
         if ( !defined $samples ) { print $line; next; }
 
+        # Sample values are needed only in a region whose ploidy is changed.
+        $rec = $vcf->next_data_array($line);
         my $igt = $vcf->get_tag_index($$rec[8],'GT',':');
         my $ipl = $vcf->get_tag_index($$rec[8],'PL',':');
         my $igl = $vcf->get_tag_index($$rec[8],'GL',':');

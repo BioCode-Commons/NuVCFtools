@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use Carp;
-use IPC::Open2;
+use Digest::MD5;
 use Vcf;
 
 my $opts = parse_params();
@@ -91,9 +91,8 @@ sub add_to_dictionary
     my ($opts,$dict,$chr) = @_;
     if ( !exists($$opts{refseq}) ) { error("The chromosome [$chr] not present in the dictionary and no reference sequence given.\n"); }
 
-    my($md5_in,$md5_out,$ok,$len);
-    eval { open2($md5_out,$md5_in,'md5sum'); $ok=1; };
-    if ( !$ok ) { error("md5sum: $!"); }
+    my $digest = Digest::MD5->new;
+    my $len;
 
     my $cmd = "samtools faidx $$opts{refseq} $chr";
     open(my $refseq,"$cmd |") or error("$cmd: $!");
@@ -102,20 +101,16 @@ sub add_to_dictionary
     while (my $line=<$refseq>)
     {
         chomp($line);
-        print $md5_in $line;
+        $digest->add($line);
         $len += length($line);
     }
     close($refseq);
 
-    close($md5_in);
-    my @md5 = <$md5_out>;
-    close($md5_out);
-    $md5[0] =~ s/\s+.*$//;
-    chomp($md5[0]);
+    my $md5 = $digest->hexdigest;
 
     if ( !$len ) { error("The sequence [$chr] not present in $$opts{refseq}\n"); }
 
-    $$dict{$chr} = { dirty=>1, SN=>$chr, LN=>$len, UR=>'file://'.$$opts{refseq}, M5=>$md5[0] };
+    $$dict{$chr} = { dirty=>1, SN=>$chr, LN=>$len, UR=>'file://'.$$opts{refseq}, M5=>$md5 };
     $$dict{dirty} = 1;
 } 
 

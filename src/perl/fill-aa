@@ -112,7 +112,7 @@ sub fill_aa
     my $nskipped = 0;
     while (my $line = $vcf->next_line() )
     {
-        my $rec = $vcf->next_data_array($line);
+        my $rec = $vcf->next_site_array($line);
         my $chr = $$rec[0];
         my $pos = $$rec[1];
         my $ref = $$rec[3];

@@ -31,6 +31,7 @@ sub error
         "                                       -b, -v or -c in order to take effect. With multiple files works\n",
         "                                        as a switch on the command line, see the example below [N]\n",
         "   -r, --refseq <file>             The reference sequence.\n",
+        "       --reference-cache-size <n>  Bases prefetched per reference lookup [1024].\n",
         "   -v, --vcf-mask <file>           Mask known variants in the flanking sequence, multiple files can be given (tabix indexed)\n",
         "   -h, -?, --help                  This help message.\n",
         "Example:\n",
@@ -42,12 +43,13 @@ sub error
 
 sub parse_params
 {
-    my $opts = { length=>100, mask=>[], cluster=>0 };
+    my $opts = { length=>100, mask=>[], cluster=>0, reference_cache_size=>1024 };
     my $mask = $$opts{mask_char}{default} = 'N';
     my $mask_changed = 0;
     while (defined(my $arg=shift(@ARGV)))
     {
         if ( $arg eq '-c' || $arg eq '--cluster' ) { $$opts{cluster}=shift(@ARGV); $$opts{mask_char}{default}=$mask; $mask_changed=0; next; }
+        if ( $arg eq '--reference-cache-size' ) { $$opts{reference_cache_size}=shift(@ARGV); next; }
         if ( $arg eq '-r' || $arg eq '--refseq' ) { $$opts{refseq}=shift(@ARGV); next; }
         if ( $arg eq '-l' || $arg eq '--length' ) { $$opts{length}=shift(@ARGV); next; }
         if ( $arg eq '-m' || $arg eq '--mask' ) { $mask=shift(@ARGV); check_mask_char($mask); $mask_changed=1; next; }
@@ -58,6 +60,7 @@ sub parse_params
         error("Unknown parameter \"$arg\". Run -h for help.\n");
     }
     if ( !($$opts{length}=~/^\d+$/) ) { error("Expected integer after -l, got $$opts{length}\n"); }
+    if ( !defined $$opts{reference_cache_size} || $$opts{reference_cache_size} !~ /\A[1-9][0-9]*\z/ ) { error("Expected a positive integer after --reference-cache-size\n"); }
     if ( !exists($$opts{refseq}) ) { error("Missing the -r option.\n"); }
     if ( $mask_changed ) { error("The -m parameter must preceed -b, -v, or the file in order to take effect.\n"); }
     return $opts;
@@ -75,7 +78,7 @@ sub flanking_sequence
 {
     my ($opts) = @_;
 
-    $$opts{faref} = FaSlice->new(file=>$$opts{refseq},size=>1_024,oob=>'N');
+    $$opts{faref} = FaSlice->new(file=>$$opts{refseq},size=>$$opts{reference_cache_size},oob=>'N');
 
     my $vcf = $$opts{vcf} = exists($$opts{file}) ? Vcf->new(file=>$$opts{file}) : Vcf->new(fh=>\*STDIN);
     $vcf->parse_header;
@@ -83,7 +86,7 @@ sub flanking_sequence
     print $vcf->format_header;
 
     my (@lines,@mask);
-    while (my $line=$vcf->next_data_array)
+    while (my $line=$vcf->next_site_array)
     {
         my $chr = $$line[0];
         my $pos = $$line[1];

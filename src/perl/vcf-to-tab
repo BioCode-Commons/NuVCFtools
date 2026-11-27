@@ -82,7 +82,7 @@ sub convert_to_tab
 
     my $header_printed=0;
 
-    while (my $x=$vcf->next_data_hash())
+    while (my $x=$vcf->next_data_hash_readonly())
     {
         if ( !$header_printed ) 
         {
@@ -96,9 +96,16 @@ sub convert_to_tab
             $header_printed = 1;
         }
 
+        my %rendered; # Exact GT strings, scoped to this record (REF/ALT and mode are fixed).
         print "$$x{CHROM}\t$$x{POS}\t$$x{REF}";
         for my $col (sort keys %{$$x{gtypes}})
         {
+            my $raw_gt = $$x{gtypes}{$col}{GT};
+            if ( defined $raw_gt && exists $rendered{$raw_gt} )
+            {
+                print "\t".$rendered{$raw_gt};
+                next;
+            }
             my ($al1,$sep,$al2) = exists($$x{gtypes}{$col}{GT}) ? $vcf->parse_alleles($x,$col) : ('.','/','.');
             my $gt = $al1.'/'.$al2;
             if ( $iupac )
@@ -107,6 +114,8 @@ sub convert_to_tab
                 if ( !exists($$iupac{$gt}) ) { error(qq[Unknown IUPAC code for "$al1$sep$al2" .. $$x{CHROM}:$$x{POS} $col\n]); }
                 $gt = $$iupac{$gt};
             }
+            # Undefined alleles retain the original per-sample diagnostics.
+            if ( defined $raw_gt && defined $al1 && defined $al2 ) { $rendered{$raw_gt} = $gt; }
             print "\t".$gt;
         }
         print "\n";
