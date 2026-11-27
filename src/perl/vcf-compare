@@ -1313,12 +1313,14 @@ sub cmp_genotypes
     my $nrecs = @$grp;
     my $hapls = $$opts{hapls};
 
+    # Genotype values are read-only here; column remapping only changes the
+    # outer name map. Equal fields may share hashes within this record.
     # Break the VCF lines into hashes (required by parse_haplotype)
     for my $grp_rec (@$grp)
     {
         $$grp_rec{rec} = exists($$grp_rec{prepared})
-            ? $$grp_rec{vcf}->next_prepared_hash(NuOrderedWorkers::take_prepared_value($$grp_rec{prepared}))
-            : $$grp_rec{vcf}->next_data_hash($$grp_rec{line});
+            ? $$grp_rec{vcf}->next_prepared_hash(NuOrderedWorkers::take_prepared_value($$grp_rec{prepared}),1)
+            : $$grp_rec{vcf}->next_data_hash_readonly($$grp_rec{line});
         if ( $$opts{ignore_indels} && exists($$grp_rec{rec}{INFO}{INDEL}) ) { return; }
         if ( exists($$grp_rec{vcf}{_col_mapping}) )
         {

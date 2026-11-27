@@ -1,0 +1,107 @@
+[
+  {
+    "case": "tournament",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "tournament",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "tournament",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "genotypes",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "selection",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "filter",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "positions",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "windows",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "sequence",
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "genotypes",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "selection",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "filter",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "positions",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "windows",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "sequence",
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "genotypes",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "selection",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "filter",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "positions",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "windows",
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "sequence",
+    "seed": 19,
+    "passed": true
+  }
+]

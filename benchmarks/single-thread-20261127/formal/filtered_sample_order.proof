@@ -1,0 +1,114 @@
+unit-resolution(th-lemma(Or(Not(between <= 0),
+                            Not(between >= 1))),
+                mp(asserted(between >= 1),
+                   rewrite((between >= 1) == (between >= 1)),
+                   between >= 1),
+                unit-resolution(mp(mp(mp(mp(mp(asserted(Not(And(ri <
+                                        rj,
+                                        ki < kj))),
+                                        monotonicity(monotonicity(rewrite((ri <
+                                        rj) ==
+                                        Not(rj <= ri)),
+                                        rewrite((ki < kj) ==
+                                        Not(kj <= ki)),
+                                        And(ri < rj,
+                                        ki < kj) ==
+                                        And(Not(rj <= ri),
+                                        Not(kj <= ki))),
+                                        Not(And(ri < rj,
+                                        ki < kj)) ==
+                                        Not(And(Not(rj <= ri),
+                                        Not(kj <= ki)))),
+                                        Not(And(Not(rj <= ri),
+                                        Not(kj <= ki)))),
+                                        trans(monotonicity(rewrite(And(Not(rj <=
+                                        ri),
+                                        Not(kj <= ki)) ==
+                                        Not(Or(kj <= ki,
+                                        rj <= ri))),
+                                        Not(And(Not(rj <= ri),
+                                        Not(kj <= ki))) ==
+                                        Not(Not(Or(kj <= ki,
+                                        rj <= ri)))),
+                                        rewrite(Not(Not(Or(kj <=
+                                        ki,
+                                        rj <= ri))) ==
+                                        Or(kj <= ki,
+                                        rj <= ri)),
+                                        Not(And(Not(rj <= ri),
+                                        Not(kj <= ki))) ==
+                                        Or(kj <= ki,
+                                        rj <= ri)),
+                                        Or(kj <= ki,
+                                        rj <= ri)),
+                                        rewrite(Or(kj <= ki,
+                                        rj <= ri) ==
+                                        Or(kj <= ki,
+                                        rj <= ri)),
+                                        Or(kj <= ki,
+                                        rj <= ri)),
+                                      trans(monotonicity(monotonicity(mp(mp(asserted(rj ==
+                                        ri + between),
+                                        rewrite((rj ==
+                                        ri + between) ==
+                                        (rj == ri + between)),
+                                        rj == ri + between),
+                                        monotonicity(rewrite(ri +
+                                        between ==
+                                        ri + between),
+                                        (rj == ri + between) ==
+                                        (rj == ri + between)),
+                                        rj == ri + between),
+                                        (rj <= ri) ==
+                                        (ri + between <= ri)),
+                                        Or(kj <= ki,
+                                        rj <= ri) ==
+                                        Or(kj <= ki,
+                                        ri + between <= ri)),
+                                        trans(monotonicity(rewrite((ri +
+                                        between <=
+                                        ri) ==
+                                        (between <= 0)),
+                                        Or(kj <= ki,
+                                        ri + between <= ri) ==
+                                        Or(kj <= ki,
+                                        between <= 0)),
+                                        rewrite(Or(kj <= ki,
+                                        between <= 0) ==
+                                        Or(kj <= ki,
+                                        between <= 0)),
+                                        Or(kj <= ki,
+                                        ri + between <= ri) ==
+                                        Or(kj <= ki,
+                                        between <= 0)),
+                                        Or(kj <= ki,
+                                        rj <= ri) ==
+                                        Or(kj <= ki,
+                                        between <= 0)),
+                                      Or(kj <= ki,
+                                        between <= 0)),
+                                   monotonicity(apply-def(intro-def((kj <=
+                                        ki) ==
+                                        k!1),
+                                        ~(kj <= ki, k!1)),
+                                        Or(kj <= ki,
+                                        between <= 0) ==
+                                        Or(k!1,
+                                        between <= 0)),
+                                   Or(k!1, between <= 0)),
+                                mp(mp(mp(asserted(ki < kj),
+                                        rewrite((ki < kj) ==
+                                        Not(kj <= ki)),
+                                        Not(kj <= ki)),
+                                      rewrite(Not(kj <= ki) ==
+                                        Not(kj <= ki)),
+                                      Not(kj <= ki)),
+                                   monotonicity(apply-def(intro-def((kj <=
+                                        ki) ==
+                                        k!1),
+                                        ~(kj <= ki, k!1)),
+                                        Not(kj <= ki) ==
+                                        Not(k!1)),
+                                   Not(k!1)),
+                                between <= 0),
+                False)

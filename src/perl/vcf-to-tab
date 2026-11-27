@@ -85,6 +85,7 @@ sub convert_to_tab
     $vcf->parse_header();
 
 
+    my $sample_order;
     NuOrderedWorkers::run(
         workers=>$$opts{workers} || 1,
         next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() }, sub { $vcf->prepare_data_columns($_[0],($$opts{workers} || 1)>1) }, $$opts{worker_batch_bytes} || 4194304),
@@ -93,11 +94,17 @@ sub convert_to_tab
         for my $item (@$batch) {
         my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
-        my $x=$vcf->next_prepared_hash($prepared,1);
+        my $x=$vcf->next_prepared_hash($prepared,1,0,1);
+        # Header columns define the possible sample names. Empty sample fields
+        # can omit entries on any record, so retain the per-record existence check.
+        if (!defined $sample_order) {
+            my %names = map { $_ => 1 } @{$vcf->{columns}}[9..$#{$vcf->{columns}}];
+            $sample_order = [sort keys %names];
+        }
         if ( $$item[0]==0 )
         {
             print "#CHROM\tPOS\tREF";
-            for my $col (sort keys %{$$x{gtypes}})
+            for my $col (grep { exists $$x{gtypes}{$_} } @$sample_order)
             {
                 print "\t$col";
             }
@@ -107,7 +114,7 @@ sub convert_to_tab
 
         my %rendered; # Exact GT strings, scoped to this record (REF/ALT and mode are fixed).
         print "$$x{CHROM}\t$$x{POS}\t$$x{REF}";
-        for my $col (sort keys %{$$x{gtypes}})
+        for my $col (grep { exists $$x{gtypes}{$_} } @$sample_order)
         {
             my $raw_gt = $$x{gtypes}{$col}{GT};
             if ( defined $raw_gt && exists $rendered{$raw_gt} )

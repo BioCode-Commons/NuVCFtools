@@ -1,0 +1,12 @@
+{
+  "state": "failed",
+  "job": "9689345",
+  "node": "node1923.oscar.ccv.brown.edu",
+  "cpus": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "results": []
+}

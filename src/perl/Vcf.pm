@@ -491,7 +491,7 @@ sub next_data_hash
     my ($self,$line,$share_genotypes,$compact_genotypes) = @_;
     my $columns = $self->prepare_data_columns($line);
     return undef unless defined $columns;
-    return $self->next_prepared_hash($columns,$share_genotypes,$compact_genotypes);
+    return $self->next_prepared_hash($columns,$share_genotypes,$compact_genotypes,1);
 }
 
 # Stream-dependent column inference and once-only diagnostics stay with the
@@ -552,30 +552,33 @@ sub prepare_data_columns
 # Decode columns already checked by prepare_data_columns on this reader.
 sub next_prepared_hash
 {
-    my ($self,$columns,$share_genotypes,$compact_genotypes) = @_;
-    my @items = ref($columns) ? @$columns : split(/\t/,$columns,-1);
+    my ($self,$columns,$share_genotypes,$compact_genotypes,$owned_columns) = @_;
+    # Internal readers transfer a fresh column array. Borrow it for decoding;
+    # public callers retain the default snapshot semantics. No field is modified.
+    my $items = ref($columns) && $owned_columns ? $columns
+        : [ref($columns) ? @$columns : split(/\t/,$columns,-1)];
     my $cols = $$self{columns};
     my %out;
 
     # Mandatory fields
-    $out{CHROM}  = $items[0];
-    $out{POS}    = $items[1];
-    $out{ID}     = $items[2];
-    $out{REF}    = $items[3];
-    $out{ALT}    = [ split(/,/,$items[4]) ];
-    $out{QUAL}   = $items[5];
-    $out{FILTER} = [ split(/;/,$items[6]) ];
+    $out{CHROM}  = $items->[0];
+    $out{POS}    = $items->[1];
+    $out{ID}     = $items->[2];
+    $out{REF}    = $items->[3];
+    $out{ALT}    = [ split(/,/,$items->[4]) ];
+    $out{QUAL}   = $items->[5];
+    $out{FILTER} = [ split(/;/,$items->[6]) ];
 
     # INFO, e.g. NS=58;DP=258;AF=0.786;DB;H2
-    if ( defined $items[7] )
+    if ( defined $items->[7] )
     {
         my %hash;
-        for my $info (split(/;/,$items[7]))
+        for my $info (split(/;/,$items->[7]))
         {
             my ($key,$val) = split(/=/,$info);
             if ( !defined $key ) 
             { 
-                $self->warn("Broken VCF file, empty INFO field at $items[0]:$items[1]\n");
+                $self->warn("Broken VCF file, empty INFO field at $items->[0]:$items->[1]\n");
                 next;
             }
             if ( defined $val )
@@ -596,10 +599,10 @@ sub next_prepared_hash
 
     # The FORMAT field may not be present. GT:GQ:DP:HQ
     my $format;
-    if ( $$cols[8] || $items[8] )
+    if ( $$cols[8] || $items->[8] )
     {
-        $format = $out{FORMAT} = [ split(/:/,$items[8]) ];
-        if ( (!$$format[0] || $$format[0] ne 'GT') && !$$self{ignore_missing_GT} ) { $self->warn("Expected GT as the first genotype field at $items[0]:$items[1]\n"); } 
+        $format = $out{FORMAT} = [ split(/:/,$items->[8]) ];
+        if ( (!$$format[0] || $$format[0] ne 'GT') && !$$self{ignore_missing_GT} ) { $self->warn("Expected GT as the first genotype field at $items->[0]:$items->[1]\n"); }
     }
 
     # Genotype fields
@@ -608,33 +611,33 @@ sub next_prepared_hash
     my $compact_positions = q[];
     my ($previous_text,$previous_genotype);
     my $check_nformat = $$self{drop_trailings} ? 0 : 1;
-    for (my $icol=9; $icol<@items; $icol++)
+    for (my $icol=9; $icol<@$items; $icol++)
     {
-        if ( $items[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items[0]:$items[1]\n"); next; }
+        if ( $items->[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items->[0]:$items->[1]\n"); next; }
         if ( exists($$self{samples_to_parse}) && !$$self{samples_to_parse}[$icol] ) { next; }
 
         # Read-only consumers can share every equal, well-formed genotype in
         # this record, not only equal neighbors. Mutable callers still receive
         # independent hashes; malformed fields retain per-sample diagnostics.
-        if ($share_genotypes && exists($readonly_genotypes{$items[$icol]})) {
-            $gtypes{$$cols[$icol]}=$readonly_genotypes{$items[$icol]};
+        if ($share_genotypes && exists($readonly_genotypes{$items->[$icol]})) {
+            $gtypes{$$cols[$icol]}=$readonly_genotypes{$items->[$icol]};
             next;
         }
-        if ($compact_genotypes && exists($templates{$items[$icol]})) {
-            $compact_positions .= pack('w2',$icol,$templates{$items[$icol]});
+        if ($compact_genotypes && exists($templates{$items->[$icol]})) {
+            $compact_positions .= pack('w2',$icol,$templates{$items->[$icol]});
             next;
         }
-        if ( !$compact_genotypes && defined($previous_genotype) && $items[$icol] eq $previous_text )
+        if ( !$compact_genotypes && defined($previous_genotype) && $items->[$icol] eq $previous_text )
         {
             # Mutable consumers get independent hashes; only read-only callers
             # may share one. Reuse parsing without aliasing sample mutations.
             $gtypes{$$cols[$icol]} = $share_genotypes ? $previous_genotype : { %$previous_genotype };
             next;
         }
-        my @fields = split(/:/, $items[$icol]);
+        my @fields = split(/:/, $items->[$icol]);
         if ( $check_nformat && @fields != @$format ) 
         {
-            $self->warn("Different number of fields in the format and the column $$cols[$icol] at $items[0]:$items[1] ("
+            $self->warn("Different number of fields in the format and the column $$cols[$icol] at $items->[0]:$items->[1] ("
                 .scalar @fields." vs ".scalar @$format.": [",join(',',@fields),"] vs [",join(',',@$format),"])\n");
         }
         my %hash;
@@ -646,15 +649,15 @@ sub next_prepared_hash
             my $id = @compact_templates;
             push @compact_templates,\%hash;
             $compact_positions .= pack('w2',$icol,$id);
-            $templates{$items[$icol]}=$id if @fields==@$format;
+            $templates{$items->[$icol]}=$id if @fields==@$format;
         }
         else {
             $gtypes{$$cols[$icol]} = \%hash;
-            $readonly_genotypes{$items[$icol]}=\%hash if $share_genotypes && @fields==@$format;
+            $readonly_genotypes{$items->[$icol]}=\%hash if $share_genotypes && @fields==@$format;
         }
         # Malformed columns retain their per-sample diagnostics and parsing.
         $previous_genotype = @fields==@$format ? \%hash : undef;
-        $previous_text = $items[$icol];
+        $previous_text = $items->[$icol];
     }
     if ($compact_genotypes) { $out{__nu_compact_genotypes}=[$compact_positions,\@compact_templates]; }
     else { $out{gtypes} = \%gtypes; }

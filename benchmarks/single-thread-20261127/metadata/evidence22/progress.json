@@ -1,0 +1,82 @@
+{
+  "case": "validator500-single",
+  "tool": "vcf-validator",
+  "arguments": [
+    "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+  ],
+  "stdin": "None",
+  "measurements": {
+    "original": {
+      "wall_seconds": 94.13,
+      "gnu_peak_rss_kib": 10752,
+      "user_seconds": 93.48,
+      "system_seconds": 0.16,
+      "sampled_tree_rss_kib": 13440,
+      "sampled_tree_pss_kib": 10731,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence22/validator500-single-original.time",
+        "taskset",
+        "-c",
+        "24",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-validator",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    },
+    "before": {
+      "wall_seconds": 20.22,
+      "gnu_peak_rss_kib": 11136,
+      "user_seconds": 19.97,
+      "system_seconds": 0.13,
+      "sampled_tree_rss_kib": 13440,
+      "sampled_tree_pss_kib": 10764,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence22/validator500-single-before.time",
+        "taskset",
+        "-c",
+        "24",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before21/src/perl/vcf-validator",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 18.89,
+      "gnu_peak_rss_kib": 10752,
+      "user_seconds": 18.67,
+      "system_seconds": 0.11,
+      "sampled_tree_rss_kib": 13056,
+      "sampled_tree_pss_kib": 10683,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence22/validator500-single-candidate.time",
+        "taskset",
+        "-c",
+        "24",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate22/src/perl/vcf-validator",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    }
+  }
+}

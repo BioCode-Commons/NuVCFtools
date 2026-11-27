@@ -1,0 +1,674 @@
+[
+  {
+    "case": "normal",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-middle",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "missing-first",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "all-empty",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "no-gt",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "bad-gt",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "field-count",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "extra-format",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "haploid",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "iupac-error",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": false,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": false,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": false,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": false,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": true,
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": true,
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": true,
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "iupac": true,
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  }
+]

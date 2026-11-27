@@ -1,0 +1,22 @@
+{
+  "solver": "5.4.1",
+  "scope": "abstract contracts, not whole-program equivalence",
+  "checks": [
+    {
+      "name": "stable_column_read",
+      "result": "unsat"
+    },
+    {
+      "name": "filtered_sample_order",
+      "result": "unsat"
+    },
+    {
+      "name": "filtered_prefix_step",
+      "result": "unsat"
+    },
+    {
+      "name": "readonly_field_reuse",
+      "result": "unsat"
+    }
+  ]
+}

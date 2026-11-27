@@ -1,0 +1,31 @@
+mp(mp(asserted(Not(decode(context, x) == decode(context, y))),
+      rewrite(Not(decode(context, x) == decode(context, y)) ==
+              Not(decode(context, x) == decode(context, y))),
+      Not(decode(context, x) == decode(context, y))),
+   trans(monotonicity(monotonicity(monotonicity(mp(asserted(x ==
+                                        y),
+                                        rewrite((x == y) ==
+                                        (x == y)),
+                                        x == y),
+                                        decode(context, x) ==
+                                        decode(context, y)),
+                                   (decode(context, x) ==
+                                    decode(context, y)) ==
+                                   (decode(context, y) ==
+                                    decode(context, y))),
+                      Not(decode(context, x) ==
+                          decode(context, y)) ==
+                      Not(decode(context, y) ==
+                          decode(context, y))),
+         trans(monotonicity(rewrite((decode(context, y) ==
+                                     decode(context, y)) ==
+                                    True),
+                            Not(decode(context, y) ==
+                                decode(context, y)) ==
+                            Not(True)),
+               rewrite(Not(True) == False),
+               Not(decode(context, y) == decode(context, y)) ==
+               False),
+         Not(decode(context, x) == decode(context, y)) ==
+         False),
+   False)

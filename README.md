@@ -71,7 +71,7 @@ This branch adds ordered worker processes to 19 Perl commands. It also changes g
 
 ## Benchmarks <sup><sub>[↑ Contents](#contents)</sub></sup>
 
-The [latest memory results](benchmarks/parallel-memory-20261127.md) reduce compare and stats PSS by 28.7% and 14.5% at 16 workers, with runtime approximately unchanged. The [preceding measurements](benchmarks/parallel-state-memory-20261127.md) cover annotate, compare, validator, stats, merge and fill-aa. Earlier branch measurements are recorded in the [23-tool Perl comparison](benchmarks/parallel-perl-tools.md), including full output checks, wall time, worker-inclusive memory and cases that did not improve. The [earlier all-entrypoint report](benchmarks/all-tools-vs-upstream.md) also covers C++ commands and GNU sort. These branch results have not been published to the BioCode Commons website.
+The [single-core results](benchmarks/single-thread-20261127.md) reduced to-tab and compare time by 21.2% and 14.9% against the preceding branch version on the measured case. The [latest memory results](benchmarks/parallel-memory-20261127.md) reduce compare and stats PSS by 28.7% and 14.5% at 16 workers, with runtime approximately unchanged. The [preceding measurements](benchmarks/parallel-state-memory-20261127.md) cover annotate, compare, validator, stats, merge and fill-aa. Earlier branch measurements are recorded in the [23-tool Perl comparison](benchmarks/parallel-perl-tools.md), including full output checks, wall time, worker-inclusive memory and cases that did not improve. The [earlier all-entrypoint report](benchmarks/all-tools-vs-upstream.md) also covers C++ commands and GNU sort. These branch results have not been published to the BioCode Commons website.
 
 <a id="ai-use-and-review"></a>
 

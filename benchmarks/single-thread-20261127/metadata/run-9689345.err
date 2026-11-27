@@ -1,0 +1,20 @@
+Lmod Warning:
+-------------------------------------------------------------------------------
+The following dependent module(s) are not currently loaded: htslib/1.19.1-wsmt
+(required by: samtools/1.19.2-fm2x), python/3.13.5-dz6t (required by:
+samtools/1.19.2-fm2x)
+-------------------------------------------------------------------------------
+
+
+
+Traceback (most recent call last):
+  File "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate21c/tests/compare_queue_diagnostics_regression.py", line 61, in <module>
+    raise RuntimeError('comparison mismatch '+case)
+RuntimeError: comparison mismatch missing
+Traceback (most recent call last):
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run21.py", line 88, in <module>
+    subprocess.run(['python3',str(R/'candidate21c/tests/compare_queue_diagnostics_regression.py'),'--before',str(LIB['before']),'--candidate',str(LIB['candidate']),'--output',str(E/'diagnostics-controls')],check=True,env=ENV)
+  File "/oscar/rt/9.6/25/spack/x86_64_v3/python-3.11.11-5e66epfh6bxt72bivuccajllo5eixfnq/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate21c/tests/compare_queue_diagnostics_regression.py', '--before', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before21/src/perl', '--candidate', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate21c/src/perl', '--output', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence21/diagnostics-controls']' returned non-zero exit status 1.
+srun: error: node1923: task 0: Exited with exit code 1

@@ -1,0 +1,18 @@
+mp(mp(asserted(Not(A[i] == B[i])),
+      rewrite(Not(A[i] == B[i]) == Not(A[i] == B[i])),
+      Not(A[i] == B[i])),
+   trans(monotonicity(monotonicity(monotonicity(mp(asserted(A ==
+                                        B),
+                                        rewrite((A == B) ==
+                                        (A == B)),
+                                        A == B),
+                                        A[i] == B[i]),
+                                   (A[i] == B[i]) ==
+                                   (B[i] == B[i])),
+                      Not(A[i] == B[i]) == Not(B[i] == B[i])),
+         trans(monotonicity(rewrite((B[i] == B[i]) == True),
+                            Not(B[i] == B[i]) == Not(True)),
+               rewrite(Not(True) == False),
+               Not(B[i] == B[i]) == False),
+         Not(A[i] == B[i]) == False),
+   False)

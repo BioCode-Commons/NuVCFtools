@@ -4,6 +4,7 @@ import argparse,json,os,re,subprocess
 from pathlib import Path
 p=argparse.ArgumentParser()
 for k in ['before','candidate','output']:p.add_argument('--'+k,required=True)
+p.add_argument('--compare-diagnostic-body',action='store_true',help='Compare error body and exit/output; exclude internal Carp call frames')
 a=p.parse_args();d=Path(a.output);d.mkdir(parents=True,exist_ok=False)
 header='''##fileformat=VCFv4.1
 ##contig=<ID=22,length=100000>
@@ -52,8 +53,10 @@ for case in cases:
      token=rb'"(?:[^"\\]|\\.)*"|((?:HASH|ARRAY|CODE|SCALAR)\()0x[0-9a-f]+(\))'
      return re.sub(token,lambda m:m[1]+b'<address>'+m[2] if m[1] else m[0],line)
     err=b''.join(frame(line) for line in err.splitlines(keepends=True))
+    if a.compare_diagnostic_body:
+     err=b''.join(line for line in err.splitlines(keepends=True) if not (line.startswith(b'\t') and b' called at ' in line))
     runs.append((r.returncode,r.stdout,err))
-   ok=runs[0]==runs[1];results.append(dict(case=case,workers=n,seed=seed,passed=ok,exit_codes=[r[0] for r in runs]))
+   ok=runs[0]==runs[1];results.append(dict(case=case,workers=n,seed=seed,passed=ok,internal_call_frames_excluded=a.compare_diagnostic_body,exit_codes=[r[0] for r in runs]))
    (d/'results.json').write_text(json.dumps(results,indent=2)+'\n')
    if not ok:
     for label,r in zip(['before','candidate'],runs):

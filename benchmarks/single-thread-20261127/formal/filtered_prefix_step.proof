@@ -1,0 +1,201 @@
+unit-resolution(mp(mp(asserted(Not(And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                       out[q],
+                                       n +
+                                       If(selected, 1, 0) >=
+                                       n,
+                                       n +
+                                       If(selected, 1, 0) <=
+                                       n + 1,
+                                       Implies(selected,
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)))),
+                      monotonicity(trans(monotonicity(trans(rewrite((n +
+                                        If(selected, 1, 0) >=
+                                        n) ==
+                                        Or(selected, 0 >= 0)),
+                                        trans(monotonicity(rewrite((0 >=
+                                        0) ==
+                                        True),
+                                        Or(selected, 0 >= 0) ==
+                                        Or(selected, True)),
+                                        rewrite(Or(selected,
+                                        True) ==
+                                        True),
+                                        Or(selected, 0 >= 0) ==
+                                        True),
+                                        (n +
+                                        If(selected, 1, 0) >=
+                                        n) ==
+                                        True),
+                                        trans(trans(monotonicity(rewrite(n +
+                                        1 ==
+                                        1 + n),
+                                        (n +
+                                        If(selected, 1, 0) <=
+                                        n + 1) ==
+                                        (n +
+                                        If(selected, 1, 0) <=
+                                        1 + n)),
+                                        rewrite((n +
+                                        If(selected, 1, 0) <=
+                                        1 + n) ==
+                                        Or(selected, 0 <= 1)),
+                                        (n +
+                                        If(selected, 1, 0) <=
+                                        n + 1) ==
+                                        Or(selected, 0 <= 1)),
+                                        trans(monotonicity(rewrite((0 <=
+                                        1) ==
+                                        True),
+                                        Or(selected, 0 <= 1) ==
+                                        Or(selected, True)),
+                                        rewrite(Or(selected,
+                                        True) ==
+                                        True),
+                                        Or(selected, 0 <= 1) ==
+                                        True),
+                                        (n +
+                                        If(selected, 1, 0) <=
+                                        n + 1) ==
+                                        True),
+                                        rewrite(Implies(selected,
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k) ==
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)),
+                                        And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        n +
+                                        If(selected, 1, 0) >=
+                                        n,
+                                        n +
+                                        If(selected, 1, 0) <=
+                                        n + 1,
+                                        Implies(selected,
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)) ==
+                                        And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        True,
+                                        True,
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k))),
+                                        rewrite(And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        True,
+                                        True,
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)) ==
+                                        And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k))),
+                                        And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        n +
+                                        If(selected, 1, 0) >=
+                                        n,
+                                        n +
+                                        If(selected, 1, 0) <=
+                                        n + 1,
+                                        Implies(selected,
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)) ==
+                                        And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k))),
+                                   Not(And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        n +
+                                        If(selected, 1, 0) >=
+                                        n,
+                                        n +
+                                        If(selected, 1, 0) <=
+                                        n + 1,
+                                        Implies(selected,
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k))) ==
+                                   Not(And(If(selected,
+                                        Store(out, n, k),
+                                        out)[q] ==
+                                        out[q],
+                                        Or(Not(selected),
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                        k)))),
+                      Not(And(If(selected,
+                                 Store(out, n, k),
+                                 out)[q] ==
+                              out[q],
+                              Or(Not(selected),
+                                 If(selected,
+                                    Store(out, n, k),
+                                    out)[n] ==
+                                 k)))),
+                   rewrite(Not(And(If(selected,
+                                      Store(out, n, k),
+                                      out)[q] ==
+                                   out[q],
+                                   Or(Not(selected),
+                                      If(selected,
+                                        Store(out, n, k),
+                                        out)[n] ==
+                                      k))) ==
+                           Not(If(selected,
+                                  Store(out, n, k),
+                                  out)[q] ==
+                               out[q])),
+                   Not(If(selected, Store(out, n, k), out)[q] ==
+                       out[q])),
+                symm(monotonicity(unit-resolution(def-axiom(Or(selected,
+                                        out ==
+                                        If(selected,
+                                        Store(out, n, k),
+                                        out))),
+                                        unit-resolution(def-axiom(Or(Not(selected),
+                                        Store(out, n, k) ==
+                                        If(selected,
+...
