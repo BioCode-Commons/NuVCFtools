@@ -4,13 +4,18 @@ use strict;
 use warnings;
 use Scalar::Util qw(refaddr);
 
+# Spools are written and read by one Perl runtime on the same machine. Native
+# unsigned Perl integer indices cover every representable array index. Keys
+# stay in a separate array, preserving byte/Unicode flags and embedded NULs.
+use constant EVENT_BYTES => length(pack('J2',0,0));
+
 # Statistics workers start from an empty counter tree. Record first insertion
 # order separately from values so reduction does not reorder unsorted dumps.
 sub new
 {
     my ($class)=@_;
     my $root={};
-    my $self=bless {events=>[],nodes=>[$root],ids=>{refaddr($root)=>0},root=>$root},$class;
+    my $self=bless {events=>[q[],[]],nodes=>[$root],ids=>{refaddr($root)=>0},root=>$root},$class;
     return $self;
 }
 our $active;
@@ -23,7 +28,8 @@ sub branch
         my $id=@{$active->{nodes}};
         $active->{ids}{refaddr($child)}=$id;
         push @{$active->{nodes}},$child;
-        push @{$active->{events}},[$active->{ids}{refaddr($hash)},$key,$id];
+        $active->{events}[0] .= pack('J2',$active->{ids}{refaddr($hash)},$id);
+        push @{$active->{events}[1]},$key;
     }
     return $child;
 }
@@ -33,7 +39,9 @@ sub add
     my $key=pop @path;
     $hash=branch($hash,$_) for @path;
     if (!exists $hash->{$key}) {
-        push @{$active->{events}},[$active->{ids}{refaddr($hash)},$key,undef];
+        # Root is node 0; created child nodes start at 1, so 0 marks a leaf.
+        $active->{events}[0] .= pack('J2',$active->{ids}{refaddr($hash)},0);
+        push @{$active->{events}[1]},$key;
     }
     $hash->{$key}+=$value;
 }
@@ -50,10 +58,13 @@ sub merge
 {
     my ($root,$part)=@_;
     my @nodes=($root);
-    for my $event (@{$part->[0]}) {
-        my ($parent,$key,$child)=@$event;
+    my ($metadata,$keys)=@{$part->[0]};
+    my $offset=0;
+    for my $key (@$keys) {
+        my ($parent,$child)=unpack('J2',substr($metadata,$offset,EVENT_BYTES));
+        $offset += EVENT_BYTES;
         my $hash=$nodes[$parent];
-        if (defined $child) {
+        if ($child) {
             $hash->{$key}={} unless exists $hash->{$key};
             $nodes[$child]=$hash->{$key};
         }

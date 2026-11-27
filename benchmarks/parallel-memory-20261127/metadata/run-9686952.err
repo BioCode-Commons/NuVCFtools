@@ -1,0 +1,6 @@
+Lmod Warning:
+-------------------------------------------------------------------------------
+The following dependent module(s) are not currently loaded: htslib/1.19.1-wsmt
+(required by: samtools/1.19.2-fm2x), python/3.13.5-dz6t (required by:
+samtools/1.19.2-fm2x)
+-------------------------------------------------------------------------------

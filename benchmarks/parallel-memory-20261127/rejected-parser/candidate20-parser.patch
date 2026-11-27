@@ -1,0 +1,26 @@
+diff --git a/src/perl/Vcf.pm b/src/perl/Vcf.pm
+index dc9fe15..b7c5172 100644
+--- a/src/perl/Vcf.pm
++++ b/src/perl/Vcf.pm
+@@ -501,6 +501,21 @@ sub prepare_data_columns
+     my ($self,$line,$packed) = @_;
+     if ( !$line ) { $line = $self->next_line(); }
+     if ( !$line ) { return undef; }
++    if ($packed && !ref($line) && $$self{columns}) {
++        # split/join is identity on a correctly sized tab-delimited record,
++        # except for split's trailing empty fields and chomp on the last field.
++        # Count delimiters without allocating one Perl scalar per sample.
++        my $text=$line;
++        $text =~ s/\t+\z//;
++        my $count=length($text) ? 1+($text =~ tr/\t/\t/) : 0;
++        if ($count && $count==@{$$self{columns}}) {
++            my $start=rindex($text,"\t")+1;
++            my $last=substr($text,$start);
++            chomp($last);
++            substr($text,$start)=$last;
++            return $text;
++        }
++    }
+     my @items;
+     if ( ref($line) eq 'ARRAY' ) { @items = @$line; }
+     else { @items = split(/\t/,$line); }

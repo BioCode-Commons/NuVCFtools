@@ -1,0 +1,43 @@
+unit-resolution(mp(mp(mp(asserted(validation(context, k1) ==
+                                  ""),
+                         rewrite((validation(context, k1) ==
+                                  "") ==
+                                 ("" ==
+                                  validation(context, k1))),
+                         "" == validation(context, k1)),
+                      rewrite(("" == validation(context, k1)) ==
+                              ("" == validation(context, k1))),
+                      "" == validation(context, k1)),
+                   monotonicity(monotonicity(mp(asserted(k1 ==
+                                        k2),
+                                        rewrite((k1 == k2) ==
+                                        (k1 == k2)),
+                                        k1 == k2),
+                                        validation(context,
+                                        k1) ==
+                                        validation(context,
+                                        k2)),
+                                ("" ==
+                                 validation(context, k1)) ==
+                                ("" ==
+                                 validation(context, k2))),
+                   "" == validation(context, k2)),
+                mp(mp(asserted(Not(validation(context, k2) ==
+                                   "")),
+                      monotonicity(rewrite((validation(context,
+                                        k2) ==
+                                        "") ==
+                                        ("" ==
+                                        validation(context,
+                                        k2))),
+                                   Not(validation(context,
+                                        k2) ==
+                                       "") ==
+                                   Not("" ==
+                                       validation(context,
+                                        k2))),
+                      Not("" == validation(context, k2))),
+                   rewrite(Not("" == validation(context, k2)) ==
+                           Not("" == validation(context, k2))),
+                   Not("" == validation(context, k2))),
+                False)

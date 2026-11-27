@@ -1,0 +1,201 @@
+mp(mp(not-or-elim(mp(asserted(Not(And(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                      p0_32,
+                                      Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                      c0_32,
+                                      Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))))),
+                     monotonicity(trans(monotonicity(trans(monotonicity(rewrite(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32),
+                                        (Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32) ==
+                                        (p0_32 == p0_32)),
+                                        rewrite((p0_32 ==
+                                        p0_32) ==
+                                        True),
+                                        (Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32) ==
+                                        True),
+                                        trans(monotonicity(rewrite(Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32),
+                                        (Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32) ==
+                                        (c0_32 == c0_32)),
+                                        rewrite((c0_32 ==
+                                        c0_32) ==
+                                        True),
+                                        (Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32) ==
+                                        True),
+                                        trans(monotonicity(rewrite((Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32)) ==
+                                        And(c0_32 == c1_32,
+                                        p0_32 == p1_32)),
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)) ==
+                                        Implies(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))),
+                                        rewrite(Implies(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)) ==
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))),
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)) ==
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))),
+                                        And(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32,
+                                        Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32,
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))) ==
+                                        And(True,
+                                        True,
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)))),
+                                        rewrite(And(True,
+                                        True,
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))) ==
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))),
+                                        And(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32,
+                                        Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32,
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))) ==
+                                        Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))),
+                                  Not(And(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32,
+                                        Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32,
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)))) ==
+                                  Not(Or(Not(And(c0_32 ==
+                                        c1_32,
+                                        p0_32 == p1_32)),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32)))),
+                     Not(Or(Not(And(c0_32 == c1_32,
+                                    p0_32 == p1_32)),
+                            And(p0_32 == p1_32,
+                                c0_32 == c1_32)))),
+                  Not(And(p0_32 == p1_32, c0_32 == c1_32))),
+      trans(monotonicity(rewrite(And(p0_32 == p1_32,
+                                     c0_32 == c1_32) ==
+                                 Not(Or(Not(p0_32 == p1_32),
+                                        Not(c0_32 == c1_32)))),
+                         Not(And(p0_32 == p1_32,
+                                 c0_32 == c1_32)) ==
+                         Not(Not(Or(Not(p0_32 == p1_32),
+                                    Not(c0_32 == c1_32))))),
+            rewrite(Not(Not(Or(Not(p0_32 == p1_32),
+                               Not(c0_32 == c1_32)))) ==
+                    Or(Not(p0_32 == p1_32),
+                       Not(c0_32 == c1_32))),
+            Not(And(p0_32 == p1_32, c0_32 == c1_32)) ==
+            Or(Not(p0_32 == p1_32), Not(c0_32 == c1_32))),
+      Or(Not(p0_32 == p1_32), Not(c0_32 == c1_32))),
+   trans(monotonicity(monotonicity(monotonicity(and-elim(not-or-elim(mp(asserted(Not(And(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32,
+                                        Extract(31,
+                                        0,
+                                        Concat(p0_32, c0_32)) ==
+                                        c0_32,
+                                        Implies(Concat(p0_32,
+                                        c0_32) ==
+                                        Concat(p1_32, c1_32),
+                                        And(p0_32 == p1_32,
+                                        c0_32 == c1_32))))),
+                                        monotonicity(trans(monotonicity(trans(monotonicity(rewrite(Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32),
+                                        (Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32) ==
+                                        (p0_32 == p0_32)),
+                                        rewrite((p0_32 ==
+                                        p0_32) ==
+                                        True),
+                                        (Extract(63,
+                                        32,
+                                        Concat(p0_32, c0_32)) ==
+                                        p0_32) ==
+                                        True),
+...

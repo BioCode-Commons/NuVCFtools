@@ -1,0 +1,29 @@
+mp(asserted(Not(Concat(Concat(A, B), C) ==
+                Concat(A, Concat(B, C)))),
+   trans(monotonicity(trans(monotonicity(rewrite(Concat(Concat(A,
+                                        B),
+                                        C) ==
+                                        Concat(A,
+                                        Concat(B, C))),
+                                        (Concat(Concat(A, B),
+                                        C) ==
+                                        Concat(A,
+                                        Concat(B, C))) ==
+                                        (Concat(A,
+                                        Concat(B, C)) ==
+                                        Concat(A,
+                                        Concat(B, C)))),
+                            rewrite((Concat(A, Concat(B, C)) ==
+                                     Concat(A, Concat(B, C))) ==
+                                    True),
+                            (Concat(Concat(A, B), C) ==
+                             Concat(A, Concat(B, C))) ==
+                            True),
+                      Not(Concat(Concat(A, B), C) ==
+                          Concat(A, Concat(B, C))) ==
+                      Not(True)),
+         rewrite(Not(True) == False),
+         Not(Concat(Concat(A, B), C) ==
+             Concat(A, Concat(B, C))) ==
+         False),
+   False)

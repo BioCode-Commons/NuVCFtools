@@ -1051,6 +1051,7 @@ sub do_region_stats
     };
     my $prepare=sub {
         my ($grp)=@_;
+        $_->{input_bytes}=length($_->{line}) for @$grp;
         my %files=map {$_->{vcf}{file}=>1} @$grp;
         if ($$opts{cmp_genotypes} && keys(%files)==@$vcfs && @$grp==@$vcfs) {
             for my $rec (@$grp) {
@@ -1063,14 +1064,18 @@ sub do_region_stats
                 }
                 $rec->{prepared}=[0,$columns,$warning,$error,$status];
                 # ignore-indels stops parsing at the first INDEL-bearing record.
-                last if defined($error) || ($$opts{ignore_indels} && $rec->{line}=~/^(?:[^\t]*\t){7}(?:[^\t;]*;)*INDEL(?:[;\t\n=]|$)/);
+                my $stop=defined($error) || ($$opts{ignore_indels} && $rec->{line}=~/^(?:[^\t]*\t){7}(?:[^\t;]*;)*INDEL(?:[;\t\n=]|$)/);
+                # Preparation owns the normalized text and any diagnostic. The
+                # raw line is no longer read by this queued comparison record.
+                delete $rec->{line};
+                last if $stop;
             }
         }
         return $grp;
     };
     NuOrderedWorkers::run(workers=>$$opts{workers},
         next=>NuOrderedWorkers::prepared_line_batches($next,$prepare,$$opts{worker_batch_bytes} || 4194304,
-            sub {my $n=0;$n+=length($_->{line}) for @{$_[0]};return $n}),
+            sub {my $n=0;$n+=$_->{input_bytes} for @{$_[0]};return $n}),
         work=>sub {
             my $counters=NuOrderedCounters->new();
             local $NuOrderedCounters::active=$counters;

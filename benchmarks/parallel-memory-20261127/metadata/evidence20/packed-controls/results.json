@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "cases": 12336,
+  "comparison": "complete JSON bytes, including value UTF8 flag and parser state; diagnostic callsite/address normalized"
+}

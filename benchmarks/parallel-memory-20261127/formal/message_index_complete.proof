@@ -1,0 +1,123 @@
+th-lemma(unit-resolution(mp(mp(not-or-elim(asserted(Not(Or(e0 ==
+                                        0,
+                                        e1 == 0,
+                                        e2 == 0))),
+                                        Not(e0 == 0)),
+                               rewrite(Not(e0 == 0) ==
+                                       Not(e0 == 0)),
+                               Not(e0 == 0)),
+                            trans(monotonicity(trans(rewrite((e0 ==
+                                        0) ==
+                                        And(e0 <= 0,
+                                        e0 >= 0)),
+                                        rewrite(And(e0 <= 0,
+                                        e0 >= 0) ==
+                                        Not(Or(Not(e0 <= 0),
+                                        Not(e0 >= 0)))),
+                                        (e0 == 0) ==
+                                        Not(Or(Not(e0 <= 0),
+                                        Not(e0 >= 0)))),
+                                        Not(e0 == 0) ==
+                                        Not(Not(Or(Not(e0 <=
+                                        0),
+                                        Not(e0 >= 0))))),
+                                  rewrite(Not(Not(Or(Not(e0 <=
+                                        0),
+                                        Not(e0 >= 0)))) ==
+                                        Or(Not(e0 <= 0),
+                                        Not(e0 >= 0))),
+                                  Not(e0 == 0) ==
+                                  Or(Not(e0 <= 0),
+                                     Not(e0 >= 0))),
+                            Or(Not(e0 <= 0), Not(e0 >= 0))),
+                         mp(asserted(e0 >= 0),
+                            rewrite((e0 >= 0) == (e0 >= 0)),
+                            e0 >= 0),
+                         Not(e0 <= 0)),
+         unit-resolution(mp(mp(not-or-elim(asserted(Not(Or(e0 ==
+                                        0,
+                                        e1 == 0,
+                                        e2 == 0))),
+                                        Not(e1 == 0)),
+                               rewrite(Not(e1 == 0) ==
+                                       Not(e1 == 0)),
+                               Not(e1 == 0)),
+                            trans(monotonicity(trans(rewrite((e1 ==
+                                        0) ==
+                                        And(e1 <= 0,
+                                        e1 >= 0)),
+                                        rewrite(And(e1 <= 0,
+                                        e1 >= 0) ==
+                                        Not(Or(Not(e1 <= 0),
+                                        Not(e1 >= 0)))),
+                                        (e1 == 0) ==
+                                        Not(Or(Not(e1 <= 0),
+                                        Not(e1 >= 0)))),
+                                        Not(e1 == 0) ==
+                                        Not(Not(Or(Not(e1 <=
+                                        0),
+                                        Not(e1 >= 0))))),
+                                  rewrite(Not(Not(Or(Not(e1 <=
+                                        0),
+                                        Not(e1 >= 0)))) ==
+                                        Or(Not(e1 <= 0),
+                                        Not(e1 >= 0))),
+                                  Not(e1 == 0) ==
+                                  Or(Not(e1 <= 0),
+                                     Not(e1 >= 0))),
+                            Or(Not(e1 <= 0), Not(e1 >= 0))),
+                         mp(asserted(e1 >= 0),
+                            rewrite((e1 >= 0) == (e1 >= 0)),
+                            e1 >= 0),
+                         Not(e1 <= 0)),
+         unit-resolution(mp(mp(not-or-elim(asserted(Not(Or(e0 ==
+                                        0,
+                                        e1 == 0,
+                                        e2 == 0))),
+                                        Not(e2 == 0)),
+                               rewrite(Not(e2 == 0) ==
+                                       Not(e2 == 0)),
+                               Not(e2 == 0)),
+                            trans(monotonicity(trans(rewrite((e2 ==
+                                        0) ==
+                                        And(e2 <= 0,
+                                        e2 >= 0)),
+                                        rewrite(And(e2 <= 0,
+                                        e2 >= 0) ==
+                                        Not(Or(Not(e2 <= 0),
+                                        Not(e2 >= 0)))),
+                                        (e2 == 0) ==
+                                        Not(Or(Not(e2 <= 0),
+                                        Not(e2 >= 0)))),
+                                        Not(e2 == 0) ==
+                                        Not(Not(Or(Not(e2 <=
+                                        0),
+                                        Not(e2 >= 0))))),
+                                  rewrite(Not(Not(Or(Not(e2 <=
+                                        0),
+                                        Not(e2 >= 0)))) ==
+                                        Or(Not(e2 <= 0),
+                                        Not(e2 >= 0))),
+                                  Not(e2 == 0) ==
+                                  Or(Not(e2 <= 0),
+                                     Not(e2 >= 0))),
+                            Or(Not(e2 <= 0), Not(e2 >= 0))),
+                         mp(asserted(e2 >= 0),
+                            rewrite((e2 >= 0) == (e2 >= 0)),
+                            e2 >= 0),
+                         Not(e2 <= 0)),
+         mp(mp(mp(asserted(e0 + e1 + e2 <= 2),
+                  monotonicity(rewrite(e0 + e1 + e2 ==
+                                       e0 + e1 + e2),
+                               (e0 + e1 + e2 <= 2) ==
+                               (e0 + e1 + e2 <= 2)),
+                  e0 + e1 + e2 <= 2),
+               rewrite((e0 + e1 + e2 <= 2) ==
+                       (e0 + e1 + e2 <= 2)),
+               e0 + e1 + e2 <= 2),
+            monotonicity(rewrite(e0 + e1 + e2 ==
+                                 e0 + e1 + e2),
+                         (e0 + e1 + e2 <= 2) ==
+                         (e0 + e1 + e2 <= 2)),
+            e0 + e1 + e2 <= 2),
+         False)

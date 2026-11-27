@@ -1,0 +1,20 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9686952
+##  Job Name : vcf-memory20
+##  Nodelist : node1907
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1
+##   Job Started : Fri Nov 27 12:58:57 PM EST 2026
+###############################################################################
+{"passed": true, "cases": 12336, "comparison": "complete JSON bytes, including value UTF8 flag and parser state; diagnostic callsite/address normalized"}
+packed events passed: 3015 entries, 48240 metadata bytes; Unicode/NUL keys and detached replay preserved
+ownership and compact counter serialization passed
+comparison queue ownership and original-byte boundaries passed
+{"passed": true, "cases": 21, "tournament_head_combinations": 5460}
+{"passed": true, "cases": 21, "tournament_head_combinations": 5460}
+{"passed": true, "cases": 72}
+{"passed": 30, "cases": 10, "hash_seeds": 3}
+{"passed": 30, "cases": 10, "hash_seeds": 3}
+{"passed": 30, "cases": 10, "hash_seeds": 3}
+{"passed": true, "cases": 469}

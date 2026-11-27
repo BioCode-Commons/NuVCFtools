@@ -31,4 +31,11 @@ context,k1,k2=z.Strings('context k1 k2');F=z.Function('validation',z.StringSort(
 check('successful_validation_memo',[k1==k2,F(context,k1)==z.StringVal('')],F(context,k2)==z.StringVal(''))
 # Three disjoint blocks cannot all contain a mismatch with distance <=2.
 e0,e1,e2=z.Ints('e0 e1 e2');check('message_index_complete',[e0>=0,e1>=0,e2>=0,e0+e1+e2<=2],z.Or(e0==0,e1==0,e2==0))
+# Packed event metadata consists of two native-width unsigned indices. Keys
+# remain separate. This models lossless fixed-width pairing, not Perl pack's
+# implementation or cross-machine serialization (worker spools are local).
+for bits in (32,64):
+ p0,c0,p1,c1=z.BitVecs('p0_%d c0_%d p1_%d c1_%d' % ((bits,)*4),bits)
+ pair=z.Concat(p0,c0)
+ check('event_indices_%d' % bits,[],z.And(z.Extract(2*bits-1,bits,pair)==p0,z.Extract(bits-1,0,pair)==c0,z.Implies(pair==z.Concat(p1,c1),z.And(p0==p1,c0==c1))))
 (d/'results.json').write_text(json.dumps(dict(solver=z.get_version_string(),scope='abstract contract obligations; not whole-program equivalence',checks=rows),indent=2)+'\n');print(json.dumps(rows))

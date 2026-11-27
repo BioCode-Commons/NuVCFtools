@@ -1,0 +1,42 @@
+{
+  "solver": "5.4.1",
+  "scope": "abstract contract obligations; not whole-program equivalence",
+  "checks": [
+    {
+      "name": "counter_partition",
+      "result": "unsat"
+    },
+    {
+      "name": "first_insertion",
+      "result": "unsat"
+    },
+    {
+      "name": "submit_bound",
+      "result": "unsat"
+    },
+    {
+      "name": "emit_prefix",
+      "result": "unsat"
+    },
+    {
+      "name": "ordered_bytes",
+      "result": "unsat"
+    },
+    {
+      "name": "successful_validation_memo",
+      "result": "unsat"
+    },
+    {
+      "name": "message_index_complete",
+      "result": "unsat"
+    },
+    {
+      "name": "event_indices_32",
+      "result": "unsat"
+    },
+    {
+      "name": "event_indices_64",
+      "result": "unsat"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+mp(asserted(Not(old + x + y + w == old + x + y + w)),
+   trans(monotonicity(trans(monotonicity(trans(monotonicity(rewrite(old +
+                                        x +
+                                        y ==
+                                        old + x + y),
+                                        old + x + y + w ==
+                                        old + x + y + w),
+                                        rewrite(old +
+                                        x +
+                                        y +
+                                        w ==
+                                        old + x + y + w),
+                                        old + x + y + w ==
+                                        old + x + y + w),
+                                        trans(monotonicity(rewrite(x +
+                                        y +
+                                        w ==
+                                        x + y + w),
+                                        old + x + y + w ==
+                                        old + x + y + w),
+                                        rewrite(old +
+                                        x +
+                                        y +
+                                        w ==
+                                        old + x + y + w),
+                                        old + x + y + w ==
+                                        old + x + y + w),
+                                        (old + x + y + w ==
+                                        old + x + y + w) ==
+                                        (old + x + y + w ==
+                                        old + x + y + w)),
+                            rewrite((old + x + y + w ==
+                                     old + x + y + w) ==
+                                    True),
+                            (old + x + y + w ==
+                             old + x + y + w) ==
+                            True),
+                      Not(old + x + y + w == old + x + y + w) ==
+                      Not(True)),
+         rewrite(Not(True) == False),
+         Not(old + x + y + w == old + x + y + w) == False),
+   False)

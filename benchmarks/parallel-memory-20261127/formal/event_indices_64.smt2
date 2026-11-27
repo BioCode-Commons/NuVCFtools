@@ -1,0 +1,18 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun c1_64 () (_ BitVec 64))
+(declare-fun c0_64 () (_ BitVec 64))
+(declare-fun p1_64 () (_ BitVec 64))
+(declare-fun p0_64 () (_ BitVec 64))
+(assert
+ (let (($x823 (= c0_64 c1_64)))
+(let (($x197 (= p0_64 p1_64)))
+(let (($x710 (and $x197 $x823)))
+(let ((?x770 (concat p0_64 c0_64)))
+(let (($x752 (= ?x770 (concat p1_64 c1_64))))
+(let (($x792 (=> $x752 $x710)))
+(let (($x751 (= ((_ extract 63 0) ?x770) c0_64)))
+(let (($x114 (= ((_ extract 127 64) ?x770) p0_64)))
+(let (($x793 (and $x114 $x751 $x792)))
+(not $x793)))))))))))
+(check-sat)

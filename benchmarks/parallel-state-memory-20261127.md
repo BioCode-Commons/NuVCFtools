@@ -1,5 +1,7 @@
 # Ordered comparison and lower-memory Perl workers
 
+Follow-up: [smaller comparison queues and counter logs](parallel-memory-20261127.md).
+
 Branch: `codex/common-tool-speed-round2`. Previous Nu: `1e80e428e3fff2ef3fad249e03ce22443b2364f6` (product files match candidate13). Original VCFtools: `1f87a83402ffd17ea2723a456b7edf5d80b4a22c`. Most rows use candidate16; compare uses candidate17 after removing serial counter-dispatch overhead. Both source manifests are retained. Main job 9670442 ran on `node2335.oscar.ccv.brown.edu`.
 
 Each tool comparison ran once per configuration on one Oscar allocation, using up to 16 physical cores. Inputs contain 22,382 real 1000 Genomes chr22 variants and 500 samples (GT-only fields). Compare uses two separately named copies of the same indexed VCF to exercise genotype comparison; it is a different case from the earlier 128-file position-only result. The fill-aa fixture uses GRCh37 as an annotation reference, not an ancestral-allele truth set.
