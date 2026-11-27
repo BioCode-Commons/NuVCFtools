@@ -1,0 +1,927 @@
+{
+  "audited_head": "2f4c35e2627c0bff2f9e6887e67779d437927d2c",
+  "upstream_commit": "1f87a83402ffd17ea2723a456b7edf5d80b4a22c",
+  "scope": "25 installed entrypoints; measurements from retained implementations at cited snapshots, not fresh final-HEAD benchmark",
+  "measured_entrypoints": 20,
+  "entrypoints_without_direct_upstream_timing": {
+    "fill-aa": [
+      "No ancestral-data timing",
+      "Deterministic reference controls against upstream; no real-data timed comparison",
+      "remaining-perl-20261127.md"
+    ],
+    "vcf-annotate": [
+      "No direct upstream timing",
+      "Full bytes versus preceding Nu only",
+      "intersection-interval-20261126.md"
+    ],
+    "vcf-isec": [
+      "No direct upstream timing",
+      "Full bytes versus preceding Nu only",
+      "intersection-interval-20261126.md"
+    ],
+    "vcf-concat": [
+      "No direct upstream timing",
+      "Full bytes versus preceding Nu only",
+      "common-speed-concat-20261126.md"
+    ],
+    "vcf-contrast": [
+      "No direct upstream timing; synthetic performance only",
+      "Previous Nu comparison excludes generated source header; not full raw-byte upstream validation",
+      "contrast-background-index-20261126.md"
+    ]
+  },
+  "parallelism": {
+    "upstream_no_compute_worker_pool": 24,
+    "current_no_compute_worker_pool": 23,
+    "upstream_parallel": [
+      "vcf-sort via GNU sort"
+    ],
+    "current_parallel": [
+      "vcf-sort via GNU sort",
+      "vcftools --geno-chisq only via --ld-threads"
+    ],
+    "excluded": [
+      "decompression subprocesses",
+      "validator diagnostic child",
+      "uncalled bundled bgzf_mt API"
+    ]
+  },
+  "original_perl_identity_audit": [
+    {
+      "command": "fill-aa",
+      "sha256": "134e2eefb6678879b1afd3ed05e4754b887774a540ed80953280181ed19ef7b4",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "fill-an-ac",
+      "sha256": "5bd4c6e28906ecb13861742c4815ed2770e6de5d09c90c44c3f81560a43a734d",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "fill-fs",
+      "sha256": "e9766be5e58ad992ae7db269400f870c61c0c073f381c8a34a95c10f6bdb9add",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "fill-ref-md5",
+      "sha256": "62d3612d8b6ed30d06948431446ae00be3eb56d2fdacfb00d23397bd0cb15e63",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-annotate",
+      "sha256": "7ff23495cda973022d9e14ab4375ab8956bc6633833d73a26c0ff5de1e43eb6f",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-compare",
+      "sha256": "f513159dbea682e268632633aba21f8f1e104b028e56fb1cde2af86c93cb6984",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-concat",
+      "sha256": "346bdab1c128db75ade044fbe469748328f896beca839ab65ab6902cfe857a66",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-consensus",
+      "sha256": "30134d07ca1ef02bcec0f1bae7084d0cb236c3f41683981dd7fa79e5c573f819",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-contrast",
+      "sha256": "ef6bb6695e542bc4b3fd7198befeb4d8aa65be35ae4a47f39d986aded6e60447",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-convert",
+      "sha256": "51f1afcd17926584635def1a16c21098f8717fa55a832241ef074556f0dc4b72",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-fix-newlines",
+      "sha256": "63d2462f4f0e11729af26cf934d20216309cce4fd3bf004319350694f00b8ac7",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-fix-ploidy",
+      "sha256": "40e184a8790376232297c4869f04137fd2ed910b7919acc28ce6de8e9dc1c5c4",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-indel-stats",
+      "sha256": "4c1210ffb570c56a3e402ccb1142e400d57a7621d41673f3096867e9ba3f71c7",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-isec",
+      "sha256": "08d32c50b968fac1d81951186f35230f09719ade81979bbea21755d7810826f1",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-merge",
+      "sha256": "76e0038a197e7423fdb79751f4bfbf6fe58e6c519a71da89ff70455f11f5d5d2",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-phased-join",
+      "sha256": "a37533bfaa6c80217a65fa82f98e047bba0d2dcc76fccae74521a47d74bfc5d2",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-query",
+      "sha256": "bda573a43d061030e056171cafdb850732024a2553fc7f11b2435bd39cb42f07",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-shuffle-cols",
+      "sha256": "cd8c4d0989d49086a0b48ae3d7ecba02bb0d2e3fa97137431de9596a01ab59b6",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-sort",
+      "sha256": "0ec86e0ee3c07cc5c45abcd702ce916d0412b4a7cb53b5beeec438cb63b9e000",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-stats",
+      "sha256": "cf837f4c512bbe85253c58209c963a81b4aa2d2609756b8456826ff08b07295f",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-subset",
+      "sha256": "22a95d1e52903207fcb7295c5e46efd9409667c01beef7a3fa9ed7d9579e9aff",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-to-tab",
+      "sha256": "89c74dc1fe70ce2428ba5b155eed91520707ef538ea612a9785252e19e66f745",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-tstv",
+      "sha256": "92e87e383336499294e990911d60c610b9ee8d7f8b0b0f7791c52ff609b077cc",
+      "upstream_source_matches_retained_install": true
+    },
+    {
+      "command": "vcf-validator",
+      "sha256": "7d5ab986c4ac710f4b2479a991eebb89a67a33ae3b403551b23ee2299b470eed",
+      "upstream_source_matches_retained_install": true
+    }
+  ],
+  "measurements": [
+    {
+      "task": "vcf-query sample + GT (default)",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 52.2,
+      "nu_seconds": 17.28,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 10.875,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 3.0208333333333335
+    },
+    {
+      "task": "vcf-query sample + GT (--reuse-sample-templates)",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 52.2,
+      "nu_seconds": 6.87,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 7.598253275109171
+    },
+    {
+      "task": "vcf-query raw GT (default)",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 24.2,
+      "nu_seconds": 11.78,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.0543293718166384
+    },
+    {
+      "task": "vcf-query raw GT (--reuse-sample-templates)",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 24.2,
+      "nu_seconds": 5.92,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 4.087837837837838
+    },
+    {
+      "task": "vcf-query sample + GT (default)",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 269.69,
+      "nu_seconds": 88.37,
+      "original_rss_mib": 13.125,
+      "nu_rss_mib": 13.125,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 3.05182754328392
+    },
+    {
+      "task": "vcf-query sample + GT (--reuse-sample-templates)",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 269.69,
+      "nu_seconds": 32.37,
+      "original_rss_mib": 13.125,
+      "nu_rss_mib": 12.0,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 8.331479765214706
+    },
+    {
+      "task": "vcf-query raw GT (default)",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 121.45,
+      "nu_seconds": 59.76,
+      "original_rss_mib": 12.0,
+      "nu_rss_mib": 12.375,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.0322958500669346
+    },
+    {
+      "task": "vcf-query raw GT (--reuse-sample-templates)",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 121.45,
+      "nu_seconds": 28.41,
+      "original_rss_mib": 12.0,
+      "nu_rss_mib": 11.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 4.274903203097501
+    },
+    {
+      "task": "vcf-subset",
+      "input": "500 \u2192 half retained",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 62.28,
+      "nu_seconds": 21.97,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.875,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.8347746927628585
+    },
+    {
+      "task": "vcf-merge",
+      "input": "500 samples, two input files",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 80.2,
+      "nu_seconds": 41.58,
+      "original_rss_mib": 14.625,
+      "nu_rss_mib": 14.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.928811928811929
+    },
+    {
+      "task": "vcf-subset",
+      "input": "2504 \u2192 half retained",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 323.36,
+      "nu_seconds": 108.55,
+      "original_rss_mib": 12.0,
+      "nu_rss_mib": 11.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.9789037309995394
+    },
+    {
+      "task": "vcf-merge",
+      "input": "2504 samples, two input files",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 533.13,
+      "nu_seconds": 281.75,
+      "original_rss_mib": 15.375,
+      "nu_rss_mib": 15.75,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "merge-query-subset-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.892209405501331
+    },
+    {
+      "task": "vcf-stats",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 100.92,
+      "nu_seconds": 23.32,
+      "original_rss_mib": 26.25,
+      "nu_rss_mib": 26.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 4.327615780445969
+    },
+    {
+      "task": "vcf-stats",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 658.31,
+      "nu_seconds": 141.03,
+      "original_rss_mib": 88.621,
+      "nu_rss_mib": 88.422,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 4.667872083953768
+    },
+    {
+      "task": "vcftools --relatedness2",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 35.09,
+      "nu_seconds": 1.37,
+      "original_rss_mib": 11.25,
+      "nu_rss_mib": 7.125,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 25.613138686131386
+    },
+    {
+      "task": "vcftools --relatedness2",
+      "input": "2504 \u2192 keep 500",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 59.19,
+      "nu_seconds": 3.06,
+      "original_rss_mib": 149.25,
+      "nu_rss_mib": 7.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 19.34313725490196
+    },
+    {
+      "task": "vcftools --relatedness",
+      "input": "500 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 5.81,
+      "nu_seconds": 3.19,
+      "original_rss_mib": 9.0,
+      "nu_rss_mib": 7.125,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.8213166144200625
+    },
+    {
+      "task": "vcftools --relatedness",
+      "input": "2504 \u2192 keep 500",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 16.74,
+      "nu_seconds": 5.04,
+      "original_rss_mib": 101.625,
+      "nu_rss_mib": 7.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tools-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 3.321428571428571
+    },
+    {
+      "task": "vcftools --freq",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 4.72,
+      "nu_seconds": 2.98,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.5838926174496644
+    },
+    {
+      "task": "vcftools --missing-indv",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 4.57,
+      "nu_seconds": 3.06,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.4934640522875817
+    },
+    {
+      "task": "vcftools --missing-site",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 4.73,
+      "nu_seconds": 3.17,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.49211356466877
+    },
+    {
+      "task": "vcftools --het",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 5.16,
+      "nu_seconds": 3.47,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.4870317002881843
+    },
+    {
+      "task": "vcftools VCF rewrite",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 17.81,
+      "nu_seconds": 7.06,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.5226628895184136
+    },
+    {
+      "task": "vcftools filter + rewrite",
+      "input": "2504 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 20.54,
+      "nu_seconds": 8.12,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 2.5295566502463056
+    },
+    {
+      "task": "vcf-validator",
+      "input": "100 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 19.7,
+      "nu_seconds": 12.62,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.561014263074485
+    },
+    {
+      "task": "vcf-shuffle-cols",
+      "input": "2504 samples, reversed",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 15.69,
+      "nu_seconds": 13.18,
+      "original_rss_mib": 12.0,
+      "nu_rss_mib": 11.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.1904400606980272
+    },
+    {
+      "task": "vcftools --geno-r2",
+      "input": "100 samples, 1 kb window",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 5.01,
+      "nu_seconds": 0.84,
+      "original_rss_mib": 4.875,
+      "nu_rss_mib": 11.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 5.964285714285714
+    },
+    {
+      "task": "vcftools --hap-r2",
+      "input": "100 samples, 1 kb window",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 5.66,
+      "nu_seconds": 1.32,
+      "original_rss_mib": 4.5,
+      "nu_rss_mib": 11.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 4.287878787878788
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "500 samples, 1 kb window",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 159.09,
+      "nu_seconds": 6.97,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 22.824964131994264
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "500 samples, 1 kb window",
+      "resources": "1 / 4 physical cores (Original / measured Nu)",
+      "original_seconds": 159.09,
+      "nu_seconds": 2.62,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 6.805,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 60.721374045801525
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "500 samples, 1 kb window",
+      "resources": "1 / 8 physical cores (Original / measured Nu)",
+      "original_seconds": 159.09,
+      "nu_seconds": 1.88,
+      "original_rss_mib": 5.625,
+      "nu_rss_mib": 11.652,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 84.62234042553192
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "2504 samples, 1 kb window",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 772.98,
+      "nu_seconds": 28.65,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 26.980104712041886
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "2504 samples, 1 kb window",
+      "resources": "1 / 4 physical cores (Original / measured Nu)",
+      "original_seconds": 772.98,
+      "nu_seconds": 10.2,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 8.02,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 75.78235294117648
+    },
+    {
+      "task": "vcftools --geno-chisq",
+      "input": "2504 samples, 1 kb window",
+      "resources": "1 / 8 physical cores (Original / measured Nu)",
+      "original_seconds": 772.98,
+      "nu_seconds": 7.14,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 15.633,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "parallel-ld-20261126.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 108.26050420168067
+    },
+    {
+      "task": "vcf-compare",
+      "input": "100 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 9.13,
+      "nu_seconds": 7.85,
+      "original_rss_mib": 14.62,
+      "nu_rss_mib": 14.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "perl-query-compare-20261121.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.1630573248407645
+    },
+    {
+      "task": "vcf-compare",
+      "input": "400 samples",
+      "resources": "1 / 1 physical cores (Original / measured Nu)",
+      "original_seconds": 34.85,
+      "nu_seconds": 29.43,
+      "original_rss_mib": 14.62,
+      "nu_rss_mib": 14.62,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "perl-query-compare-20261121.md",
+      "snapshot_status": "Historical measured snapshot; retained implementation, no final-HEAD rerun",
+      "speedup": 1.1841658171933402
+    },
+    {
+      "task": "vcf-to-tab",
+      "input": "500 samples",
+      "resources": "1 physical core per version",
+      "original_seconds": 38.24,
+      "nu_seconds": 11.78,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 3.246179966044143
+    },
+    {
+      "task": "vcf-to-tab",
+      "input": "2,504 samples",
+      "resources": "1 physical core per version",
+      "original_seconds": 209.43,
+      "nu_seconds": 65.68,
+      "original_rss_mib": 11.25,
+      "nu_rss_mib": 11.25,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 3.1886419001218025
+    },
+    {
+      "task": "fill-fs",
+      "input": "500 samples, 1 MiB prefetch",
+      "resources": "1 physical core per version",
+      "original_seconds": 21.25,
+      "nu_seconds": 1.59,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 16.125,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 13.364779874213836
+    },
+    {
+      "task": "fill-fs",
+      "input": "2,504 samples, 1 MiB prefetch",
+      "resources": "1 physical core per version",
+      "original_seconds": 26.85,
+      "nu_seconds": 6.1,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 16.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 4.401639344262295
+    },
+    {
+      "task": "fill-ref-md5",
+      "input": "chr22 reference",
+      "resources": "1 physical core per version",
+      "original_seconds": 3.33,
+      "nu_seconds": 0.85,
+      "original_rss_mib": 54.109,
+      "nu_rss_mib": 54.082,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 3.9176470588235297
+    },
+    {
+      "task": "vcf-convert",
+      "input": "500-sample SNPs",
+      "resources": "1 physical core per version",
+      "original_seconds": 38.22,
+      "nu_seconds": 25.65,
+      "original_rss_mib": 11.25,
+      "nu_rss_mib": 11.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.4900584795321639
+    },
+    {
+      "task": "vcf-phased-join",
+      "input": "500 samples",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 6.07,
+      "nu_seconds": 5.33,
+      "original_rss_mib": 64.5,
+      "nu_rss_mib": 64.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.1388367729831146
+    },
+    {
+      "task": "vcf-fix-ploidy",
+      "input": "500, pass-through",
+      "resources": "1 physical core per version",
+      "original_seconds": 1.08,
+      "nu_seconds": 0.34,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 3.176470588235294
+    },
+    {
+      "task": "vcf-fix-ploidy",
+      "input": "2,504, pass-through",
+      "resources": "1 physical core per version",
+      "original_seconds": 4.81,
+      "nu_seconds": 1.07,
+      "original_rss_mib": 12.0,
+      "nu_rss_mib": 12.0,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 4.495327102803738
+    },
+    {
+      "task": "vcf-fix-ploidy",
+      "input": "500, active conversion",
+      "resources": "1 physical core per version",
+      "original_seconds": 41.63,
+      "nu_seconds": 42.02,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.875,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 0.9907187053783912
+    },
+    {
+      "task": "fill-fs",
+      "input": "default cache, 500",
+      "resources": "1 physical core per version",
+      "original_seconds": 26.82,
+      "nu_seconds": 24.47,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 10.875,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0960359624029425
+    },
+    {
+      "task": "fill-fs",
+      "input": "external mask, 100 kb",
+      "resources": "1 physical core per version",
+      "original_seconds": 56.59,
+      "nu_seconds": 53.94,
+      "original_rss_mib": 10.875,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0491286614757138
+    },
+    {
+      "task": "fill-an-ac",
+      "input": "500",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 30.43,
+      "nu_seconds": 21.64,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.4061922365988908
+    },
+    {
+      "task": "vcf-consensus",
+      "input": "one selected sample",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 1.03,
+      "nu_seconds": 1.07,
+      "original_rss_mib": 14.625,
+      "nu_rss_mib": 14.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 0.9626168224299065
+    },
+    {
+      "task": "vcf-fix-newlines",
+      "input": "CRLF, 500",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 0.08,
+      "nu_seconds": 0.08,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 6.0,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0
+    },
+    {
+      "task": "vcf-indel-stats",
+      "input": "explicit interval",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 0.21,
+      "nu_seconds": 0.21,
+      "original_rss_mib": 10.125,
+      "nu_rss_mib": 10.125,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0
+    },
+    {
+      "task": "vcf-tstv",
+      "input": "500",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 0.19,
+      "nu_seconds": 0.18,
+      "original_rss_mib": 6.0,
+      "nu_rss_mib": 5.625,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0555555555555556
+    },
+    {
+      "task": "vcf-sort",
+      "input": "shuffled 2,504, -p 1",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 1.27,
+      "nu_seconds": 1.2,
+      "original_rss_mib": 9.195,
+      "nu_rss_mib": 9.352,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0583333333333333
+    },
+    {
+      "task": "vcf-sort",
+      "input": "shuffled 2,504, -p 4",
+      "resources": "4 physical cores allocated per version; serial analysis except explicit sort -p setting",
+      "original_seconds": 1.21,
+      "nu_seconds": 1.21,
+      "original_rss_mib": 15.25,
+      "nu_rss_mib": 15.285,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "remaining-perl-20261127.md",
+      "snapshot_status": "Latest round progressive snapshots; final site-parser guard timed only for ploidy",
+      "speedup": 1.0
+    },
+    {
+      "task": "vcf-subset, all samples",
+      "input": "100 samples",
+      "resources": "1 physical core per version",
+      "original_seconds": 29.39,
+      "nu_seconds": 10.96,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical option-specific measurement; later shared parser not remeasured here",
+      "speedup": 2.6815693430656933
+    },
+    {
+      "task": "vcf-subset, SNP/indel selection",
+      "input": "100 samples",
+      "resources": "1 physical core per version",
+      "original_seconds": 23.17,
+      "nu_seconds": 6.46,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical option-specific measurement; later shared parser not remeasured here",
+      "speedup": 3.586687306501548
+    },
+    {
+      "task": "vcf-subset, private variants in 10 samples",
+      "input": "100 samples",
+      "resources": "1 physical core per version",
+      "original_seconds": 14.66,
+      "nu_seconds": 5.17,
+      "original_rss_mib": 10.5,
+      "nu_rss_mib": 10.5,
+      "validation": "Full output passed in cited campaign",
+      "evidence": "common-tool-speed-20261126.md",
+      "snapshot_status": "Historical option-specific measurement; later shared parser not remeasured here",
+      "speedup": 2.8355899419729207
+    }
+  ]
+}

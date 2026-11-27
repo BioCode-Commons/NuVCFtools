@@ -1,6 +1,8 @@
 # Current retained optimizations versus upstream
 
-This is an inventory of the latest available measurements for implementations retained on `codex/common-tool-speed-round2`, not a fresh all-command benchmark of one final commit. Rows marked **current** were measured in the merge/query/subset continuation. Other rows retain their earlier source revisions, inputs and output-validation scope; shared-module changes do not establish new timing or correctness results for every consumer.
+See the [complete 25-tool inventory, all measured configurations and parallelism audit](all-tools-vs-upstream.md).
+
+This is an inventory of the latest available measurements for implementations retained on `codex/common-tool-speed-round2`, not a fresh all-command benchmark of one final commit. Rows linked to the merge/query/subset continuation were measured in that campaign, not rerun at the final HEAD. Other rows retain their earlier source revisions, inputs and output-validation scope; shared-module changes do not establish new timing or correctness results for every consumer.
 
 The installation has **25 entrypoints: one C++ executable and 24 Perl scripts**. Nineteen entrypoints have targeted source work; six have not. Source coverage does not imply nineteen measured speedups. C++ analysis flags below are tasks within one executable, not additional installed tools.
 
@@ -27,18 +29,18 @@ All ratios below are measured upstream wall time divided by measured optimized w
 
 | Tool/task | Input | Cores | Original (s) | Optimized (s) | Speedup | RSS original → optimized (MiB) | Evidence |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `vcf-query sample + GT (default)` | 500 samples | 1 / 1 | 52.20 | 17.28 | 3.02× | 10.875 → 10.875 | [current](merge-query-subset-20261126.md) |
-| `vcf-query sample + GT (--reuse-sample-templates)` | 500 samples | 1 / 1 | 52.20 | 6.87 | 7.60× | 10.875 → 10.500 | [current](merge-query-subset-20261126.md) |
-| `vcf-query raw GT (default)` | 500 samples | 1 / 1 | 24.20 | 11.78 | 2.05× | 10.500 → 10.500 | [current](merge-query-subset-20261126.md) |
-| `vcf-query raw GT (--reuse-sample-templates)` | 500 samples | 1 / 1 | 24.20 | 5.92 | 4.09× | 10.500 → 10.500 | [current](merge-query-subset-20261126.md) |
-| `vcf-query sample + GT (default)` | 2504 samples | 1 / 1 | 269.69 | 88.37 | 3.05× | 13.125 → 13.125 | [current](merge-query-subset-20261126.md) |
-| `vcf-query sample + GT (--reuse-sample-templates)` | 2504 samples | 1 / 1 | 269.69 | 32.37 | 8.33× | 13.125 → 12.000 | [current](merge-query-subset-20261126.md) |
-| `vcf-query raw GT (default)` | 2504 samples | 1 / 1 | 121.45 | 59.76 | 2.03× | 12.000 → 12.375 | [current](merge-query-subset-20261126.md) |
-| `vcf-query raw GT (--reuse-sample-templates)` | 2504 samples | 1 / 1 | 121.45 | 28.41 | 4.27× | 12.000 → 11.625 | [current](merge-query-subset-20261126.md) |
-| `vcf-subset` | 500 → half retained | 1 / 1 | 62.28 | 21.97 | 2.83× | 10.500 → 10.875 | [current](merge-query-subset-20261126.md) |
-| `vcf-merge` | 500 samples, two input files | 1 / 1 | 80.20 | 41.58 | 1.93× | 14.625 → 14.250 | [current](merge-query-subset-20261126.md) |
-| `vcf-subset` | 2504 → half retained | 1 / 1 | 323.36 | 108.55 | 2.98× | 12.000 → 11.625 | [current](merge-query-subset-20261126.md) |
-| `vcf-merge` | 2504 samples, two input files | 1 / 1 | 533.13 | 281.75 | 1.89× | 15.375 → 15.750 | [current](merge-query-subset-20261126.md) |
+| `vcf-query sample + GT (default)` | 500 samples | 1 / 1 | 52.20 | 17.28 | 3.02× | 10.875 → 10.875 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query sample + GT (--reuse-sample-templates)` | 500 samples | 1 / 1 | 52.20 | 6.87 | 7.60× | 10.875 → 10.500 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query raw GT (default)` | 500 samples | 1 / 1 | 24.20 | 11.78 | 2.05× | 10.500 → 10.500 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query raw GT (--reuse-sample-templates)` | 500 samples | 1 / 1 | 24.20 | 5.92 | 4.09× | 10.500 → 10.500 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query sample + GT (default)` | 2504 samples | 1 / 1 | 269.69 | 88.37 | 3.05× | 13.125 → 13.125 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query sample + GT (--reuse-sample-templates)` | 2504 samples | 1 / 1 | 269.69 | 32.37 | 8.33× | 13.125 → 12.000 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query raw GT (default)` | 2504 samples | 1 / 1 | 121.45 | 59.76 | 2.03× | 12.000 → 12.375 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-query raw GT (--reuse-sample-templates)` | 2504 samples | 1 / 1 | 121.45 | 28.41 | 4.27× | 12.000 → 11.625 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-subset` | 500 → half retained | 1 / 1 | 62.28 | 21.97 | 2.83× | 10.500 → 10.875 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-merge` | 500 samples, two input files | 1 / 1 | 80.20 | 41.58 | 1.93× | 14.625 → 14.250 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-subset` | 2504 → half retained | 1 / 1 | 323.36 | 108.55 | 2.98× | 12.000 → 11.625 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
+| `vcf-merge` | 2504 samples, two input files | 1 / 1 | 533.13 | 281.75 | 1.89× | 15.375 → 15.750 | [merge/query/subset snapshot](merge-query-subset-20261126.md) |
 | `vcf-stats` | 500 samples | 1 / 1 | 100.92 | 23.32 | 4.33× | 26.250 → 26.625 | [prior snapshot](common-tools-20261126.md) |
 | `vcf-stats` | 2504 samples | 1 / 1 | 658.31 | 141.03 | 4.67× | 88.621 → 88.422 | [prior snapshot](common-tools-20261126.md) |
 | `vcftools --relatedness2` | 500 samples | 1 / 1 | 35.09 | 1.37 | 25.61× | 11.250 → 7.125 | [prior snapshot](common-tools-20261126.md) |

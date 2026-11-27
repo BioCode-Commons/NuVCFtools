@@ -2,7 +2,7 @@
 
 This round examines the thirteen entrypoints previously listed without targeted work since the inventory baseline. All changes remain on `codex/common-tool-speed-round2`.
 
-The frozen before version is `f7b152dfb10e674c65f2fa016409f61a65c7bedb`. Upstream is VCFtools `1f87a83402ffd17ea2723a456b7edf5d0a12db19895ac4fe52f9240468`. Each table row is a single end-to-end run per version; small differences may reflect run-to-run variation. Shared-module improvements already present in Before are included in comparisons against upstream; the Before column isolates this round's contribution.
+The frozen before version is `f7b152dfb10e674c65f2fa016409f61a65c7bedb`. Upstream is VCFtools `1f87a83402ffd17ea2723a456b7edf5d80b4a22c`. Each table row is a single end-to-end run per version; small differences may reflect run-to-run variation. Shared-module improvements already present in Before are included in comparisons against upstream; the Before column isolates this round's contribution.
 
 Retained code commit: `3fafbf1069bdcd43fe8e9e71eca4af88b80cd450`. The [manifest](remaining-perl-20261127/manifest.json) records hashes for every measured snapshot. The final terminal-character guard in site-only parsing was measured in the ploidy continuation; earlier fill-fs rows retain their measured snapshot.
 
