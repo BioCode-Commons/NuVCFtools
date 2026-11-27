@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 
 my $opts = parse_params();
 fix_file($opts);
@@ -23,6 +24,8 @@ sub error
 		"	current system's newline representation.\n",
 		"Usage: vcf-fix-newlines [OPTIONS]\n",
 		"Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
 		"   -i, --info                      Report if the file is consistent with the current platform based.\n",
 		"   -h, -?, --help                  This help message.\n",
 		"Example:\n",
@@ -37,7 +40,8 @@ sub parse_params
 	my $opts = {};
 	while (defined(my $arg=shift(@ARGV)))
 	{
-		if ( $arg eq '-i' || $arg eq '--info' ) { $$opts{info}=1; next }
+		if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
+        if ( $arg eq '-i' || $arg eq '--info' ) { $$opts{info}=1; next }
 		if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
 		if ( !exists($$opts{vcf}) && -e $arg ) { $$opts{vcf}=$arg; next; }
 		error("Unknown parameter \"$arg\". Run -h for help.\n");
@@ -87,11 +91,19 @@ sub fix_file
 	$buf =~ s/$nl/\n/g;
 	print $buf;
 
-	while($buf = <$fh>)
-	{
-		$buf =~ s/$nl/\n/g;
-		print $buf;
-	}
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::line_batches(sub { scalar <$fh> }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+            my ($batch)=@_;
+            for my $item (@$batch) {
+                my $text=NuOrderedWorkers::prepared_value($item);
+                next unless defined $text;
+                $text =~ s/$nl/\n/g;
+                print $text;
+            }
+            return;
+        });
 	close($fh);
 }
 

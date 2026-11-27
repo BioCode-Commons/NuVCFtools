@@ -12,6 +12,7 @@ from perl_stats_merge_regression import locations
 def main():
     ap=argparse.ArgumentParser()
     for name in ['reference','candidate','output']:ap.add_argument('--'+name,required=True)
+    ap.add_argument('--workers',type=int,default=1)
     a=ap.parse_args();d=Path(a.output).resolve();d.mkdir(parents=True,exist_ok=False)
     fa=d/'reference.fa';fa.write_text('>22\n'+('ACGT'*500)+'\n>chrExtra\n'+('ACGT'*200)+'\n')
     subprocess.run(['samtools','faidx',str(fa)],check=True)
@@ -81,9 +82,14 @@ def main():
                 env=dict(os.environ,PERL5LIB=str(libdir),PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C')
                 with stdin.open('rb') if stdin else open(os.devnull,'rb') as inp:
                     extra_args=['--reference-cache-size','1048576'] if name=='fs-cache' and label=='candidate' else []
+                    if label=='candidate' and tool in {'fill-ref-md5','vcf-to-tab','vcf-convert','vcf-fix-ploidy','fill-fs','vcf-phased-join'}:extra_args += ['--workers',str(a.workers),'--worker-batch-bytes','127']
                     p=subprocess.run(['perl',str(bindir/tool)]+args+extra_args,stdin=inp,capture_output=True,env=env,timeout=60)
                 err=p.stderr.replace(str(libdir).encode(),b'<source>').replace(str(bindir).encode(),b'<source>')
                 err=re.sub(rb' line \d+',b' line <source>',err)
+                # Carp reports the callback's caller after introducing a worker.
+                # Strip only the terminal source location, never the error message.
+                err=re.sub(rb' at <source>/[^\n]+ line <source>(?:, <[^>]+> line <source>)?\.',b' at <callsite>.',err)
+                err=b'\n'.join(line for line in err.split(b'\n') if not (line.startswith(b'\t') and b' called at ' in line))
                 err=re.sub(rb'(HASH|ARRAY|CODE)\(0x[0-9a-fA-F]+\)',rb'\1(<address>)',err)
                 extra=[]
                 if tool=='fill-ref-md5' and p.returncode==0:

@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -22,6 +23,8 @@ sub error
     print 
         "Usage: cat broken.vcf | vcf-fix-ploidy [OPTIONS] > fixed.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -a, --assumed-sex <sex>         M or F, required if the list is not complete in -s\n",
         "   -l, --fix-likelihoods           Add or remove het likelihoods (not the default behaviour)\n",
         "   -p, --ploidy <file>             Ploidy definition. The default is shown below.\n",
@@ -75,6 +78,7 @@ sub parse_params
     };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-p' || $arg eq '--ploidy' ) { my $file=shift(@ARGV); my $x=do $file; $$opts{ploidy}=$x; next }
         if ( $arg eq '-s' || $arg eq '--samples' ) { $$opts{samples}=shift(@ARGV); next }
         if ( $arg eq '-a' || $arg eq '--assumed-sex' ) { $$opts{assumed_sex}=shift(@ARGV); next }
@@ -97,8 +101,8 @@ sub fix_ploidy
     my @samples = $vcf->get_samples;
     my ($prev_chr,$prev_pos,$regions,$iregion,$nregions);
     my %nchanged;
-    while (my $line = $vcf->next_line)
-    {
+    my $prepare = sub {
+        my ($line)=@_;
         my $rec = $vcf->next_site_array($line);
         if ( !defined $prev_chr or $$rec[0] ne $prev_chr )
         {
@@ -136,6 +140,19 @@ sub fix_ploidy
             }
         }
 
+        return [$line,$samples];
+    };
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() },$prepare,$$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        my %nchanged;
+        for my $item (@$batch) {
+        my $payload=NuOrderedWorkers::prepared_value($item);
+        next unless defined $payload;
+        my ($line,$samples)=@$payload;
+        my $rec;
         if ( !defined $samples ) { print $line; next; }
 
         # Sample values are needed only in a region whose ploidy is changed.
@@ -201,7 +218,16 @@ sub fix_ploidy
         }
         if ( $changed ) { print join("\t",@$rec),"\n"; }
         else { print $line; }
-    }
+        }
+        return \%nchanged;
+    }, reduce=>sub {
+        my ($part)=@_;
+        for my $key (keys %$part) {
+            for my $sample (keys %{$$part{$key}}) {
+                $nchanged{$key}{$sample}+=$$part{$key}{$sample};
+            }
+        }
+    });
 
     # Output stats
     for my $key (sort keys %nchanged)

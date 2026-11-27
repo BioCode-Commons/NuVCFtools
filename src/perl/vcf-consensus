@@ -157,13 +157,17 @@ sub do_consensus
 sub flush_fa_buffer
 {
     my ($opts,$len) = @_;
+    my $consumed=0;
     while ( $$opts{fa_len} && $$opts{fa_len}>=60 )
     {
-        print substr($$opts{fa_buf},0,60,''), "\n";
+        print substr($$opts{fa_buf},$consumed,60), "\n";
+        $consumed += 60;
         $$opts{fa_len} -= 60;
         $$opts{fa_pos} += 60 - $$opts{fa_idx};
         $$opts{fa_idx}  = 0;
     }
+    # Advance an output cursor, then remove the emitted prefix once.
+    substr($$opts{fa_buf},0,$consumed,'') if $consumed;
     if ( $len or !$$opts{fa_len} ) { return; }
     print $$opts{fa_buf},"\n";
     $$opts{fa_pos} += $$opts{fa_len}-$$opts{fa_idx};

@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -25,6 +26,8 @@ sub error
         "       \"0/1\" and \"1\" are considered different genotypes.\n",
         "Usage: vcf-contrast +<list> -<list> [OPTIONS] file.vcf.gz\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   +<list>                             List of samples where unique variant is expected\n",
         "   -<list>                             List of background samples\n",
         "   -d, --min-DP <int>                  Minimum depth across all -<list> samples\n",
@@ -51,6 +54,7 @@ sub parse_params
 	my $opts = { args=>[$0, @ARGV], };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( -e $arg ) { $$opts{vcf}=$arg; next }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         if ( $arg eq '-d' || $arg eq '--min-DP' ) { $$opts{min_dp}=shift(@ARGV); next; }
@@ -90,8 +94,15 @@ sub query_vcf
     $$opts{var_cols} = init_columns($vcf,@{$$opts{var_samples}});
     $$opts{bg_cols}  = init_columns($vcf,@{$$opts{bg_samples}});
 
-    while (my $rec=$vcf->next_data_array)
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() }, sub { $_[0] }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $line=NuOrderedWorkers::prepared_value($item);
+        next unless defined $line;
+        my $rec=$vcf->next_data_array($line);
         if ( $$opts{apply_filters} && $$rec[6] ne '.' && $$rec[6] ne 'PASS' ) { next; }
         if ( $$rec[4] eq '.' ) { next; }
 
@@ -114,7 +125,9 @@ sub query_vcf
 		}
 		elsif ( $$opts{novel_only} ) { next; }
 		print $vcf->format_line($rec);
-    }
+        }
+        return;
+    });
 }
 
 sub contrast

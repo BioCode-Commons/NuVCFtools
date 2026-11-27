@@ -103,8 +103,22 @@ sub print_or_discard_line
     my @items  = split(/\s+/,$line);
     my $nitems = scalar @items;
 
-    for my $known (@{$$opts{known_lines}})
+    # With at most two differing tokens, one of three disjoint blocks
+    # must match exactly. The candidate union is checked in insertion order,
+    # preserving the original greedy (non-transitive) grouping rule.
+    my @blocks;
+    my %candidates;
+    for my $block (0..2) {
+        my $begin=int($block*$nitems/3);
+        my $end=int(($block+1)*$nitems/3);
+        my $key=join('',map { length($_).':'.$_ } @items[$begin..$end-1]);
+        push @blocks,$key;
+        my $ids=$$opts{message_index}{$nitems}[$block]{$key};
+        $candidates{$_}=1 for $ids ? @$ids : ();
+    }
+    for my $id (sort {$a<=>$b} keys %candidates)
     {
+        my $known=$$opts{known_lines}[$id];
         if ( @items != @{$$known{line}} ) { next; }
 
         my $ndiffs = 0;
@@ -120,6 +134,10 @@ sub print_or_discard_line
         }
     }
 
+    my $id=scalar @{$$opts{known_lines}};
+    for my $block (0..2) {
+        push @{$$opts{message_index}{$nitems}[$block]{$blocks[$block]}},$id;
+    }
     push @{$$opts{known_lines}}, { line=>\@items, n=>1 };
     print $line;
 }

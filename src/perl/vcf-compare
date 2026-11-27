@@ -1025,6 +1025,7 @@ sub plot_eq
 sub do_region_stats
 {
     my ($opts,$vcfs) = @_;
+    local $$opts{_position_tree};
 
     my $refseq;
     if ( $$opts{refseq} ) { $refseq = FaSlice->new(file=>$$opts{refseq}, size=>1_000_000); }
@@ -1155,9 +1156,8 @@ sub cmp_sequence
         }
     }
 
-    # Sorting is deferred until a sizeable pair needs more than a short scan.
-    # These flags apply only to local event arrays, never to input records.
-    my @sequence_ordered;
+    # Full sequence keys retain exact equality; indexes are scoped to this group.
+    my @sequence_members;
 #line 1158
     # Now compare the variants: is there a sequence shared across all files?
     my $match = 1;
@@ -1169,24 +1169,7 @@ sub cmp_sequence
         {
             my $jvars = $events_per_file{$jkey};
             my $found = 0;
-            if ( defined($ivars) && defined($jvars) && @$ivars>=16 && @$jvars>=16 )
-            {
-                $found = compare_variant_sequences($ivars,$jvars,\@sequence_ordered,$ikey,$jkey);
-            }
-            else
-            {
-#line 1168
-                for my $ivar (@$ivars)
-                {
-                    for my $jvar (@$jvars)
-                    {
-                        if ( $$ivar{length} != $$jvar{length} ) { next; }
-                        if ( $$ivar{seq} ne $$jvar{seq} ) { next; }
-                        $found=1;
-                        last;
-                    }
-                }
-            }
+            $found = compare_variant_sequences($ivars,$jvars,\@sequence_members,$ikey,$jkey);
 #line 1178
             if ( !$found ) { $match=0; last; }
         }
@@ -1606,34 +1589,61 @@ sub get_min_position
 {
     my ($opts,$vcfs) = @_;
 
-    my ($min_pos,$min_vcf);
-    for my $vcf (@$vcfs)
+    my $tree = $$opts{_position_tree};
+    if ( !$tree )
     {
-        # Check if there is a line in the buffer, if not, read. If still empty, the file reached eof
-        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { read_line($opts,$vcf); }
-        if ( !$$vcf{buf} or !scalar @{$$vcf{buf}} ) { next; }
-
-        my $line = $$vcf{buf}[0];
-
-        # Designate this position as the minimum of all the files if:
-        # .. is this the first file?
-        if ( !$min_pos )
+        my $base = 1;
+        $base *= 2 while $base < @$vcfs;
+        $tree = $$opts{_position_tree} = {base=>$base,files=>[@$vcfs],winner=>[],reset=>[]};
+        for (my $i=0; $i<@$vcfs; $i++)
         {
-            $min_pos = $$line{pos};
-            $min_vcf = $vcf;
-            next;
-        }
-
-        # .. has this file lower position?
-        if ( $min_pos>$$line{pos} )
-        {
-            $min_pos = $$line{pos};
-            $min_vcf = $vcf;
-            next;
+            read_line($opts,$$vcfs[$i]) unless $$vcfs[$i]{buf} && @{$$vcfs[$i]{buf}};
+            position_tree_update($tree,$i);
         }
     }
-    return $min_vcf;
+    # Only the previous winner can have had its head consumed by the caller.
+    if ( defined $$tree{previous} )
+    {
+        my $i = $$tree{previous};
+        my $file = $$tree{files}[$i];
+        if ( !$$file{buf} || !@{$$file{buf}} )
+        {
+            read_line($opts,$file);
+            position_tree_update($tree,$i);
+        }
+    }
+    my $i = $$tree{winner}[1];
+    $$tree{previous} = $i;
+    return defined($i) ? $$tree{files}[$i] : undef;
 }
+
+# An ordered tournament preserves the original left-to-right tie rule. A
+# false-valued position resets that scan, including tab-delimited position 0.
+sub position_tree_update
+{
+    my ($tree,$i) = @_;
+    my $node = $$tree{base}+$i;
+    my $file = $$tree{files}[$i];
+    my $present = $$file{buf} && @{$$file{buf}};
+    $$tree{winner}[$node] = $present ? $i : undef;
+    $$tree{reset}[$node] = $present && !$$file{buf}[0]{pos};
+    while ( $node>1 )
+    {
+        $node = int($node/2);
+        my ($left,$right) = @{$$tree{winner}}[2*$node,2*$node+1];
+        my $winner;
+        if ( !defined $left ) { $winner=$right; }
+        elsif ( !defined $right ) { $winner=$left; }
+        elsif ( $$tree{reset}[2*$node+1] || !$$tree{files}[$left]{buf}[0]{pos} ) { $winner=$right; }
+        else
+        {
+            $winner = $$tree{files}[$left]{buf}[0]{pos} > $$tree{files}[$right]{buf}[0]{pos} ? $right : $left;
+        }
+        $$tree{winner}[$node] = $winner;
+        $$tree{reset}[$node] = $$tree{reset}[2*$node] || $$tree{reset}[2*$node+1];
+    }
+}
+
 
 sub read_line
 {
@@ -1679,44 +1689,22 @@ sub read_line
     return;
 }
 
-# The legacy condition is pairwise intersection, not one haplotype common to
-# every file. Keep exact full-string equality and reuse sorted local lists.
+# The legacy condition is pairwise intersection, not one sequence common to
+# every file. Perl's hash resolves collisions using the complete string key.
 sub compare_variant_sequences
 {
-    my ($left,$right,$ordered,$left_id,$right_id) = @_;
-    if ( !$$ordered[$left_id] || !$$ordered[$right_id] )
-    {
-        # A common early match needs no sorting or extra sort workspace.
-        my $remaining = 64;
-        QUICK_MATCH: for my $a (@$left)
-        {
-            for my $b (@$right)
-            {
-                if ( $$a{length}==$$b{length} && $$a{seq} eq $$b{seq} ) { return 1; }
-                if ( !--$remaining ) { last QUICK_MATCH; }
-            }
+    my ($left,$right,$indexes,$left_id,$right_id)=@_;
+    if (!defined $$indexes[$right_id]) {
+        my %members;
+        for my $variant (@$right) {
+            $members{$$variant{length}}{$$variant{seq}}=1;
         }
-        if ( !$$ordered[$left_id] )
-        {
-            @$left = sort { $$a{length}<=>$$b{length} || $$a{seq} cmp $$b{seq} } @$left;
-            $$ordered[$left_id] = 1;
-        }
-        if ( !$$ordered[$right_id] )
-        {
-            @$right = sort { $$a{length}<=>$$b{length} || $$a{seq} cmp $$b{seq} } @$right;
-            $$ordered[$right_id] = 1;
-        }
+        $$indexes[$right_id]=\%members;
     }
-
-    # Advance the smaller head in the shared length/sequence ordering.
-    my ($i,$j) = (0,0);
-    while ( $i<@$left && $j<@$right )
-    {
-        my $order = $$left[$i]{length}<=>$$right[$j]{length};
-        if ( !$order ) { $order = $$left[$i]{seq} cmp $$right[$j]{seq}; }
-        if ( !$order ) { return 1; }
-        if ( $order<0 ) { $i++; }
-        else { $j++; }
+    my $members=$$indexes[$right_id];
+    for my $variant (@$left) {
+        return 1 if exists($$members{$$variant{length}})
+            && exists($$members{$$variant{length}}{$$variant{seq}});
     }
     return 0;
 }

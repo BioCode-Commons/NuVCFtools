@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -28,6 +29,8 @@ sub error
         "   unexpected results.\n",
         "Usage: vcf-isec [OPTIONS] file1.vcf file2.vcf ...\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -a, --apply-filters                 Ignore lines where FILTER column is anything else than PASS or '.'\n",
         "   -c, --complement                    Output positions present in the first file but missing from the other files.\n",
         "   -d, --debug                         Debugging information\n",
@@ -53,6 +56,7 @@ sub parse_params
     my $opts = { positions=>0, args=>[$0, @ARGV], force=>0, split=>0, report_from_all=>1, apply_filters=>0 };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-p' || $arg eq '--prefix' ) 
         { 
             my $prefix = shift(@ARGV); 
@@ -308,11 +312,27 @@ sub do_chrm_isec
         $isec_op     = $$opts{isec_op};
     }
     my $split = $$opts{split};
-    while (1)
-    {
-        my $grp = read_next_group($opts,$vcfs,$win);
-        if ( !$grp || !scalar @$grp ) { last }
-
+    if ($split && ($$opts{workers} || 1)>1) {
+        error("--workers with --split is not supported: split output retains ordered shared writers.\n");
+    }
+    my $read_group=sub {
+        my $group=read_next_group($opts,$vcfs,$win);
+        return @$group ? $group : undef;
+    };
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches($read_group,sub { $_[0] },$$opts{worker_batch_bytes} || 4194304,sub {
+            my $bytes=0;
+            for my $rec (@{$_[0]}) {
+                $bytes += ref($$rec{line}) ? length(join("\t",@{$$rec{line}})) : length($$rec{line});
+            }
+            return $bytes;
+        }),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $grp=NuOrderedWorkers::prepared_value($item);
+        next unless defined $grp;
         if ( $debug )
         {
             print "Group:\n";
@@ -383,7 +403,9 @@ sub do_chrm_isec
             $prev_pos = $$rec{pos};
             $prev_id  = $$rec{vcf}{vcf_isec_ID};
         }
-    }
+        }
+        return;
+    });
 }
 
 sub write_line
@@ -643,6 +665,7 @@ package Reader;
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 
 sub new
 {

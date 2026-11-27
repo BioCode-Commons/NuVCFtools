@@ -7,6 +7,7 @@ use strict;
 use warnings;
 use Carp;
 use Vcf;
+use NuOrderedWorkers;
 
 my $opts = parse_params();
 concat($opts);
@@ -26,6 +27,8 @@ sub error
         "About: Reorder columns to match the order in the template VCF.\n",
         "Usage: vcf-shuffle-cols [OPTIONS] -t template.vcf.gz file.vcf.gz > out.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -t, --template <file>            The file with the correct order of the columns.\n",
         "   -h, -?, --help                   This help message.\n",
         "\n";
@@ -36,6 +39,7 @@ sub parse_params
     my $opts = {};
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-t' || $arg eq '--template' ) { $$opts{template}=shift(@ARGV); next; }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         if ( -e $arg ) { $$opts{file}=$arg; next }
@@ -75,8 +79,15 @@ sub concat
     my @cols  = @{$$tmpl{columns}}[9..$ncols];
     print $vcf->format_header(\@cols);
 
-    while (my $x=$vcf->next_data_array())
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::line_batches(sub { $vcf->next_line() }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch) = @_;
+        for my $item (@$batch) {
+        my $line=NuOrderedWorkers::prepared_value($item);
+        next unless defined $line;
+        my $x=$vcf->next_data_array($line);
         my $row = $$x[0];
         for (my $i=1; $i<=$ncols; $i++)
         {
@@ -84,6 +95,8 @@ sub concat
             $row .= "\t".$$x[$idx];
         }
         print $row,"\n";
-    }
+        }
+        return;
+    });
 }
 

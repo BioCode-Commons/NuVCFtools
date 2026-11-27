@@ -65,17 +65,19 @@ Select the input with `--vcf FILE`, `--gzvcf FILE` or `--bcf FILE`. Use `--out P
 
 NuVCFtools starts from [upstream commit `1f87a83`](https://github.com/vcftools/vcftools/commit/1f87a83402ffd17ea2723a456b7edf5d80b4a22c). The initial import includes the [C++ executable source](src/cpp), the [Perl tools](src/perl) and the [upstream examples](examples). The executable is named `vcftools`.
 
+This branch adds ordered worker processes to 17 Perl commands. It also changes genotype decoding, statistics reduction and multi-file selection; see the [implementation inventory](benchmarks/parallel-perl-tools.md). Six of the 23 previously serial Perl commands still have no computation worker pool. More workers do not improve every task.
+
 <a id="benchmarks"></a>
 
 ## Benchmarks <sup><sub>[↑ Contents](#contents)</sub></sup>
 
-No NuVCFtools benchmark results have been published yet. See the [publication instructions](AGENTS.md) to add the first comparison.
+Branch measurements are recorded in the [23-tool Perl comparison](benchmarks/parallel-perl-tools.md), including full output checks, wall time, worker-inclusive memory and cases that did not improve. The [earlier all-entrypoint report](benchmarks/all-tools-vs-upstream.md) also covers C++ commands and GNU sort. These branch results have not been published to the BioCode Commons website.
 
 <a id="ai-use-and-review"></a>
 
 ## AI use and review <sup><sub>[↑ Contents](#contents)</sub></sup>
 
-Codex drafted this README. The initial import preserves the upstream implementation.
+Codex drafted this README and implemented the branch changes. The linked reports describe the tests and measured output comparisons; they do not establish equivalence for every input or option.
 
 <a id="questions-and-contributions"></a>
 

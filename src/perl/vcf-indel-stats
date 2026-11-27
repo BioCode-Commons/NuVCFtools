@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -23,6 +24,8 @@ sub error
         "About: Currently calculates in-frame ratio.\n",
         "Usage: vcf-indel-stats [OPTIONS] < in.vcf > out.txt\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -h, -?, --help                   This help message.\n",
         "   -e, --exons <file>               Tab-separated file with exons (chr,from,to; 1-based, inclusive)\n",
         "   -v, --verbose\n",
@@ -35,6 +38,7 @@ sub parse_params
     my $opts = { };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         if ( $arg eq '-e' || $arg eq '--exons' ) { $$opts{exons}=shift(@ARGV); next; }
         if ( $arg eq '-v' || $arg eq '--verbose' ) { $$opts{verbose}=1; next; }
@@ -75,9 +79,11 @@ sub do_stats
     $$opts{in_frame} = $$opts{out_frame} = 0;
     my ($prev_chr,$prev_pos);
     my $ntot=0;
-    while (my $line=$vcf->next_line)
-    {
-        if ( substr($line,0,1) eq '#' ) { next; }
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() },sub {
+        my ($line)=@_;
+        if ( substr($line,0,1) eq '#' ) { return undef; }
         my $i=0;
         my $j;
         $j=index($line,"\t",$i); my $chr=substr($line,$i,$j-$i); $i=$j+1;
@@ -90,24 +96,45 @@ sub do_stats
         $prev_chr = $chr;
         $prev_pos = $pos;
     
-        if ( $alt eq '.' ) { next; }
+        if ( $alt eq '.' ) { return undef; }
         #print "[$chr] [$pos] [$ref] [$alt]\n";
 
+        return [$chr,$pos,$ref,$alt];
+        },$$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+            my ($batch)=@_;
+            my @results;
+            for my $item (@$batch) {
+                my $fields=NuOrderedWorkers::prepared_value($item);
+                next unless defined $fields;
+                my ($chr,$pos,$ref,$alt)=@$fields;
+                my @lengths;
+                my $last_indel=0;
         my $is_indel;
+        my ($i,$j);
         $i=0;
         while (($j=index($alt,',',$i))!=-1)
         {
             my ($type,$len,$ht) = $vcf->event_type($ref,substr($alt,$i,$j-$i));
-            if ( $type eq 'i' or $type eq 'o' ) { check_csq($opts,$chr,$pos,$len); }
+            if ( $type eq 'i' or $type eq 'o' ) { push @lengths,$len; }
             $i = $j+1;
         }
         my ($type,$len,$ht) = $vcf->event_type($ref,substr($alt,$i));
         if ( $type eq 'i' or $type eq 'o' ) 
         { 
-            $ntot++;
-            check_csq($opts,$chr,$pos,$len); 
+            $last_indel=1;
+            push @lengths,$len;
         }
-    }
+                push @results,[$chr,$pos,$last_indel,\@lengths];
+            }
+            return \@results;
+        },reduce=>sub {
+            my ($results)=@_;
+            for my $rec (@$results) {
+                $ntot += $$rec[2];
+                check_csq($opts,$$rec[0],$$rec[1],$_) for @{$$rec[3]};
+            }
+        });
     printf "total\t%d\n", $ntot;
     printf "in-frame\t%d\n", $$opts{in_frame};
     printf "frameshift\t%d\n", $$opts{out_frame};

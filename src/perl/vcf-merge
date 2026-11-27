@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -25,6 +26,8 @@ sub error
         "   If you need to concatenate VCFs (e.g. files split by chromosome), look at vcf-concat instead.\n",
         "Usage: vcf-merge [OPTIONS] file1.vcf file2.vcf.gz ... > out.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -c, --collapse <snps|indels|both|any|none>      treat as identical sites with differing alleles [any]\n",
         "   -d, --remove-duplicates                         If there should be two consecutive rows with the same chr:pos, print only the first one.\n",
         "   -H, --vcf-header <file>                         Use the provided VCF header\n",
@@ -56,6 +59,7 @@ sub parse_params
     };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-d' || $arg eq '--remove-duplicates' ) { $$opts{rm_dups}=1; next; }
         if ( $arg eq '-R' || $arg eq '--ref-for-missing' ) { $$opts{ref_for_missing}=shift(@ARGV); next; }
         if ( $arg eq '-t' || $arg eq '--trim-ALTs' ) { $$opts{trim_redundant_ALTs}=1; next; }
@@ -327,8 +331,41 @@ sub merge_vcf_files
         local $$opts{retire_finished_sources} = 1;
         # Keep legacy diagnostic lines for raw stderr compatibility.
 #line 327
-        while ( my $pos=advance_position($opts,\@active_vcfs) )
-        {
+        my $next_position = sub {
+            my $pos=advance_position($opts,\@active_vcfs);
+            return undef unless $pos;
+            # Freeze this position's source records. Reader cursors remain in
+            # the parent; workers only use the per-source parsing metadata.
+            my @sources = map { bless({%$_},ref($_)) } @vcfs;
+            my $bytes=0;
+            for my $source (@sources) {
+                $bytes += $$source{last_line}{__nu_source_bytes} if $$source{last_line};
+            }
+            return [$pos,\@sources,$bytes];
+        };
+        NuOrderedWorkers::run(
+            workers=>$$opts{workers} || 1,
+            next=>NuOrderedWorkers::prepared_line_batches($next_position,sub { $_[0] },$$opts{worker_batch_bytes} || 4194304,sub { $_[0][2] }),
+            work=>sub {
+            my ($batch)=@_;
+            for my $item (@$batch) {
+            my $task=NuOrderedWorkers::prepared_value($item);
+            next unless defined $task;
+            my $pos=$$task[0];
+            my @vcfs=@{$$task[1]};
+            for my $source (@vcfs) {
+                my $line=$$source{last_line};
+                next unless $line && exists($$line{__nu_compact_genotypes});
+                # Column names stay in shared source metadata. Expand mutable
+                # sample hashes only for the position being merged.
+                my %gtypes;
+                my ($packed,$templates)=@{$$line{__nu_compact_genotypes}};
+                my @positions=unpack('w*',$packed);
+                for (my $i=0;$i<@positions;$i+=2) {
+                    $gtypes{$$source{columns}[$positions[$i]]}={%{$$templates[$positions[$i+1]]}};
+                }
+                $$line{gtypes}=\%gtypes;
+            }
             my %out;
             $out{POS}    = $pos;
             $out{ID}     = '.';
@@ -551,7 +588,13 @@ sub merge_vcf_files
                 }
             }
             print $vcf_out->format_line(\%out);
-        }
+            for my $source (@vcfs) {
+                my $line=$$source{last_line};
+                delete $$line{gtypes} if $line && exists($$line{__nu_compact_genotypes});
+            }
+            }
+            return;
+        });
     }
     for my $vcf (@vcfs) 
     { 
@@ -619,8 +662,10 @@ sub fill_buffer
     if ( @{$$vcf{line_buffer}} && $$vcf{line_buffer}[0]{POS}!=$$vcf{line_buffer}[-1]{POS} ) { return; }
     while ( 1 )
     {
-        my $line = $vcf->next_data_hash();
+        my $raw = $vcf->next_line();
+        my $line = $raw ? $vcf->next_data_hash($raw,0,($$opts{workers} || 1)>1) : undef;
         if ( !$line ) { $$vcf{done} = 1; return; }
+        $$line{__nu_source_bytes} = length($raw);
         if ( !$$opts{collapse_any} ) 
         {
             for my $al (@{$$line{ALT}})

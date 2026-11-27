@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -22,6 +23,8 @@ sub error
     die
         "Usage: vcf-to-tab [OPTIONS] < in.vcf > out.tab\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -h, -?, --help                   This help message.\n",
         "   -i, --iupac                      Use one-letter IUPAC codes\n",
         "Notes:\n",
@@ -35,6 +38,7 @@ sub parse_params
     my $opts = { iupac=>0 };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         if ( $arg eq '-i' || $arg eq '--iupac' ) { $$opts{iupac}=1; next; }
         error("Unknown parameter \"$arg\". Run -h for help.\n");
@@ -80,11 +84,17 @@ sub convert_to_tab
     my $vcf = Vcf->new(fh=>\*STDIN);
     $vcf->parse_header();
 
-    my $header_printed=0;
 
-    while (my $x=$vcf->next_data_hash_readonly())
-    {
-        if ( !$header_printed ) 
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() }, sub { $vcf->prepare_data_columns($_[0],($$opts{workers} || 1)>1) }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $prepared=NuOrderedWorkers::prepared_value($item);
+        next unless defined $prepared;
+        my $x=$vcf->next_prepared_hash($prepared,1);
+        if ( $$item[0]==0 )
         {
             print "#CHROM\tPOS\tREF";
             for my $col (sort keys %{$$x{gtypes}})
@@ -93,7 +103,6 @@ sub convert_to_tab
             }
             print "\n";
 
-            $header_printed = 1;
         }
 
         my %rendered; # Exact GT strings, scoped to this record (REF/ALT and mode are fixed).
@@ -119,6 +128,8 @@ sub convert_to_tab
             print "\t".$gt;
         }
         print "\n";
-    }
+        }
+        return;
+    });
 }
 

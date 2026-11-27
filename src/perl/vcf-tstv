@@ -6,9 +6,10 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 
 my $opts = parse_params();
-calc_tstv();
+calc_tstv($opts);
 
 exit;
 
@@ -21,6 +22,8 @@ sub error
     print 
         "Usage: cat file.vcf | vcf-tstv\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -h, -?, --help                  This help message.\n",
         "\n";
     exit -1;
@@ -32,6 +35,7 @@ sub parse_params
     my $opts = {};
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         error("Unknown parameter \"$arg\". Run -h for help.\n");
     }
@@ -40,12 +44,20 @@ sub parse_params
 
 sub calc_tstv
 {
-    my $stats;
+    my ($opts) = @_;
+    my $stats = {};
     my $n=0;
     my $multiallelic=0;
-
-    while (my $line=<STDIN>)
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::line_batches(sub { scalar <STDIN> }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        my ($n,$multiallelic)=(0,0);
+        my $stats = {};
+        for my $item (@$batch) {
+        my $line=NuOrderedWorkers::prepared_value($item);
+        next unless defined $line;
         if ( substr($line,0,1) eq '#' ) { next; }
 
         $n++;
@@ -65,8 +77,14 @@ sub calc_tstv
         if ( $i!=-1 ) { $multiallelic++ }
 
         $$stats{$ref.$alt}++;
-    }
-    
+        }
+        return [$n,$multiallelic,$stats];
+    }, reduce=>sub {
+        my ($part)=@_;
+        $n += $$part[0]; $multiallelic += $$part[1];
+        for my $key (keys %{$$part[2]}) { $$stats{$key} += $$part[2]{$key}; }
+    });
+
     my $ts = 0;
     for my $mut (qw(AG GA CT TC))
     {

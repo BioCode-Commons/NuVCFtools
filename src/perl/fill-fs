@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 use FaSlice;
 
@@ -24,6 +25,8 @@ sub error
         "About: Annotate VCF with flanking sequence (INFO/FS tag)\n",
         "Usage: fill-fs [OPTIONS] file.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -b, --bed-mask <file>           Regions to mask (tabix indexed), multiple files can be given\n",
         "   -c, --cluster <int>             Do self-masking of clustered variants within this range.\n",
         "   -l, --length <int>              Flanking sequence length [100]\n",
@@ -48,6 +51,7 @@ sub parse_params
     my $mask_changed = 0;
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-c' || $arg eq '--cluster' ) { $$opts{cluster}=shift(@ARGV); $$opts{mask_char}{default}=$mask; $mask_changed=0; next; }
         if ( $arg eq '--reference-cache-size' ) { $$opts{reference_cache_size}=shift(@ARGV); next; }
         if ( $arg eq '-r' || $arg eq '--refseq' ) { $$opts{refseq}=shift(@ARGV); next; }
@@ -85,6 +89,7 @@ sub flanking_sequence
     $vcf->add_header_line({key=>'INFO',ID=>'FS',Number=>1,Type=>'String',Description=>'Flanking sequence'});  
     print $vcf->format_header;
 
+    if (($$opts{workers} || 1)==1) {
     my (@lines,@mask);
     while (my $line=$vcf->next_site_array)
     {
@@ -104,6 +109,44 @@ sub flanking_sequence
     }
 
     flush_buffers($opts,\@lines,\@mask,1);
+        return;
+    }
+    my (@lines,@mask,@ready);
+    my $eof=0;
+    local $$opts{emit_ready}=sub {
+        my ($hline,$mask)=@_;
+        push @ready,prepare_output_line($opts,$hline,$mask);
+    };
+    my $next_ready=sub {
+        while (!@ready && !$eof) {
+            my $line=$vcf->next_site_array();
+            if (!defined $line) {
+                $eof=1;
+                flush_buffers($opts,\@lines,\@mask,1);
+                last;
+            }
+            my ($chr,$pos,$ref,$alt)=@$line[0,1,3,4];
+            $alt =~ s/,.+$//;
+            my ($off,$nref,$nalt)=$vcf->normalize_alleles_pos($ref,$alt);
+            $pos += $off;
+            push @lines,{chr=>$chr,pos=>$pos,ref=>$nref,alt=>$nalt,line=>$line};
+            push @mask,{chr=>$chr,pos=>$pos,ref=>$nref};
+            flush_buffers($opts,\@lines,\@mask);
+        }
+        return @ready ? shift @ready : undef;
+    };
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers},
+        next=>NuOrderedWorkers::prepared_line_batches($next_ready,sub { $_[0] },$$opts{worker_batch_bytes} || 4194304,
+            sub { length(join("\t",@{$_[0][0]{line}}))+length($_[0][3]) }),
+        work=>sub {
+            my ($batch)=@_;
+            for my $item (@$batch) {
+                my $task=NuOrderedWorkers::prepared_value($item);
+                next unless defined $task;
+                render_output_line($opts,$task);
+            }
+        });
 }
 
 sub flush_buffers
@@ -115,13 +158,13 @@ sub flush_buffers
     if ( !$$opts{cluster} )
     {
         shift(@$mask);
-        output_line($opts,shift(@$lines),$mask);
+        emit_ready_line($opts,shift(@$lines),$mask);
         return;
     }
 
     while ( @$lines && ($force or $$mask[0]{chr} ne $$lines[-1]{chr} or $$mask[0]{pos}+2*$$opts{cluster}<=$$lines[-1]{pos}) )
     {
-        output_line($opts,$$lines[0],$mask);
+        emit_ready_line($opts,$$lines[0],$mask);
         shift(@$lines);
         while ( @$mask && @$lines && ($$mask[0]{chr} ne $$lines[0]{chr} or $$mask[0]{pos}+$$opts{cluster}<=$$lines[0]{pos}) )
         {
@@ -130,22 +173,39 @@ sub flush_buffers
     }
 }
 
+sub emit_ready_line
+{
+    my ($opts,$hline,$mask)=@_;
+    if ($$opts{emit_ready}) { $$opts{emit_ready}->($hline,$mask); }
+    else { output_line($opts,$hline,$mask); }
+}
+
+sub prepare_output_line
+{
+    my ($opts,$hline,$mask)=@_;
+    my ($chr,$pos,$ref)=@$hline{qw(chr pos ref)};
+    my $from=$pos-$$opts{length};
+    my $to=$pos+length($ref)-1+$$opts{length};
+    # Reference cache and cluster masks are consumed in input order.
+    my $seq=$$opts{faref}->get_slice($chr,$from,$to);
+    $seq=mask_local_sequence($opts,$seq,$chr,$from,$to,$mask);
+    return [$hline,$from,$to,$seq];
+}
+
 sub output_line
 {
-    my ($opts,$hline,$mask) = @_;
+    my ($opts,$hline,$mask)=@_;
+    render_output_line($opts,prepare_output_line($opts,$hline,$mask));
+}
 
-    my $chr  = $$hline{chr};
-    my $pos  = $$hline{pos};
-    my $ref  = $$hline{ref};
-    my $alt  = $$hline{alt};
-    my $line = $$hline{line};
-
-    my $seq_pos = $$opts{length};
-    my $reflen  = length($ref);
-    my $from = $pos-$$opts{length};
-    my $to   = $pos+($reflen-1)+$$opts{length};
-    my $seq  = $$opts{faref}->get_slice($chr,$from,$to);
-    $seq = mask_sequence($opts,$seq,$chr,$from,$to,$mask);
+sub render_output_line
+{
+    my ($opts,$task)=@_;
+    my ($hline,$from,$to,$seq)=@$task;
+    my ($chr,$pos,$ref,$alt,$line)=@$hline{qw(chr pos ref alt line)};
+    my $seq_pos=$$opts{length};
+    my $reflen=length($ref);
+    $seq=mask_external_sequence($opts,$seq,$chr,$from,$to);
 
     my $reflen_ori = $reflen;
     my ($len,$indel,$off) = $$opts{vcf}->is_indel($ref,$alt);
@@ -183,7 +243,7 @@ sub output_line
     print join("\t",@$line),"\n";
 }
 
-sub mask_sequence
+sub mask_local_sequence
 {
     my ($opts,$seq,$chr,$from,$to,$mask) = @_;
     for my $m (@$mask)
@@ -192,6 +252,12 @@ sub mask_sequence
         if ( $$m{chr} ne $chr or $$m{pos}+$reflen<$from or $$m{pos}>$to ) { next; }
         apply_mask($opts,\$seq,$$m{pos}-$from,$$m{ref},$$opts{mask_char}{default});
     }
+    return $seq;
+}
+
+sub mask_external_sequence
+{
+    my ($opts,$seq,$chr,$from,$to)=@_;
     for my $file (@{$$opts{vcf_mask}})
     {
         my @tabix = `tabix $file $chr:$from-$to`;

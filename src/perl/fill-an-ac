@@ -3,10 +3,11 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
-fill_an_ac($$opts{file});
+fill_an_ac($opts);
 
 exit;
 
@@ -19,6 +20,8 @@ sub error
     die
         "Usage: fill-an-ac [OPTIONS] < in.vcf >out.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -h, -?, --help                      This help message.\n",
         "\n";
 }
@@ -29,6 +32,7 @@ sub parse_params
     my $opts = {};
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( -e $arg ) { $$opts{file} = $arg; next }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         error("Unknown parameter \"$arg\". Run -h for help.\n");
@@ -39,7 +43,8 @@ sub parse_params
 
 sub fill_an_ac
 {
-    my ($file) = @_;
+    my ($opts) = @_;
+    my $file=$$opts{file};
 
     my $vcf = $file ? Vcf->new(file=>$file) : Vcf->new(fh=>\*STDIN);
     $vcf->parse_header();
@@ -48,9 +53,18 @@ sub fill_an_ac
     print $vcf->format_header();
     $vcf->recalc_ac_an(2);
 
-    while (my $rec=$vcf->next_data_hash())
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() }, sub { $vcf->prepare_data_columns($_[0],($$opts{workers} || 1)>1) }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $prepared=NuOrderedWorkers::prepared_value($item);
+        next unless defined $prepared;
+        my $rec=$vcf->next_prepared_hash($prepared,0);
         print $vcf->format_line($rec);
-    }
+        }
+        return;
+    });
 }
 

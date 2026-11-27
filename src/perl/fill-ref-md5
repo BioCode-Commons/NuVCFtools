@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Digest::MD5;
 use Vcf;
 
@@ -24,6 +25,8 @@ sub error
         "   of the lightning fast tabix reheader functionality.\n",
         "Usage: fill-ref-md5 [OPTIONS] in.vcf.gz out.vcf.gz\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -d, --dictionary <file>             Where to read/write computed MD5s. Opened in append mode, existing records are not touched.\n",
         "   -i, --info <AS:xx,SP:xx,TX:xx>      Optional info on reference assembly (AS), species (SP), taxonomy (TX)\n",
         "   -r, --refseq <file>                 The reference sequence in fasta format indexed by samtools faidx\n",
@@ -39,6 +42,7 @@ sub parse_params
     my $opts = {};
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-i' || $arg eq '--info' ) { $$opts{info}=shift(@ARGV); next; }
         if ( $arg eq '-r' || $arg eq '--refseq' ) { $$opts{refseq}=shift(@ARGV); next; }
         if ( $arg eq '-d' || $arg eq '--dictionary' ) { $$opts{dictionary}=shift(@ARGV); next; }
@@ -186,11 +190,21 @@ sub fill_ref_md5
 
     # Read dictionary
     my $dict = read_dict($$opts{dictionary},\@chroms);
-    for my $chr (@chroms)
-    {
-        chomp($chr);
-        if ( !exists($$dict{$chr}) ) { add_to_dictionary($opts,$dict,$chr); }
-    }
+    chomp @chroms;
+    my @missing = grep { !exists($$dict{$_}) } @chroms;
+    my $next_chrom = 0;
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>sub { return $next_chrom < @missing ? $missing[$next_chrom++] : undef; },
+        work=>sub {
+            my ($chr)=@_;
+            my $entry = {};
+            add_to_dictionary($opts,$entry,$chr);
+            return [$chr,$$entry{$chr}];
+        }, reduce=>sub {
+            my ($entry)=@_;
+            $$dict{$$entry[0]}=$$entry[1]; $$dict{dirty}=1;
+        });
     write_dictionary($opts,$dict);
     write_header($opts,$dict,\@chroms);
 

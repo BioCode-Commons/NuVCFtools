@@ -488,7 +488,17 @@ sub next_data_hash_readonly
 
 sub next_data_hash
 {
-    my ($self,$line,$share_genotypes) = @_;
+    my ($self,$line,$share_genotypes,$compact_genotypes) = @_;
+    my $columns = $self->prepare_data_columns($line);
+    return undef unless defined $columns;
+    return $self->next_prepared_hash($columns,$share_genotypes,$compact_genotypes);
+}
+
+# Stream-dependent column inference and once-only diagnostics stay with the
+# reader. The returned columns can be decoded by independent ordered workers.
+sub prepare_data_columns
+{
+    my ($self,$line,$packed) = @_;
     if ( !$line ) { $line = $self->next_line(); }
     if ( !$line ) { return undef; }
     my @items;
@@ -534,6 +544,17 @@ sub next_data_hash
             @items = @test;
         }
     }
+    # A byte string avoids retaining one Perl scalar per sample while queued.
+    # The ordinary API keeps its array return type.
+    return $packed ? join("\t",@items) : \@items;
+}
+
+# Decode columns already checked by prepare_data_columns on this reader.
+sub next_prepared_hash
+{
+    my ($self,$columns,$share_genotypes,$compact_genotypes) = @_;
+    my @items = ref($columns) ? @$columns : split(/\t/,$columns,-1);
+    my $cols = $$self{columns};
     my %out;
 
     # Mandatory fields
@@ -583,6 +604,8 @@ sub next_data_hash
 
     # Genotype fields
     my %gtypes;
+    my (@compact_templates,%templates);
+    my $compact_positions = q[];
     my ($previous_text,$previous_genotype);
     my $check_nformat = $$self{drop_trailings} ? 0 : 1;
     for (my $icol=9; $icol<@items; $icol++)
@@ -590,7 +613,11 @@ sub next_data_hash
         if ( $items[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items[0]:$items[1]\n"); next; }
         if ( exists($$self{samples_to_parse}) && !$$self{samples_to_parse}[$icol] ) { next; }
 
-        if ( defined($previous_genotype) && $items[$icol] eq $previous_text )
+        if ($compact_genotypes && exists($templates{$items[$icol]})) {
+            $compact_positions .= pack('w2',$icol,$templates{$items[$icol]});
+            next;
+        }
+        if ( !$compact_genotypes && defined($previous_genotype) && $items[$icol] eq $previous_text )
         {
             # Mutable consumers get independent hashes; only read-only callers
             # may share one. Reuse parsing without aliasing sample mutations.
@@ -608,12 +635,19 @@ sub next_data_hash
         {
             $hash{$$format[$ifield]} = $fields[$ifield];
         }
-        $gtypes{$$cols[$icol]} = \%hash;
+        if ($compact_genotypes) {
+            my $id = @compact_templates;
+            push @compact_templates,\%hash;
+            $compact_positions .= pack('w2',$icol,$id);
+            $templates{$items[$icol]}=$id if @fields==@$format;
+        }
+        else { $gtypes{$$cols[$icol]} = \%hash; }
         # Malformed columns retain their per-sample diagnostics and parsing.
         $previous_genotype = @fields==@$format ? \%hash : undef;
         $previous_text = $items[$icol];
     }
-    $out{gtypes} = \%gtypes;
+    if ($compact_genotypes) { $out{__nu_compact_genotypes}=[$compact_positions,\@compact_templates]; }
+    else { $out{gtypes} = \%gtypes; }
 
     return \%out;
 }
@@ -3550,9 +3584,15 @@ sub Vcf4_1::validate_alt_field
 
 sub Vcf4_1::next_data_hash
 {
+    my ($self,@args)=@_;
+    return $self->SUPER::next_data_hash(@args);
+}
+
+sub Vcf4_1::next_prepared_hash
+{
     my ($self,@args) = @_;
 
-    my $out = $self->SUPER::next_data_hash(@args);
+    my $out = $self->SUPER::next_prepared_hash(@args);
     if ( !defined $out or $$self{assume_uppercase} ) { return $out; }
 
     # Case-insensitive ALT and REF bases

@@ -6,7 +6,9 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use VcfStats;
+use NuOrderedCounters;
 
 my $opts = parse_params();
 vcf_stats($opts);
@@ -25,6 +27,8 @@ sub error
     die
         "Usage: vcf-stats [OPTIONS] file.vcf.gz\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -d, --dump <file>                           Take an existing dump file and recreate the files (works with -p)\n",
         "   -f, --filters <filter1,filter2>             List of filters such as column/field (any value), column/field=bin:max (cluster in bins),column/field=value (exact value)\n",
         "   -p, --prefix <dir/string>                   Prefix of output files. If slashes are present, directories will be created.\n",
@@ -51,6 +55,7 @@ sub parse_params
     my $opts = { filters=>{}, filter_param=>'' };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-d' || $arg eq '--dump'  ) { $$opts{dump}=shift(@ARGV); next; }
         if ( $arg eq '-f' || $arg eq '--filters'  ) { $$opts{filter_param}=shift(@ARGV); next; }
         if ( $arg eq '-p' || $arg eq '--prefix'  ) { $$opts{prefix}=shift(@ARGV); next; }
@@ -148,9 +153,33 @@ sub vcf_stats
         $vcf->set_samples(include=>\@include); 
     }
 
-    while (my $rec=$vcf->next_data_hash_readonly())
-    {
-       $vcf->collect_stats($rec,$$opts{filters});
+    if (($$opts{workers} || 1)==1) {
+        while (my $rec=$vcf->next_data_hash_readonly()) {
+            $vcf->collect_stats($rec,$$opts{filters});
+        }
+    }
+    else {
+        NuOrderedWorkers::run(
+            workers=>$$opts{workers},
+            next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() },
+                sub { $vcf->prepare_data_columns($_[0],($$opts{workers} || 1)>1) },$$opts{worker_batch_bytes} || 4194304),
+            work=>sub {
+                my ($batch)=@_;
+                my $counters=NuOrderedCounters->new();
+                local $$vcf{stats}=$counters->root();
+                local $NuOrderedCounters::active=$counters;
+                for my $item (@$batch) {
+                    my $columns=NuOrderedWorkers::prepared_value($item);
+                    next unless defined $columns;
+                    my $rec=$vcf->next_prepared_hash($columns,1);
+                    $vcf->collect_stats($rec,$$opts{filters});
+                }
+                return $counters->snapshot();
+            },reduce=>sub {
+                my ($part)=@_;
+                $$vcf{stats}={} unless defined $$vcf{stats};
+                NuOrderedCounters::merge($$vcf{stats},$part);
+            });
     }
 
     $vcf->save_stats($$opts{prefix});

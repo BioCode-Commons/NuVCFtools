@@ -27,6 +27,7 @@ dist_bin_SCRIPTS = \
 pmdir = $(exec_prefix)/$(PMDIR)
 
 dist_pm_DATA = \
+	NuOrderedWorkers.pm NuOrderedCounters.pm \
 	FaSlice.pm \
 	Vcf.pm \
 	VcfStats.pm

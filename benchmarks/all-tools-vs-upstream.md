@@ -1,5 +1,7 @@
 # All tools versus upstream VCFtools
 
+This is the pre-pool baseline report. See [the current 23-tool Perl round](parallel-perl-tools.md) for ordered-worker results and updated implementation coverage. The measurements below retain their original revisions and memory definitions.
+
 Audited branch: `codex/common-tool-speed-round2`, source HEAD `2f4c35e2627c0bff2f9e6887e67779d437927d2c`. Upstream: `1f87a83402ffd17ea2723a456b7edf5d80b4a22c`.
 
 There are **25 installed entrypoints: 24 Perl scripts and one C++ executable**. Twenty have at least one direct upstream timing comparison; five do not. Nineteen entrypoints have targeted source work since the inventory baseline, which is a different count from measured speedups. A changed shared parser does not establish a new result for every consumer.
@@ -112,9 +114,9 @@ The five unmeasured upstream comparisons appear in the coverage table with no in
 - The 2,504-sample merge validation replay held the generated UTC date equal to Original and then matched all stdout bytes. The replay time is not substituted for the measured end-to-end time.
 - Reported “Passed” covers complete scientific outputs, order and duplicates under each campaign's settings. Diagnostic normalization, where used, is described in the linked report. It is not proof of equality for all inputs.
 
-## Parallelism audit
+## Parallelism audit at the recorded baseline
 
-At upstream, **24/25 entrypoints have no computational worker pool**. GNU sort supplies the existing parallel computation for `vcf-sort`. At this branch HEAD, **23/25 have no computational worker pool**; `vcftools --geno-chisq` adds ordered workers. Other C++ modes remain serial.
+At upstream, **24/25 entrypoints have no computational worker pool**. GNU sort supplies the existing parallel computation for `vcf-sort`. At the recorded baseline, **23/25 have no computational worker pool**; `vcftools --geno-chisq` adds ordered workers. Other C++ modes remain serial.
 
 The audit searched both upstream and current installed source for threads, fork, OpenMP, process-pool APIs and parallel options, and inspected the matches:
 

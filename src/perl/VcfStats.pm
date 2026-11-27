@@ -23,6 +23,7 @@ package VcfStats;
 use strict;
 use warnings;
 use Carp;
+use NuOrderedCounters;
 use Data::Dumper;
 use base 'Vcf';
 use Scalar::Util qw(isdual refaddr);
@@ -102,15 +103,16 @@ sub select_stats
 {
     my ($self,$rec,$filters) = @_;
 
-    if ( !exists($$self{stats}{all}) ) { $$self{stats}{all}={}; }
+    if ( !exists($$self{stats}{all}) ) { NuOrderedCounters::branch($$self{stats},'all'); }
     my @mandatory = ( $$self{stats}{all} );
 
     my %samples;
     for my $sample (keys %{$$rec{gtypes}})
     {
-        if ( !exists($$self{stats}{samples}{$sample}) ) 
-        { 
-            $$self{stats}{samples}{$sample} = {}; 
+        if ( !exists($$self{stats}{samples}) ) { NuOrderedCounters::branch($$self{stats},'samples'); }
+        if ( !exists($$self{stats}{samples}{$sample}) )
+        {
+            NuOrderedCounters::branch($$self{stats}{samples},$sample);
         }
         push @{$samples{$sample}}, $$self{stats}{samples}{$sample};
     }
@@ -124,14 +126,14 @@ sub select_stats
             for my $value (@{$$rec{FILTER}})
             {
                 my $stats_key = $self->get_stats_key($filter,$key,$value);
-                if ( !exists($$self{stats}{$stats_key}) ) { $$self{stats}{$stats_key}={}; }
+                if ( !exists($$self{stats}{$stats_key}) ) { NuOrderedCounters::branch($$self{stats},$stats_key); }
                 push @mandatory, $$self{stats}{$stats_key};
             }
         }
         elsif ( $key eq 'QUAL' ) 
         { 
             my $stats_key = $self->get_stats_key($filter,$key,$$rec{QUAL});
-            if ( !exists($$self{stats}{$stats_key}) ) { $$self{stats}{$stats_key}={}; }
+            if ( !exists($$self{stats}{$stats_key}) ) { NuOrderedCounters::branch($$self{stats},$stats_key); }
             push @mandatory, $$self{stats}{$stats_key};
         }
         elsif ( $key=~m{^INFO/} ) 
@@ -140,14 +142,14 @@ sub select_stats
             {
                 if ( $$filter{value} && !exists($$rec{INFO}{$$filter{tag}}) ) { next; }
                 elsif ( !$$filter{value} && exists($$rec{INFO}{$$filter{tag}}) ) { next; }
-                if ( !exists($$self{stats}{$key}) ) { $$self{stats}{$key}={}; }
+                if ( !exists($$self{stats}{$key}) ) { NuOrderedCounters::branch($$self{stats},$key); }
                 push @mandatory, $$self{stats}{$key};
                 next;
             }
             elsif ( exists($$rec{INFO}{$$filter{tag}}) )
             {
                 my $stats_key = $self->get_stats_key($filter,$key,$$rec{INFO}{$$filter{tag}});
-                if ( !exists($$self{stats}{$stats_key}) ) { $$self{stats}{$stats_key}={}; }
+                if ( !exists($$self{stats}{$stats_key}) ) { NuOrderedCounters::branch($$self{stats},$stats_key); }
                 push @mandatory, $$self{stats}{$stats_key};
             }
         }
@@ -157,7 +159,8 @@ sub select_stats
             {
                 if ( !exists($$hash{$1}) ) { next; }
                 my $stats_key = $self->get_stats_key($filter,$1,$$hash{$1});
-                if ( !exists($$self{stats}{samples}{$sample}{user}{$stats_key}) ) { $$self{stats}{samples}{$sample}{user}{$stats_key}={}; }
+                NuOrderedCounters::branch($$self{stats}{samples}{$sample},'user');
+                if ( !exists($$self{stats}{samples}{$sample}{user}{$stats_key}) ) { NuOrderedCounters::branch($$self{stats}{samples}{$sample}{user},$stats_key); }
                 push @{$samples{$sample}}, $$self{stats}{samples}{$sample}{user}{$stats_key};
             }
         }
@@ -165,7 +168,8 @@ sub select_stats
         {
             if ( !exists($$rec{gtypes}{$1}{$2}) ) { next; }
             my $stats_key = $self->get_stats_key($filter,$2,$$rec{gtypes}{$1}{$2});
-            if ( !exists($$self{stats}{samples}{$1}{user}{$stats_key}) ) { $$self{stats}{samples}{$1}{user}{$stats_key}={} }
+            NuOrderedCounters::branch($$self{stats}{samples}{$1},'user');
+            if ( !exists($$self{stats}{samples}{$1}{user}{$stats_key}) ) { NuOrderedCounters::branch($$self{stats}{samples}{$1}{user},$stats_key) }
             push @{$samples{$1}}, $$self{stats}{samples}{$1}{user}{$stats_key};
         }
         else { $self->throw("The feature currently not recognised: $key.\n"); } 
@@ -253,16 +257,16 @@ sub collect_stats
         }
         for my $key (@keys)
         {
-            for my $stat (@$stats) { $$stat{$key}++; }
+            for my $stat (@$stats) { if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,$key); } else { $$stat{$key}++; } }
         }
         if ( $is_ref ) { next; }
         $shared += $copies;
         if ( !defined $sample_name ) { $sample_name = $sample; }
     }
-    $$self{stats}{all}{shared}{$shared}++;
+    if ($NuOrderedCounters::active) { NuOrderedCounters::add($$self{stats}{all},1,'shared',$shared); } else { $$self{stats}{all}{shared}{$shared}++; }
     if ( $shared==1 )
     {
-        for my $stat (@{$$sample_stats{$sample_name}}) { $$stat{private}++; }
+        for my $stat (@{$$sample_stats{$sample_name}}) { if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,'private'); } else { $$stat{private}++; } }
     }
 }
 
@@ -314,11 +318,11 @@ sub collect_stats_mandatory
     # Increment counters
     for my $stat (@$stats)
     {
-        $$stat{'nalt_'.$nalt}++;
-        $$stat{count}++;
+        if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,'nalt_'.$nalt); } else { $$stat{'nalt_'.$nalt}++; }
+        if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,'count'); } else { $$stat{count}++; }
         for my $type (keys %types)
         {
-            $$stat{$type.'_count'}++;
+            if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,$type.'_count'); } else { $$stat{$type.'_count'}++; }
         }
     }
 }
@@ -443,12 +447,12 @@ sub add_variant
         {
             while (my ($subt,$value)=each %key_subt)
             {
-                $$stat{$key_type}{$subt}+=$value;
+                if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,$value,$key_type,$subt); } else { $$stat{$key_type}{$subt}+=$value; }
             }
         }
         else
         {
-            $$stat{$key_type}++;
+            if ($NuOrderedCounters::active) { NuOrderedCounters::add($stat,1,$key_type); } else { $$stat{$key_type}++; }
         }
     }
     return $key_type;

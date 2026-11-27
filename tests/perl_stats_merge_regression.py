@@ -59,7 +59,7 @@ def fixture(directory):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--reference',required=True);p.add_argument('--candidate',required=True);p.add_argument('--output',required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--reference',required=True);p.add_argument('--candidate',required=True);p.add_argument('--output',required=True);p.add_argument('--workers',type=int,default=1);a=p.parse_args()
     root=Path(a.output).resolve();root.mkdir(parents=True,exist_ok=False);data=root/'data';data.mkdir();fixture(data)
     cases=[('stats', 'vcf-stats',[str(data/'all.vcf.gz')]),
            ('stats-filters','vcf-stats',['-f','FILTER,QUAL=10:200,FORMAT/DP=10:200,SAMPLE/S0/DP=1:200',str(data/'all.vcf.gz')]),
@@ -77,6 +77,7 @@ def main():
                 bindir,lib=locations(base)
                 env=dict(os.environ,PERL5LIB=str(lib),PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C',TZ='UTC')
                 command=['perl',str(bindir/tool)]+args if tool else ['perl',str(probe)]
+                if label=='candidate' and tool in {'vcf-merge','vcf-stats'}:command+=['--workers',str(a.workers),'--worker-batch-bytes','1024']
                 run=subprocess.run(command,env=env,capture_output=True,timeout=60)
                 out=root/(name+'-'+str(seed)+'-'+label);out.mkdir()
                 (out/'stdout').write_bytes(run.stdout);(out/'stderr').write_bytes(run.stderr)

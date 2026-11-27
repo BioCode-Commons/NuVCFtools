@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -31,6 +32,8 @@ sub error
         "   using heterozygous calls from the overlaps to determine correct phase.\n",
         "Usage: vcf-phased-join [OPTIONS] A.vcf B.vcf C.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -j, --min-join-quality <num>    Quality threshold for gluing the pre-phased blocks together [10]\n",
         "   -l, --list <file>               List of VCFs to join.\n",
         "   -o, --output <file>             Output file name. When \"-\" is supplied, STDOUT and STDERR will be used\n",
@@ -52,6 +55,7 @@ sub parse_params
     };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-o' || $arg eq '--output' ) { $$opts{output}=shift(@ARGV); next; }
         if ( $arg eq '-j' || $arg eq '--min-join-quality' ) { $$opts{min_join_quality}=shift(@ARGV); next; }
         if ( $arg eq '-q' || $arg eq '--min-PQ' ) { $$opts{min_PQ}=shift(@ARGV); next; }
@@ -544,6 +548,7 @@ sub flush_buffer
     my @lks_match = ();
     my @lks_mism  = ();
     my @nsites = (0) x $$opts{nsamples};
+    if (($$opts{workers} || 1)==1) {
     for my $site (@$buffer)
     {
         my $rec1 = $$site[0];
@@ -617,6 +622,39 @@ sub flush_buffer
         }
     }
 
+    }
+    else {
+        my $index=0;
+        NuOrderedWorkers::run(
+            workers=>$$opts{workers},
+            next=>NuOrderedWorkers::prepared_line_batches(
+                sub { $index<@$buffer ? $$buffer[$index++] : undef },sub { $_[0] },
+                $$opts{worker_batch_bytes} || 4194304,
+                sub { length(join("\t",@{$_[0][0]}))+length(join("\t",@{$_[0][1]})) }),
+            work=>sub {
+                my ($batch)=@_;
+                my @scores;
+                for my $item (@$batch) {
+                    push @scores,score_phase_site($opts,$vcf,NuOrderedWorkers::prepared_value($item));
+                }
+                return \@scores;
+            },reduce=>sub {
+                my ($scores)=@_;
+                # Preserve the original per-site floating-point addition order.
+                for my $score (@$scores) {
+                    my ($errors,$match,$mismatch,$packed)=@$score;
+                    $$opts{dist_errors}{$errors}++;
+                    my @actions=unpack('C*',$packed);
+                    for (my $i=0;$i<@actions;$i++) {
+                        next unless $actions[$i];
+                        $lks_match[$i] += $actions[$i]==1 ? $match : $mismatch;
+                        $lks_mism[$i] += $actions[$i]==1 ? $mismatch : $match;
+                        $nsites[$i]++;
+                    }
+                }
+            });
+    }
+
     my $file1 = $$opts{file1};
     my $file2 = $$opts{file2};
     my @swapped = ( (0) x $$opts{nsamples} );
@@ -673,6 +711,84 @@ sub flush_buffer
 
     @$buffer = ();
     $$opts{swapped} = \@swapped;
+}
+
+# Return a byte action per sample instead of three floating-point arrays.
+sub score_phase_site
+{
+    my ($opts,$vcf,$site)=@_;
+        my $rec1 = $$site[0];
+        my $rec2 = $$site[1];
+
+        my $igt1 = $vcf->get_tag_index($$rec1[8],'GT',':');
+        my $igt2 = $vcf->get_tag_index($$rec2[8],'GT',':');
+        my $gts1 = $vcf->get_sample_field($rec1,$igt1);
+        my $gts2 = $vcf->get_sample_field($rec2,$igt2);
+
+        my $ngts = $$opts{nsamples};
+        my $nerrors  = 0;
+        my (@als1,@als2,@phased);
+        my %split_alleles; # A site's repeated GT strings have identical alleles.
+        for (my $i=0; $i<@$gts1; $i++)
+        {
+            if ( index($$gts1[$i],'|')==-1 or index($$gts2[$i],'|')==-1 )
+            {
+                push @phased, 0;
+            }
+            else
+            {
+                push @phased, 1;
+            }
+            my ($a1,$a2) = defined $$gts1[$i]
+                ? @{ $split_alleles{$$gts1[$i]} ||= [ $vcf->split_gt($$gts1[$i]) ] }
+                : $vcf->split_gt($$gts1[$i]);
+            my ($b1,$b2) = defined $$gts2[$i]
+                ? @{ $split_alleles{$$gts2[$i]} ||= [ $vcf->split_gt($$gts2[$i]) ] }
+                : $vcf->split_gt($$gts2[$i]);
+            if ( !defined $a2 ) { $a2 = $a1; }  # haploid genotypes
+            if ( !defined $b2 ) { $b2 = $b1; }
+            if ( !(($a1 eq $b1 && $a2 eq $b2) or ($a1 eq $b2 && $a2 eq $b1)) ) { $nerrors++ }
+            push @als1, $a1,$a2;
+            push @als2, $b1,$b2;
+        }
+
+
+
+        my $p = $nerrors/$ngts;
+        if ( $p==0 ) { $p=1./$ngts; }
+        elsif ( $p==1 ) { $p=1 - 1./$ngts; }
+        my @actions=(0) x scalar(@$gts1);
+        my ($log_match,$log_mism); # Reuse within this site, evaluating only when first needed.
+        for (my $i=0; $i<@$gts1; $i++)
+        {
+            if ( !$phased[$i] ) { next; }
+
+            my $a1 = $als1[2*$i];
+            my $a2 = $als1[2*$i+1];
+            my $b1 = $als2[2*$i];
+            my $b2 = $als2[2*$i+1];
+
+            if ( $a1 eq $a2 or $b1 eq $b2 ) { next; }   # homozygous GT
+
+            if ( $a1 eq $b1 && $a2 eq $b2 )
+            {
+                #print STDERR "$i .. counting match $a1/$a2 $b1/$b2\n";
+                $log_match = log($p*$p + (1-$p)*(1-$p)) unless defined $log_match;
+                $log_mism = log($p*(1-$p) + (1-$p)*$p) unless defined $log_mism;
+                $actions[$i]=1;
+            }
+            elsif ( $a1 eq $b2 && $a2 eq $b1 )
+            {
+                #print STDERR "$i .. counting mismatch $a1/$a2 $b1/$b2\n";
+                $log_mism = log($p*(1-$p) + (1-$p)*$p) unless defined $log_mism;
+                $log_match = log($p*$p + (1-$p)*(1-$p)) unless defined $log_match;
+                $actions[$i]=2;
+            }
+            else { next; } # different alleles might have been selected at multiallelic sites
+
+
+        }
+    return [$nerrors,$log_match,$log_mism,pack('C*',@actions)];
 }
 
 sub report_stats

@@ -7,6 +7,7 @@ use strict;
 use warnings;
 use Carp;
 use Vcf;
+use NuOrderedWorkers;
 
 my $opts = parse_params();
 read_data($opts);
@@ -22,6 +23,8 @@ sub error
     die
         "Usage: vcf-query [OPTIONS] file.vcf.gz\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -c, --columns <file|list>           List of comma-separated column names or one column name per line in a file.\n",
         "   -f, --format <string>               The default is '%CHROM:%POS\\t%REF[\\t%SAMPLE=%GT]\\n'\n",
         "   -l, --list-columns                  List columns.\n",
@@ -55,6 +58,7 @@ sub parse_params
     my $opts = { columns=>'', format_string=>"%CHROM:%POS\t%REF[\t%SAMPLE=%GT]\n" };
     while (defined(my $arg=shift(@ARGV)))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '--reuse-sample-templates' ) { $$opts{reuse_sample_templates}=1; next }
         if (                 $arg eq '--use-old-method' ) { $$opts{use_old_method}=1; next }
         if ( $arg eq '-f' || $arg eq '--format' ) { $$opts{format_string}=shift(@ARGV); next }
@@ -199,6 +203,7 @@ sub read_data
 
     if ( exists($$opts{use_old_method}) )
     {
+        error("--workers requires the array query API; omit --use-old-method.\n") if ($$opts{workers} || 1) > 1;
         read_data_slow_hash($opts);
         return;
     }
@@ -221,8 +226,14 @@ sub read_data
     my ($previous_format, %format_indexes);
     # The hash opts will be filled with the keys 'before','repeat','after' with formatting information
     parse_format($opts);
-    while (my $line=$vcf->next_line())
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::line_batches(sub { $vcf->next_line() }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch) = @_;
+        for my $item (@$batch) {
+        my $line = NuOrderedWorkers::prepared_value($item);
+        next unless defined $line;
         my $x = $vcf->next_data_array($line);
 
         my $rendered = "";
@@ -382,7 +393,9 @@ sub read_data
             $rendered .= join('',@out);
         }
         print $rendered;
-    }
+        }
+        return;
+    });
 }
 
 

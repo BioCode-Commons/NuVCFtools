@@ -685,10 +685,21 @@ sub fill_ac_an_hwe
     my $nhets  = 0;
     my $ngts   = 0;
     my $ncols  = @$line;
+    my %sample_alleles;
     for (my $isample=9; $isample<$ncols; $isample++)
     {
-        my $gt = $$opts{vcf}->get_field($$line[$isample],$igt);
-        my ($a1,$a2) = $$opts{vcf}->split_gt($gt);
+        my $text=$$line[$isample];
+        my ($a1,$a2);
+        if (defined($text) && exists($sample_alleles{$text})) {
+            ($a1,$a2)=@{$sample_alleles{$text}};
+        }
+        else {
+            my $gt = $$opts{vcf}->get_field($text,$igt);
+            ($a1,$a2) = $$opts{vcf}->split_gt($gt);
+            # An absent field retains its per-sample diagnostics. Defined
+            # complete sample fields are pure parses under this record's FORMAT.
+            $sample_alleles{$text}=[$a1,$a2] if defined($text) && defined($gt);
+        }
         if ( $a1 ne '.' ) { $counts{$a1}++ }
         if ( defined $a2 && $a2 ne '.' ) 
         { 
@@ -748,7 +759,10 @@ sub eval_hwe
     my $rare_copies = 2 * $obs_homr + $obs_hets;
     my $genotypes   = $obs_hets + $obs_homc + $obs_homr;
 
-    my @het_probs = ((0) x ($rare_copies+1));
+    # Only heterozygote counts with the parity of rare_copies are possible.
+    # Keep the same recurrence and summation order, omitting zero entries.
+    my $parity=$rare_copies & 1;
+    my @het_probs = ((0) x (int(($rare_copies-$parity)/2)+1));
 
     # start at midpoint
     my $mid = int($rare_copies * (2 * $genotypes - $rare_copies) / (2 * $genotypes));
@@ -759,12 +773,12 @@ sub eval_hwe
     my $curr_homr = ($rare_copies - $mid) / 2;
     my $curr_homc = $genotypes - $curr_hets - $curr_homr;
 
-    $het_probs[$mid] = 1.0;
-    my $sum = $het_probs[$mid];
+    $het_probs[int(($mid-$parity)/2)] = 1.0;
+    my $sum = $het_probs[int(($mid-$parity)/2)];
     for ($curr_hets=$mid; $curr_hets > 1; $curr_hets -= 2)
     {
-        $het_probs[$curr_hets - 2] = $het_probs[$curr_hets] * $curr_hets * ($curr_hets - 1.0) / (4.0 * ($curr_homr + 1.0) * ($curr_homc + 1.0));
-        $sum += $het_probs[$curr_hets - 2];
+        $het_probs[int(($curr_hets - 2-$parity)/2)] = $het_probs[int(($curr_hets-$parity)/2)] * $curr_hets * ($curr_hets - 1.0) / (4.0 * ($curr_homr + 1.0) * ($curr_homc + 1.0));
+        $sum += $het_probs[int(($curr_hets - 2-$parity)/2)];
 
         # 2 fewer heterozygotes for next iteration -> add one rare, one common homozygote
         $curr_homr++;
@@ -775,24 +789,24 @@ sub eval_hwe
     $curr_homc = $genotypes - $curr_hets - $curr_homr;
     for ($curr_hets = $mid; $curr_hets <= $rare_copies - 2; $curr_hets += 2)
     {
-        $het_probs[$curr_hets + 2] = $het_probs[$curr_hets] * 4.0 * $curr_homr * $curr_homc /(($curr_hets + 2.0) * ($curr_hets + 1.0));
-        $sum += $het_probs[$curr_hets + 2];
+        $het_probs[int(($curr_hets + 2-$parity)/2)] = $het_probs[int(($curr_hets-$parity)/2)] * 4.0 * $curr_homr * $curr_homc /(($curr_hets + 2.0) * ($curr_hets + 1.0));
+        $sum += $het_probs[int(($curr_hets + 2-$parity)/2)];
 
         # add 2 heterozygotes for next iteration -> subtract one rare, one common homozygote
         $curr_homr--;
         $curr_homc--;
     }
 
-    for (my $i = 0; $i <= $rare_copies; $i++)
+    for (my $i = 0; $i < @het_probs; $i++)
     {
         $het_probs[$i] /= $sum;
     }
 
     my $p_hwe = 0.0;
     #  p-value calculation for p_hwe
-    for (my $i = 0; $i <= $rare_copies; $i++)
+    for (my $i = 0; $i < @het_probs; $i++)
     {
-        if ($het_probs[$i] > $het_probs[$obs_hets]) { next; }
+        if ($het_probs[$i] > $het_probs[int(($obs_hets-$parity)/2)]) { next; }
         $p_hwe += $het_probs[$i];
     }
 

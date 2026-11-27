@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 use FindBin;
 use lib "$FindBin::Bin";
@@ -26,6 +27,8 @@ sub error
         "About: Convert between VCF versions.\n",
         "Usage: cat in.vcf | vcf-convert [OPTIONS] > out.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -r, --refseq <file>              The reference sequence in samtools faindexed fasta file. (Not required with SNPs only.)\n",
         "   -v, --version <string>           4.0, 4.1, 4.2\n",
         "   -h, -?, --help                   This help message.\n",
@@ -38,6 +41,7 @@ sub parse_params
     my $opts = { version=>'4.2' };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-r' || $arg eq '--refseq' ) { $$opts{refseq}=shift(@ARGV); next; }
         if ( $arg eq '-v' || $arg eq '--version' ) { $$opts{version}=shift(@ARGV); next; }
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
@@ -70,8 +74,15 @@ sub convert_file
 
     # Convert each data line
     my $fa;
-    while (my $x=$vcf_in->next_data_hash())
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf_in->next_line() }, sub { $vcf_in->prepare_data_columns($_[0],($$opts{workers} || 1)>1) }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $prepared=NuOrderedWorkers::prepared_value($item);
+        next unless defined $prepared;
+        my $x=$vcf_in->next_prepared_hash($prepared,0);
         # Convert missing (default) FORMAT values
         # GT is never converted. Compile the remaining field list once per
         # record; GT-only records need no per-sample conversion pass.
@@ -178,6 +189,8 @@ sub convert_file
         }
 
         print $vcf_out->format_line($x);
-    }
+        }
+        return;
+    });
 }
 

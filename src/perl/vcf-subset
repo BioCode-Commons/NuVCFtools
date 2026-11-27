@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 use Carp;
+use NuOrderedWorkers;
 use Vcf;
 
 my $opts = parse_params();
@@ -25,6 +26,8 @@ sub error
     die
         "Usage: vcf-subset [OPTIONS] in.vcf.gz > out.vcf\n",
         "Options:\n",
+        "       --workers N                  Ordered worker processes (default 1).\n",
+        "       --worker-batch-bytes N       Input bytes per batch (default 4194304).\n",
         "   -a, --trim-alt-alleles           Remove alternate alleles if not found in the subset\n",
         "   -c, --columns <string>           File or comma-separated list of columns to keep in the vcf file. If file, one column per row\n",
         "   -e, --exclude-ref                Exclude rows not containing variants.\n",
@@ -46,6 +49,7 @@ sub parse_params
     my $opts = { exclude_ref=>0, keep_uncalled=>0, replace_with_ref=>0, private=>0, args=>[$0, @ARGV] };
     while (my $arg=shift(@ARGV))
     {
+        if (NuOrderedWorkers::take_option($opts,$arg,\@ARGV)) { next; }
         if ( $arg eq '-t' || $arg eq '--type' ) 
         { 
             my %known = ( ref=>'r', SNPs=>'s', indels=>'i', MNPs=>'m', other=>'o' );
@@ -143,8 +147,15 @@ sub vcf_subset
     print $vcf->format_header($columns);
 
     my $check_private = $$opts{private};
-    while (my $x=$vcf->next_data_hash())
-    {
+    NuOrderedWorkers::run(
+        workers=>$$opts{workers} || 1,
+        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() }, sub { $vcf->prepare_data_columns($_[0],($$opts{workers} || 1)>1) }, $$opts{worker_batch_bytes} || 4194304),
+        work=>sub {
+        my ($batch)=@_;
+        for my $item (@$batch) {
+        my $prepared=NuOrderedWorkers::prepared_value($item);
+        next unless defined $prepared;
+        my $x=$vcf->next_prepared_hash($prepared,0);
         my $site_has_call   = 0;
         my $site_has_nonref = 0;
         my $site_is_private = 1;
@@ -226,7 +237,9 @@ sub vcf_subset
         }
         $vcf->format_genotype_strings($x);
         print $vcf->format_line($x,$columns);
-    }
+        }
+        return;
+    });
 }
 
 
