@@ -1,0 +1,16 @@
+{
+  "purpose": "Validation-only replay, not a timing measurement",
+  "fixed_utc_date": "20261126",
+  "test_only_clock_override": true,
+  "product_time_calls": "Vcf.pm::add_header_line gmtime(time); no analysis clock use in vcf-merge/Vcf.pm",
+  "exit": 0,
+  "stdout_exact_original": true,
+  "stdout_exact_before": true,
+  "stderr_original": true,
+  "stderr_before": true,
+  "source_sha256": {
+    "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/candidate6/src/perl/Vcf.pm": "a274f2e492ecc1d2065dcc837be8c3c111d3d0246d8e9f76cfc1d50f56ba0e45",
+    "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/candidate6/src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+  },
+  "passed": true
+}

@@ -1,0 +1,356 @@
+{
+  "node": "node2308.oscar.ccv.brown.edu",
+  "job": "9657111",
+  "before_commit": "e337a33bed983024349001bfdc16f46c89a07d50",
+  "controls": [
+    {
+      "case": "subset-all",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-all",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-all",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    }
+  ],
+  "results": [
+    {
+      "case": "query-default-500",
+      "tool": "vcf-query",
+      "args": [
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "candidate_flags": [
+        "--reuse-sample-templates"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 52.2,
+          "rss_kib": 11136,
+          "user_seconds": 51.51,
+          "sys_seconds": 0.37,
+          "exit": 0,
+          "output_bytes": 136355589
+        },
+        "before": {
+          "wall_seconds": 18.81,
+          "rss_kib": 11136,
+          "user_seconds": 18.4,
+          "sys_seconds": 0.24,
+          "exit": 0,
+          "output_bytes": 136355589
+        },
+        "candidate": {
+          "wall_seconds": 6.87,
+          "rss_kib": 10752,
+          "user_seconds": 6.64,
+          "sys_seconds": 0.17,
+          "exit": 0,
+          "output_bytes": 136355589
+        },
+        "default": {
+          "wall_seconds": 17.28,
+          "rss_kib": 11136,
+          "user_seconds": 16.89,
+          "sys_seconds": 0.25,
+          "exit": 0,
+          "output_bytes": 136355589
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "query-raw-500",
+      "tool": "vcf-query",
+      "args": [
+        "-f",
+        "%CHROM:%POS[\\t%GTR]\\n",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "candidate_flags": [
+        "--reuse-sample-templates"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 12.43,
+          "rss_kib": 10752,
+          "user_seconds": 12.16,
+          "sys_seconds": 0.14,
+          "exit": 0,
+          "output_bytes": 45032584
+        },
+        "candidate": {
+          "wall_seconds": 5.92,
+          "rss_kib": 10752,
+          "user_seconds": 5.75,
+          "sys_seconds": 0.12,
+          "exit": 0,
+          "output_bytes": 45032584
+        },
+        "default": {
+          "wall_seconds": 11.78,
+          "rss_kib": 10752,
+          "user_seconds": 11.54,
+          "sys_seconds": 0.15,
+          "exit": 0,
+          "output_bytes": 45032584
+        },
+        "original": {
+          "wall_seconds": 24.2,
+          "rss_kib": 10752,
+          "user_seconds": 23.87,
+          "sys_seconds": 0.17,
+          "exit": 0,
+          "output_bytes": 45032584
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "query-default-2504",
+      "tool": "vcf-query",
+      "args": [
+        "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+      ],
+      "candidate_flags": [
+        "--reuse-sample-templates"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 32.37,
+          "rss_kib": 12288,
+          "user_seconds": 31.31,
+          "sys_seconds": 0.83,
+          "exit": 0,
+          "output_bytes": 681613407
+        },
+        "default": {
+          "wall_seconds": 88.37,
+          "rss_kib": 13440,
+          "user_seconds": 86.09,
+          "sys_seconds": 1.55,
+          "exit": 0,
+          "output_bytes": 681613407
+        },
+        "original": {
+          "wall_seconds": 269.69,
+          "rss_kib": 13440,
+          "user_seconds": 266.12,
+          "sys_seconds": 1.71,
+          "exit": 0,
+          "output_bytes": 681613407
+        },
+        "before": {
+          "wall_seconds": 95.66,
+          "rss_kib": 13824,
+          "user_seconds": 93.37,
+          "sys_seconds": 1.58,
+          "exit": 0,
+          "output_bytes": 681613407
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "query-raw-2504",
+      "tool": "vcf-query",
+      "args": [
+        "-f",
+        "%CHROM:%POS[\\t%GTR]\\n",
+        "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+      ],
+      "candidate_flags": [
+        "--reuse-sample-templates"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 121.45,
+          "rss_kib": 12288,
+          "user_seconds": 119.46,
+          "sys_seconds": 1.2,
+          "exit": 0,
+          "output_bytes": 224446696
+        },
+        "before": {
+          "wall_seconds": 62.0,
+          "rss_kib": 12672,
+          "user_seconds": 60.59,
+          "sys_seconds": 0.96,
+          "exit": 0,
+          "output_bytes": 224446696
+        },
+        "candidate": {
+          "wall_seconds": 28.41,
+          "rss_kib": 11904,
+          "user_seconds": 27.73,
+          "sys_seconds": 0.46,
+          "exit": 0,
+          "output_bytes": 224446696
+        },
+        "default": {
+          "wall_seconds": 59.76,
+          "rss_kib": 12672,
+          "user_seconds": 58.35,
+          "sys_seconds": 1.0,
+          "exit": 0,
+          "output_bytes": 224446696
+        }
+      },
+      "passed": true
+    }
+  ],
+  "source_metadata_path": "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/final-query/status.json"
+}

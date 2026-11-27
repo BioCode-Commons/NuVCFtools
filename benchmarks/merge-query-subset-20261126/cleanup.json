@@ -1,0 +1,12 @@
+{
+  "verified_real_output_files_remaining": [],
+  "removed_synthetic_control_input": [
+    {
+      "path": "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/validation/rich-fields.vcf",
+      "bytes": 20193025,
+      "reason": "Initial control hit the same diagnosed pre-existing query parser failure in both versions; corrected control completed successfully."
+    }
+  ],
+  "merge_date_resolution": "Two generated UTC date keys differed at midnight. Full byte equality was established by a validation-only fixed-clock candidate replay against Original and Before; raw mismatches and replay output then removed.",
+  "state": "complete"
+}

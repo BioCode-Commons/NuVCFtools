@@ -42,7 +42,7 @@ Most scripts use [`Vcf.pm`](../src/perl/Vcf.pm), a separate implementation of he
 
 ## Where the measured gains came from
 
-The [current matrix](../benchmarks/common-tool-speed-20261126.md) contains 15 fresh upstream/baseline/candidate task comparisons. It is not a remeasurement of every command and option. Earlier broad coverage comprises 69 C++ scenarios and 24 Perl commands; scenarios are not independent installed tools.
+The [current comparison inventory](../benchmarks/current-vs-upstream.md) lists all retained tool optimizations, their latest available upstream measurements and the remaining measurement gaps. It distinguishes current-snapshot results from earlier verified revisions. The [earlier common-tool matrix](../benchmarks/common-tool-speed-20261126.md) contains 15 upstream/baseline/candidate task comparisons. It is not a remeasurement of every command and option. Earlier broad coverage comprises 69 C++ scenarios and 24 Perl commands; scenarios are not independent installed tools.
 
 The main gains came from reducing repeated genotype parsing/classification, retaining fields as opaque text when they are not needed, compact LD representations, reusing decoded LD payloads, and buffering output files. The statistical formulas and per-pair floating-point operation order were retained in the tested paths.
 

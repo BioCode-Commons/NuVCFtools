@@ -1,0 +1,590 @@
+{
+  "initial": {
+    "node": "node1829.oscar.ccv.brown.edu",
+    "job": "9656849",
+    "results": [
+      {
+        "case": "query-default-500",
+        "tool": "vcf-query",
+        "args": [
+          "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+        ],
+        "measurements": {
+          "original": {
+            "wall_seconds": 52.43,
+            "rss_kib": 10752,
+            "user_seconds": 51.82,
+            "sys_seconds": 0.29,
+            "exit": 0,
+            "output_bytes": 136355589
+          },
+          "before": {
+            "wall_seconds": 18.67,
+            "rss_kib": 11136,
+            "user_seconds": 18.31,
+            "sys_seconds": 0.23,
+            "exit": 0,
+            "output_bytes": 136355589
+          },
+          "candidate": {
+            "wall_seconds": 10.8,
+            "rss_kib": 11136,
+            "user_seconds": 10.56,
+            "sys_seconds": 0.18,
+            "exit": 0,
+            "output_bytes": 136355589
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-raw-500",
+        "tool": "vcf-query",
+        "args": [
+          "-f",
+          "%CHROM:%POS[\\t%GTR]\\n",
+          "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+        ],
+        "measurements": {
+          "before": {
+            "wall_seconds": 12.38,
+            "rss_kib": 11136,
+            "user_seconds": 12.19,
+            "sys_seconds": 0.12,
+            "exit": 0,
+            "output_bytes": 45032584
+          },
+          "candidate": {
+            "wall_seconds": 9.06,
+            "rss_kib": 11136,
+            "user_seconds": 8.87,
+            "sys_seconds": 0.12,
+            "exit": 0,
+            "output_bytes": 45032584
+          },
+          "original": {
+            "wall_seconds": 24.19,
+            "rss_kib": 10752,
+            "user_seconds": 23.95,
+            "sys_seconds": 0.12,
+            "exit": 0,
+            "output_bytes": 45032584
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "subset-500",
+        "tool": "vcf-subset",
+        "args": [
+          "-c",
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.samples",
+          "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+        ],
+        "measurements": {
+          "candidate": {
+            "wall_seconds": 22.57,
+            "rss_kib": 11136,
+            "user_seconds": 22.22,
+            "sys_seconds": 0.19,
+            "exit": 0,
+            "output_bytes": 25600824
+          },
+          "original": {
+            "wall_seconds": 61.4,
+            "rss_kib": 10752,
+            "user_seconds": 60.86,
+            "sys_seconds": 0.23,
+            "exit": 0,
+            "output_bytes": 25600824
+          },
+          "before": {
+            "wall_seconds": 22.71,
+            "rss_kib": 10752,
+            "user_seconds": 22.36,
+            "sys_seconds": 0.16,
+            "exit": 0,
+            "output_bytes": 25600824
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "merge-500",
+        "tool": "vcf-merge",
+        "args": [
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz",
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-B.vcf.gz"
+        ],
+        "measurements": {
+          "original": {
+            "wall_seconds": 78.61,
+            "rss_kib": 14976,
+            "user_seconds": 77.63,
+            "sys_seconds": 0.53,
+            "exit": 0,
+            "output_bytes": 48233346
+          },
+          "before": {
+            "wall_seconds": 42.95,
+            "rss_kib": 14976,
+            "user_seconds": 42.2,
+            "sys_seconds": 0.45,
+            "exit": 0,
+            "output_bytes": 48233346
+          },
+          "candidate": {
+            "wall_seconds": 42.95,
+            "rss_kib": 14976,
+            "user_seconds": 42.18,
+            "sys_seconds": 0.48,
+            "exit": 0,
+            "output_bytes": 48233346
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-default-2504",
+        "tool": "vcf-query",
+        "args": [
+          "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+        ],
+        "measurements": {
+          "before": {
+            "wall_seconds": 94.32,
+            "rss_kib": 13824,
+            "user_seconds": 92.65,
+            "sys_seconds": 1.13,
+            "exit": 0,
+            "output_bytes": 681613407
+          },
+          "candidate": {
+            "wall_seconds": 52.42,
+            "rss_kib": 11904,
+            "user_seconds": 51.2,
+            "sys_seconds": 0.89,
+            "exit": 0,
+            "output_bytes": 681613407
+          },
+          "original": {
+            "wall_seconds": 260.68,
+            "rss_kib": 13440,
+            "user_seconds": 257.86,
+            "sys_seconds": 1.49,
+            "exit": 0,
+            "output_bytes": 681613407
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-raw-2504",
+        "tool": "vcf-query",
+        "args": [
+          "-f",
+          "%CHROM:%POS[\\t%GTR]\\n",
+          "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+        ],
+        "measurements": {
+          "candidate": {
+            "wall_seconds": 43.87,
+            "rss_kib": 11904,
+            "user_seconds": 43.17,
+            "sys_seconds": 0.47,
+            "exit": 0,
+            "output_bytes": 224446696
+          },
+          "original": {
+            "wall_seconds": 120.18,
+            "rss_kib": 12288,
+            "user_seconds": 118.75,
+            "sys_seconds": 0.83,
+            "exit": 0,
+            "output_bytes": 224446696
+          },
+          "before": {
+            "wall_seconds": 61.44,
+            "rss_kib": 12288,
+            "user_seconds": 60.49,
+            "sys_seconds": 0.61,
+            "exit": 0,
+            "output_bytes": 224446696
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "subset-2504",
+        "tool": "vcf-subset",
+        "args": [
+          "-c",
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-A.samples",
+          "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+        ],
+        "measurements": {
+          "original": {
+            "wall_seconds": 314.79,
+            "rss_kib": 12288,
+            "user_seconds": 312.24,
+            "sys_seconds": 0.98,
+            "exit": 0,
+            "output_bytes": 115342479
+          },
+          "before": {
+            "wall_seconds": 112.51,
+            "rss_kib": 12288,
+            "user_seconds": 111.03,
+            "sys_seconds": 0.79,
+            "exit": 0,
+            "output_bytes": 115342479
+          },
+          "candidate": {
+            "wall_seconds": 112.29,
+            "rss_kib": 11904,
+            "user_seconds": 110.84,
+            "sys_seconds": 0.82,
+            "exit": 0,
+            "output_bytes": 115342479
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "merge-2504",
+        "tool": "vcf-merge",
+        "args": [
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-A.vcf.gz",
+          "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-B.vcf.gz"
+        ],
+        "measurements": {
+          "before": {
+            "wall_seconds": 279.9,
+            "rss_kib": 15744,
+            "user_seconds": 276.5,
+            "sys_seconds": 1.77,
+            "exit": 0,
+            "output_bytes": 227669429
+          },
+          "candidate": {
+            "wall_seconds": 281.84,
+            "rss_kib": 15744,
+            "user_seconds": 278.38,
+            "sys_seconds": 1.86,
+            "exit": 0,
+            "output_bytes": 227669429
+          },
+          "original": {
+            "wall_seconds": 493.46,
+            "rss_kib": 15744,
+            "user_seconds": 489.02,
+            "sys_seconds": 1.85,
+            "exit": 0,
+            "output_bytes": 227669429
+          }
+        },
+        "passed": false
+      }
+    ]
+  },
+  "intermediate_query": {
+    "node": "node1829.oscar.ccv.brown.edu",
+    "job": "9656961",
+    "results": [
+      {
+        "case": "query-default-500",
+        "tool": "vcf-query",
+        "args": [
+          "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+        ],
+        "measurements": {
+          "original": {
+            "wall_seconds": 53.38,
+            "rss_kib": 11136,
+            "user_seconds": 52.81,
+            "sys_seconds": 0.31,
+            "exit": 0,
+            "output_bytes": 136355589
+          },
+          "before": {
+            "wall_seconds": 19.02,
+            "rss_kib": 11136,
+            "user_seconds": 18.61,
+            "sys_seconds": 0.28,
+            "exit": 0,
+            "output_bytes": 136355589
+          },
+          "candidate": {
+            "wall_seconds": 6.12,
+            "rss_kib": 11136,
+            "user_seconds": 5.86,
+            "sys_seconds": 0.21,
+            "exit": 0,
+            "output_bytes": 136355589
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-raw-500",
+        "tool": "vcf-query",
+        "args": [
+          "-f",
+          "%CHROM:%POS[\\t%GTR]\\n",
+          "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+        ],
+        "measurements": {
+          "before": {
+            "wall_seconds": 12.6,
+            "rss_kib": 11136,
+            "user_seconds": 12.35,
+            "sys_seconds": 0.18,
+            "exit": 0,
+            "output_bytes": 45032584
+          },
+          "candidate": {
+            "wall_seconds": 5.43,
+            "rss_kib": 11136,
+            "user_seconds": 5.27,
+            "sys_seconds": 0.12,
+            "exit": 0,
+            "output_bytes": 45032584
+          },
+          "original": {
+            "wall_seconds": 24.33,
+            "rss_kib": 10752,
+            "user_seconds": 24.04,
+            "sys_seconds": 0.17,
+            "exit": 0,
+            "output_bytes": 45032584
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-default-2504",
+        "tool": "vcf-query",
+        "args": [
+          "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+        ],
+        "measurements": {
+          "candidate": {
+            "wall_seconds": 28.11,
+            "rss_kib": 12288,
+            "user_seconds": 27.04,
+            "sys_seconds": 0.86,
+            "exit": 0,
+            "output_bytes": 681613407
+          },
+          "original": {
+            "wall_seconds": 271.37,
+            "rss_kib": 13440,
+            "user_seconds": 268.54,
+            "sys_seconds": 1.46,
+            "exit": 0,
+            "output_bytes": 681613407
+          },
+          "before": {
+            "wall_seconds": 94.31,
+            "rss_kib": 13824,
+            "user_seconds": 92.51,
+            "sys_seconds": 1.27,
+            "exit": 0,
+            "output_bytes": 681613407
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-raw-2504",
+        "tool": "vcf-query",
+        "args": [
+          "-f",
+          "%CHROM:%POS[\\t%GTR]\\n",
+          "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+        ],
+        "measurements": {
+          "original": {
+            "wall_seconds": 121.03,
+            "rss_kib": 12672,
+            "user_seconds": 119.49,
+            "sys_seconds": 0.87,
+            "exit": 0,
+            "output_bytes": 224446696
+          },
+          "before": {
+            "wall_seconds": 61.2,
+            "rss_kib": 12288,
+            "user_seconds": 60.06,
+            "sys_seconds": 0.73,
+            "exit": 0,
+            "output_bytes": 224446696
+          },
+          "candidate": {
+            "wall_seconds": 25.24,
+            "rss_kib": 11904,
+            "user_seconds": 24.54,
+            "sys_seconds": 0.51,
+            "exit": 0,
+            "output_bytes": 224446696
+          }
+        },
+        "passed": true
+      }
+    ]
+  },
+  "always_on_hash_control": {
+    "node": "node2308.oscar.ccv.brown.edu",
+    "job": "9656997",
+    "results": [
+      {
+        "case": "query-rich-default",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 2.32,
+            "rss_kib": 10752,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 2.93,
+            "rss_kib": 10752,
+            "exit": 0
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-rich-fields",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 0.04,
+            "rss_kib": 9984,
+            "exit": 25
+          },
+          "candidate": {
+            "wall_seconds": 0.04,
+            "rss_kib": 9984,
+            "exit": 25
+          }
+        },
+        "passed": false
+      }
+    ]
+  },
+  "flat_array_control": {
+    "node": "node2308.oscar.ccv.brown.edu",
+    "job": "9657037",
+    "results": [
+      {
+        "case": "query-rich-default",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 2.3,
+            "rss_kib": 10752,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 2.73,
+            "rss_kib": 10368,
+            "exit": 0
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-rich-fields",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 4.92,
+            "rss_kib": 10752,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 5.26,
+            "rss_kib": 10368,
+            "exit": 0
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "subset-rich",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 7.81,
+            "rss_kib": 9984,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 7.88,
+            "rss_kib": 10368,
+            "exit": 0
+          }
+        },
+        "passed": true
+      }
+    ]
+  },
+  "singleton_control": {
+    "node": "node1829.oscar.ccv.brown.edu",
+    "job": "9657076",
+    "results": [
+      {
+        "case": "query-rich-default",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 2.36,
+            "rss_kib": 10752,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 2.71,
+            "rss_kib": 10368,
+            "exit": 0
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "query-rich-fields",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 4.97,
+            "rss_kib": 10752,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 5.27,
+            "rss_kib": 10752,
+            "exit": 0
+          }
+        },
+        "passed": true
+      },
+      {
+        "case": "subset-rich",
+        "synthetic_control": true,
+        "measurements": {
+          "before": {
+            "wall_seconds": 7.91,
+            "rss_kib": 9984,
+            "exit": 0
+          },
+          "candidate": {
+            "wall_seconds": 8.09,
+            "rss_kib": 10368,
+            "exit": 0
+          }
+        },
+        "passed": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "node": "node2308.oscar.ccv.brown.edu",
+  "job": "9657112",
+  "results": [
+    {
+      "case": "query-rich-default",
+      "synthetic_control": true,
+      "measurements": {
+        "before": {
+          "wall_seconds": 2.37,
+          "rss_kib": 10752,
+          "exit": 0
+        },
+        "candidate": {
+          "wall_seconds": 2.28,
+          "rss_kib": 10752,
+          "exit": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "query-rich-fields",
+      "synthetic_control": true,
+      "measurements": {
+        "before": {
+          "wall_seconds": 5.04,
+          "rss_kib": 10752,
+          "exit": 0
+        },
+        "candidate": {
+          "wall_seconds": 4.83,
+          "rss_kib": 10368,
+          "exit": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "subset-rich",
+      "synthetic_control": true,
+      "measurements": {
+        "before": {
+          "wall_seconds": 8.01,
+          "rss_kib": 10368,
+          "exit": 0
+        },
+        "candidate": {
+          "wall_seconds": 8.32,
+          "rss_kib": 10368,
+          "exit": 0
+        }
+      },
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "node": "node1829.oscar.ccv.brown.edu",
+  "job": "9656967",
+  "before_commit": "e337a33bed983024349001bfdc16f46c89a07d50",
+  "controls": [
+    {
+      "case": "subset-all",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 0,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-all",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 1,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-all",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-trim",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-private",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-types",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-replace",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "subset-uncalled",
+      "seed": 19,
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ]
+    }
+  ],
+  "results": [
+    {
+      "case": "subset-500",
+      "tool": "vcf-subset",
+      "args": [
+        "-c",
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.samples",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 62.28,
+          "rss_kib": 10752,
+          "user_seconds": 61.78,
+          "sys_seconds": 0.19,
+          "exit": 0,
+          "output_bytes": 25600824
+        },
+        "before": {
+          "wall_seconds": 22.97,
+          "rss_kib": 11136,
+          "user_seconds": 22.64,
+          "sys_seconds": 0.19,
+          "exit": 0,
+          "output_bytes": 25600824
+        },
+        "candidate": {
+          "wall_seconds": 21.97,
+          "rss_kib": 11136,
+          "user_seconds": 21.6,
+          "sys_seconds": 0.19,
+          "exit": 0,
+          "output_bytes": 25600824
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "merge-500",
+      "tool": "vcf-merge",
+      "args": [
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz",
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-B.vcf.gz"
+      ],
+      "measurements": {
+        "before": {
+          "wall_seconds": 43.82,
+          "rss_kib": 14976,
+          "user_seconds": 43.14,
+          "sys_seconds": 0.4,
+          "exit": 0,
+          "output_bytes": 48233346
+        },
+        "candidate": {
+          "wall_seconds": 41.58,
+          "rss_kib": 14592,
+          "user_seconds": 40.82,
+          "sys_seconds": 0.46,
+          "exit": 0,
+          "output_bytes": 48233346
+        },
+        "original": {
+          "wall_seconds": 80.2,
+          "rss_kib": 14976,
+          "user_seconds": 79.29,
+          "sys_seconds": 0.42,
+          "exit": 0,
+          "output_bytes": 48233346
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "subset-2504",
+      "tool": "vcf-subset",
+      "args": [
+        "-c",
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-A.samples",
+        "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz"
+      ],
+      "measurements": {
+        "candidate": {
+          "wall_seconds": 108.55,
+          "rss_kib": 11904,
+          "user_seconds": 107.05,
+          "sys_seconds": 0.85,
+          "exit": 0,
+          "output_bytes": 115342479
+        },
+        "original": {
+          "wall_seconds": 323.36,
+          "rss_kib": 12288,
+          "user_seconds": 320.78,
+          "sys_seconds": 0.9,
+          "exit": 0,
+          "output_bytes": 115342479
+        },
+        "before": {
+          "wall_seconds": 115.88,
+          "rss_kib": 11904,
+          "user_seconds": 114.26,
+          "sys_seconds": 0.95,
+          "exit": 0,
+          "output_bytes": 115342479
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "merge-2504",
+      "tool": "vcf-merge",
+      "args": [
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-A.vcf.gz",
+        "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/data/2504-B.vcf.gz"
+      ],
+      "measurements": {
+        "original": {
+          "wall_seconds": 533.13,
+          "rss_kib": 15744,
+          "user_seconds": 528.4,
+          "sys_seconds": 1.83,
+          "exit": 0,
+          "output_bytes": 227669429
+        },
+        "before": {
+          "wall_seconds": 295.29,
+          "rss_kib": 15744,
+          "user_seconds": 291.84,
+          "sys_seconds": 1.73,
+          "exit": 0,
+          "output_bytes": 227669429
+        },
+        "candidate": {
+          "wall_seconds": 281.75,
+          "rss_kib": 16128,
+          "user_seconds": 278.3,
+          "sys_seconds": 1.83,
+          "exit": 0,
+          "output_bytes": 227669429
+        }
+      },
+      "passed": false,
+      "verification_replay_passed": true,
+      "raw_timed_stdout_identical": false,
+      "replay_evidence": "merge-date-replay.json"
+    }
+  ],
+  "source_metadata_path": "/sss/jobtmp/zliu328/nuvcftools-mqs-20261126/third/status.json"
+}

@@ -1,0 +1,68 @@
+{
+  "before_commit": "e337a33bed983024349001bfdc16f46c89a07d50",
+  "original_commit": "1f87a83402ffd17ea2723a456b7edf5d0a12db19895ac4fe52f9240468",
+  "jobs": {
+    "initial": 9656849,
+    "intermediate_query": 9656961,
+    "merge_subset": 9656967,
+    "final_query": 9657111,
+    "final_controls": 9657112,
+    "corrected_query_controls": 9657202,
+    "merge_date_replay": 9657601
+  },
+  "source_sha256": {
+    "before": {
+      "src/perl/Vcf.pm": "f280a3423c77cf47a955c9be9bedac057a6d76e3b1831d55488f8c5dbad7f6aa",
+      "src/perl/vcf-query": "c4ad2f90d743c01ea1a88070b9980727d13826db5088ac51fbbbe02f98a484ce",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate": {
+      "src/perl/Vcf.pm": "7f219b0615185f8fdcde5b8e9872d0a6921f638b5d6eec9e79e201020571b948",
+      "src/perl/vcf-query": "8b330ce66db2ca9e99b9a32070dd08557c16afcb09a42f9913026f9c3704b742",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate2": {
+      "src/perl/Vcf.pm": "7f219b0615185f8fdcde5b8e9872d0a6921f638b5d6eec9e79e201020571b948",
+      "src/perl/vcf-query": "a11b4d4879416e558f025f75666e5e3b61f0adf40aded7523e2cbbc7ede9b284",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate3": {
+      "src/perl/Vcf.pm": "a274f2e492ecc1d2065dcc837be8c3c111d3d0246d8e9f76cfc1d50f56ba0e45",
+      "src/perl/vcf-query": "a11b4d4879416e558f025f75666e5e3b61f0adf40aded7523e2cbbc7ede9b284",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate4": {
+      "src/perl/Vcf.pm": "a274f2e492ecc1d2065dcc837be8c3c111d3d0246d8e9f76cfc1d50f56ba0e45",
+      "src/perl/vcf-query": "f8676bfc55d2b614fabbc41ef2059929389efa13126b5305dbeb6c7d5422195c",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate5": {
+      "src/perl/Vcf.pm": "a274f2e492ecc1d2065dcc837be8c3c111d3d0246d8e9f76cfc1d50f56ba0e45",
+      "src/perl/vcf-query": "9e2c6dc48492c0782d231dbff99f3666180fd45f164dfe3dcc7eeea136db1348",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    },
+    "candidate6": {
+      "src/perl/Vcf.pm": "a274f2e492ecc1d2065dcc837be8c3c111d3d0246d8e9f76cfc1d50f56ba0e45",
+      "src/perl/vcf-query": "2c865307a33dd42ff7b295e1454b000a0cc4d827915868f30f1666a873bced47",
+      "src/perl/vcf-subset": "8d78c3dbdc6d5ace2fda460a8a095a3fff818a0ce1a77dadea4aea3605e7d5b0",
+      "src/perl/vcf-merge": "72c88b4213f11d9f3065c008abc4d6a0b20d1f570acd1daf0806b214159fd643"
+    }
+  },
+  "validation": {
+    "query_cases": 54,
+    "query_candidate_modes": 2,
+    "normal_query_cases_require_exit_zero": true,
+    "subset_cases": 18,
+    "stats_merge_api_cases": 30,
+    "parser_assertions": 55,
+    "fuzzing": false,
+    "discarded_control_issue": "Initial query controls accepted matching failures caused by the legacy empty-section parser error; replaced by checked-controls, which requires successful normal cases."
+  },
+  "cleanup_state": "complete"
+}
