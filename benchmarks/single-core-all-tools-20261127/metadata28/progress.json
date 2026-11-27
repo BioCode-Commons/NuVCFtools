@@ -1,0 +1,86 @@
+{
+  "case": "tab500",
+  "tool": "vcf-to-tab",
+  "arguments": [],
+  "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+  "measurements": {
+    "original": {
+      "wall_seconds": 46.36,
+      "gnu_peak_rss_kib": 10752,
+      "user_seconds": 45.72,
+      "system_seconds": 0.22,
+      "sampled_tree_rss_kib": 16128,
+      "sampled_tree_pss_kib": 11041,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence28/tab500-original.time",
+        "taskset",
+        "-c",
+        "16",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-to-tab"
+      ]
+    },
+    "before": {
+      "wall_seconds": 12.47,
+      "gnu_peak_rss_kib": 13824,
+      "user_seconds": 12.04,
+      "system_seconds": 0.23,
+      "sampled_tree_rss_kib": 19200,
+      "sampled_tree_pss_kib": 13824,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence28/tab500-before.time",
+        "taskset",
+        "-c",
+        "16",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before24/src/perl/vcf-to-tab --workers 1"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 12.39,
+      "gnu_peak_rss_kib": 11136,
+      "user_seconds": 12.08,
+      "system_seconds": 0.23,
+      "sampled_tree_rss_kib": 16512,
+      "sampled_tree_pss_kib": 11348,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence28/tab500-candidate.time",
+        "taskset",
+        "-c",
+        "16",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl/vcf-to-tab --workers 1"
+      ]
+    }
+  }
+}

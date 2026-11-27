@@ -102,11 +102,13 @@ sub add_to_dictionary
     open(my $refseq,"$cmd |") or error("$cmd: $!");
     # get rid of the first ">$chr" line.
     <$refseq>;
-    while (my $line=<$refseq>)
+    # faidx wraps sequence lines. Remove the same LF separators in bounded
+    # chunks, avoiding a Perl read and digest call for every wrapped line.
+    while (read($refseq,my $sequence,65536))
     {
-        chomp($line);
-        $digest->add($line);
-        $len += length($line);
+        $sequence =~ tr/\n//d;
+        $digest->add($sequence);
+        $len += length($sequence);
     }
     close($refseq);
 

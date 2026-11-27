@@ -1,0 +1,219 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9691665
+##  Job Name : vcf-native24-build
+##  Nodelist : node1936
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /oscar/home/zliu328
+##   Job Started : Fri Nov 27 02:52:31 PM EST 2026
+###############################################################################
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for g++... g++
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of g++... gcc3
+checking for gcc... gcc
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking how to run the C preprocessor... gcc -E
+checking for perl... /usr/bin/perl
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for ZLIB... yes
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking arpa/inet.h usability... yes
+checking arpa/inet.h presence... yes
+checking for arpa/inet.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking netdb.h usability... yes
+checking netdb.h presence... yes
+checking for netdb.h... yes
+checking for stdint.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking for unistd.h... (cached) yes
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+checking for inline... inline
+checking for int16_t... yes
+checking for int32_t... yes
+checking for int64_t... yes
+checking for int8_t... yes
+checking for off_t... yes
+checking for size_t... yes
+checking for ssize_t... yes
+checking for uint16_t... yes
+checking for uint32_t... yes
+checking for uint8_t... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for error_at_line... yes
+checking for gethostbyaddr... yes
+checking for gethostbyname... yes
+checking for malloc... yes
+checking for memset... yes
+checking for pow... no
+checking for realloc... yes
+checking for select... yes
+checking for socket... yes
+checking for sqrt... no
+checking for strchr... yes
+checking for strdup... yes
+checking for strerror... yes
+checking for strstr... yes
+checking for strtol... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating src/cpp/Makefile
+config.status: creating src/perl/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+make  all-recursive
+make[1]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+Making all in src
+make[2]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+Making all in cpp
+make[3]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-bcf_entry.o -MD -MP -MF .deps/vcftools-bcf_entry.Tpo -c -o vcftools-bcf_entry.o `test -f 'bcf_entry.cpp' || echo './'`bcf_entry.cpp
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-bcf_entry_setters.o -MD -MP -MF .deps/vcftools-bcf_entry_setters.Tpo -c -o vcftools-bcf_entry_setters.o `test -f 'bcf_entry_setters.cpp' || echo './'`bcf_entry_setters.cpp
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-bcf_file.o -MD -MP -MF .deps/vcftools-bcf_file.Tpo -c -o vcftools-bcf_file.o `test -f 'bcf_file.cpp' || echo './'`bcf_file.cpp
+gcc -DHAVE_CONFIG_H -I. -I../..     -O2 -g -MT vcftools-bgzf.o -MD -MP -MF .deps/vcftools-bgzf.Tpo -c -o vcftools-bgzf.o `test -f 'bgzf.c' || echo './'`bgzf.c
+mv -f .deps/vcftools-bgzf.Tpo .deps/vcftools-bgzf.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-dgeev.o -MD -MP -MF .deps/vcftools-dgeev.Tpo -c -o vcftools-dgeev.o `test -f 'dgeev.cpp' || echo './'`dgeev.cpp
+mv -f .deps/vcftools-dgeev.Tpo .deps/vcftools-dgeev.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-entry.o -MD -MP -MF .deps/vcftools-entry.Tpo -c -o vcftools-entry.o `test -f 'entry.cpp' || echo './'`entry.cpp
+mv -f .deps/vcftools-entry.Tpo .deps/vcftools-entry.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-entry_filters.o -MD -MP -MF .deps/vcftools-entry_filters.Tpo -c -o vcftools-entry_filters.o `test -f 'entry_filters.cpp' || echo './'`entry_filters.cpp
+mv -f .deps/vcftools-bcf_file.Tpo .deps/vcftools-bcf_file.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-entry_getters.o -MD -MP -MF .deps/vcftools-entry_getters.Tpo -c -o vcftools-entry_getters.o `test -f 'entry_getters.cpp' || echo './'`entry_getters.cpp
+mv -f .deps/vcftools-bcf_entry_setters.Tpo .deps/vcftools-bcf_entry_setters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-entry_setters.o -MD -MP -MF .deps/vcftools-entry_setters.Tpo -c -o vcftools-entry_setters.o `test -f 'entry_setters.cpp' || echo './'`entry_setters.cpp
+mv -f .deps/vcftools-entry_setters.Tpo .deps/vcftools-entry_setters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-gamma.o -MD -MP -MF .deps/vcftools-gamma.Tpo -c -o vcftools-gamma.o `test -f 'gamma.cpp' || echo './'`gamma.cpp
+mv -f .deps/vcftools-bcf_entry.Tpo .deps/vcftools-bcf_entry.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-header.o -MD -MP -MF .deps/vcftools-header.Tpo -c -o vcftools-header.o `test -f 'header.cpp' || echo './'`header.cpp
+mv -f .deps/vcftools-entry_getters.Tpo .deps/vcftools-entry_getters.Po
+gcc -DHAVE_CONFIG_H -I. -I../..     -O2 -g -MT vcftools-knetfile.o -MD -MP -MF .deps/vcftools-knetfile.Tpo -c -o vcftools-knetfile.o `test -f 'knetfile.c' || echo './'`knetfile.c
+mv -f .deps/vcftools-gamma.Tpo .deps/vcftools-gamma.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-ld_bitsets.o -MD -MP -MF .deps/vcftools-ld_bitsets.Tpo -c -o vcftools-ld_bitsets.o `test -f 'ld_bitsets.cpp' || echo './'`ld_bitsets.cpp
+mv -f .deps/vcftools-knetfile.Tpo .deps/vcftools-knetfile.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-output_log.o -MD -MP -MF .deps/vcftools-output_log.Tpo -c -o vcftools-output_log.o `test -f 'output_log.cpp' || echo './'`output_log.cpp
+mv -f .deps/vcftools-output_log.Tpo .deps/vcftools-output_log.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-parameters.o -MD -MP -MF .deps/vcftools-parameters.Tpo -c -o vcftools-parameters.o `test -f 'parameters.cpp' || echo './'`parameters.cpp
+mv -f .deps/vcftools-ld_bitsets.Tpo .deps/vcftools-ld_bitsets.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file.o -MD -MP -MF .deps/vcftools-variant_file.Tpo -c -o vcftools-variant_file.o `test -f 'variant_file.cpp' || echo './'`variant_file.cpp
+mv -f .deps/vcftools-entry_filters.Tpo .deps/vcftools-entry_filters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file_diff.o -MD -MP -MF .deps/vcftools-variant_file_diff.Tpo -c -o vcftools-variant_file_diff.o `test -f 'variant_file_diff.cpp' || echo './'`variant_file_diff.cpp
+mv -f .deps/vcftools-header.Tpo .deps/vcftools-header.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file_filters.o -MD -MP -MF .deps/vcftools-variant_file_filters.Tpo -c -o vcftools-variant_file_filters.o `test -f 'variant_file_filters.cpp' || echo './'`variant_file_filters.cpp
+mv -f .deps/vcftools-variant_file.Tpo .deps/vcftools-variant_file.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file_format_convert.o -MD -MP -MF .deps/vcftools-variant_file_format_convert.Tpo -c -o vcftools-variant_file_format_convert.o `test -f 'variant_file_format_convert.cpp' || echo './'`variant_file_format_convert.cpp
+mv -f .deps/vcftools-variant_file_filters.Tpo .deps/vcftools-variant_file_filters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file_output.o -MD -MP -MF .deps/vcftools-variant_file_output.Tpo -c -o vcftools-variant_file_output.o `test -f 'variant_file_output.cpp' || echo './'`variant_file_output.cpp
+mv -f .deps/vcftools-parameters.Tpo .deps/vcftools-parameters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-variant_file_ld_parallel.o -MD -MP -MF .deps/vcftools-variant_file_ld_parallel.Tpo -c -o vcftools-variant_file_ld_parallel.o `test -f 'variant_file_ld_parallel.cpp' || echo './'`variant_file_ld_parallel.cpp
+mv -f .deps/vcftools-variant_file_diff.Tpo .deps/vcftools-variant_file_diff.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-vcf_entry.o -MD -MP -MF .deps/vcftools-vcf_entry.Tpo -c -o vcftools-vcf_entry.o `test -f 'vcf_entry.cpp' || echo './'`vcf_entry.cpp
+mv -f .deps/vcftools-variant_file_format_convert.Tpo .deps/vcftools-variant_file_format_convert.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-vcf_entry_setters.o -MD -MP -MF .deps/vcftools-vcf_entry_setters.Tpo -c -o vcftools-vcf_entry_setters.o `test -f 'vcf_entry_setters.cpp' || echo './'`vcf_entry_setters.cpp
+mv -f .deps/vcftools-variant_file_ld_parallel.Tpo .deps/vcftools-variant_file_ld_parallel.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-vcf_file.o -MD -MP -MF .deps/vcftools-vcf_file.Tpo -c -o vcftools-vcf_file.o `test -f 'vcf_file.cpp' || echo './'`vcf_file.cpp
+mv -f .deps/vcftools-vcf_entry_setters.Tpo .deps/vcftools-vcf_entry_setters.Po
+g++ -DHAVE_CONFIG_H -I. -I../..     -pthread -O2 -g -MT vcftools-vcftools.o -MD -MP -MF .deps/vcftools-vcftools.Tpo -c -o vcftools-vcftools.o `test -f 'vcftools.cpp' || echo './'`vcftools.cpp
+mv -f .deps/vcftools-vcf_file.Tpo .deps/vcftools-vcf_file.Po
+mv -f .deps/vcftools-vcf_entry.Tpo .deps/vcftools-vcf_entry.Po
+mv -f .deps/vcftools-vcftools.Tpo .deps/vcftools-vcftools.Po
+mv -f .deps/vcftools-variant_file_output.Tpo .deps/vcftools-variant_file_output.Po
+g++  -pthread -O2 -g -pthread  -o vcftools vcftools-bcf_entry.o vcftools-bcf_entry_setters.o vcftools-bcf_file.o vcftools-bgzf.o vcftools-dgeev.o vcftools-entry.o vcftools-entry_filters.o vcftools-entry_getters.o vcftools-entry_setters.o vcftools-gamma.o vcftools-header.o vcftools-knetfile.o vcftools-ld_bitsets.o vcftools-output_log.o vcftools-parameters.o vcftools-variant_file.o vcftools-variant_file_diff.o vcftools-variant_file_filters.o vcftools-variant_file_format_convert.o vcftools-variant_file_output.o vcftools-variant_file_ld_parallel.o vcftools-vcf_entry.o vcftools-vcf_entry_setters.o vcftools-vcf_file.o vcftools-vcftools.o -lz
+make[3]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+Making all in perl
+make[3]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl'
+make[3]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[2]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[2]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+make[2]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+make[1]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+Making check in src
+make[1]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+Making check in cpp
+make[2]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+make  ld-bitsets-test relatedness-block-test
+make[3]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+g++ -DHAVE_CONFIG_H -I. -I../..     -O2 -g -MT ld_bitsets_test.o -MD -MP -MF .deps/ld_bitsets_test.Tpo -c -o ld_bitsets_test.o `test -f 'tests/ld_bitsets_test.cpp' || echo './'`tests/ld_bitsets_test.cpp
+g++ -DHAVE_CONFIG_H -I. -I../..     -O2 -g -MT ld_bitsets.o -MD -MP -MF .deps/ld_bitsets.Tpo -c -o ld_bitsets.o ld_bitsets.cpp
+g++ -DHAVE_CONFIG_H -I. -I../..     -O2 -g -MT relatedness_block_test.o -MD -MP -MF .deps/relatedness_block_test.Tpo -c -o relatedness_block_test.o `test -f 'tests/relatedness_block_test.cpp' || echo './'`tests/relatedness_block_test.cpp
+mv -f .deps/ld_bitsets.Tpo .deps/ld_bitsets.Po
+mv -f .deps/relatedness_block_test.Tpo .deps/relatedness_block_test.Po
+g++  -O2 -g   -o relatedness-block-test relatedness_block_test.o
+mv -f .deps/ld_bitsets_test.Tpo .deps/ld_bitsets_test.Po
+g++  -O2 -g   -o ld-bitsets-test ld_bitsets_test.o ld_bitsets.o
+make[3]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+make  check-TESTS
+make[3]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+make[4]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+PASS: relatedness-block-test
+PASS: ld-bitsets-test
+============================================================================
+Testsuite summary for vcftools 0.1.18
+============================================================================
+# TOTAL: 2
+# PASS:  2
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+make[4]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+make[3]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+make[2]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp'
+Making check in perl
+make[2]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl'
+make[2]: Nothing to be done for 'check'.
+make[2]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl'
+make[2]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[2]: Nothing to be done for 'check-am'.
+make[2]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[1]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src'
+make[1]: Entering directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+make[1]: Leaving directory '/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24'
+0ab5f40457c8c0bfa7cab747f9d6d1149f1f04653ffe28bf68caf66c65b00dea  src/cpp/vcftools

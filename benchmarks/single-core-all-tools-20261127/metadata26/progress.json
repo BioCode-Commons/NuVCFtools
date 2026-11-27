@@ -1,0 +1,86 @@
+{
+  "case": "validator-unique500",
+  "tool": "vcf-validator",
+  "arguments": [
+    "-u",
+    "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+  ],
+  "stdin": "None",
+  "measurements": {
+    "original": {
+      "wall_seconds": 79.35,
+      "gnu_peak_rss_kib": 10752,
+      "user_seconds": 0.02,
+      "system_seconds": 0.02,
+      "sampled_tree_rss_kib": 22324,
+      "sampled_tree_pss_kib": 13024,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence26/validator-unique500-original.time",
+        "taskset",
+        "-c",
+        "31",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-validator",
+        "-u",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    },
+    "before": {
+      "wall_seconds": 16.11,
+      "gnu_peak_rss_kib": 10368,
+      "user_seconds": 0.03,
+      "system_seconds": 0.02,
+      "sampled_tree_rss_kib": 21668,
+      "sampled_tree_pss_kib": 13098,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence26/validator-unique500-before.time",
+        "taskset",
+        "-c",
+        "31",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate25/src/perl/vcf-validator",
+        "-u",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 15.99,
+      "gnu_peak_rss_kib": 10752,
+      "user_seconds": 0.03,
+      "system_seconds": 0.01,
+      "sampled_tree_rss_kib": 22056,
+      "sampled_tree_pss_kib": 13080,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence26/validator-unique500-candidate.time",
+        "taskset",
+        "-c",
+        "31",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-validator",
+        "-u",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    }
+  }
+}

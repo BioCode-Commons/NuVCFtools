@@ -1,0 +1,908 @@
+{
+  "scope": "24 Perl commands + 6 named C++ modes, 25 entrypoints",
+  "source_branch": "codex/common-tool-speed-round2",
+  "measurements": [
+    {
+      "tool": "fill-aa",
+      "case": "500 samples; GRCh37 reference annotation fixture",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 2.23,
+          "gnu_peak_rss_kib": 12288,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12700
+        },
+        "before": {
+          "wall_seconds": 0.97,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12727
+        },
+        "candidate": {
+          "wall_seconds": 1.01,
+          "gnu_peak_rss_kib": 12672,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 13501
+        }
+      },
+      "passed": true,
+      "speedup": 2.207920792079208
+    },
+    {
+      "tool": "fill-an-ac",
+      "case": "500 samples; AC/AN",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 30.39,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11002
+        },
+        "before": {
+          "wall_seconds": 23.43,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11330
+        },
+        "candidate": {
+          "wall_seconds": 22.56,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11347
+        }
+      },
+      "passed": true,
+      "speedup": 1.3470744680851066
+    },
+    {
+      "tool": "fill-fs",
+      "case": "2,000 variants / 500 samples; flanks + VCF mask",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 33.26,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 27672,
+          "sampled_tree_pss_kib": 18329
+        },
+        "before": {
+          "wall_seconds": 32.08,
+          "gnu_peak_rss_kib": 14208,
+          "sampled_tree_rss_kib": 34132,
+          "sampled_tree_pss_kib": 21196
+        },
+        "candidate": {
+          "wall_seconds": 32.72,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 27904,
+          "sampled_tree_pss_kib": 18667
+        }
+      },
+      "passed": true,
+      "speedup": 1.0165036674816625
+    },
+    {
+      "tool": "fill-ref-md5",
+      "case": "chr22 digest and 2,504-sample VCF reheader; 3 repeats",
+      "job": "9691997",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate26",
+      "repetitions": 3,
+      "values": {
+        "original": {
+          "wall_seconds": 3.17,
+          "gnu_peak_rss_kib": 55744,
+          "sampled_tree_rss_kib": 69612,
+          "sampled_tree_pss_kib": 62861
+        },
+        "before": {
+          "wall_seconds": 0.86,
+          "gnu_peak_rss_kib": 55464,
+          "sampled_tree_rss_kib": 67368,
+          "sampled_tree_pss_kib": 62055
+        },
+        "candidate": {
+          "wall_seconds": 0.66,
+          "gnu_peak_rss_kib": 55692,
+          "sampled_tree_rss_kib": 67296,
+          "sampled_tree_pss_kib": 62121
+        }
+      },
+      "passed": true,
+      "speedup": 4.803030303030303
+    },
+    {
+      "tool": "vcf-annotate",
+      "case": "500 samples; HWE",
+      "job": "9692585",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate27",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 28.5,
+          "gnu_peak_rss_kib": 11520,
+          "sampled_tree_rss_kib": 16896,
+          "sampled_tree_pss_kib": 11828
+        },
+        "before": {
+          "wall_seconds": 8.52,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12249
+        },
+        "candidate": {
+          "wall_seconds": 8.61,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 17280,
+          "sampled_tree_pss_kib": 12285
+        }
+      },
+      "passed": true,
+      "speedup": 3.310104529616725
+    },
+    {
+      "tool": "vcf-compare",
+      "case": "500 samples; genotype comparison",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 102.73,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 43776,
+          "sampled_tree_pss_kib": 35375
+        },
+        "before": {
+          "wall_seconds": 74.57,
+          "gnu_peak_rss_kib": 16512,
+          "sampled_tree_rss_kib": 46848,
+          "sampled_tree_pss_kib": 38267
+        },
+        "candidate": {
+          "wall_seconds": 74.36,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 43392,
+          "sampled_tree_pss_kib": 35840
+        }
+      },
+      "passed": true,
+      "speedup": 1.3815223238300163
+    },
+    {
+      "tool": "vcf-concat",
+      "case": "128 interleaved files / 100 samples",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 15.08,
+          "gnu_peak_rss_kib": 35328,
+          "sampled_tree_rss_kib": 724608,
+          "sampled_tree_pss_kib": 186248
+        },
+        "before": {
+          "wall_seconds": 6.78,
+          "gnu_peak_rss_kib": 35328,
+          "sampled_tree_rss_kib": 668928,
+          "sampled_tree_pss_kib": 186467
+        },
+        "candidate": {
+          "wall_seconds": 7.12,
+          "gnu_peak_rss_kib": 35328,
+          "sampled_tree_rss_kib": 670464,
+          "sampled_tree_pss_kib": 186577
+        }
+      },
+      "passed": true,
+      "speedup": 2.1179775280898876
+    },
+    {
+      "tool": "vcf-consensus",
+      "case": "1 Mbp reference fragment",
+      "job": "9692585",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate27",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.77,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 33060,
+          "sampled_tree_pss_kib": 24880
+        },
+        "before": {
+          "wall_seconds": 0.77,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 31872,
+          "sampled_tree_pss_kib": 23916
+        },
+        "candidate": {
+          "wall_seconds": 0.79,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 31872,
+          "sampled_tree_pss_kib": 23804
+        }
+      },
+      "passed": true,
+      "speedup": 0.9746835443037974
+    },
+    {
+      "tool": "vcf-contrast",
+      "case": "100 samples; 10 foreground / 90 background",
+      "job": "9692585",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate27",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 24.19,
+          "gnu_peak_rss_kib": 10368,
+          "sampled_tree_rss_kib": 13056,
+          "sampled_tree_pss_kib": 10106
+        },
+        "before": {
+          "wall_seconds": 7.66,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10369
+        },
+        "candidate": {
+          "wall_seconds": 7.58,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13824,
+          "sampled_tree_pss_kib": 10394
+        }
+      },
+      "passed": true,
+      "speedup": 3.191292875989446
+    },
+    {
+      "tool": "vcf-convert",
+      "case": "500 samples; SNPs to VCF 4.2",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 31.43,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 17280,
+          "sampled_tree_pss_kib": 12011
+        },
+        "before": {
+          "wall_seconds": 22.9,
+          "gnu_peak_rss_kib": 12288,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12443
+        },
+        "candidate": {
+          "wall_seconds": 21.97,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12379
+        }
+      },
+      "passed": true,
+      "speedup": 1.430587164314975
+    },
+    {
+      "tool": "vcf-fix-newlines",
+      "case": "2,504 samples; CRLF to LF",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.31,
+          "gnu_peak_rss_kib": 5760,
+          "sampled_tree_rss_kib": 6912,
+          "sampled_tree_pss_kib": 4776
+        },
+        "before": {
+          "wall_seconds": 0.33,
+          "gnu_peak_rss_kib": 10368,
+          "sampled_tree_rss_kib": 11136,
+          "sampled_tree_pss_kib": 8905
+        },
+        "candidate": {
+          "wall_seconds": 0.29,
+          "gnu_peak_rss_kib": 6528,
+          "sampled_tree_rss_kib": 7296,
+          "sampled_tree_pss_kib": 5188
+        }
+      },
+      "passed": true,
+      "speedup": 1.0689655172413794
+    },
+    {
+      "tool": "vcf-fix-ploidy",
+      "case": "500 samples; active haploid conversion",
+      "job": "9692585",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate27",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 41.48,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11238
+        },
+        "before": {
+          "wall_seconds": 42.27,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 16896,
+          "sampled_tree_pss_kib": 11536
+        },
+        "candidate": {
+          "wall_seconds": 42.1,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11431
+        }
+      },
+      "passed": true,
+      "speedup": 0.985273159144893
+    },
+    {
+      "tool": "vcf-indel-stats",
+      "case": "500 samples; coordinate interval",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.44,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 10998
+        },
+        "before": {
+          "wall_seconds": 0.6,
+          "gnu_peak_rss_kib": 13824,
+          "sampled_tree_rss_kib": 19584,
+          "sampled_tree_pss_kib": 13845
+        },
+        "candidate": {
+          "wall_seconds": 0.57,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 11324
+        }
+      },
+      "passed": true,
+      "speedup": 0.7719298245614036
+    },
+    {
+      "tool": "vcf-isec",
+      "case": "128 interleaved files / 100 samples",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 13.49,
+          "gnu_peak_rss_kib": 40320,
+          "sampled_tree_rss_kib": 626304,
+          "sampled_tree_pss_kib": 188069
+        },
+        "before": {
+          "wall_seconds": 10.78,
+          "gnu_peak_rss_kib": 39936,
+          "sampled_tree_rss_kib": 623616,
+          "sampled_tree_pss_kib": 187442
+        },
+        "candidate": {
+          "wall_seconds": 10.43,
+          "gnu_peak_rss_kib": 39936,
+          "sampled_tree_rss_kib": 630372,
+          "sampled_tree_pss_kib": 187412
+        }
+      },
+      "passed": true,
+      "speedup": 1.2933844678811122
+    },
+    {
+      "tool": "vcf-merge",
+      "case": "two sample partitions; 500 samples total",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 97.0,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 42624,
+          "sampled_tree_pss_kib": 34710
+        },
+        "before": {
+          "wall_seconds": 52.1,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 46080,
+          "sampled_tree_pss_kib": 37478
+        },
+        "candidate": {
+          "wall_seconds": 51.98,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 43392,
+          "sampled_tree_pss_kib": 34983
+        }
+      },
+      "passed": true,
+      "speedup": 1.8661023470565603
+    },
+    {
+      "tool": "vcf-phased-join",
+      "case": "two overlapping blocks; 500 samples",
+      "job": "9692585",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate27",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 6.08,
+          "gnu_peak_rss_kib": 66048,
+          "sampled_tree_rss_kib": 82176,
+          "sampled_tree_pss_kib": 77198
+        },
+        "before": {
+          "wall_seconds": 5.39,
+          "gnu_peak_rss_kib": 66432,
+          "sampled_tree_rss_kib": 82560,
+          "sampled_tree_pss_kib": 77540
+        },
+        "candidate": {
+          "wall_seconds": 5.42,
+          "gnu_peak_rss_kib": 66432,
+          "sampled_tree_rss_kib": 82176,
+          "sampled_tree_pss_kib": 77531
+        }
+      },
+      "passed": true,
+      "speedup": 1.1217712177121772
+    },
+    {
+      "tool": "vcf-query",
+      "case": "2,504 samples; default sample + GT output",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 316.67,
+          "gnu_peak_rss_kib": 13056,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 12829
+        },
+        "before": {
+          "wall_seconds": 104.18,
+          "gnu_peak_rss_kib": 16896,
+          "sampled_tree_rss_kib": 19200,
+          "sampled_tree_pss_kib": 16071
+        },
+        "candidate": {
+          "wall_seconds": 103.9,
+          "gnu_peak_rss_kib": 13824,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 13428
+        }
+      },
+      "passed": true,
+      "speedup": 3.0478344562078923
+    },
+    {
+      "tool": "vcf-shuffle-cols",
+      "case": "reverse 2,504 sample columns",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 15.87,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 13824,
+          "sampled_tree_pss_kib": 11525
+        },
+        "before": {
+          "wall_seconds": 8.19,
+          "gnu_peak_rss_kib": 14976,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 14414
+        },
+        "candidate": {
+          "wall_seconds": 8.19,
+          "gnu_peak_rss_kib": 11904,
+          "sampled_tree_rss_kib": 14208,
+          "sampled_tree_pss_kib": 11774
+        }
+      },
+      "passed": true,
+      "speedup": 1.9377289377289377
+    },
+    {
+      "tool": "vcf-sort",
+      "case": "500 samples; reversed records; one GNU sort thread",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.27,
+          "gnu_peak_rss_kib": 9600,
+          "sampled_tree_rss_kib": 24960,
+          "sampled_tree_pss_kib": 17121
+        },
+        "before": {
+          "wall_seconds": 0.25,
+          "gnu_peak_rss_kib": 9600,
+          "sampled_tree_rss_kib": 24960,
+          "sampled_tree_pss_kib": 17159
+        },
+        "candidate": {
+          "wall_seconds": 0.26,
+          "gnu_peak_rss_kib": 9600,
+          "sampled_tree_rss_kib": 25344,
+          "sampled_tree_pss_kib": 17130
+        }
+      },
+      "passed": true,
+      "speedup": 1.0384615384615385
+    },
+    {
+      "tool": "vcf-stats",
+      "case": "500 samples; default statistics",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 121.34,
+          "gnu_peak_rss_kib": 26880,
+          "sampled_tree_rss_kib": 15360,
+          "sampled_tree_pss_kib": 12565
+        },
+        "before": {
+          "wall_seconds": 30.79,
+          "gnu_peak_rss_kib": 30336,
+          "sampled_tree_rss_kib": 21888,
+          "sampled_tree_pss_kib": 19488
+        },
+        "candidate": {
+          "wall_seconds": 30.02,
+          "gnu_peak_rss_kib": 27648,
+          "sampled_tree_rss_kib": 25256,
+          "sampled_tree_pss_kib": 22761
+        }
+      },
+      "passed": true,
+      "speedup": 4.0419720186542305
+    },
+    {
+      "tool": "vcf-subset",
+      "case": "500 to 250 samples",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 61.41,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10405
+        },
+        "before": {
+          "wall_seconds": 23.04,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13824,
+          "sampled_tree_pss_kib": 10766
+        },
+        "candidate": {
+          "wall_seconds": 21.99,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10768
+        }
+      },
+      "passed": true,
+      "speedup": 2.7926330150068215
+    },
+    {
+      "tool": "vcf-to-tab",
+      "case": "500 samples",
+      "job": "9692654",
+      "node": "node1924.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 46.36,
+          "gnu_peak_rss_kib": 10752,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11041
+        },
+        "before": {
+          "wall_seconds": 12.47,
+          "gnu_peak_rss_kib": 13824,
+          "sampled_tree_rss_kib": 19200,
+          "sampled_tree_pss_kib": 13824
+        },
+        "candidate": {
+          "wall_seconds": 12.39,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11348
+        }
+      },
+      "passed": true,
+      "speedup": 3.741727199354318
+    },
+    {
+      "tool": "vcf-tstv",
+      "case": "2,504 samples",
+      "job": "9691582",
+      "node": "node1911.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate24",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 1.01,
+          "gnu_peak_rss_kib": 6144,
+          "sampled_tree_rss_kib": 11520,
+          "sampled_tree_pss_kib": 6541
+        },
+        "before": {
+          "wall_seconds": 1.05,
+          "gnu_peak_rss_kib": 10368,
+          "sampled_tree_rss_kib": 15360,
+          "sampled_tree_pss_kib": 10529
+        },
+        "candidate": {
+          "wall_seconds": 1.01,
+          "gnu_peak_rss_kib": 6144,
+          "sampled_tree_rss_kib": 11520,
+          "sampled_tree_pss_kib": 6713
+        }
+      },
+      "passed": true,
+      "speedup": 1.0
+    },
+    {
+      "tool": "vcf-validator",
+      "case": "500 samples; default mode",
+      "job": "9691997",
+      "node": "node1916.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate26",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 78.7,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10707
+        },
+        "before": {
+          "wall_seconds": 15.56,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10647
+        },
+        "candidate": {
+          "wall_seconds": 15.55,
+          "gnu_peak_rss_kib": 10368,
+          "sampled_tree_rss_kib": 12672,
+          "sampled_tree_pss_kib": 10261
+        }
+      },
+      "passed": true,
+      "speedup": 5.061093247588424
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --freq",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.87,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2559
+        },
+        "before": {
+          "wall_seconds": 0.55,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2576
+        },
+        "candidate": {
+          "wall_seconds": 0.54,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2573
+        }
+      },
+      "passed": true,
+      "speedup": 1.611111111111111
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --het",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.87,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2567
+        },
+        "before": {
+          "wall_seconds": 0.59,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2563
+        },
+        "candidate": {
+          "wall_seconds": 0.56,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2569
+        }
+      },
+      "passed": true,
+      "speedup": 1.5535714285714284
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --missing-indv",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.8,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2567
+        },
+        "before": {
+          "wall_seconds": 0.55,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2562
+        },
+        "candidate": {
+          "wall_seconds": 0.55,
+          "gnu_peak_rss_kib": 4992,
+          "sampled_tree_rss_kib": 6144,
+          "sampled_tree_pss_kib": 2567
+        }
+      },
+      "passed": true,
+      "speedup": 1.4545454545454546
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --recode",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 3.13,
+          "gnu_peak_rss_kib": 5760,
+          "sampled_tree_rss_kib": 6912,
+          "sampled_tree_pss_kib": 2571
+        },
+        "before": {
+          "wall_seconds": 1.28,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2578
+        },
+        "candidate": {
+          "wall_seconds": 1.28,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2571
+        }
+      },
+      "passed": true,
+      "speedup": 2.4453125
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --relatedness2",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 34.65,
+          "gnu_peak_rss_kib": 11136,
+          "sampled_tree_rss_kib": 12288,
+          "sampled_tree_pss_kib": 8492
+        },
+        "before": {
+          "wall_seconds": 2.02,
+          "gnu_peak_rss_kib": 7296,
+          "sampled_tree_rss_kib": 8448,
+          "sampled_tree_pss_kib": 4582
+        },
+        "candidate": {
+          "wall_seconds": 1.96,
+          "gnu_peak_rss_kib": 7296,
+          "sampled_tree_rss_kib": 8448,
+          "sampled_tree_pss_kib": 4575
+        }
+      },
+      "passed": true,
+      "speedup": 17.678571428571427
+    },
+    {
+      "tool": "vcftools",
+      "case": "500 samples; --window-pi 10000",
+      "job": "9691753",
+      "node": "node1831.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate25",
+      "repetitions": 1,
+      "values": {
+        "original": {
+          "wall_seconds": 0.85,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2758
+        },
+        "before": {
+          "wall_seconds": 0.54,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2705
+        },
+        "candidate": {
+          "wall_seconds": 0.53,
+          "gnu_peak_rss_kib": 5376,
+          "sampled_tree_rss_kib": 6528,
+          "sampled_tree_pss_kib": 2709
+        }
+      },
+      "passed": true,
+      "speedup": 1.6037735849056602
+    }
+  ],
+  "removed_output_bytes": 6772551720,
+  "removed_derived_input_bytes": 332560845
+}

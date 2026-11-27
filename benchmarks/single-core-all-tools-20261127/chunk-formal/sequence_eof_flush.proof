@@ -1,0 +1,201 @@
+mp(mp(mp(mp(asserted(Not(And(Concat(reference_consumed,
+                                    pending_line) ==
+                             optimized_consumed,
+                             Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                             Length(optimized_consumed)))),
+            monotonicity(monotonicity(rewrite((Concat(reference_consumed,
+                                        pending_line) ==
+                                        optimized_consumed) ==
+                                        (optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line))),
+                                      monotonicity(rewrite(Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                                        Length(reference_consumed) +
+                                        Length(pending_line)),
+                                        (Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                                        Length(optimized_consumed)) ==
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(optimized_consumed))),
+                                      And(Concat(reference_consumed,
+                                        pending_line) ==
+                                        optimized_consumed,
+                                        Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                                        Length(optimized_consumed)) ==
+                                      And(optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line),
+                                        Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(optimized_consumed))),
+                         Not(And(Concat(reference_consumed,
+                                        pending_line) ==
+                                 optimized_consumed,
+                                 Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                                 Length(optimized_consumed))) ==
+                         Not(And(optimized_consumed ==
+                                 Concat(reference_consumed,
+                                        pending_line),
+                                 Length(reference_consumed) +
+                                 Length(pending_line) ==
+                                 Length(optimized_consumed)))),
+            Not(And(optimized_consumed ==
+                    Concat(reference_consumed, pending_line),
+                    Length(reference_consumed) +
+                    Length(pending_line) ==
+                    Length(optimized_consumed)))),
+         rewrite(Not(And(optimized_consumed ==
+                         Concat(reference_consumed,
+                                pending_line),
+                         Length(reference_consumed) +
+                         Length(pending_line) ==
+                         Length(optimized_consumed))) ==
+                 Not(And(optimized_consumed ==
+                         Concat(reference_consumed,
+                                pending_line),
+                         Length(reference_consumed) +
+                         Length(pending_line) ==
+                         Length(optimized_consumed)))),
+         Not(And(optimized_consumed ==
+                 Concat(reference_consumed, pending_line),
+                 Length(reference_consumed) +
+                 Length(pending_line) ==
+                 Length(optimized_consumed)))),
+      monotonicity(monotonicity(monotonicity(rewrite(Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(reference_consumed) +
+                                        Length(pending_line)),
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(optimized_consumed)) ==
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(optimized_consumed))),
+                                And(optimized_consumed ==
+                                    Concat(reference_consumed,
+                                        pending_line),
+                                    Length(reference_consumed) +
+                                    Length(pending_line) ==
+                                    Length(optimized_consumed)) ==
+                                And(optimized_consumed ==
+                                    Concat(reference_consumed,
+                                        pending_line),
+                                    Length(reference_consumed) +
+                                    Length(pending_line) ==
+                                    Length(optimized_consumed))),
+                   Not(And(optimized_consumed ==
+                           Concat(reference_consumed,
+                                  pending_line),
+                           Length(reference_consumed) +
+                           Length(pending_line) ==
+                           Length(optimized_consumed))) ==
+                   Not(And(optimized_consumed ==
+                           Concat(reference_consumed,
+                                  pending_line),
+                           Length(reference_consumed) +
+                           Length(pending_line) ==
+                           Length(optimized_consumed)))),
+      Not(And(optimized_consumed ==
+              Concat(reference_consumed, pending_line),
+              Length(reference_consumed) +
+              Length(pending_line) ==
+              Length(optimized_consumed)))),
+   trans(monotonicity(monotonicity(monotonicity(mp(asserted(optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)),
+                                        rewrite((optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)) ==
+                                        (optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line))),
+                                        optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)),
+                                        (optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)) ==
+                                        (Concat(reference_consumed,
+                                        pending_line) ==
+                                        Concat(reference_consumed,
+                                        pending_line))),
+                                   monotonicity(monotonicity(mp(asserted(optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)),
+                                        rewrite((optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)) ==
+                                        (optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line))),
+                                        optimized_consumed ==
+                                        Concat(reference_consumed,
+                                        pending_line)),
+                                        Length(optimized_consumed) ==
+                                        Length(Concat(reference_consumed,
+                                        pending_line))),
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(optimized_consumed)) ==
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(Concat(reference_consumed,
+                                        pending_line)))),
+                                   And(optimized_consumed ==
+                                       Concat(reference_consumed,
+                                        pending_line),
+                                       Length(reference_consumed) +
+                                       Length(pending_line) ==
+                                       Length(optimized_consumed)) ==
+                                   And(Concat(reference_consumed,
+                                        pending_line) ==
+                                       Concat(reference_consumed,
+                                        pending_line),
+                                       Length(reference_consumed) +
+                                       Length(pending_line) ==
+                                       Length(Concat(reference_consumed,
+                                        pending_line)))),
+                      Not(And(optimized_consumed ==
+                              Concat(reference_consumed,
+                                     pending_line),
+                              Length(reference_consumed) +
+                              Length(pending_line) ==
+                              Length(optimized_consumed))) ==
+                      Not(And(Concat(reference_consumed,
+                                     pending_line) ==
+                              Concat(reference_consumed,
+                                     pending_line),
+                              Length(reference_consumed) +
+                              Length(pending_line) ==
+                              Length(Concat(reference_consumed,
+                                        pending_line))))),
+         trans(monotonicity(trans(monotonicity(rewrite((Concat(reference_consumed,
+                                        pending_line) ==
+                                        Concat(reference_consumed,
+                                        pending_line)) ==
+                                        True),
+                                        trans(monotonicity(rewrite(Length(Concat(reference_consumed,
+                                        pending_line)) ==
+                                        Length(reference_consumed) +
+                                        Length(pending_line)),
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(Concat(reference_consumed,
+                                        pending_line))) ==
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(reference_consumed) +
+                                        Length(pending_line))),
+                                        rewrite((Length(reference_consumed) +
+                                        Length(pending_line) ==
+                                        Length(reference_consumed) +
+                                        Length(pending_line)) ==
+                                        True),
+                                        (Length(reference_consumed) +
+                                        Length(pending_line) ==
+...

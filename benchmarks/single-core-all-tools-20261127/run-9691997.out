@@ -1,0 +1,12 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9691997
+##  Job Name : vcf-single26
+##  Nodelist : node1916
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1
+##   Job Started : Fri Nov 27 03:01:00 PM EST 2026
+###############################################################################
+{"passed": true, "cases": 35}
+{"passed": true, "cases": 360}
+{"passed": true, "cases": 111}

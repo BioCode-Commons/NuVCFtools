@@ -1,0 +1,201 @@
+unit-resolution(def-axiom(Or(Or(consumed + -1*other >= 0,
+                                other + -1*end >= 0),
+                             Not(consumed + -1*other >= 0))),
+                unit-resolution(th-lemma(Or(consumed +
+                                        -1*other <=
+                                        -1,
+                                        consumed + -1*other >=
+                                        0)),
+                                unit-resolution(def-axiom(Or(Or(other ==
+                                        -1,
+                                        consumed + -1*other <=
+                                        -1),
+                                        Not(consumed +
+                                        -1*other <=
+                                        -1))),
+                                        unit-resolution(mp(mp(mp~(mp(mp(mp(mp(mp(asserted(Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        consumed + 1),
+                                        Implies(other >= 0,
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Implies(And(k >=
+                                        consumed + 1,
+                                        k < end,
+                                        Or(other == -1,
+                                        k < other)),
+                                        characters[k] !=
+                                        delimiter))))),
+                                        monotonicity(monotonicity(monotonicity(monotonicity(rewrite(consumed +
+                                        1 ==
+                                        1 + consumed),
+                                        (other >=
+                                        consumed + 1) ==
+                                        (other >=
+                                        1 + consumed)),
+                                        Or(other == -1,
+                                        other >=
+                                        consumed + 1) ==
+                                        Or(other == -1,
+                                        other >=
+                                        1 + consumed)),
+                                        rewrite(Implies(other >=
+                                        0,
+                                        characters[other] ==
+                                        delimiter) ==
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter)),
+                                        quant-intro(proof-bind(Lambda(k,
+                                        trans(monotonicity(monotonicity(monotonicity(...,
+                                        ...),
+                                        rewrite(...),
+                                        trans(..., ..., ...),
+                                        ... == ...),
+                                        rewrite(... == ...),
+                                        Implies(..., ...) ==
+                                        Implies(..., ...)),
+                                        rewrite(Implies(...,
+                                        ...) ==
+                                        Or(..., ...)),
+                                        Implies(And(...,
+                                        ...,
+                                        ...),
+                                        ... != ...) ==
+                                        Or(Not(...),
+                                        Not(...))))),
+                                        (ForAll(k,
+                                        Implies(And(k >=
+                                        ... + ...,
+                                        k < end,
+                                        Or(... == ...,
+                                        ... < ...)),
+                                        characters[k] !=
+                                        delimiter))) ==
+                                        (ForAll(k,
+                                        Or(Not(...[...] ==
+                                        delimiter),
+                                        Not(And(... >= ...,
+                                        Not(...),
+                                        Or(..., ...))))))),
+                                        And(Or(other == -1,
+                                        other >=
+                                        consumed + 1),
+                                        Implies(other >= 0,
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Implies(And(k >=
+                                        ... + ...,
+                                        k < end,
+                                        Or(... == ...,
+                                        ... < ...)),
+                                        characters[k] !=
+                                        delimiter))) ==
+                                        And(Or(other == -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(...[...] ==
+                                        delimiter),
+                                        Not(And(... >= ...,
+                                        Not(...),
+                                        Or(..., ...))))))),
+                                        Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        consumed + 1),
+                                        Implies(other >= 0,
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Implies(And(k >=
+                                        ... + ...,
+                                        k < end,
+                                        Or(... == ...,
+                                        ... < ...)),
+                                        characters[k] !=
+                                        delimiter)))) ==
+                                        Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(...[...] ==
+                                        delimiter),
+                                        Not(And(... >= ...,
+                                        Not(...),
+                                        Or(..., ...)))))))),
+                                        Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(characters[k] ==
+                                        delimiter),
+                                        Not(And(k >=
+                                        1 + consumed,
+                                        Not(end <= k),
+                                        Or(other == -1,
+                                        Not(... <= ...))))))))),
+                                        monotonicity(rewrite(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(characters[k] ==
+                                        delimiter),
+                                        Not(And(k >=
+                                        ... + ...,
+                                        Not(... <= ...),
+                                        Or(... == ...,
+                                        Not(...))))))) ==
+                                        And(Or(other == -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(characters[k] ==
+                                        delimiter),
+                                        Not(And(k >=
+                                        ... + ...,
+                                        Not(... <= ...),
+                                        Or(... == ...,
+                                        Not(...)))))))),
+                                        Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+                                        characters[other] ==
+                                        delimiter),
+                                        ForAll(k,
+                                        Or(Not(characters[k] ==
+                                        delimiter),
+                                        Not(And(k >=
+                                        ... + ...,
+                                        Not(... <= ...),
+                                        Or(... == ...,
+                                        Not(...)))))))) ==
+                                        Not(And(Or(other ==
+                                        -1,
+                                        other >=
+                                        1 + consumed),
+                                        Or(Not(other >= 0),
+...

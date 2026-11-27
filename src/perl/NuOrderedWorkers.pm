@@ -2,11 +2,6 @@ package NuOrderedWorkers;
 
 use strict;
 use warnings;
-use File::Temp qw(tempdir);
-use IO::Handle;
-use POSIX qw(_exit);
-use Storable qw(nstore retrieve);
-use Errno qw(EINTR);
 
 our $serial_reader = 0;
 
@@ -54,7 +49,14 @@ sub run
         return;
     }
 
-    my $directory = tempdir('nuvcf-workers-XXXXXXXX', TMPDIR=>1, CLEANUP=>1);
+    # Serial callers need neither child IPC nor temporary output storage.
+    require File::Temp;
+    require IO::Handle;
+    require POSIX;
+    require Storable;
+    require Errno;
+
+    my $directory = File::Temp::tempdir('nuvcf-workers-XXXXXXXX', TMPDIR=>1, CLEANUP=>1);
     my @queue;
     my $sequence = 0;
     my $ended = 0;
@@ -88,14 +90,14 @@ sub run
                         # application error status (Perl die consults errno).
                         $! = 0; $? = 0;
                         my $result = $work->($batch);
-                        nstore([$result], "$prefix.result") if $reduce;
+                        Storable::nstore([$result], "$prefix.result") if $reduce;
                         1;
                     };
                     my $failure_status = $! || ($? >> 8) || 255;
                     if (!$child_ok) { print STDERR $@; }
                     my $flushed = STDOUT->flush();
                     $flushed = STDERR->flush() && $flushed;
-                    _exit($child_ok ? ($flushed ? 0 : 255) : $failure_status);
+                    POSIX::_exit($child_ok ? ($flushed ? 0 : 255) : $failure_status);
                 }
                 push @queue, {pid=>$pid, prefix=>$prefix};
             }
@@ -113,7 +115,7 @@ sub run
                 # with a partial file. Ordinary worker failures retain status.
                 exit(($status & 127) ? 128+($status & 127) : $status >> 8);
             }
-            $reduce->(retrieve("$entry->{prefix}.result")->[0]) if $reduce;
+            $reduce->(Storable::retrieve("$entry->{prefix}.result")->[0]) if $reduce;
             for my $suffix (qw(out err result))
             {
                 my $path = "$entry->{prefix}.$suffix";
@@ -132,7 +134,7 @@ sub _wait
     while (1)
     {
         my $result = waitpid($pid, 0);
-        next if $result == -1 && $! == EINTR;
+        next if $result == -1 && $! == Errno::EINTR();
         die "Wait for worker $pid: $!\n" if $result == -1;
         return $?;
     }

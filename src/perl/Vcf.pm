@@ -1374,17 +1374,23 @@ sub split_gt
     my ($self,$gt) = @_;
     my @als;
     my $iprev = 0;
+    my $isep = index($gt,'/',$iprev);
+    my $jsep = index($gt,'|',$iprev);
     while (1)
     {
-        my $isep = index($gt,'/',$iprev);
-        my $jsep = index($gt,'|',$iprev);
-        if ( $isep<0 or ($jsep>=0 && $jsep<$isep) ) { $isep = $jsep; }
-        push @als, $isep<0 ? substr($gt,$iprev) : substr($gt,$iprev,$isep-$iprev);
-        if ( $isep<0 ) { return (@als); }
-        $iprev = $isep+1;
+        # Each delimiter has a monotone cursor. A delimiter beyond the one
+        # consumed is still its next occurrence; an absent delimiter stays
+        # absent. Advance only the cursor whose separator was consumed.
+        my $next = $isep;
+        if ( $next<0 or ($jsep>=0 && $jsep<$next) ) { $next = $jsep; }
+        push @als, $next<0 ? substr($gt,$iprev) : substr($gt,$iprev,$next-$iprev);
+        if ( $next<0 ) { return (@als); }
+        $iprev = $next+1;
+        if ( $isep==$next ) { $isep = index($gt,'/',$iprev); }
+        else { $jsep = index($gt,'|',$iprev); }
     }
-    return (@als);
 }
+
 
 =head2 split_by
 

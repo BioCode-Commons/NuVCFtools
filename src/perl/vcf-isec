@@ -141,14 +141,18 @@ sub check_columns
 {
     my ($opts,$vcfs) = @_;
 
+    # Earlier VCF headers have already matched the first VCF. Equality is
+    # transitive, so retain the original first comparison and skip redundant
+    # pairs. On a mismatch the same earliest pair and diagnostic are used.
+    my $first_vcf;
     # Do the check for VCF files only
     for (my $ivcf=0; $ivcf<@$vcfs; $ivcf++)
     {
         if ( !exists($$vcfs[$ivcf]{has_column}) ) { next; }
 
-        for (my $jvcf=0; $jvcf<$ivcf; $jvcf++)
+        if ( !defined($first_vcf) ) { $first_vcf=$ivcf; next; }
         {
-            if ( !exists($$vcfs[$jvcf]{has_column}) ) { next; }
+            my $jvcf=$first_vcf;
 
             if ( scalar @{$$vcfs[$ivcf]{columns}} != scalar @{$$vcfs[$jvcf]{columns}} ) 
             {

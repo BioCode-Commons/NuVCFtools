@@ -1,0 +1,5 @@
+{
+  "state": "complete",
+  "removed_bytes": 282234024,
+  "reason": "All 23 valid rows passed; stdin-only to-tab invocation corrected and passed in job 9692654. Failed-invocation diagnostic retained."
+}

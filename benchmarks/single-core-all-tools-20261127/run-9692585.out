@@ -1,0 +1,14 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9692585
+##  Job Name : vcf-single27
+##  Nodelist : node1916
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1
+##   Job Started : Fri Nov 27 03:14:27 PM EST 2026
+###############################################################################
+19539 genotype cursor cases passed
+{"passed": true, "cases": 72}
+{"passed": true, "cases": 111}
+{"passed": true, "cases": 72}
+{"passed": true, "cases": 111}

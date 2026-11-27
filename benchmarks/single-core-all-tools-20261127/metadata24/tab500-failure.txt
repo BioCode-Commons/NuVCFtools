@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run24.py", line 144, in <module>
+    try:runrow(*task)
+        ^^^^^^^^^^^^^
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run24.py", line 59, in runrow
+    if p.returncode:raise RuntimeError(tag+' '+label+' nonzero exit')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: tab500 original nonzero exit

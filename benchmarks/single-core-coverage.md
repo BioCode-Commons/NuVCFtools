@@ -1,31 +1,31 @@
 # Single-core optimization coverage
 
-Scope: 24 installed Perl commands (including vcf-sort) and the vcftools C++ executable. C++ subcommands require separate cases; one case is not a claim for all its modes. All changes stay on codex/common-tool-speed-round2.
+All 25 installed entrypoints were reviewed and measured in this pass. C++ has six separately named cases; this does not cover every mode. See the [full table](single-core-all-tools-20261127.md) and [source audit](single-core-audit-20261127.md).
 
-| Entry point | Current round | Evidence / next target |
+| Entry point | Validation | Evidence |
 | --- | --- | --- |
-| fill-aa | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| fill-an-ac | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| fill-fs | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| fill-ref-md5 | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-annotate | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-compare | Measured; full output passed | [Round 1](single-thread-20261127.md) |
-| vcf-concat | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-consensus | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-contrast | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-convert | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-fix-newlines | Measured; full output passed | [Round 2](single-core-stream-20261127.md) |
-| vcf-fix-ploidy | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-indel-stats | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-isec | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-merge | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-phased-join | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-query | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-shuffle-cols | Measured; full output passed | [Round 2](single-core-stream-20261127.md) |
-| vcf-sort | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-stats | Measured; full output passed | [Round 1](single-thread-20261127.md) |
-| vcf-subset | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
-| vcf-to-tab | Measured; full output passed | [Round 1](single-thread-20261127.md) |
-| vcf-tstv | Measured; full output passed | [Round 2](single-core-stream-20261127.md) |
-| vcf-validator | Measured; full output passed | [Round 1](single-thread-20261127.md) |
-| vcftools | Not yet measured in this single-core round | Audit algorithm and allocation cost; do not assume a new speedup |
+| fill-aa | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| fill-an-ac | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| fill-fs | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| fill-ref-md5 | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-annotate | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-compare | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-concat | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-consensus | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-contrast | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-convert | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-fix-newlines | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-fix-ploidy | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-indel-stats | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-isec | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-merge | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-phased-join | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-query | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-shuffle-cols | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-sort | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-stats | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-subset | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-to-tab | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-tstv | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcf-validator | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+| vcftools | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |

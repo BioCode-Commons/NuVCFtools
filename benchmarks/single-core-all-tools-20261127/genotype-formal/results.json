@@ -1,0 +1,5 @@
+{
+  "result": "unsat",
+  "solver": "5.4.1",
+  "scope": "first-occurrence cursor invariant; string index and Perl string behavior assumed"
+}

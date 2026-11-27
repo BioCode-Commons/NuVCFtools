@@ -1,0 +1,488 @@
+[
+  {
+    "case": "indel",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 1,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 2,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 4,
+    "seed": 0,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 1,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 2,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 4,
+    "seed": 1,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-verbose",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-empty",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "indel-no-newline",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-plain",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-window",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-all",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-complement",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 1,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 2,
+    "seed": 19,
+    "passed": true
+  },
+  {
+    "case": "isec-nfiles",
+    "workers": 4,
+    "seed": 19,
+    "passed": true
+  }
+]

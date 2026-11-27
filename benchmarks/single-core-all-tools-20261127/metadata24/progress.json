@@ -1,0 +1,94 @@
+{
+  "case": "compare500",
+  "tool": "vcf-compare",
+  "arguments": [
+    "-g",
+    "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/a.vcf.gz",
+    "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/b.vcf.gz"
+  ],
+  "stdin": "None",
+  "measurements": {
+    "original": {
+      "wall_seconds": 102.73,
+      "gnu_peak_rss_kib": 14976,
+      "user_seconds": 101.8,
+      "system_seconds": 0.46,
+      "sampled_tree_rss_kib": 43776,
+      "sampled_tree_pss_kib": 35375,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence24/compare500-original.time",
+        "taskset",
+        "-c",
+        "2",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-compare",
+        "-g",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/a.vcf.gz",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/b.vcf.gz"
+      ]
+    },
+    "before": {
+      "wall_seconds": 74.57,
+      "gnu_peak_rss_kib": 16512,
+      "user_seconds": 73.77,
+      "system_seconds": 0.4,
+      "sampled_tree_rss_kib": 46848,
+      "sampled_tree_pss_kib": 38267,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence24/compare500-before.time",
+        "taskset",
+        "-c",
+        "2",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before24/src/perl/vcf-compare",
+        "-g",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/a.vcf.gz",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/b.vcf.gz",
+        "--workers",
+        "1"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 74.36,
+      "gnu_peak_rss_kib": 14976,
+      "user_seconds": 73.6,
+      "system_seconds": 0.41,
+      "sampled_tree_rss_kib": 43392,
+      "sampled_tree_pss_kib": 35840,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence24/compare500-candidate.time",
+        "taskset",
+        "-c",
+        "2",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/perl/vcf-compare",
+        "-g",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/a.vcf.gz",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/b.vcf.gz",
+        "--workers",
+        "1"
+      ]
+    }
+  }
+}

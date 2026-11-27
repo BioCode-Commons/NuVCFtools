@@ -155,7 +155,7 @@ sub vcf_subset
         for my $item (@$batch) {
         my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
-        my $x=$vcf->next_prepared_hash($prepared,0);
+        my $x=$vcf->next_prepared_hash($prepared,0,0,1);
         my $site_has_call   = 0;
         my $site_has_nonref = 0;
         my $site_is_private = 1;

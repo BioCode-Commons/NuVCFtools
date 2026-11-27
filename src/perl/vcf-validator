@@ -7,8 +7,6 @@ use strict;
 use warnings;
 use Carp;
 use Vcf;
-use IPC::Open3 'open3';
-use IO::Select;
 
 my $opts = parse_params();
 do_validation($opts);
@@ -61,9 +59,11 @@ sub do_validation
         return;
     }
 
+    require IPC::Open3;
+    require IO::Select;
     my ($kid_in,$kid_out,$kid_err);
 
-    my $pid = open3($kid_in,$kid_out,$kid_err,'-');
+    my $pid = IPC::Open3::open3($kid_in,$kid_out,$kid_err,'-');
     if ( !defined $pid ) { error("Cannot fork: $!"); }
 
     if ($pid)

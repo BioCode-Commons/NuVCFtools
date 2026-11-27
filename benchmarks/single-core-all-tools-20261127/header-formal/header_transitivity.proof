@@ -1,0 +1,201 @@
+mp(mp(mp(mp(mp(asserted(Or(And(current_map == reference_map,
+                               current_count ==
+                               reference_count) !=
+                           And(current_map == earlier_map,
+                               current_count ==
+                               earlier_count),
+                           reference_map[key] !=
+                           earlier_map[key])),
+               trans(monotonicity(trans(rewrite(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) !=
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count) ==
+                                        Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count))),
+                                        rewrite(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)) ==
+                                        Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count))),
+                                        And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) !=
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count) ==
+                                        Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count))),
+                                  rewrite(reference_map[key] !=
+                                        earlier_map[key] ==
+                                        Not(reference_map[key] ==
+                                        earlier_map[key])),
+                                  Or(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) !=
+                                     And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count),
+                                     reference_map[key] !=
+                                     earlier_map[key]) ==
+                                  Or(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)),
+                                     Not(reference_map[key] ==
+                                        earlier_map[key]))),
+                     rewrite(Or(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                    And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)),
+                                Not(reference_map[key] ==
+                                    earlier_map[key])) ==
+                             Or(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                    And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)),
+                                Not(reference_map[key] ==
+                                    earlier_map[key]))),
+                     Or(And(current_map == reference_map,
+                            current_count == reference_count) !=
+                        And(current_map == earlier_map,
+                            current_count == earlier_count),
+                        reference_map[key] !=
+                        earlier_map[key]) ==
+                     Or(Not(And(current_map == reference_map,
+                                current_count ==
+                                reference_count) ==
+                            And(current_map == earlier_map,
+                                current_count ==
+                                earlier_count)),
+                        Not(reference_map[key] ==
+                            earlier_map[key]))),
+               Or(Not(And(current_map == reference_map,
+                          current_count == reference_count) ==
+                      And(current_map == earlier_map,
+                          current_count == earlier_count)),
+                  Not(reference_map[key] == earlier_map[key]))),
+            trans(monotonicity(rewrite(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)) ==
+                                       Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                        And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count))),
+                               Or(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                      And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)),
+                                  Not(reference_map[key] ==
+                                      earlier_map[key])) ==
+                               Or(Not(And(current_map ==
+                                        reference_map,
+                                        current_count ==
+                                        reference_count) ==
+                                      And(current_map ==
+                                        earlier_map,
+                                        current_count ==
+                                        earlier_count)),
+                                  Not(reference_map[key] ==
+                                      earlier_map[key]))),
+                  rewrite(Or(Not(And(current_map ==
+                                     reference_map,
+                                     current_count ==
+                                     reference_count) ==
+                                 And(current_map ==
+                                     earlier_map,
+                                     current_count ==
+                                     earlier_count)),
+                             Not(reference_map[key] ==
+                                 earlier_map[key])) ==
+                          Or(Not(And(current_map ==
+                                     reference_map,
+                                     current_count ==
+                                     reference_count) ==
+                                 And(current_map ==
+                                     earlier_map,
+                                     current_count ==
+                                     earlier_count)),
+                             Not(reference_map[key] ==
+                                 earlier_map[key]))),
+                  Or(Not(And(current_map == reference_map,
+                             current_count ==
+                             reference_count) ==
+                         And(current_map == earlier_map,
+                             current_count == earlier_count)),
+                     Not(reference_map[key] ==
+                         earlier_map[key])) ==
+                  Or(Not(And(current_map == reference_map,
+                             current_count ==
+                             reference_count) ==
+                         And(current_map == earlier_map,
+                             current_count == earlier_count)),
+                     Not(reference_map[key] ==
+                         earlier_map[key]))),
+            Or(Not(And(current_map == reference_map,
+                       current_count == reference_count) ==
+                   And(current_map == earlier_map,
+                       current_count == earlier_count)),
+               Not(reference_map[key] == earlier_map[key]))),
+         rewrite(Or(Not(And(current_map == reference_map,
+                            current_count == reference_count) ==
+                        And(current_map == earlier_map,
+                            current_count == earlier_count)),
+                    Not(reference_map[key] ==
+                        earlier_map[key])) ==
+...

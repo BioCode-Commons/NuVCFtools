@@ -1,0 +1,482 @@
+{
+  "state": "complete",
+  "job": "9692585",
+  "node": "node1916.oscar.ccv.brown.edu",
+  "cpus": [
+    40,
+    41,
+    42,
+    43
+  ],
+  "results": [
+    {
+      "case": "ploidy500",
+      "tool": "vcf-fix-ploidy",
+      "arguments": [
+        "-s",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/sexes",
+        "-p",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/ploidy.pl"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 41.48,
+          "gnu_peak_rss_kib": 11136,
+          "user_seconds": 41.25,
+          "system_seconds": 0.08,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11238,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/ploidy500-original.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/ploidy.pl"
+          ]
+        },
+        "before": {
+          "wall_seconds": 42.27,
+          "gnu_peak_rss_kib": 11136,
+          "user_seconds": 41.99,
+          "system_seconds": 0.09,
+          "sampled_tree_rss_kib": 16896,
+          "sampled_tree_pss_kib": 11536,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/ploidy500-before.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/ploidy.pl --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 42.1,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 41.83,
+          "system_seconds": 0.08,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11431,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/ploidy500-candidate.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/ploidy.pl --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 76877907
+    },
+    {
+      "case": "contrast100",
+      "tool": "vcf-contrast",
+      "arguments": [
+        "+HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107",
+        "-HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116,HG00117,HG00118,HG00119,HG00120,HG00121,HG00122,HG00123,HG00125,HG00126,HG00127,HG00128,HG00129,HG00130,HG00131,HG00132,HG00133,HG00136,HG00137,HG00138,HG00139,HG00140,HG00141,HG00142,HG00143,HG00145,HG00146,HG00148,HG00149,HG00150,HG00151,HG00154,HG00155,HG00157,HG00158,HG00159,HG00160,HG00171,HG00173,HG00174,HG00176,HG00177,HG00178,HG00179,HG00180,HG00181,HG00182,HG00183,HG00185,HG00186,HG00187,HG00188,HG00189,HG00190,HG00231,HG00232,HG00233,HG00234,HG00235,HG00236,HG00237,HG00238,HG00239,HG00240,HG00242,HG00243,HG00244,HG00245,HG00246,HG00250,HG00251,HG00252,HG00253,HG00254,HG00255,HG00256,HG00257,HG00258,HG00259,HG00260,HG00261,HG00262",
+        "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "original": {
+          "wall_seconds": 24.19,
+          "gnu_peak_rss_kib": 10368,
+          "user_seconds": 24.01,
+          "system_seconds": 0.06,
+          "sampled_tree_rss_kib": 13056,
+          "sampled_tree_pss_kib": 10106,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/contrast100-original.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-contrast",
+            "+HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107",
+            "-HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116,HG00117,HG00118,HG00119,HG00120,HG00121,HG00122,HG00123,HG00125,HG00126,HG00127,HG00128,HG00129,HG00130,HG00131,HG00132,HG00133,HG00136,HG00137,HG00138,HG00139,HG00140,HG00141,HG00142,HG00143,HG00145,HG00146,HG00148,HG00149,HG00150,HG00151,HG00154,HG00155,HG00157,HG00158,HG00159,HG00160,HG00171,HG00173,HG00174,HG00176,HG00177,HG00178,HG00179,HG00180,HG00181,HG00182,HG00183,HG00185,HG00186,HG00187,HG00188,HG00189,HG00190,HG00231,HG00232,HG00233,HG00234,HG00235,HG00236,HG00237,HG00238,HG00239,HG00240,HG00242,HG00243,HG00244,HG00245,HG00246,HG00250,HG00251,HG00252,HG00253,HG00254,HG00255,HG00256,HG00257,HG00258,HG00259,HG00260,HG00261,HG00262",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz"
+          ]
+        },
+        "before": {
+          "wall_seconds": 7.66,
+          "gnu_peak_rss_kib": 11136,
+          "user_seconds": 7.55,
+          "system_seconds": 0.06,
+          "sampled_tree_rss_kib": 13440,
+          "sampled_tree_pss_kib": 10369,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/contrast100-before.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-contrast",
+            "+HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107",
+            "-HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116,HG00117,HG00118,HG00119,HG00120,HG00121,HG00122,HG00123,HG00125,HG00126,HG00127,HG00128,HG00129,HG00130,HG00131,HG00132,HG00133,HG00136,HG00137,HG00138,HG00139,HG00140,HG00141,HG00142,HG00143,HG00145,HG00146,HG00148,HG00149,HG00150,HG00151,HG00154,HG00155,HG00157,HG00158,HG00159,HG00160,HG00171,HG00173,HG00174,HG00176,HG00177,HG00178,HG00179,HG00180,HG00181,HG00182,HG00183,HG00185,HG00186,HG00187,HG00188,HG00189,HG00190,HG00231,HG00232,HG00233,HG00234,HG00235,HG00236,HG00237,HG00238,HG00239,HG00240,HG00242,HG00243,HG00244,HG00245,HG00246,HG00250,HG00251,HG00252,HG00253,HG00254,HG00255,HG00256,HG00257,HG00258,HG00259,HG00260,HG00261,HG00262",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 7.58,
+          "gnu_peak_rss_kib": 11136,
+          "user_seconds": 7.48,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 13824,
+          "sampled_tree_pss_kib": 10394,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/contrast100-candidate.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-contrast",
+            "+HG00096,HG00097,HG00099,HG00100,HG00101,HG00102,HG00103,HG00105,HG00106,HG00107",
+            "-HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116,HG00117,HG00118,HG00119,HG00120,HG00121,HG00122,HG00123,HG00125,HG00126,HG00127,HG00128,HG00129,HG00130,HG00131,HG00132,HG00133,HG00136,HG00137,HG00138,HG00139,HG00140,HG00141,HG00142,HG00143,HG00145,HG00146,HG00148,HG00149,HG00150,HG00151,HG00154,HG00155,HG00157,HG00158,HG00159,HG00160,HG00171,HG00173,HG00174,HG00176,HG00177,HG00178,HG00179,HG00180,HG00181,HG00182,HG00183,HG00185,HG00186,HG00187,HG00188,HG00189,HG00190,HG00231,HG00232,HG00233,HG00234,HG00235,HG00236,HG00237,HG00238,HG00239,HG00240,HG00242,HG00243,HG00244,HG00245,HG00246,HG00250,HG00251,HG00252,HG00253,HG00254,HG00255,HG00256,HG00257,HG00258,HG00259,HG00260,HG00261,HG00262",
+            "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort100.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 36532614
+    },
+    {
+      "case": "annotate500",
+      "tool": "vcf-annotate",
+      "arguments": [
+        "--fill-HWE"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 28.5,
+          "gnu_peak_rss_kib": 11520,
+          "user_seconds": 28.29,
+          "system_seconds": 0.1,
+          "sampled_tree_rss_kib": 16896,
+          "sampled_tree_pss_kib": 11828,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/annotate500-original.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-annotate --fill-HWE"
+          ]
+        },
+        "before": {
+          "wall_seconds": 8.52,
+          "gnu_peak_rss_kib": 11904,
+          "user_seconds": 8.37,
+          "system_seconds": 0.09,
+          "sampled_tree_rss_kib": 17664,
+          "sampled_tree_pss_kib": 12249,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/annotate500-before.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-annotate --fill-HWE --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 8.61,
+          "gnu_peak_rss_kib": 11904,
+          "user_seconds": 8.47,
+          "system_seconds": 0.1,
+          "sampled_tree_rss_kib": 17280,
+          "sampled_tree_pss_kib": 12285,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/annotate500-candidate.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-annotate --fill-HWE --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 144892482
+    },
+    {
+      "case": "phase500",
+      "tool": "vcf-phased-join",
+      "arguments": [
+        "-o",
+        "-",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/left.vcf.gz",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/right.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "original": {
+          "wall_seconds": 6.08,
+          "gnu_peak_rss_kib": 66048,
+          "user_seconds": 5.77,
+          "system_seconds": 0.25,
+          "sampled_tree_rss_kib": 82176,
+          "sampled_tree_pss_kib": 77198,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/phase500-original.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-phased-join",
+            "-o",
+            "-",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/left.vcf.gz",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/right.vcf.gz"
+          ]
+        },
+        "before": {
+          "wall_seconds": 5.39,
+          "gnu_peak_rss_kib": 66432,
+          "user_seconds": 5.09,
+          "system_seconds": 0.24,
+          "sampled_tree_rss_kib": 82560,
+          "sampled_tree_pss_kib": 77540,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/phase500-before.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-phased-join",
+            "-o",
+            "-",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/left.vcf.gz",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/right.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 5.42,
+          "gnu_peak_rss_kib": 66432,
+          "user_seconds": 5.12,
+          "system_seconds": 0.25,
+          "sampled_tree_rss_kib": 82176,
+          "sampled_tree_pss_kib": 77531,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/phase500-candidate.time",
+            "taskset",
+            "-c",
+            "40",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-phased-join",
+            "-o",
+            "-",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/left.vcf.gz",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/right.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 446383161
+    },
+    {
+      "case": "consensus",
+      "tool": "vcf-consensus",
+      "arguments": [
+        "/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.77,
+          "gnu_peak_rss_kib": 14976,
+          "user_seconds": 0.65,
+          "system_seconds": 0.08,
+          "sampled_tree_rss_kib": 33060,
+          "sampled_tree_pss_kib": 24880,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-original.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+          ]
+        },
+        "before": {
+          "wall_seconds": 0.77,
+          "gnu_peak_rss_kib": 14976,
+          "user_seconds": 0.67,
+          "system_seconds": 0.08,
+          "sampled_tree_rss_kib": 31872,
+          "sampled_tree_pss_kib": 23916,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-before.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 0.79,
+          "gnu_peak_rss_kib": 14976,
+          "user_seconds": 0.68,
+          "system_seconds": 0.09,
+          "sampled_tree_rss_kib": 31872,
+          "sampled_tree_pss_kib": 23804,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-candidate.time",
+            "taskset",
+            "-c",
+            "40",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 3048378
+    }
+  ]
+}

@@ -82,7 +82,7 @@ sub convert_file
         for my $item (@$batch) {
         my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
-        my $x=$vcf_in->next_prepared_hash($prepared,0);
+        my $x=$vcf_in->next_prepared_hash($prepared,0,0,1);
         # Convert missing (default) FORMAT values
         # GT is never converted. Compile the remaining field list once per
         # record; GT-only records need no per-sample conversion pass.

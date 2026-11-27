@@ -1,0 +1,12 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 9691582
+##  Job Name : vcf-single24
+##  Nodelist : node1911
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1
+##   Job Started : Fri Nov 27 02:50:48 PM EST 2026
+###############################################################################
+serial dependencies deferred; serial and parallel callbacks passed
+{"passed": true, "cases": 469}
+{"passed": true, "cases": 111}

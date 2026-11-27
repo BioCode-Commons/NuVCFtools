@@ -1,0 +1,10 @@
+{
+  "original": {
+    "path": "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcftools",
+    "sha256": "5565f6c48f947dc7d7b5e818acc7cf1ae8cae339e98118019df1b927ef03dddd"
+  },
+  "candidate": {
+    "path": "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate24/src/cpp/vcftools",
+    "sha256": "0ab5f40457c8c0bfa7cab747f9d6d1149f1f04653ffe28bf68caf66c65b00dea"
+  }
+}

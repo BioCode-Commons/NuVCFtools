@@ -1,0 +1,88 @@
+{
+  "case": "consensus",
+  "tool": "vcf-consensus",
+  "arguments": [
+    "/jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+  ],
+  "stdin": "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa",
+  "measurements": {
+    "original": {
+      "wall_seconds": 0.77,
+      "gnu_peak_rss_kib": 14976,
+      "user_seconds": 0.65,
+      "system_seconds": 0.08,
+      "sampled_tree_rss_kib": 33060,
+      "sampled_tree_pss_kib": 24880,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-original.time",
+        "taskset",
+        "-c",
+        "40",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+      ]
+    },
+    "before": {
+      "wall_seconds": 0.77,
+      "gnu_peak_rss_kib": 14976,
+      "user_seconds": 0.67,
+      "system_seconds": 0.08,
+      "sampled_tree_rss_kib": 31872,
+      "sampled_tree_pss_kib": 23916,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-before.time",
+        "taskset",
+        "-c",
+        "40",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate26/src/perl/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 0.79,
+      "gnu_peak_rss_kib": 14976,
+      "user_seconds": 0.68,
+      "system_seconds": 0.09,
+      "sampled_tree_rss_kib": 31872,
+      "sampled_tree_pss_kib": 23804,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/consensus-candidate.time",
+        "taskset",
+        "-c",
+        "40",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "cat /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence27/data/fragment.fa | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate27/src/perl/vcf-consensus /jobtmp/zliu328/nuvcftools-mqs-20261126/data/500-A.vcf.gz"
+      ]
+    }
+  }
+}

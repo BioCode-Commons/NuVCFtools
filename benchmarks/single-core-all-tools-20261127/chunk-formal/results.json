@@ -1,0 +1,14 @@
+{
+  "solver": "5.4.1",
+  "checks": [
+    {
+      "name": "sequence_feed_step",
+      "result": "unsat"
+    },
+    {
+      "name": "sequence_eof_flush",
+      "result": "unsat"
+    }
+  ],
+  "scope": "logical digest input bytes; digest library and Perl I/O assumed"
+}

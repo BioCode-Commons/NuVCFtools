@@ -1,0 +1,18 @@
+configure.ac:16: installing './compile'
+configure.ac:12: installing './install-sh'
+configure.ac:12: installing './missing'
+src/cpp/Makefile.am:58: warning: source file 'tests/ld_bitsets_test.cpp' is in a subdirectory,
+src/cpp/Makefile.am:58: but option 'subdir-objects' is disabled
+automake: warning: possible forward-incompatibility.
+automake: At least a source file is in a subdirectory, but the 'subdir-objects'
+automake: automake option hasn't been enabled.  For now, the corresponding output
+automake: object file(s) will be placed in the top-level directory.  However,
+automake: this behaviour will change in future Automake versions: they will
+automake: unconditionally cause object files to be placed in the same subdirectory
+automake: of the corresponding sources.
+automake: You are advised to start using 'subdir-objects' option throughout your
+automake: project, to avoid future incompatibilities.
+src/cpp/Makefile.am:64: warning: source file 'tests/relatedness_block_test.cpp' is in a subdirectory,
+src/cpp/Makefile.am:64: but option 'subdir-objects' is disabled
+src/cpp/Makefile.am: installing './depcomp'
+parallel-tests: installing './test-driver'
