@@ -1,0 +1,86 @@
+{
+  "case": "tstv2504-single-r2",
+  "tool": "vcf-tstv",
+  "arguments": [],
+  "stdin": "/jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz",
+  "measurements": {
+    "original": {
+      "wall_seconds": 0.82,
+      "gnu_peak_rss_kib": 6144,
+      "user_seconds": 0.72,
+      "system_seconds": 0.09,
+      "sampled_tree_rss_kib": 11520,
+      "sampled_tree_pss_kib": 6052,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence23/tstv2504-single-r2-original.time",
+        "taskset",
+        "-c",
+        "13",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-tstv"
+      ]
+    },
+    "before": {
+      "wall_seconds": 1.01,
+      "gnu_peak_rss_kib": 10368,
+      "user_seconds": 0.88,
+      "system_seconds": 0.11,
+      "sampled_tree_rss_kib": 15744,
+      "sampled_tree_pss_kib": 10178,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence23/tstv2504-single-r2-before.time",
+        "taskset",
+        "-c",
+        "13",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before23/src/perl/vcf-tstv --workers 1"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 0.87,
+      "gnu_peak_rss_kib": 10368,
+      "user_seconds": 0.75,
+      "system_seconds": 0.11,
+      "sampled_tree_rss_kib": 16128,
+      "sampled_tree_pss_kib": 10264,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence23/tstv2504-single-r2-candidate.time",
+        "taskset",
+        "-c",
+        "13",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-expanded-20261121/data/cohort_all.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate23/src/perl/vcf-tstv --workers 1"
+      ]
+    }
+  }
+}

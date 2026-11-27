@@ -91,6 +91,10 @@ sub fix_file
 	$buf =~ s/$nl/\n/g;
 	print $buf;
 
+    if (($$opts{workers} || 1)==1) {
+        convert_newline_chunks($fh,$nl);
+    }
+    else {
     NuOrderedWorkers::run(
         workers=>$$opts{workers} || 1,
         next=>NuOrderedWorkers::line_batches(sub { scalar <$fh> }, $$opts{worker_batch_bytes} || 4194304),
@@ -104,6 +108,27 @@ sub fix_file
             }
             return;
         });
+    }
 	close($fh);
 }
 
+
+# Retain only a suffix that could begin a delimiter split across read blocks.
+# This is a streaming delimiter replacement; the initial format detection and
+# first-record behavior above remain unchanged.
+sub convert_newline_chunks
+{
+    my ($fh,$nl)=@_;
+    my $carry='';
+    while (read($fh,my $buffer,65536)) {
+        $buffer=$carry.$buffer;
+        my $keep=0;
+        for my $n (1..length($nl)-1) {
+            $keep=$n if length($buffer)>=$n && substr($buffer,-$n) eq substr($nl,0,$n);
+        }
+        $carry=$keep ? substr($buffer,-$keep,$keep,'') : '';
+        $buffer =~ s/$nl/\n/g;
+        print $buffer;
+    }
+    print $carry;
+}

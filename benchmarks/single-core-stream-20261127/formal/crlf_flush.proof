@@ -1,0 +1,201 @@
+unit-resolution(not-or-elim(mp(mp(mp(mp(mp(mp(mp(asserted(Not(seq.extract(Unit(13),
+                                        0,
+                                        reference_prefix_length) ==
+                                        If(pending,
+                                        Unit(13),
+                                        Empty(Seq(Int))))),
+                                        monotonicity(trans(trans(monotonicity(rewrite(seq.extract(Unit(13),
+                                        0,
+                                        reference_prefix_length) ==
+                                        If(reference_prefix_length >=
+                                        1,
+                                        Unit(13),
+                                        Empty(Seq(Int)))),
+                                        (seq.extract(Unit(13),
+                                        0,
+                                        reference_prefix_length) ==
+                                        If(pending,
+                                        Unit(13),
+                                        Empty(Seq(Int)))) ==
+                                        (If(reference_prefix_length >=
+                                        1,
+                                        Unit(13),
+                                        Empty(Seq(Int))) ==
+                                        If(pending,
+                                        Unit(13),
+                                        Empty(Seq(Int))))),
+                                        rewrite((If(reference_prefix_length >=
+                                        1,
+                                        Unit(13),
+                                        Empty(Seq(Int))) ==
+                                        If(pending,
+                                        Unit(13),
+                                        Empty(Seq(Int)))) ==
+                                        And(Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        Unit(13) == Unit(13)),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        Unit(13) ==
+                                        Empty(Seq(Int))),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        Empty(Seq(Int)) ==
+                                        Unit(13)))),
+                                        (seq.extract(Unit(13),
+                                        0,
+                                        reference_prefix_length) ==
+                                        If(pending,
+                                        Unit(13),
+                                        Empty(Seq(Int)))) ==
+                                        And(Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        Unit(13) == Unit(13)),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        Unit(13) ==
+                                        Empty(Seq(Int))),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        Empty(Seq(Int)) ==
+                                        Unit(13)))),
+                                        trans(monotonicity(trans(monotonicity(rewrite((Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))) ==
+                                        True),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))) ==
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        True)),
+                                        rewrite(Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        True) ==
+                                        True),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))) ==
+                                        True),
+                                        trans(monotonicity(rewrite((Unit(13) ==
+                                        Unit(13)) ==
+                                        True),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        Unit(13) == Unit(13)) ==
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        True)),
+                                        rewrite(Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        True) ==
+                                        True),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        Unit(13) == Unit(13)) ==
+                                        True),
+                                        trans(monotonicity(rewrite((Unit(13) ==
+                                        Empty(Seq(Int))) ==
+                                        False),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        Unit(13) ==
+                                        Empty(Seq(Int))) ==
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        False)),
+                                        rewrite(Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        False) ==
+                                        Or(pending,
+                                        Not(reference_prefix_length >=
+                                        1))),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        Unit(13) ==
+                                        Empty(Seq(Int))) ==
+                                        Or(pending,
+                                        Not(reference_prefix_length >=
+                                        1))),
+                                        trans(monotonicity(rewrite((Empty(Seq(Int)) ==
+                                        Unit(13)) ==
+                                        False),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        Empty(Seq(Int)) ==
+                                        Unit(13)) ==
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        False)),
+                                        rewrite(Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        False) ==
+                                        Or(Not(pending),
+                                        reference_prefix_length >=
+                                        1)),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        Empty(Seq(Int)) ==
+                                        Unit(13)) ==
+                                        Or(Not(pending),
+                                        reference_prefix_length >=
+                                        1)),
+                                        And(Or(reference_prefix_length >=
+                                        1,
+                                        pending,
+                                        Empty(Seq(Int)) ==
+                                        Empty(Seq(Int))),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        Not(pending),
+                                        Unit(13) == Unit(13)),
+                                        Or(Not(reference_prefix_length >=
+                                        1),
+                                        pending,
+                                        Unit(13) ==
+                                        Empty(Seq(Int))),
+                                        Or(reference_prefix_length >=
+                                        1,
+                                        Not(pending),
+                                        Empty(Seq(Int)) ==
+                                        Unit(13))) ==
+                                        And(True,
+                                        True,
+                                        Or(pending,
+                                        Not(reference_prefix_length >=
+                                        1)),
+                                        Or(Not(pending),
+...

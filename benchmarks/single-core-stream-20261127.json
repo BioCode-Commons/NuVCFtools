@@ -1,0 +1,60 @@
+{
+  "job": 9691160,
+  "rows": [
+    {
+      "tool": "vcf-shuffle-cols",
+      "original": {
+        "wall_seconds": 13.16,
+        "sampled_tree_rss_kib": 13824,
+        "sampled_tree_pss_kib": 11474
+      },
+      "before": {
+        "wall_seconds": 11.54,
+        "sampled_tree_rss_kib": 17664,
+        "sampled_tree_pss_kib": 14278
+      },
+      "candidate": {
+        "wall_seconds": 6.89,
+        "sampled_tree_rss_kib": 17664,
+        "sampled_tree_pss_kib": 14348
+      }
+    },
+    {
+      "tool": "vcf-fix-newlines",
+      "original": {
+        "wall_seconds": 0.33,
+        "sampled_tree_rss_kib": 7296,
+        "sampled_tree_pss_kib": 4860
+      },
+      "before": {
+        "wall_seconds": 0.49,
+        "sampled_tree_rss_kib": 11520,
+        "sampled_tree_pss_kib": 8956
+      },
+      "candidate": {
+        "wall_seconds": 0.34,
+        "sampled_tree_rss_kib": 11136,
+        "sampled_tree_pss_kib": 8939
+      }
+    },
+    {
+      "tool": "vcf-tstv",
+      "original": {
+        "wall_seconds": 0.82,
+        "sampled_tree_rss_kib": 11520,
+        "sampled_tree_pss_kib": 6076
+      },
+      "before": {
+        "wall_seconds": 1.0,
+        "sampled_tree_rss_kib": 15744,
+        "sampled_tree_pss_kib": 10178
+      },
+      "candidate": {
+        "wall_seconds": 0.87,
+        "sampled_tree_rss_kib": 16128,
+        "sampled_tree_pss_kib": 10245
+      }
+    }
+  ],
+  "raw": "single-core-stream-20261127/metadata/status.json"
+}

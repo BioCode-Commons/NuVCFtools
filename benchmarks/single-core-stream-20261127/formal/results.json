@@ -1,0 +1,26 @@
+{
+  "solver": "5.4.1",
+  "scope": "abstract stream contracts, not verified Perl or regex implementation",
+  "checks": [
+    {
+      "name": "crlf_transition",
+      "result": "unsat"
+    },
+    {
+      "name": "crlf_flush",
+      "result": "unsat"
+    },
+    {
+      "name": "cr_byte_map",
+      "result": "unsat"
+    },
+    {
+      "name": "ordered_column_join",
+      "result": "unsat"
+    },
+    {
+      "name": "serial_count_step",
+      "result": "unsat"
+    }
+  ]
+}

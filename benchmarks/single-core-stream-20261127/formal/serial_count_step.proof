@@ -1,0 +1,12 @@
+unit-resolution(asserted(old_count == new_count),
+                mp(asserted(Not(old_count + delta ==
+                                new_count + delta)),
+                   monotonicity(rewrite((old_count + delta ==
+                                        new_count + delta) ==
+                                        (old_count ==
+                                        new_count)),
+                                Not(old_count + delta ==
+                                    new_count + delta) ==
+                                Not(old_count == new_count)),
+                   Not(old_count == new_count)),
+                False)

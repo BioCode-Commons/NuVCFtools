@@ -79,6 +79,16 @@ sub concat
     my @cols  = @{$$tmpl{columns}}[9..$ncols];
     print $vcf->format_header(\@cols);
 
+    # Keep the legacy first-column rule and compile the remaining permutation.
+    # Dense split fields can be gathered by Perl's array slice without one
+    # interpreted append per sample. Incomplete mappings retain diagnostics.
+    my @gather = (0, @new_to_old[1..$ncols]);
+    my $complete_mapping = !grep { !defined $_ } @gather;
+    my $last_index = 0;
+    for my $index (@gather) {
+        $last_index = $index if defined($index) && $index > $last_index;
+    }
+
     NuOrderedWorkers::run(
         workers=>$$opts{workers} || 1,
         next=>NuOrderedWorkers::line_batches(sub { $vcf->next_line() }, $$opts{worker_batch_bytes} || 4194304),
@@ -88,13 +98,18 @@ sub concat
         my $line=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $line;
         my $x=$vcf->next_data_array($line);
-        my $row = $$x[0];
-        for (my $i=1; $i<=$ncols; $i++)
-        {
-            my $idx = $new_to_old[$i];
-            $row .= "\t".$$x[$idx];
+        if ($complete_mapping && @$x > $last_index) {
+            print join("\t", @$x[@gather]), "\n";
         }
-        print $row,"\n";
+        else {
+            my $row = $$x[0];
+            for (my $i=1; $i<=$ncols; $i++)
+            {
+                my $idx = $new_to_old[$i];
+                $row .= "\t".$$x[$idx];
+            }
+            print $row,"\n";
+        }
         }
         return;
     });

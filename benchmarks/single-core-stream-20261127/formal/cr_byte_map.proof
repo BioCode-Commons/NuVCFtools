@@ -1,0 +1,43 @@
+mp(asserted(Not(If(byte == 13, Unit(10), Unit(byte)) ==
+                Unit(If(byte == 13, 10, byte)))),
+   trans(monotonicity(trans(monotonicity(rewrite(Unit(If(byte ==
+                                        13,
+                                        10,
+                                        byte)) ==
+                                        If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte))),
+                                        (If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte)) ==
+                                        Unit(If(byte == 13,
+                                        10,
+                                        byte))) ==
+                                        (If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte)) ==
+                                        If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte)))),
+                            rewrite((If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte)) ==
+                                     If(byte == 13,
+                                        Unit(10),
+                                        Unit(byte))) ==
+                                    True),
+                            (If(byte == 13,
+                                Unit(10),
+                                Unit(byte)) ==
+                             Unit(If(byte == 13, 10, byte))) ==
+                            True),
+                      Not(If(byte == 13,
+                             Unit(10),
+                             Unit(byte)) ==
+                          Unit(If(byte == 13, 10, byte))) ==
+                      Not(True)),
+         rewrite(Not(True) == False),
+         Not(If(byte == 13, Unit(10), Unit(byte)) ==
+             Unit(If(byte == 13, 10, byte))) ==
+         False),
+   False)

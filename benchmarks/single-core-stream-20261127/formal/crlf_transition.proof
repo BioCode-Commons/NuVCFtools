@@ -1,0 +1,201 @@
+unit-resolution(def-axiom(Or(Not(Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                    Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13)))),
+                             Not(Or(reference_prefix_length ==
+                                    1,
+                                    byte == 13)),
+                             Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                    byte == 13)))),
+                unit-resolution(def-axiom(Or(Not(Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                        Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13))) ==
+                                        (byte == 13)),
+                                        Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                        Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13))),
+                                        Not(byte == 13))),
+                                lemma(unit-resolution(def-axiom(Or(Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                        Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13))),
+                                        Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13))),
+                                        unit-resolution(def-axiom(Or(Not(Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                        Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13))) ==
+                                        (byte == 13)),
+                                        Not(Or(Not(Or(reference_prefix_length ==
+                                        1,
+                                        byte == 13)),
+                                        Not(Or(Not(reference_prefix_length ==
+                                        1),
+                                        byte == 13)))),
+                                        byte == 13)),
+                                        hypothesis(Not(byte ==
+                                        13)),
+                                        unit-resolution(mp(mp(mp(mp(mp(mp(mp(asserted(Not(And((If(reference_prefix_length ==
+                                        1,
+                                        If(... == ...,
+                                        0,
+                                        If(..., ..., ...)),
+                                        If(... == ..., 1, 0)) ==
+                                        1) ==
+                                        (byte == 13),
+                                        If(reference_prefix_length ==
+                                        1,
+                                        If(byte == 10,
+                                        Unit(10),
+                                        If(... == ...,
+                                        Unit(...),
+                                        Concat(..., ...))),
+                                        If(byte == 13,
+                                        Empty(Seq(Int)),
+                                        Unit(byte))) ==
+                                        Concat(If(And(pending,
+                                        ... != ...),
+                                        Unit(13),
+                                        Empty(Seq(Int))),
+                                        If(byte == 13,
+                                        Empty(Seq(Int)),
+                                        Unit(byte)))))),
+                                        monotonicity(monotonicity(trans(trans(monotonicity(trans(trans(monotonicity(...,
+                                        ...),
+                                        rewrite(...),
+                                        (...) == ...),
+                                        rewrite(... == ...),
+                                        (... == ...) ==
+                                        Not(...)),
+                                        ((... == ...) ==
+                                        (... == ...)) ==
+                                        (Not(...) ==
+                                        (... == ...))),
+                                        rewrite((Not(...) ==
+                                        (... == ...)) ==
+                                        Not(... == (...))),
+                                        ((If(..., ..., ...) ==
+                                        1) ==
+                                        (byte == 13)) ==
+                                        Not(Or(..., ...) ==
+                                        (... == ...))),
+                                        rewrite(Not(Or(...,
+                                        ...) ==
+                                        (... == ...)) ==
+                                        Not(Or(..., ...) ==
+                                        (... == ...))),
+                                        ((If(... == ...,
+                                        If(..., ..., ...),
+                                        If(..., ..., ...)) ==
+                                        1) ==
+                                        (byte == 13)) ==
+                                        Not(Or(And(..., ...),
+                                        And(..., ...)) ==
+                                        (byte == 13))),
+                                        monotonicity(trans(trans(monotonicity(monotonicity(monotonicity(...,
+                                        ...),
+                                        ... == ...),
+                                        Concat(..., ...) ==
+                                        Concat(..., ...)),
+                                        rewrite(Concat(...,
+                                        ...) ==
+                                        If(..., ..., ...)),
+                                        Concat(If(...,
+                                        ...,
+                                        ...),
+                                        If(..., ..., ...)) ==
+                                        If(And(..., ...),
+                                        Concat(..., ...),
+                                        Concat(..., ...))),
+                                        monotonicity(trans(rewrite(... ==
+                                        ...),
+                                        monotonicity(rewrite(...),
+                                        ... == ...),
+                                        Concat(..., ...) ==
+                                        If(..., ..., ...)),
+                                        rewrite(Concat(...,
+                                        ...) ==
+                                        If(..., ..., ...)),
+                                        If(And(..., ...),
+                                        Concat(..., ...),
+                                        Concat(..., ...)) ==
+                                        If(And(..., ...),
+                                        If(..., ..., ...),
+                                        If(..., ..., ...))),
+                                        Concat(If(And(...,
+                                        ...),
+                                        Unit(...),
+                                        Empty(Seq(Int))),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...))) ==
+                                        If(And(pending,
+                                        Not(...)),
+                                        If(... == ...,
+                                        Unit(...),
+                                        Concat(..., ...)),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...)))),
+                                        (If(reference_prefix_length ==
+                                        1,
+                                        If(... == ...,
+                                        Unit(...),
+                                        If(..., ..., ...)),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...))) ==
+                                        Concat(If(And(...,
+                                        ...),
+                                        Unit(...),
+                                        Empty(Seq(Int))),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...)))) ==
+                                        (If(reference_prefix_length ==
+                                        1,
+                                        If(... == ...,
+                                        Unit(...),
+                                        If(..., ..., ...)),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...))) ==
+                                        If(And(pending,
+                                        Not(...)),
+                                        If(... == ...,
+                                        Unit(...),
+                                        Concat(..., ...)),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...))))),
+                                        And((If(... == ...,
+                                        If(..., ..., ...),
+                                        If(..., ..., ...)) ==
+                                        1) ==
+                                        (byte == 13),
+                                        If(reference_prefix_length ==
+                                        1,
+                                        If(... == ...,
+                                        Unit(...),
+                                        If(..., ..., ...)),
+                                        If(... == ...,
+                                        Empty(Seq(Int)),
+                                        Unit(...))) ==
+                                        Concat(If(And(...,
+                                        ...),
+                                        Unit(...),
+...

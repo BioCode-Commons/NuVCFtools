@@ -1,0 +1,506 @@
+[
+  {
+    "case": "normal",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "normal",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unterminated",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unterminated",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unterminated",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unterminated",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "trailing",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "trailing",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "trailing",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "trailing",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "short",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "short",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "short",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "short",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "blank",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "blank",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "blank",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "blank",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "no-fields",
+    "tool": "vcf-shuffle-cols",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "no-fields",
+    "tool": "vcf-shuffle-cols",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "no-fields",
+    "tool": "vcf-tstv",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "no-fields",
+    "tool": "vcf-tstv",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'--2",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'--2",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'--1",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'--1",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-0",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-0",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-1",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-1",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-2",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r'-2",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b''",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b''",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\n'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\n'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\rX'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\rX'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\n\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r'-b'\\n\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'--2",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'--2",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'--1",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'--1",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-0",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-0",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-1",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-1",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-2",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "boundary-b'\\r\\n'-2",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b''",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b''",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\n'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\n'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\rX'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\rX'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\n\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "tail-b'\\r\\n'-b'\\n\\r'",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "empty[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "empty[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "empty['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "empty['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unix[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unix[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unix['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unix['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unknown[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unknown[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "unknown['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "unknown['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "mixed[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "mixed[]",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  },
+  {
+    "case": "mixed['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 1,
+    "passed": true
+  },
+  {
+    "case": "mixed['-i']",
+    "tool": "vcf-fix-newlines",
+    "workers": 4,
+    "passed": true
+  }
+]
