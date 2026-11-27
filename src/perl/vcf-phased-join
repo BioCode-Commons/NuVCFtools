@@ -635,7 +635,7 @@ sub flush_buffer
                 my ($batch)=@_;
                 my @scores;
                 for my $item (@$batch) {
-                    push @scores,score_phase_site($opts,$vcf,NuOrderedWorkers::prepared_value($item));
+                    push @scores,score_phase_site($opts,$vcf,NuOrderedWorkers::take_prepared_value($item));
                 }
                 return \@scores;
             },reduce=>sub {

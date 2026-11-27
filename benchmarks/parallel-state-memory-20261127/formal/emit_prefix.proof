@@ -1,0 +1,201 @@
+unit-resolution(mp(mp(mp(mp(mp(mp(asserted(Not(And(emitted +
+                                        1 >=
+                                        0,
+                                        emitted + 1 <=
+                                        submitted,
+                                        submitted -
+                                        emitted -
+                                        1 <=
+                                        workers))),
+                                  monotonicity(monotonicity(trans(monotonicity(rewrite(emitted +
+                                        1 ==
+                                        1 + emitted),
+                                        (emitted + 1 >= 0) ==
+                                        (1 + emitted >= 0)),
+                                        rewrite((1 + emitted >=
+                                        0) ==
+                                        (emitted >= -1)),
+                                        (emitted + 1 >= 0) ==
+                                        (emitted >= -1)),
+                                        trans(monotonicity(rewrite(emitted +
+                                        1 ==
+                                        1 + emitted),
+                                        (emitted + 1 <=
+                                        submitted) ==
+                                        (1 + emitted <=
+                                        submitted)),
+                                        rewrite((1 + emitted <=
+                                        submitted) ==
+                                        (emitted <=
+                                        -1 + submitted)),
+                                        (emitted + 1 <=
+                                        submitted) ==
+                                        (emitted <=
+                                        -1 + submitted)),
+                                        trans(monotonicity(trans(trans(monotonicity(rewrite(submitted -
+                                        emitted ==
+                                        submitted +
+                                        -1*emitted),
+                                        submitted -
+                                        emitted -
+                                        1 ==
+                                        submitted +
+                                        -1*emitted -
+                                        1),
+                                        rewrite(submitted +
+                                        -1*emitted -
+                                        1 ==
+                                        submitted +
+                                        -1*emitted +
+                                        -1*1),
+                                        submitted -
+                                        emitted -
+                                        1 ==
+                                        submitted +
+                                        -1*emitted +
+                                        -1*1),
+                                        trans(monotonicity(rewrite(-1*
+                                        1 ==
+                                        -1),
+                                        submitted +
+                                        -1*emitted +
+                                        -1*1 ==
+                                        submitted +
+                                        -1*emitted +
+                                        -1),
+                                        rewrite(submitted +
+                                        -1*emitted +
+                                        -1 ==
+                                        -1 +
+                                        submitted +
+                                        -1*emitted),
+                                        submitted +
+                                        -1*emitted +
+                                        -1*1 ==
+                                        -1 +
+                                        submitted +
+                                        -1*emitted),
+                                        submitted -
+                                        emitted -
+                                        1 ==
+                                        -1 +
+                                        submitted +
+                                        -1*emitted),
+                                        (submitted -
+                                        emitted -
+                                        1 <=
+                                        workers) ==
+                                        (-1 +
+                                        submitted +
+                                        -1*emitted <=
+                                        workers)),
+                                        rewrite((-1 +
+                                        submitted +
+                                        -1*emitted <=
+                                        workers) ==
+                                        (submitted +
+                                        -1*emitted <=
+                                        1 + workers)),
+                                        (submitted -
+                                        emitted -
+                                        1 <=
+                                        workers) ==
+                                        (submitted +
+                                        -1*emitted <=
+                                        1 + workers)),
+                                        And(emitted + 1 >= 0,
+                                        emitted + 1 <=
+                                        submitted,
+                                        submitted -
+                                        emitted -
+                                        1 <=
+                                        workers) ==
+                                        And(emitted >= -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers)),
+                                        Not(And(emitted + 1 >=
+                                        0,
+                                        emitted + 1 <=
+                                        submitted,
+                                        submitted -
+                                        emitted -
+                                        1 <=
+                                        workers)) ==
+                                        Not(And(emitted >=
+                                        -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers))),
+                                  Not(And(emitted >= -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers))),
+                               trans(monotonicity(rewrite(And(emitted >=
+                                        -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers) ==
+                                        Not(Or(Not(emitted >=
+                                        -1),
+                                        Not(emitted <=
+                                        -1 + submitted),
+                                        Not(submitted +
+                                        -1*emitted <=
+                                        1 + workers)))),
+                                        Not(And(emitted >=
+                                        -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers)) ==
+                                        Not(Not(Or(Not(emitted >=
+                                        -1),
+                                        Not(emitted <=
+                                        -1 + submitted),
+                                        Not(submitted +
+                                        -1*emitted <=
+                                        1 + workers))))),
+                                     rewrite(Not(Not(Or(Not(emitted >=
+                                        -1),
+                                        Not(emitted <=
+                                        -1 + submitted),
+                                        Not(submitted +
+                                        -1*emitted <=
+                                        1 + workers)))) ==
+                                        Or(Not(emitted >= -1),
+                                        Not(emitted <=
+                                        -1 + submitted),
+                                        Not(submitted +
+                                        -1*emitted <=
+                                        1 + workers))),
+                                     Not(And(emitted >= -1,
+                                        emitted <=
+                                        -1 + submitted,
+                                        submitted +
+                                        -1*emitted <=
+                                        1 + workers)) ==
+                                     Or(Not(emitted >= -1),
+                                        Not(emitted <=
+                                        -1 + submitted),
+                                        Not(submitted +
+                                        -1*emitted <=
+                                        1 + workers))),
+                               Or(Not(emitted >= -1),
+                                  Not(emitted <=
+                                      -1 + submitted),
+                                  Not(submitted + -1*emitted <=
+                                      1 + workers))),
+                            rewrite(Or(Not(emitted >= -1),
+                                       Not(emitted <=
+                                        -1 + submitted),
+...

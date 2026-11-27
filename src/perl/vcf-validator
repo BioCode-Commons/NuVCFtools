@@ -57,7 +57,7 @@ sub do_validation
     if ( !$$opts{unique} )
     {
 		my $vcf = Vcf->new(%opts, warn_duplicates=>$$opts{duplicates});
-        $vcf->run_validation();
+        $vcf->run_validation(readonly_genotypes=>1);
         return;
     }
 
@@ -91,7 +91,7 @@ sub do_validation
     else 
     {
 		my $vcf = Vcf->new(%opts, warn_duplicates=>$$opts{duplicates});
-        $vcf->run_validation();
+        $vcf->run_validation(readonly_genotypes=>1);
         return;
     }
 }

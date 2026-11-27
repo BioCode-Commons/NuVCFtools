@@ -1,0 +1,89 @@
+{
+  "case": "fill-aa-shared-index",
+  "tool": "fill-aa",
+  "arguments": [
+    "-a",
+    "/jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa"
+  ],
+  "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+  "measurements": {
+    "original": {
+      "wall_seconds": 1.84,
+      "gnu_peak_rss_kib": 11904,
+      "user_seconds": 1.52,
+      "system_seconds": 0.24,
+      "sampled_tree_rss_kib": 17664,
+      "sampled_tree_pss_kib": 13016,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/fill-aa-shared-index-original.time",
+        "taskset",
+        "-c",
+        "5",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/fill-aa -a /jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa"
+      ]
+    },
+    "before": {
+      "wall_seconds": 0.77,
+      "gnu_peak_rss_kib": 11904,
+      "user_seconds": 0.5,
+      "system_seconds": 0.22,
+      "sampled_tree_rss_kib": 17280,
+      "sampled_tree_pss_kib": 12885,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/fill-aa-shared-index-before.time",
+        "taskset",
+        "-c",
+        "5",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/fill-aa -a /jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa"
+      ]
+    },
+    "serial": {
+      "wall_seconds": 0.78,
+      "gnu_peak_rss_kib": 11904,
+      "user_seconds": 0.5,
+      "system_seconds": 0.22,
+      "sampled_tree_rss_kib": 19968,
+      "sampled_tree_pss_kib": 14062,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence16/fill-aa-shared-index-serial.time",
+        "taskset",
+        "-c",
+        "5",
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate16/src/perl/fill-aa -a /jobtmp/zliu328/nuvcftools-remaining-20261127/reference2/data/GRCh37.22.fa"
+      ]
+    }
+  }
+}

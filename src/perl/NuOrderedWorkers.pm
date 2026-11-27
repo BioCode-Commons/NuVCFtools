@@ -189,7 +189,13 @@ sub prepared_line_batches
             }
             $ended=1 if !defined($line) || defined($error);
             if (defined($line) || length($warning) || defined($error)) {
-                push @items, [$index++,$value,$warning,$error,$error_status];
+                # Successful records carry only sequence and payload. Diagnostic
+                # slots are allocated only when the stream actually emits them.
+                my $item=[$index++,$value];
+                if (length($warning) || defined($error)) {
+                    @$item[2,3,4]=($warning,$error,$error_status);
+                }
+                push @items,$item;
                 $size += defined($line) ? ($weight ? $weight->($line) : length($line)) : 0;
             }
         }
@@ -200,9 +206,21 @@ sub prepared_line_batches
 sub prepared_value
 {
     my ($item)=@_;
-    print STDERR $$item[2] if length($$item[2]);
+    print STDERR $$item[2] if defined($$item[2]) && length($$item[2]);
     if (defined $$item[3]) { $!=$$item[4]; die $$item[3]; }
     return $$item[1];
+}
+
+# A worker consumes each queued item exactly once. Release the queue's payload
+# reference before processing so completed records (including parsing caches)
+# do not stay alive until the whole batch exits. The accessor above remains
+# non-destructive for callers that need to inspect a payload repeatedly.
+sub take_prepared_value
+{
+    my ($item)=@_;
+    my $value=prepared_value($item);
+    undef $$item[1];
+    return $value;
 }
 
 1;

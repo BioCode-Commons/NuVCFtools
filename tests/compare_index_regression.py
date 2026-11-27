@@ -5,7 +5,7 @@ from pathlib import Path
 from perl_stats_merge_regression import fixture
 p=argparse.ArgumentParser()
 for k in ['before','candidate','output']:p.add_argument('--'+k,required=True)
-p.add_argument('--indexed',action='store_true');a=p.parse_args()
+p.add_argument('--workers',type=int,default=1);p.add_argument('--indexed',action='store_true');a=p.parse_args()
 d=Path(a.output);d.mkdir(parents=True,exist_ok=False)
 loader=r'''my $root=shift @ARGV;open(my $f,'<',"$root/vcf-compare") or die $!;local $/;my $s=<$f>;close $f;
 $s =~ s/my \$opts = parse_params\(\);.*?\bexit;//s or die 'entry';eval $s;die $@ if $@;
@@ -45,7 +45,8 @@ if a.indexed:
    args=flags+['-r','22:20000001-20000750,22:20000800-20002000']+copies
    runs=[]
    for root in [a.before,a.candidate]:
-    r=subprocess.run(['perl',str(Path(root)/'vcf-compare')]+args,capture_output=True,env=dict(os.environ,PERL5LIB=root,PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C'),timeout=60)
+    extra=['--workers',str(a.workers),'--worker-batch-bytes','1024'] if root==a.candidate and tag!='sequence' else []
+    r=subprocess.run(['perl',str(Path(root)/'vcf-compare')]+args+extra,capture_output=True,env=dict(os.environ,PERL5LIB=root,PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C'),timeout=60)
     err=re.sub(rb' line \d+',b' line <source>',r.stderr.replace(root.encode(),b'<source>'))
     runs.append((r.returncode,r.stdout,err))
    passed=runs[0]==runs[1] and runs[0][0]==0

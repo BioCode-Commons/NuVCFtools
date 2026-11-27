@@ -149,7 +149,7 @@ sub fix_ploidy
         my ($batch)=@_;
         my %nchanged;
         for my $item (@$batch) {
-        my $payload=NuOrderedWorkers::prepared_value($item);
+        my $payload=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $payload;
         my ($line,$samples)=@$payload;
         my $rec;

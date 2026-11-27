@@ -1,0 +1,757 @@
+{
+  "state": "complete",
+  "job": "9669524",
+  "node": "node1944.oscar.ccv.brown.edu",
+  "cpus": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    18,
+    19,
+    40,
+    41,
+    42,
+    43
+  ],
+  "results": [
+    {
+      "case": "stats500-batch4194304",
+      "tool": "vcf-stats",
+      "arguments": [
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "serial": {
+          "wall_seconds": 32.1,
+          "gnu_peak_rss_kib": 30336,
+          "user_seconds": 31.53,
+          "system_seconds": 0.16,
+          "sampled_tree_rss_kib": 20644,
+          "sampled_tree_pss_kib": 17360,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1524,
+              "Pss": 244,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1288,
+              "Private_Clean": 0,
+              "Private_Dirty": 232,
+              "Anonymous": 208,
+              "pid": 1584448,
+              "name": "time"
+            },
+            {
+              "Rss": 19120,
+              "Pss": 17116,
+              "Shared_Clean": 72,
+              "Shared_Dirty": 1976,
+              "Private_Clean": 3136,
+              "Private_Dirty": 13936,
+              "Anonymous": 13936,
+              "pid": 1584449,
+              "name": "perl"
+            }
+          ],
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch4194304-serial.time",
+            "taskset",
+            "-c",
+            "4",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "1",
+            "--worker-batch-bytes",
+            "4194304"
+          ]
+        },
+        "workers4": {
+          "wall_seconds": 15.41,
+          "gnu_peak_rss_kib": 32708,
+          "user_seconds": 56.46,
+          "system_seconds": 0.28,
+          "sampled_tree_rss_kib": 134944,
+          "sampled_tree_pss_kib": 85449,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1520,
+              "Pss": 244,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1284,
+              "Private_Clean": 0,
+              "Private_Dirty": 232,
+              "Anonymous": 208,
+              "pid": 1585128,
+              "name": "time"
+            },
+            {
+              "Rss": 26624,
+              "Pss": 15889,
+              "Shared_Clean": 2044,
+              "Shared_Dirty": 11468,
+              "Private_Clean": 1080,
+              "Private_Dirty": 12032,
+              "Anonymous": 21552,
+              "pid": 1585129,
+              "name": "perl"
+            },
+            {
+              "Rss": 25300,
+              "Pss": 15770,
+              "Shared_Clean": 1748,
+              "Shared_Dirty": 10404,
+              "Private_Clean": 0,
+              "Private_Dirty": 13148,
+              "Anonymous": 22656,
+              "pid": 1585167,
+              "name": "perl"
+            },
+            {
+              "Rss": 24780,
+              "Pss": 15822,
+              "Shared_Clean": 1748,
+              "Shared_Dirty": 9256,
+              "Private_Clean": 0,
+              "Private_Dirty": 13776,
+              "Anonymous": 22136,
+              "pid": 1585146,
+              "name": "perl"
+            },
+            {
+              "Rss": 24080,
+              "Pss": 15171,
+              "Shared_Clean": 1748,
+              "Shared_Dirty": 9184,
+              "Private_Clean": 0,
+              "Private_Dirty": 13148,
+              "Anonymous": 21436,
+              "pid": 1585138,
+              "name": "perl"
+            },
+            {
+              "Rss": 30892,
+              "Pss": 21927,
+              "Shared_Clean": 1980,
+              "Shared_Dirty": 9100,
+              "Private_Clean": 0,
+              "Private_Dirty": 19812,
+              "Anonymous": 28016,
+              "pid": 1585137,
+              "name": "perl"
+            },
+            {
+              "Rss": 1748,
+              "Pss": 626,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1128,
+              "Private_Clean": 88,
+              "Private_Dirty": 528,
+              "Anonymous": 528,
+              "pid": 1585130,
+              "name": "gzip"
+            }
+          ],
+          "exit": 0,
+          "cores": 4,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch4194304-workers4.time",
+            "taskset",
+            "-c",
+            "4,5,6,7",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "4",
+            "--worker-batch-bytes",
+            "4194304"
+          ]
+        },
+        "workers16": {
+          "wall_seconds": 6.36,
+          "gnu_peak_rss_kib": 30984,
+          "user_seconds": 55.81,
+          "system_seconds": 0.3,
+          "sampled_tree_rss_kib": 273888,
+          "sampled_tree_pss_kib": 141195,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1524,
+              "Pss": 244,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1288,
+              "Private_Clean": 0,
+              "Private_Dirty": 232,
+              "Anonymous": 208,
+              "pid": 1585384,
+              "name": "time"
+            },
+            {
+              "Rss": 19420,
+              "Pss": 8055,
+              "Shared_Clean": 1752,
+              "Shared_Dirty": 10464,
+              "Private_Clean": 1468,
+              "Private_Dirty": 5736,
+              "Anonymous": 14064,
+              "pid": 1585385,
+              "name": "perl"
+            },
+            {
+              "Rss": 18296,
+              "Pss": 8249,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9160,
+              "Private_Clean": 0,
+              "Private_Dirty": 7448,
+              "Anonymous": 15744,
+              "pid": 1585402,
+              "name": "perl"
+            },
+            {
+              "Rss": 20820,
+              "Pss": 10786,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9132,
+              "Private_Clean": 2648,
+              "Private_Dirty": 7352,
+              "Anonymous": 18268,
+              "pid": 1585401,
+              "name": "perl"
+            },
+            {
+              "Rss": 21004,
+              "Pss": 11023,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 9128,
+              "Private_Clean": 2556,
+              "Private_Dirty": 7696,
+              "Anonymous": 18516,
+              "pid": 1585400,
+              "name": "perl"
+            },
+            {
+              "Rss": 20936,
+              "Pss": 10951,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 9132,
+              "Private_Clean": 0,
+              "Private_Dirty": 10180,
+              "Anonymous": 18448,
+              "pid": 1585399,
+              "name": "perl"
+            },
+            {
+              "Rss": 21632,
+              "Pss": 11604,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9116,
+              "Private_Clean": 0,
+              "Private_Dirty": 10828,
+              "Anonymous": 19080,
+              "pid": 1585398,
+              "name": "perl"
+            },
+            {
+              "Rss": 21468,
+              "Pss": 11490,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 9124,
+              "Private_Clean": 0,
+              "Private_Dirty": 10720,
+              "Anonymous": 18980,
+              "pid": 1585396,
+              "name": "perl"
+            },
+            {
+              "Rss": 21784,
+              "Pss": 11809,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 9120,
+              "Private_Clean": 2048,
+              "Private_Dirty": 8992,
+              "Anonymous": 19296,
+              "pid": 1585395,
+              "name": "perl"
+            },
+            {
+              "Rss": 21752,
+              "Pss": 11735,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9104,
+              "Private_Clean": 0,
+              "Private_Dirty": 10960,
+              "Anonymous": 19200,
+              "pid": 1585393,
+              "name": "perl"
+            },
+            {
+              "Rss": 21724,
+              "Pss": 11705,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9108,
+              "Private_Clean": 1972,
+              "Private_Dirty": 8956,
+              "Anonymous": 19172,
+              "pid": 1585392,
+              "name": "perl"
+            },
+            {
+              "Rss": 21560,
+              "Pss": 11589,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 9116,
+              "Private_Clean": 0,
+              "Private_Dirty": 10820,
+              "Anonymous": 19072,
+              "pid": 1585391,
+              "name": "perl"
+            },
+            {
+              "Rss": 21028,
+              "Pss": 11018,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9096,
+              "Private_Clean": 0,
+              "Private_Dirty": 10244,
+              "Anonymous": 18476,
+              "pid": 1585390,
+              "name": "perl"
+            },
+            {
+              "Rss": 20940,
+              "Pss": 10937,
+              "Shared_Clean": 1688,
+              "Shared_Dirty": 9088,
+              "Private_Clean": 0,
+              "Private_Dirty": 10164,
+              "Anonymous": 18388,
+              "pid": 1585389,
+              "name": "perl"
+            }
+          ],
+          "exit": 0,
+          "cores": 16,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch4194304-workers16.time",
+            "taskset",
+            "-c",
+            "4,5,6,7,8,9,10,11,12,13,18,19,40,41,42,43",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "16",
+            "--worker-batch-bytes",
+            "4194304"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 5070636
+    },
+    {
+      "case": "stats500-batch262144",
+      "tool": "vcf-stats",
+      "arguments": [
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "serial": {
+          "wall_seconds": 31.65,
+          "gnu_peak_rss_kib": 30336,
+          "user_seconds": 31.35,
+          "system_seconds": 0.14,
+          "sampled_tree_rss_kib": 25456,
+          "sampled_tree_pss_kib": 22249,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1480,
+              "Pss": 240,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1248,
+              "Private_Clean": 0,
+              "Private_Dirty": 228,
+              "Anonymous": 204,
+              "pid": 1585429,
+              "name": "time"
+            },
+            {
+              "Rss": 23976,
+              "Pss": 22009,
+              "Shared_Clean": 72,
+              "Shared_Dirty": 1940,
+              "Private_Clean": 3068,
+              "Private_Dirty": 18896,
+              "Anonymous": 18896,
+              "pid": 1585430,
+              "name": "perl"
+            }
+          ],
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch262144-serial.time",
+            "taskset",
+            "-c",
+            "4",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "1",
+            "--worker-batch-bytes",
+            "262144"
+          ]
+        },
+        "workers4": {
+          "wall_seconds": 16.82,
+          "gnu_peak_rss_kib": 30072,
+          "user_seconds": 61.65,
+          "system_seconds": 1.68,
+          "sampled_tree_rss_kib": 108700,
+          "sampled_tree_pss_kib": 53960,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1428,
+              "Pss": 243,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1192,
+              "Private_Clean": 0,
+              "Private_Dirty": 232,
+              "Anonymous": 208,
+              "pid": 1585635,
+              "name": "time"
+            },
+            {
+              "Rss": 23068,
+              "Pss": 10753,
+              "Shared_Clean": 1832,
+              "Shared_Dirty": 14108,
+              "Private_Clean": 1320,
+              "Private_Dirty": 5808,
+              "Anonymous": 17856,
+              "pid": 1585636,
+              "name": "perl"
+            },
+            {
+              "Rss": 20344,
+              "Pss": 9323,
+              "Shared_Clean": 1616,
+              "Shared_Dirty": 12916,
+              "Private_Clean": 0,
+              "Private_Dirty": 5812,
+              "Anonymous": 17856,
+              "pid": 1585791,
+              "name": "perl"
+            },
+            {
+              "Rss": 20344,
+              "Pss": 10463,
+              "Shared_Clean": 1616,
+              "Shared_Dirty": 10632,
+              "Private_Clean": 0,
+              "Private_Dirty": 8096,
+              "Anonymous": 17856,
+              "pid": 1585790,
+              "name": "perl"
+            },
+            {
+              "Rss": 20344,
+              "Pss": 10588,
+              "Shared_Clean": 1616,
+              "Shared_Dirty": 10516,
+              "Private_Clean": 0,
+              "Private_Dirty": 8212,
+              "Anonymous": 17856,
+              "pid": 1585789,
+              "name": "perl"
+            },
+            {
+              "Rss": 21416,
+              "Pss": 11963,
+              "Shared_Clean": 1768,
+              "Shared_Dirty": 10008,
+              "Private_Clean": 0,
+              "Private_Dirty": 9640,
+              "Anonymous": 18776,
+              "pid": 1585787,
+              "name": "perl"
+            },
+            {
+              "Rss": 1756,
+              "Pss": 627,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1136,
+              "Private_Clean": 88,
+              "Private_Dirty": 528,
+              "Anonymous": 528,
+              "pid": 1585637,
+              "name": "gzip"
+            }
+          ],
+          "exit": 0,
+          "cores": 4,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch262144-workers4.time",
+            "taskset",
+            "-c",
+            "4,5,6,7",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "4",
+            "--worker-batch-bytes",
+            "262144"
+          ]
+        },
+        "workers16": {
+          "wall_seconds": 5.49,
+          "gnu_peak_rss_kib": 30064,
+          "user_seconds": 61.43,
+          "system_seconds": 1.7,
+          "sampled_tree_rss_kib": 290412,
+          "sampled_tree_pss_kib": 123693,
+          "sampling_seconds": 0.1,
+          "peak_pss_snapshot": [
+            {
+              "Rss": 1484,
+              "Pss": 243,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1248,
+              "Private_Clean": 0,
+              "Private_Dirty": 232,
+              "Anonymous": 208,
+              "pid": 1585944,
+              "name": "time"
+            },
+            {
+              "Rss": 22916,
+              "Pss": 8782,
+              "Shared_Clean": 1900,
+              "Shared_Dirty": 14512,
+              "Private_Clean": 1204,
+              "Private_Dirty": 5300,
+              "Anonymous": 17864,
+              "pid": 1585945,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 7562,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 13124,
+              "Private_Clean": 0,
+              "Private_Dirty": 5556,
+              "Anonymous": 17864,
+              "pid": 1586187,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8563,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 11100,
+              "Private_Clean": 0,
+              "Private_Dirty": 7580,
+              "Anonymous": 17864,
+              "pid": 1586186,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8642,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 11000,
+              "Private_Clean": 0,
+              "Private_Dirty": 7680,
+              "Anonymous": 17864,
+              "pid": 1586185,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8643,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 11004,
+              "Private_Clean": 0,
+              "Private_Dirty": 7676,
+              "Anonymous": 17864,
+              "pid": 1586184,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8880,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 10684,
+              "Private_Clean": 0,
+              "Private_Dirty": 7996,
+              "Anonymous": 17864,
+              "pid": 1586183,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8703,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 10956,
+              "Private_Clean": 0,
+              "Private_Dirty": 7724,
+              "Anonymous": 17864,
+              "pid": 1586182,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8644,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 11036,
+              "Private_Clean": 0,
+              "Private_Dirty": 7644,
+              "Anonymous": 17864,
+              "pid": 1586181,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8664,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 11000,
+              "Private_Clean": 0,
+              "Private_Dirty": 7680,
+              "Anonymous": 17864,
+              "pid": 1586180,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8751,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 10928,
+              "Private_Clean": 0,
+              "Private_Dirty": 7752,
+              "Anonymous": 17864,
+              "pid": 1586179,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 8764,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 10916,
+              "Private_Clean": 0,
+              "Private_Dirty": 7764,
+              "Anonymous": 17864,
+              "pid": 1586178,
+              "name": "perl"
+            },
+            {
+              "Rss": 20304,
+              "Pss": 9065,
+              "Shared_Clean": 1624,
+              "Shared_Dirty": 10508,
+              "Private_Clean": 0,
+              "Private_Dirty": 8172,
+              "Anonymous": 17864,
+              "pid": 1586177,
+              "name": "perl"
+            },
+            {
+              "Rss": 20716,
+              "Pss": 9806,
+              "Shared_Clean": 1864,
+              "Shared_Dirty": 9988,
+              "Private_Clean": 0,
+              "Private_Dirty": 8864,
+              "Anonymous": 18036,
+              "pid": 1586176,
+              "name": "perl"
+            },
+            {
+              "Rss": 20200,
+              "Pss": 9359,
+              "Shared_Clean": 1864,
+              "Shared_Dirty": 9896,
+              "Private_Clean": 0,
+              "Private_Dirty": 8440,
+              "Anonymous": 17456,
+              "pid": 1586175,
+              "name": "perl"
+            },
+            {
+              "Rss": 1752,
+              "Pss": 622,
+              "Shared_Clean": 4,
+              "Shared_Dirty": 1136,
+              "Private_Clean": 88,
+              "Private_Dirty": 524,
+              "Anonymous": 524,
+              "pid": 1585953,
+              "name": "gzip"
+            }
+          ],
+          "exit": 0,
+          "cores": 16,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/memory-diagnosis/stats500-batch262144-workers16.time",
+            "taskset",
+            "-c",
+            "4,5,6,7,8,9,10,11,12,13,18,19,40,41,42,43",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate13/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "16",
+            "--worker-batch-bytes",
+            "262144"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 5070636
+    }
+  ]
+}

@@ -59,7 +59,7 @@ sub fill_an_ac
         work=>sub {
         my ($batch)=@_;
         for my $item (@$batch) {
-        my $prepared=NuOrderedWorkers::prepared_value($item);
+        my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
         my $rec=$vcf->next_prepared_hash($prepared,0);
         print $vcf->format_line($rec);

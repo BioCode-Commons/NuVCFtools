@@ -7,6 +7,7 @@ use strict;
 use warnings;
 use Carp;
 use Vcf;
+use NuOrderedWorkers;
 
 # Private state for the native CLI only; callable helpers keep their old path.
 my %snpcluster_scope;
@@ -61,6 +62,8 @@ sub error
         "   For examples of user-defined filters see online documentation or examples/filters.txt in vcftools distribution.\n",
         "Usage: cat in.vcf | vcf-annotate [OPTIONS] > out.vcf\n",
         "Options:\n",
+        "       --workers N                    Record workers (default 1); no annotation cursors or filters.\n",
+        "       --worker-batch-bytes N         Input bytes per batch (default 4194304).\n",
         "   -a, --annotations <file.gz>         The tabix indexed file with the annotations: CHR\\tFROM[\\tTO][\\tVALUE]+.\n",
         "   -c, --columns <list>                The list of columns in the annotation file, e.g. CHROM,FROM,TO,-,QUAL,INFO/STR,INFO/GN. The dash\n",
         "                                           in this example indicates that the third column should be ignored. If TO is not\n",
@@ -102,6 +105,7 @@ sub parse_params
     my $opts = { args=>[$0, @ARGV], };
     while (defined(my $arg=shift(@ARGV)))
     {
+        next if NuOrderedWorkers::take_option($opts,$arg,\@ARGV);
         if ( $arg eq '-d' || $arg eq '--description' ) 
         { 
             my $desc = shift(@ARGV);
@@ -174,6 +178,9 @@ sub parse_params
         }
     }
     if ( exists($$opts{annotations}) && !exists($$opts{cols}) ) { error("Missing the -c option.\n"); }
+    if (($$opts{workers} || 1)>1 && (exists($$opts{annotations}) || exists($$opts{filters}) || exists($$opts{udef_filters}))) {
+        error("--workers above 1 requires record-local operations; annotation cursors and filters remain serial.\n");
+    }
     return $opts;
 }
 
@@ -645,9 +652,34 @@ sub annotate
         if ( !defined $line ) { last; }
     }
 
-    # Finish the VCF, no annotations for this part
-    while (my $line=$vcf->next_line)
-    {
+    # A record-local transformation has no inter-record state. Keep the
+    # original path for stateful modes; independent batches emit in order.
+    if (($$opts{workers} || 1)>1) {
+        NuOrderedWorkers::run(workers=>$$opts{workers},
+            next=>NuOrderedWorkers::line_batches(sub {$vcf->next_line()},$$opts{worker_batch_bytes} || 4194304),
+            work=>sub {
+                for my $item (@{$_[0]}) {
+                    my $line=NuOrderedWorkers::take_prepared_value($item);
+                    next unless defined $line;
+                    annotate_unmatched_line($opts,$vcf,$line,$record_split_limit);
+                }
+                return;
+            });
+    }
+    else {
+        while (my $line=$vcf->next_line) {
+            annotate_unmatched_line($opts,$vcf,$line,$record_split_limit);
+        }
+    }
+
+    # Output any lines left in the buffer
+    output_line($opts);
+}
+
+
+sub annotate_unmatched_line
+{
+    my ($opts,$vcf,$line,$record_split_limit)=@_;
         my @rec = split(/\t/,$line,$record_split_limit);
             $rec[-1] =~ s/\t+\z// if @rec;
             pop @rec while @rec && $rec[-1] eq '';
@@ -660,12 +692,7 @@ sub annotate
         chomp($rec[-1]);
         if ( exists($$opts{remove}) ) { remove_tags($opts,\@rec); }
         output_line($opts,\@rec);
-    }
-
-    # Output any lines left in the buffer
-    output_line($opts);
 }
-
 
 sub fill_ac_an_hwe
 {

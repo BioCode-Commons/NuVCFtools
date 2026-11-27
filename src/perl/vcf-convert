@@ -80,7 +80,7 @@ sub convert_file
         work=>sub {
         my ($batch)=@_;
         for my $item (@$batch) {
-        my $prepared=NuOrderedWorkers::prepared_value($item);
+        my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
         my $x=$vcf_in->next_prepared_hash($prepared,0);
         # Convert missing (default) FORMAT values

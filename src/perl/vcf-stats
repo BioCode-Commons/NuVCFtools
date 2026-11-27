@@ -169,7 +169,7 @@ sub vcf_stats
                 local $$vcf{stats}=$counters->root();
                 local $NuOrderedCounters::active=$counters;
                 for my $item (@$batch) {
-                    my $columns=NuOrderedWorkers::prepared_value($item);
+                    my $columns=NuOrderedWorkers::take_prepared_value($item);
                     next unless defined $columns;
                     my $rec=$vcf->next_prepared_hash($columns,1);
                     $vcf->collect_stats($rec,$$opts{filters});

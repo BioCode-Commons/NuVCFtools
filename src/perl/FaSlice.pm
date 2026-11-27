@@ -29,6 +29,9 @@ use Carp;
     Args    : file   .. the fasta file
               oob    .. out-of-bounds requests: one of 'throw' (throws), 'N' (fills the missing bases with Ns), or '' (returns empty string, default)
               size   .. size of the cached chunk read by samtools faidx (1_000_000)
+              length_cache .. optional shared hash for immutable FAI files; only
+                              length metadata is shared, never sequence chunks
+                              or the per-reader first-query state
 
 =cut
 
@@ -98,6 +101,13 @@ sub cache_chr_lengths
 {
     my ($self) = @_;
     if ( exists($$self{chr_lengths}) ) { return; }
+    # Called after the first real fetch, as before. Installing this metadata in
+    # new() would suppress the original first out-of-bounds faidx diagnostic.
+    my $shared=$$self{length_cache};
+    if ($shared && exists($$shared{$$self{file}})) {
+        $$self{chr_lengths}=$$shared{$$self{file}};
+        return;
+    }
     open(my $fh,'<',"$$self{file}.fai") or $self->throw("$$self{file}.fai: $!");
     while (my $line=<$fh>)
     {
@@ -106,6 +116,7 @@ sub cache_chr_lengths
         $$self{chr_lengths}{$chr} = $items[1];
     }
     close($fh) or $self->throw("close $$self{file}.fai");
+    $$shared{$$self{file}}=$$self{chr_lengths} if $shared;
 }
 
 sub read_chunk

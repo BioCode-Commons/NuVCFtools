@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run14.py", line 90, in <module>
+    runrow('compare500-genotypes','vcf-compare',['-g',str(E/'a.vcf.gz'),str(E/'b.vcf.gz')])
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run14.py", line 59, in runrow
+    if p.returncode:raise RuntimeError(tag+' '+label+' nonzero exit')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: compare500-genotypes original nonzero exit

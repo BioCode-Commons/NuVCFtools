@@ -232,7 +232,7 @@ sub read_data
         work=>sub {
         my ($batch) = @_;
         for my $item (@$batch) {
-        my $line = NuOrderedWorkers::prepared_value($item);
+        my $line = NuOrderedWorkers::take_prepared_value($item);
         next unless defined $line;
         my $x = $vcf->next_data_array($line);
 

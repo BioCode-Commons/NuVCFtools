@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "before": {
+    "readers": 32,
+    "dictionaries": 32,
+    "entries": 32
+  },
+  "candidate": {
+    "readers": 32,
+    "dictionaries": 1,
+    "entries": 32
+  }
+}

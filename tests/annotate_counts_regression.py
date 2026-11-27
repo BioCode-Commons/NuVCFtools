@@ -4,7 +4,7 @@ import argparse,json,os,re,subprocess
 from pathlib import Path
 p=argparse.ArgumentParser()
 for k in ['before','candidate','output']:p.add_argument('--'+k,required=True)
-a=p.parse_args();d=Path(a.output);d.mkdir(parents=True,exist_ok=False)
+p.add_argument('--workers',type=int,default=1);a=p.parse_args();d=Path(a.output);d.mkdir(parents=True,exist_ok=False)
 (d/'FixedHeaderClock.pm').write_text('package FixedHeaderClock; BEGIN { *CORE::GLOBAL::time = sub () { 1795737600 }; } 1;\n')
 header='##fileformat=VCFv4.1\n##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">\n##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Depth">\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ta\tb\tc\td\n'
 fixtures={}
@@ -18,7 +18,8 @@ for seed in [0,1,19]:
   for flag in ['--fill-AC-AN','--fill-HWE','--fill-ICF']:
    runs=[]
    for root in [a.before,a.candidate]:
-    r=subprocess.run(['perl',str(Path(root)/'vcf-annotate'),flag],input=data,capture_output=True,env=dict(os.environ,PERL5LIB=root,PERL5OPT='-I'+str(d)+' -MFixedHeaderClock',PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C'),timeout=10)
+    extra=['--workers',str(a.workers),'--worker-batch-bytes','64'] if root==a.candidate else []
+    r=subprocess.run(['perl',str(Path(root)/'vcf-annotate'),flag]+extra,input=data,capture_output=True,env=dict(os.environ,PERL5LIB=root,PERL5OPT='-I'+str(d)+' -MFixedHeaderClock',PERL_HASH_SEED=str(seed),PERL_PERTURB_KEYS='0',LC_ALL='C'),timeout=10)
     err=re.sub(rb' line \d+',b' line <source>',r.stderr.replace(root.encode(),b'<source>'))
     runs.append((r.returncode,r.stdout,err))
    passed=runs[0]==runs[1]

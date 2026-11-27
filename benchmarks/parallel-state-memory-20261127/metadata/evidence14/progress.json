@@ -1,0 +1,38 @@
+{
+  "case": "compare500-genotypes",
+  "tool": "vcf-compare",
+  "arguments": [
+    "-g",
+    "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence14/a.vcf.gz",
+    "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence14/b.vcf.gz"
+  ],
+  "stdin": "None",
+  "measurements": {
+    "original": {
+      "wall_seconds": 0.12,
+      "gnu_peak_rss_kib": 11520,
+      "user_seconds": 0.04,
+      "system_seconds": 0.05,
+      "sampled_tree_rss_kib": 12672,
+      "sampled_tree_pss_kib": 10769,
+      "sampling_seconds": 0.1,
+      "exit": 255,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence14/compare500-genotypes-original.time",
+        "taskset",
+        "-c",
+        "5",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-compare",
+        "-g",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence14/a.vcf.gz",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence14/b.vcf.gz"
+      ]
+    }
+  }
+}

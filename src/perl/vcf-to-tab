@@ -91,7 +91,7 @@ sub convert_to_tab
         work=>sub {
         my ($batch)=@_;
         for my $item (@$batch) {
-        my $prepared=NuOrderedWorkers::prepared_value($item);
+        my $prepared=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $prepared;
         my $x=$vcf->next_prepared_hash($prepared,1);
         if ( $$item[0]==0 )

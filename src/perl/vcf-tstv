@@ -56,7 +56,7 @@ sub calc_tstv
         my ($n,$multiallelic)=(0,0);
         my $stats = {};
         for my $item (@$batch) {
-        my $line=NuOrderedWorkers::prepared_value($item);
+        my $line=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $line;
         if ( substr($line,0,1) eq '#' ) { next; }
 

@@ -105,7 +105,7 @@ sub do_stats
             my ($batch)=@_;
             my @results;
             for my $item (@$batch) {
-                my $fields=NuOrderedWorkers::prepared_value($item);
+                my $fields=NuOrderedWorkers::take_prepared_value($item);
                 next unless defined $fields;
                 my ($chr,$pos,$ref,$alt)=@$fields;
                 my @lengths;

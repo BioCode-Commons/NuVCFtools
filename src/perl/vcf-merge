@@ -334,25 +334,26 @@ sub merge_vcf_files
         my $next_position = sub {
             my $pos=advance_position($opts,\@active_vcfs);
             return undef unless $pos;
-            # Freeze this position's source records. Reader cursors remain in
-            # the parent; workers only use the per-source parsing metadata.
-            my @sources = map { bless({%$_},ref($_)) } @vcfs;
+            # Queue only the records. Copying every reader's metadata hash at
+            # every position multiplies queue memory by source count. Metadata
+            # is inherited once at fork; private wrappers are made on demand.
+            my @lines=map {$_->{last_line}} @vcfs;
             my $bytes=0;
-            for my $source (@sources) {
-                $bytes += $$source{last_line}{__nu_source_bytes} if $$source{last_line};
-            }
-            return [$pos,\@sources,$bytes];
+            $bytes += $_->{__nu_source_bytes} for grep {defined} @lines;
+            return [$pos,\@lines,$bytes];
         };
+        my $source_readers=\@vcfs;
         NuOrderedWorkers::run(
             workers=>$$opts{workers} || 1,
             next=>NuOrderedWorkers::prepared_line_batches($next_position,sub { $_[0] },$$opts{worker_batch_bytes} || 4194304,sub { $_[0][2] }),
             work=>sub {
             my ($batch)=@_;
             for my $item (@$batch) {
-            my $task=NuOrderedWorkers::prepared_value($item);
+            my $task=NuOrderedWorkers::take_prepared_value($item);
             next unless defined $task;
             my $pos=$$task[0];
-            my @vcfs=@{$$task[1]};
+            my $source_index=0;
+            my @vcfs=map {bless({%$_,last_line=>$$task[1][$source_index++]},ref($_))} @$source_readers;
             for my $source (@vcfs) {
                 my $line=$$source{last_line};
                 next unless $line && exists($$line{__nu_compact_genotypes});

@@ -142,7 +142,7 @@ sub flanking_sequence
         work=>sub {
             my ($batch)=@_;
             for my $item (@$batch) {
-                my $task=NuOrderedWorkers::prepared_value($item);
+                my $task=NuOrderedWorkers::take_prepared_value($item);
                 next unless defined $task;
                 render_output_line($opts,$task);
             }

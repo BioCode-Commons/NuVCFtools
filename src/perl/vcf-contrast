@@ -100,7 +100,7 @@ sub query_vcf
         work=>sub {
         my ($batch)=@_;
         for my $item (@$batch) {
-        my $line=NuOrderedWorkers::prepared_value($item);
+        my $line=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $line;
         my $rec=$vcf->next_data_array($line);
         if ( $$opts{apply_filters} && $$rec[6] ne '.' && $$rec[6] ne 'PASS' ) { next; }

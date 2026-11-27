@@ -109,6 +109,7 @@ sub fill_aa
     print $vcf->format_header();
 
     my %chr2fa = ();
+    my %reference_lengths; # One immutable FAI dictionary per input file.
     my $nskipped = 0;
     while (my $line = $vcf->next_line() )
     {
@@ -125,7 +126,7 @@ sub fill_aa
                 if ( -e "$fname$chr.fa.gz" ) { $fname = "$fname$chr.fa.gz"; }
                 else { error(qq[Neither "$fname" nor "$fname$chr.fa.gz" exists.\n]); }
             }
-            $chr2fa{$chr} = FaSlice->new(file=>$fname, size=>100_000);
+            $chr2fa{$chr} = FaSlice->new(file=>$fname, size=>100_000, length_cache=>\%reference_lengths);
         }
 
         my $fa = $chr2fa{$chr};

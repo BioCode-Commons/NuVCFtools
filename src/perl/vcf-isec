@@ -331,7 +331,7 @@ sub do_chrm_isec
         work=>sub {
         my ($batch)=@_;
         for my $item (@$batch) {
-        my $grp=NuOrderedWorkers::prepared_value($item);
+        my $grp=NuOrderedWorkers::take_prepared_value($item);
         next unless defined $grp;
         if ( $debug )
         {

@@ -41,15 +41,10 @@ sub root { return $_[0]{root}; }
 sub snapshot
 {
     my ($self)=@_;
-    my @values;
-    for my $node (@{$self->{nodes}}) {
-        my @leaves;
-        while (my ($key,$value)=each %$node) {
-            push @leaves,[$key,$value] unless ref $value;
-        }
-        push @values,\@leaves;
-    }
-    return [$self->{events},\@values];
+    # Serialize the existing nodes by reference. Building [key,value] pairs
+    # copied every leaf into another Perl array immediately before nstore.
+    # Storable preserves aliases; consumers read scalar leaves only.
+    return [$self->{events},$self->{nodes}];
 }
 sub merge
 {
@@ -65,8 +60,8 @@ sub merge
         else { $hash->{$key}=0 unless exists $hash->{$key}; }
     }
     for my $id (0..$#{$part->[1]}) {
-        for my $leaf (@{$part->[1][$id]}) {
-            $nodes[$id]{$leaf->[0]} += $leaf->[1];
+        while (my ($key,$value)=each %{$part->[1][$id]}) {
+            $nodes[$id]{$key} += $value unless ref $value;
         }
     }
 }

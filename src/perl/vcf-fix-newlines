@@ -97,7 +97,7 @@ sub fix_file
         work=>sub {
             my ($batch)=@_;
             for my $item (@$batch) {
-                my $text=NuOrderedWorkers::prepared_value($item);
+                my $text=NuOrderedWorkers::take_prepared_value($item);
                 next unless defined $text;
                 $text =~ s/$nl/\n/g;
                 print $text;

@@ -604,7 +604,7 @@ sub next_prepared_hash
 
     # Genotype fields
     my %gtypes;
-    my (@compact_templates,%templates);
+    my (@compact_templates,%templates,%readonly_genotypes);
     my $compact_positions = q[];
     my ($previous_text,$previous_genotype);
     my $check_nformat = $$self{drop_trailings} ? 0 : 1;
@@ -613,6 +613,13 @@ sub next_prepared_hash
         if ( $items[$icol] eq '' ) { $self->warn("Empty column $$cols[$icol] at $items[0]:$items[1]\n"); next; }
         if ( exists($$self{samples_to_parse}) && !$$self{samples_to_parse}[$icol] ) { next; }
 
+        # Read-only consumers can share every equal, well-formed genotype in
+        # this record, not only equal neighbors. Mutable callers still receive
+        # independent hashes; malformed fields retain per-sample diagnostics.
+        if ($share_genotypes && exists($readonly_genotypes{$items[$icol]})) {
+            $gtypes{$$cols[$icol]}=$readonly_genotypes{$items[$icol]};
+            next;
+        }
         if ($compact_genotypes && exists($templates{$items[$icol]})) {
             $compact_positions .= pack('w2',$icol,$templates{$items[$icol]});
             next;
@@ -641,7 +648,10 @@ sub next_prepared_hash
             $compact_positions .= pack('w2',$icol,$id);
             $templates{$items[$icol]}=$id if @fields==@$format;
         }
-        else { $gtypes{$$cols[$icol]} = \%hash; }
+        else {
+            $gtypes{$$cols[$icol]} = \%hash;
+            $readonly_genotypes{$items[$icol]}=\%hash if $share_genotypes && @fields==@$format;
+        }
         # Malformed columns retain their per-sample diagnostics and parsing.
         $previous_genotype = @fields==@$format ? \%hash : undef;
         $previous_text = $items[$icol];
@@ -2651,7 +2661,7 @@ sub validate_char
 
 sub run_validation
 {
-    my ($self) = @_;
+    my ($self,%options) = @_;
 
     $self->parse_header();
     $self->validate_header();
@@ -2682,7 +2692,7 @@ sub run_validation
             }
         }
 
-        my $x = $self->next_data_hash($line);
+        my $x = $self->next_data_hash($line,$options{readonly_genotypes});
         $self->validate_line($x);
 
         # Is the position numeric?
@@ -2733,9 +2743,24 @@ sub run_validation
         # Tokens are shared only within this record. Every sample still runs
         # validation, emits its own diagnostics and invokes its field handlers.
         my %validation_work = (splits=>{});
+        my %validated;
+        # This optimization is opt-in for the CLI's built-in validators. API
+        # callers with custom validation callbacks retain the original path.
+        my $pure=$options{readonly_genotypes} && ref($$self{header}{FORMAT}) eq 'HASH';
+        for my $field ($pure ? @{$$x{FORMAT} || []} : ()) {
+            my $type=$$self{header}{FORMAT}{$field};
+            if (ref($type) ne 'HASH') {$pure=0;last;}
+            my $handler=$$type{handler};
+            if ($handler && $handler != \&validate_int && $handler != \&validate_float && $handler != \&validate_char) {$pure=0;last;}
+        }
         while (my ($gt,$data) = each %{$$x{gtypes}})
         {
+            # Shared references remain live for this record, so their identity
+            # cannot be recycled. Cache successes only; errors/warnings repeat
+            # at each original sample, in the original hash traversal order.
+            next if $pure && $validated{$data};
             $err = $self->validate_gtype_field($data,$$x{ALT},$$x{FORMAT},\%validation_work);
+            $validated{$data}=1 if $pure && !defined($err);
             if ( $err ) { $self->warn("column $gt at $$x{CHROM}:$$x{POS} .. $err\n"); }
         }
 

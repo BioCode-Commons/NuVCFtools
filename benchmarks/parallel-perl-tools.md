@@ -1,5 +1,7 @@
 # Ordered Perl workers and data-layout results
 
+This is the earlier 17-worker-command snapshot. See the [follow-up measurements](parallel-state-memory-20261127.md) for newer stats/merge memory figures, annotate/compare workers and validator/fill-aa changes. The tables below retain their original measured versions and cases.
+
 Branch: `codex/common-tool-speed-round2`. Upstream VCFtools: `1f87a83402ffd17ea2723a456b7edf5d80b4a22c`; pre-pool Nu: `92c7721ec154339aed5638b2142a39e49fa54f56`. The source snapshots and Slurm jobs are listed below. These are successive development snapshots, **not a rerun of all tools at one final commit**.
 
 The scope is the 23 Perl commands that previously lacked a computation worker pool. Seventeen now accept ordered workers; six remain serial. The C++ executable and `vcf-sort` are outside this count and retain their [previous measurements](all-tools-vs-upstream.md).

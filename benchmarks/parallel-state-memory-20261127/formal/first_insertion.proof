@@ -1,0 +1,201 @@
+th-lemma(unit-resolution(not-or-elim(mp(intro-def(And(Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        z3name!3 == z3name!1),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        z3name!3 == a1))),
+                                        trans(monotonicity(monotonicity(trans(rewrite((z3name!3 ==
+                                        z3name!1) ==
+                                        And(z3name!3 <=
+                                        z3name!1,
+                                        z3name!3 >= z3name!1)),
+                                        trans(monotonicity(rewrite((z3name!3 <=
+                                        z3name!1) ==
+                                        (z3name!1 +
+                                        -1*z3name!3 >=
+                                        0)),
+                                        rewrite((z3name!3 >=
+                                        z3name!1) ==
+                                        (z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)),
+                                        And(z3name!3 <=
+                                        z3name!1,
+                                        z3name!3 >= z3name!1) ==
+                                        And(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0,
+                                        z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)),
+                                        rewrite(And(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0,
+                                        z3name!1 +
+                                        -1*z3name!3 <=
+                                        0) ==
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)))),
+                                        And(z3name!3 <=
+                                        z3name!1,
+                                        z3name!3 >= z3name!1) ==
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)))),
+                                        (z3name!3 ==
+                                        z3name!1) ==
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)))),
+                                        Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        z3name!3 == z3name!1) ==
+                                        Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0))))),
+                                        trans(monotonicity(trans(rewrite((z3name!3 ==
+                                        a1) ==
+                                        And(z3name!3 <= a1,
+                                        z3name!3 >= a1)),
+                                        trans(monotonicity(rewrite((z3name!3 <=
+                                        a1) ==
+                                        (a1 + -1*z3name!3 >=
+                                        0)),
+                                        rewrite((z3name!3 >=
+                                        a1) ==
+                                        (a1 + -1*z3name!3 <=
+                                        0)),
+                                        And(z3name!3 <= a1,
+                                        z3name!3 >= a1) ==
+                                        And(a1 + -1*z3name!3 >=
+                                        0,
+                                        a1 + -1*z3name!3 <=
+                                        0)),
+                                        rewrite(And(a1 +
+                                        -1*z3name!3 >=
+                                        0,
+                                        a1 + -1*z3name!3 <=
+                                        0) ==
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0)))),
+                                        And(z3name!3 <= a1,
+                                        z3name!3 >= a1) ==
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0)))),
+                                        (z3name!3 == a1) ==
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0)))),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        z3name!3 == a1) ==
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0))))),
+                                        rewrite(Or(a1 +
+                                        -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0)))) ==
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0))))),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        z3name!3 == a1) ==
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0))))),
+                                        And(Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        z3name!3 == z3name!1),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        z3name!3 == a1)) ==
+                                        And(Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)))),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0)))))),
+                                        rewrite(And(Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0)))),
+                                        Or(a1 + -1*z3name!1 >=
+                                        0,
+                                        Not(Or(Not(a1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(a1 + -1*z3name!3 <=
+                                        0))))) ==
+                                        Not(Or(Not(Or(Not(a1 +
+                                        -1*z3name!1 >=
+                                        0),
+                                        Not(Or(Not(z3name!1 +
+                                        -1*z3name!3 >=
+                                        0),
+                                        Not(z3name!1 +
+                                        -1*z3name!3 <=
+                                        0))))),
+                                        Not(Or(a1 +
+                                        -1*z3name!1 >=
+                                        0,
+...

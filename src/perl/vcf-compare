@@ -7,6 +7,8 @@ use strict;
 use warnings;
 use Carp;
 use Vcf;
+use NuOrderedWorkers;
+use NuOrderedCounters;
 use FaSlice;
 
 my $opts = parse_params();
@@ -35,6 +37,8 @@ sub error
         "Usage: vcf-compare [OPTIONS] file1.vcf file2.vcf ...\n",
         "       vcf-compare -p plots chr1.cmp chr2.cmp ...\n",
         "Options:\n",
+        "       --workers N                    Ordered comparison workers (default 1; no -R).\n",
+        "       --worker-batch-bytes N         Input bytes per batch (default 4194304).\n",
         "   -a, --apply-filters                 Ignore lines where FILTER column is anything else than PASS or '.'\n",
         "   -c, --chromosomes <list|file>       Same as -r, left for backward compatibility. Please do not use as it will be dropped in the future.\n",
         "   -d, --debug                         Debugging information. Giving the option multiple times increases verbosity\n",
@@ -69,6 +73,7 @@ sub parse_params
     };
     while (my $arg=shift(@ARGV))
     {
+        next if NuOrderedWorkers::take_option($opts,$arg,\@ARGV);
         if (                 $arg eq '--all-samples-af' ) { $$opts{all_samples_af}=1; next; }
         if (                 $arg eq '--INFO/AF1-af' ) { $$opts{INFO_AF1_af}=1; next; }
         if (                 $arg eq '--ignore-indels' ) { $$opts{ignore_indels}=1; next; }
@@ -103,6 +108,7 @@ sub parse_params
         if ( $arg eq '-?' || $arg eq '-h' || $arg eq '--help' ) { error(); }
         error("Unknown parameter or non-existent file \"$arg\". Run -h for help.\n");
     }
+    if (($$opts{workers} || 1)>1 && $$opts{refseq}) { error("Reference-cache comparison (-R) remains serial; use --workers 1.\n"); }
     if ( !exists($$opts{files}) ) { error("What files should be compared?\n") }
     return $opts;
 }
@@ -1026,20 +1032,70 @@ sub do_region_stats
 {
     my ($opts,$vcfs) = @_;
     local $$opts{_position_tree};
-
     my $refseq;
-    if ( $$opts{refseq} ) { $refseq = FaSlice->new(file=>$$opts{refseq}, size=>1_000_000); }
+    if ($$opts{refseq}) { $refseq=FaSlice->new(file=>$$opts{refseq},size=>1_000_000); }
+    my $win=$$opts{win} || 0;
+    if (($$opts{workers} || 1)==1) {
+        while (my $grp=read_next_group($opts,$vcfs,$win)) {
+            last unless @$grp;
+            compare_group($opts,$grp,scalar(@$vcfs),$refseq);
+        }
+        return;
+    }
+    # Group boundaries and stream-dependent parsing checks stay in the parent.
+    # The child receives packed fields, not a sample-object graph per record.
+    my $next=sub {
+        my $grp=read_next_group($opts,$vcfs,$win);
+        return undef unless $grp && @$grp;
+        return $grp;
+    };
+    my $prepare=sub {
+        my ($grp)=@_;
+        my %files=map {$_->{vcf}{file}=>1} @$grp;
+        if ($$opts{cmp_genotypes} && keys(%files)==@$vcfs && @$grp==@$vcfs) {
+            for my $rec (@$grp) {
+                my ($warning,$error,$status,$columns);$warning='';
+                {
+                    local *STDERR;open(STDERR,'>',\$warning) or die "Capture comparison parsing: $!\n";
+                    local $! = 0;local $? = 0;
+                    my $ok=eval {$columns=$rec->{vcf}->prepare_data_columns($rec->{line},1);1};
+                    if (!$ok) {$error=$@;$status=$! || ($? >> 8) || 255;}
+                }
+                $rec->{prepared}=[0,$columns,$warning,$error,$status];
+                # ignore-indels stops parsing at the first INDEL-bearing record.
+                last if defined($error) || ($$opts{ignore_indels} && $rec->{line}=~/^(?:[^\t]*\t){7}(?:[^\t;]*;)*INDEL(?:[;\t\n=]|$)/);
+            }
+        }
+        return $grp;
+    };
+    NuOrderedWorkers::run(workers=>$$opts{workers},
+        next=>NuOrderedWorkers::prepared_line_batches($next,$prepare,$$opts{worker_batch_bytes} || 4194304,
+            sub {my $n=0;$n+=length($_->{line}) for @{$_[0]};return $n}),
+        work=>sub {
+            my $counters=NuOrderedCounters->new();
+            local $NuOrderedCounters::active=$counters;
+            local $$opts{_counter_root}=$counters->root();
+            for my $item (@{$_[0]}) {
+                my $grp=NuOrderedWorkers::take_prepared_value($item);
+                next unless defined $grp;
+                compare_group($opts,$grp,scalar(@$vcfs),undef);
+            }
+            return $counters->snapshot();
+        },reduce=>sub {NuOrderedCounters::merge($opts,$_[0])});
+}
 
-    my $nvcfs = scalar @$vcfs;
-    my $debug = $$opts{debug} ? $$opts{debug} : 0;
-    my $match = $$opts{match};
-    my $win   = $$opts{win} ? $$opts{win} : 0;
+# Serial counters stay direct at the call sites. Only workers need an event
+# log for ordered reduction; building dynamic paths per sample adds overhead.
+sub comparison_add
+{
+    my ($opts,$value,@path)=@_;
+    NuOrderedCounters::add($$opts{_counter_root},$value,@path);
+}
 
-    while (1)
-    {
-        my $grp = read_next_group($opts,$vcfs,$win);
-        if ( !$grp || !scalar @$grp ) { last }
-
+sub compare_group
+{
+    my ($opts,$grp,$nvcfs,$refseq)=@_;
+    my $debug=$$opts{debug} || 0;
         if ( $debug>1 )
         {
             print "Group:\n";
@@ -1053,7 +1109,7 @@ sub do_region_stats
             $files{$$rec{vcf}{file}} = 1;
         }
         my $key = join(q['],sort(keys %files));
-        $$match{$key}++;
+        ($$opts{_counter_root} ? comparison_add($opts,1,'match',$key) : ($$opts{'match'}{$key} += 1));
 
         my $npresent = scalar keys %files;
         if ( $npresent == $nvcfs ) 
@@ -1074,7 +1130,6 @@ sub do_region_stats
                 cmp_genotypes($opts,$grp);
             }
         }
-    }
 }
 
 sub cmp_sequence
@@ -1179,11 +1234,11 @@ sub cmp_sequence
     my $key = join(q['],sort(values %has_indels));
     if ( $match )
     {
-        $$opts{indels}{$key}{match}++;
+        ($$opts{_counter_root} ? comparison_add($opts,1,'indels',$key,'match') : ($$opts{'indels'}{$key}{'match'} += 1));
     }
     else
     {
-        $$opts{indels}{$key}{mismatch}++;
+        ($$opts{_counter_root} ? comparison_add($opts,1,'indels',$key,'mismatch') : ($$opts{'indels'}{$key}{'mismatch'} += 1));
     }
 }
 
@@ -1201,7 +1256,7 @@ sub ref_alt_stats
 
         if ( $ref ne $$rec{ref} ) 
         { 
-            $$opts{ref_mismatch}++;
+            ($$opts{_counter_root} ? comparison_add($opts,1,'ref_mismatch') : ($$opts{'ref_mismatch'} += 1));
             if ( $$opts{debug} ) { print "RM\t$$grp[0]{chr}\t$$grp[0]{pos}\t$$grp[0]{ref}\t$$rec{ref}\n"; }
             return; 
         }
@@ -1216,12 +1271,12 @@ sub ref_alt_stats
     {
         if ( defined $alt_mismatch ) 
         { 
-            $$opts{alt_mismatch}++; 
+            ($$opts{_counter_root} ? comparison_add($opts,1,'alt_mismatch') : ($$opts{'alt_mismatch'} += 1));
             if ( $$opts{debug} ) { print "AM\t$$grp[0]{chr}\t$$grp[0]{pos}\t$alt\t$alt_mismatch\n"; }
         }
-        else { $$opts{alt_match}++; }
+        else { ($$opts{_counter_root} ? comparison_add($opts,1,'alt_match') : ($$opts{'alt_match'} += 1)); }
     }
-    $$opts{ref_match}++;
+    ($$opts{_counter_root} ? comparison_add($opts,1,'ref_match') : ($$opts{'ref_match'} += 1));
 }
 
 
@@ -1256,7 +1311,9 @@ sub cmp_genotypes
     # Break the VCF lines into hashes (required by parse_haplotype)
     for my $grp_rec (@$grp)
     {
-        $$grp_rec{rec} = $$grp_rec{vcf}->next_data_hash($$grp_rec{line});
+        $$grp_rec{rec} = exists($$grp_rec{prepared})
+            ? $$grp_rec{vcf}->next_prepared_hash(NuOrderedWorkers::take_prepared_value($$grp_rec{prepared}))
+            : $$grp_rec{vcf}->next_data_hash($$grp_rec{line});
         if ( $$opts{ignore_indels} && exists($$grp_rec{rec}{INFO}{INDEL}) ) { return; }
         if ( exists($$grp_rec{vcf}{_col_mapping}) )
         {
@@ -1384,7 +1441,7 @@ sub cmp_genotypes
             if ( scalar @$als1 != scalar @$als2 ) 
             { 
                 $gtype_match = 0; 
-                if ( $$opts{debug} ) { $$opts{mismatch_types}{$type}{'Allele_Count'}++ }
+                if ( $$opts{debug} ) { ($$opts{_counter_root} ? comparison_add($opts,1,'mismatch_types',$type,'Allele_Count') : ($$opts{'mismatch_types'}{$type}{'Allele_Count'} += 1)) }
                 last; 
             }
 
@@ -1406,7 +1463,7 @@ sub cmp_genotypes
                     if ( $$opts{debug} )
                     {
                         my $type2 = snp_type($als2,$ref);
-                        $$opts{mismatch_types}{$type}{$type2}++;
+                        ($$opts{_counter_root} ? comparison_add($opts,1,'mismatch_types',$type,$type2) : ($$opts{'mismatch_types'}{$type}{$type2} += 1));
                     }
                     last;
                 }
@@ -1432,42 +1489,42 @@ sub cmp_genotypes
         }
         if ( $gtype_gained ) 
         { 
-            $$hapls{$id}{$type.'gtype_gained'}++; 
-            if ( $phase_gained ) { $$hapls{$id}{phased_gtype_gained}++ }
+            ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'gtype_gained') : ($$opts{'hapls'}{$id}{$type.'gtype_gained'} += 1));
+            if ( $phase_gained ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,'phased_gtype_gained') : ($$opts{'hapls'}{$id}{'phased_gtype_gained'} += 1)) }
             next; 
         }
-        if ( $gtype_lost ) { $$hapls{$id}{$type.'gtype_lost'}++; next; }
-        if ( $phase_mismatch ) { $$hapls{$id}{$type.'phase_mismatch'}++; }
+        if ( $gtype_lost ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'gtype_lost') : ($$opts{'hapls'}{$id}{$type.'gtype_lost'} += 1)); next; }
+        if ( $phase_mismatch ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'phase_mismatch') : ($$opts{'hapls'}{$id}{$type.'phase_mismatch'} += 1)); }
 
-        if ( $phase_gained ) { $$hapls{$id}{phase_gained}++ }
-        elsif ( $phase_lost ) { $$hapls{$id}{$type.'phase_lost'}++ }
+        if ( $phase_gained ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,'phase_gained') : ($$opts{'hapls'}{$id}{'phase_gained'} += 1)) }
+        elsif ( $phase_lost ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'phase_lost') : ($$opts{'hapls'}{$id}{$type.'phase_lost'} += 1)) }
 
         my $dp = exists($$grp[1]{rec}{gtypes}{$id}{DP}) ? $$grp[1]{rec}{gtypes}{$id}{DP} : -1;
         if ( $gtype_match ) 
         { 
-            $$hapls{$id}{$type.'gtype_match'}++;
-            if ( $phase_match ) { $$hapls{$id}{$type.'phase_match'}++ }
+            ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'gtype_match') : ($$opts{'hapls'}{$id}{$type.'gtype_match'} += 1));
+            if ( $phase_match ) { ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'phase_match') : ($$opts{'hapls'}{$id}{$type.'phase_match'} += 1)) }
             $gtype_matches{$type}++;
-            $$opts{counts_by_dp}{$dp}{$type.'-'.$type}++;
+            ($$opts{_counter_root} ? comparison_add($opts,1,'counts_by_dp',$dp,$type.'-'.$type) : ($$opts{'counts_by_dp'}{$dp}{$type.'-'.$type} += 1));
             if ( defined $max_gl ) 
             { 
                 my $gl = sprintf "%.2f", $max_gl;
-                $$opts{counts_by_gl}{$gl}{match}++;
+                ($$opts{_counter_root} ? comparison_add($opts,1,'counts_by_gl',$gl,'match') : ($$opts{'counts_by_gl'}{$gl}{'match'} += 1));
             }
         }
         elsif ( defined $type ) 
         { 
-            $$hapls{$id}{$type.'gtype_mismatch'}++;
+            ($$opts{_counter_root} ? comparison_add($opts,1,'hapls',$id,$type.'gtype_mismatch') : ($$opts{'hapls'}{$id}{$type.'gtype_mismatch'} += 1));
             $gtype_mismatches{$type}++;
-            $$opts{counts_by_dp}{$dp}{$type.'-'.$type2}++;
+            ($$opts{_counter_root} ? comparison_add($opts,1,'counts_by_dp',$dp,$type.'-'.$type2) : ($$opts{'counts_by_dp'}{$dp}{$type.'-'.$type2} += 1));
             if ( defined $max_gl ) 
             { 
                 my $gl = sprintf "%.2f", $max_gl;
-                $$opts{counts_by_gl}{$gl}{mismatch}++;
+                ($$opts{_counter_root} ? comparison_add($opts,1,'counts_by_gl',$gl,'mismatch') : ($$opts{'counts_by_gl'}{$gl}{'mismatch'} += 1));
             }
         }
     }
-    $$opts{hapls_ncmp}++;
+    ($$opts{_counter_root} ? comparison_add($opts,1,'hapls_ncmp') : ($$opts{'hapls_ncmp'} += 1));
 
     my %infoGroup;
     for my $infoTag ( @{$$opts{INFOgroup}} ) 
@@ -1528,19 +1585,19 @@ sub cmp_genotypes
     {
         for my $infoTag ( @{$$opts{INFOgroup}} ) 
         {
-            $$opts{counts_by_INFO}{$infoTag}{$infoGroup{$infoTag}}{$type}{matches} += $gtype_matches{$type};
+            ($$opts{_counter_root} ? comparison_add($opts,$gtype_matches{$type},'counts_by_INFO',$infoTag,$infoGroup{$infoTag},$type,'matches') : ($$opts{'counts_by_INFO'}{$infoTag}{$infoGroup{$infoTag}}{$type}{'matches'} += $gtype_matches{$type}));
         }
-        $$opts{counts_by_af}{$af}{$type}{matches} += $gtype_matches{$type};
-        $$opts{gtypes_cmp_total} += $gtype_matches{$type};
+        ($$opts{_counter_root} ? comparison_add($opts,$gtype_matches{$type},'counts_by_af',$af,$type,'matches') : ($$opts{'counts_by_af'}{$af}{$type}{'matches'} += $gtype_matches{$type}));
+        ($$opts{_counter_root} ? comparison_add($opts,$gtype_matches{$type},'gtypes_cmp_total') : ($$opts{'gtypes_cmp_total'} += $gtype_matches{$type}));
     }
     for my $type (keys %gtype_mismatches)
     {
         for my $infoTag ( @{$$opts{INFOgroup}} ) 
         {
-            $$opts{counts_by_INFO}{$infoTag}{$infoGroup{$infoTag}}{$type}{mismatches} += $gtype_mismatches{$type};
+            ($$opts{_counter_root} ? comparison_add($opts,$gtype_mismatches{$type},'counts_by_INFO',$infoTag,$infoGroup{$infoTag},$type,'mismatches') : ($$opts{'counts_by_INFO'}{$infoTag}{$infoGroup{$infoTag}}{$type}{'mismatches'} += $gtype_mismatches{$type}));
         }
-        $$opts{counts_by_af}{$af}{$type}{mismatches} += $gtype_mismatches{$type};
-        $$opts{gtypes_cmp_total} += $gtype_mismatches{$type};
+        ($$opts{_counter_root} ? comparison_add($opts,$gtype_mismatches{$type},'counts_by_af',$af,$type,'mismatches') : ($$opts{'counts_by_af'}{$af}{$type}{'mismatches'} += $gtype_mismatches{$type}));
+        ($$opts{_counter_root} ? comparison_add($opts,$gtype_mismatches{$type},'gtypes_cmp_total') : ($$opts{'gtypes_cmp_total'} += $gtype_mismatches{$type}));
     }
 
     if ( $$opts{debug} )
