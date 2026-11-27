@@ -1,0 +1,83 @@
+unit-resolution(mp(asserted(Not(fold(fold(state,
+                                        Unit(classify(record1))),
+                                     Unit(classify(record2))) ==
+                                reduce(reduce(state,
+                                        classify(record1)),
+                                       classify(record2)))),
+                   rewrite(Not(fold(fold(state,
+                                        Unit(classify(record1))),
+                                    Unit(classify(record2))) ==
+                               reduce(reduce(state,
+                                        classify(record1)),
+                                      classify(record2))) ==
+                           Not(fold(fold(state,
+                                        Unit(classify(record1))),
+                                    Unit(classify(record2))) ==
+                               reduce(reduce(state,
+                                        classify(record1)),
+                                      classify(record2)))),
+                   Not(fold(fold(state,
+                                 Unit(classify(record1))),
+                            Unit(classify(record2))) ==
+                       reduce(reduce(state,
+                                     classify(record1)),
+                              classify(record2)))),
+                trans*(th-lemma(fold(fold(state,
+                                        Unit(classify(record1))),
+                                     Unit(classify(record2))) ==
+                                fold(reduce(fold(state,
+                                        Unit(classify(record1))),
+                                        classify(record2)),
+                                     Empty(Seq(Int)))),
+                       symm(th-lemma(reduce(fold(state,
+                                        Unit(classify(record1))),
+                                        classify(record2)) ==
+                                     fold(reduce(fold(state,
+                                        Unit(classify(record1))),
+                                        classify(record2)),
+                                        Empty(Seq(Int)))),
+                            fold(reduce(fold(state,
+                                        Unit(classify(record1))),
+                                        classify(record2)),
+                                 Empty(Seq(Int))) ==
+                            reduce(fold(state,
+                                        Unit(classify(record1))),
+                                   classify(record2))),
+                       symm(monotonicity(trans*(th-lemma(reduce(state,
+                                        classify(record1)) ==
+                                        fold(reduce(state,
+                                        classify(record1)),
+                                        Empty(Seq(Int)))),
+                                        symm(th-lemma(fold(state,
+                                        Unit(classify(record1))) ==
+                                        fold(reduce(state,
+                                        classify(record1)),
+                                        Empty(Seq(Int)))),
+                                        fold(reduce(state,
+                                        classify(record1)),
+                                        Empty(Seq(Int))) ==
+                                        fold(state,
+                                        Unit(classify(record1)))),
+                                        reduce(state,
+                                        classify(record1)) ==
+                                        fold(state,
+                                        Unit(classify(record1)))),
+                                        reduce(reduce(state,
+                                        classify(record1)),
+                                        classify(record2)) ==
+                                        reduce(fold(state,
+                                        Unit(classify(record1))),
+                                        classify(record2))),
+                            reduce(fold(state,
+                                        Unit(classify(record1))),
+                                   classify(record2)) ==
+                            reduce(reduce(state,
+                                        classify(record1)),
+                                   classify(record2))),
+                       fold(fold(state,
+                                 Unit(classify(record1))),
+                            Unit(classify(record2))) ==
+                       reduce(reduce(state,
+                                     classify(record1)),
+                              classify(record2))),
+                False)

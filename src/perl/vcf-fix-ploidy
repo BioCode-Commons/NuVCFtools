@@ -172,10 +172,14 @@ sub fix_ploidy
             my $sample = $samples[$isample-9];
             if ( !exists($$samples{$sample}) ) { next; }
 
-            my $gt = $vcf->get_field($$rec[$isample],$igt);
+            # Parse the sample once; retain empty fields, including the tail.
+            # get_field treats an omitted field as '.', distinct from ''.
+            my @fields = split(/:/,$$rec[$isample],-1);
+            push @fields, '' unless @fields;
+            my $gt = $igt < @fields ? $fields[$igt] : '.';
             my ($pl,$gl);
-            if ( $$opts{fix_likelihoods} && $ipl != -1 ) { $pl = $vcf->get_field($$rec[$isample],$ipl); }
-            if ( $$opts{fix_likelihoods} && $igl != -1 ) { $gl = $vcf->get_field($$rec[$isample],$igl); }
+            if ( $$opts{fix_likelihoods} && $ipl != -1 ) { $pl = $ipl < @fields ? $fields[$ipl] : '.'; }
+            if ( $$opts{fix_likelihoods} && $igl != -1 ) { $gl = $igl < @fields ? $fields[$igl] : '.'; }
             
             my ($new_gt, $new_pl, $new_gl);
             if ( !$$samples{$sample} )

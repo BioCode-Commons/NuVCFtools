@@ -29,3 +29,5 @@ All 25 installed entrypoints were reviewed and measured in this pass. C++ has si
 | vcf-tstv | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
 | vcf-validator | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
 | vcftools | Full tested output passed | [Single-core table](single-core-all-tools-20261127.md) |
+
+The [follow-up](single-core-followup-20261127.md) retests indel-stats, ploidy and stats; other entries retain the previous measurements.

@@ -1,0 +1,416 @@
+[
+  {
+    "case": "ploidy-4.0-GT-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-PL:GT:GL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.0-PL:GT:GL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT:GL:PL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT:GL:PL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.0-DP:GT:PL:GL:XX-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.0-DP:GT:PL:GL:XX-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-PL:GT:GL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-PL:GT:GL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT:GL:PL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT:GL:PL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.1-DP:GT:PL:GL:XX-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-DP:GT:PL:GL:XX-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-PL:GT:GL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-PL:GT:GL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT:GL:PL-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT:GL:PL-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "ploidy-4.2-DP:GT:PL:GL:XX-False",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-DP:GT:PL:GL:XX-True",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "indel-sorted",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-unsorted",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      255,
+      255
+    ]
+  },
+  {
+    "case": "indel-multi",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-empty",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-repeat",
+    "workers": 1,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT-True",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.0-GT:GL:PL-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT-True",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-PL:GT:GL-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-GT:GL:PL-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.1-DP:GT:PL:GL:XX-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT-True",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-PL:GT:GL-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-GT:GL:PL-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ploidy-4.2-DP:GT:PL:GL:XX-False",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-sorted",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-multi",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-empty",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "indel-repeat",
+    "workers": 4,
+    "passed": true,
+    "exits": [
+      0,
+      0
+    ]
+  }
+]

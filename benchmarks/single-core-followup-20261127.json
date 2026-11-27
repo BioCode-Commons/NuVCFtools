@@ -1,0 +1,90 @@
+{
+  "baseline": "97def7f8376923c2ca2b9147b35708d67069fc74",
+  "results": {
+    "vcf-indel-stats": {
+      "values": {
+        "original": {
+          "wall_seconds": 0.38,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 10945,
+          "gnu_peak_rss_kib": 10752
+        },
+        "before": {
+          "wall_seconds": 0.56,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 11172,
+          "gnu_peak_rss_kib": 10752
+        },
+        "candidate": {
+          "wall_seconds": 0.44,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11195,
+          "gnu_peak_rss_kib": 10368
+        }
+      },
+      "repetitions": 3,
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
+      "passed": true,
+      "speedup": 0.8636363636363636
+    },
+    "vcf-fix-ploidy": {
+      "values": {
+        "original": {
+          "wall_seconds": 50.96,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11307,
+          "gnu_peak_rss_kib": 10752
+        },
+        "before": {
+          "wall_seconds": 51.62,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11619,
+          "gnu_peak_rss_kib": 10752
+        },
+        "candidate": {
+          "wall_seconds": 45.32,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11592,
+          "gnu_peak_rss_kib": 10752
+        }
+      },
+      "repetitions": 1,
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
+      "passed": true,
+      "speedup": 1.1244483671668137
+    },
+    "vcf-stats": {
+      "values": {
+        "original": {
+          "wall_seconds": 120.05,
+          "sampled_tree_rss_kib": 15360,
+          "sampled_tree_pss_kib": 12569,
+          "gnu_peak_rss_kib": 26880
+        },
+        "before": {
+          "wall_seconds": 29.79,
+          "sampled_tree_rss_kib": 26840,
+          "sampled_tree_pss_kib": 24414,
+          "gnu_peak_rss_kib": 27648
+        },
+        "candidate": {
+          "wall_seconds": 29.94,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 13057,
+          "gnu_peak_rss_kib": 16896
+        }
+      },
+      "repetitions": 1,
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
+      "passed": true,
+      "speedup": 4.009686038744155
+    }
+  },
+  "cleaned_output_bytes": 81949020
+}

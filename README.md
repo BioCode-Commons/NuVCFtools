@@ -71,7 +71,7 @@ This branch adds ordered worker processes to 19 Perl commands. It also changes g
 
 ## Benchmarks <sup><sub>[↑ Contents](#contents)</sub></sup>
 
-The [single-core table](benchmarks/single-core-all-tools-20261127.md) covers all 25 installed entrypoints, with wall time, process-tree RSS, upstream ratios and full output checks. It separates new single-core changes from earlier retained optimizations and lists unchanged or slower cases. The [source audit](benchmarks/single-core-audit-20261127.md) records what was reviewed for each command. Earlier [16-worker memory results](benchmarks/parallel-memory-20261127.md) and [Perl parallel measurements](benchmarks/parallel-perl-tools.md) remain separate. These branch results have not been published to the BioCode Commons website.
+The [single-core table](benchmarks/single-core-all-tools-20261127.md) covers all 25 installed entrypoints, with wall time, process-tree RSS, upstream ratios and full output checks. It separates new single-core changes from earlier retained optimizations and lists unchanged or slower cases. The [follow-up](benchmarks/single-core-followup-20261127.md) targets single-core overhead and stats serialization memory. The [source audit](benchmarks/single-core-audit-20261127.md) records what was reviewed for each command. Earlier [16-worker memory results](benchmarks/parallel-memory-20261127.md) and [Perl parallel measurements](benchmarks/parallel-perl-tools.md) remain separate. These branch results have not been published to the BioCode Commons website.
 
 <a id="ai-use-and-review"></a>
 

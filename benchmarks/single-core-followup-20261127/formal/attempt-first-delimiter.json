@@ -1,0 +1,5 @@
+{
+  "result": "unknown",
+  "reason": "timeout at 5 seconds",
+  "scope": "Unbounded first-delimiter discovery plus extraction. Replaced by separately stated manual delimiter proof and SMT token-boundary checks; not counted as a proved obligation."
+}

@@ -1,0 +1,32 @@
+mp(asserted(Not(seq.extract(last_field,
+                            0,
+                            Length(last_field)) ==
+                last_field)),
+   trans(monotonicity(trans(monotonicity(rewrite(seq.extract(last_field,
+                                        0,
+                                        Length(last_field)) ==
+                                        last_field),
+                                        (seq.extract(last_field,
+                                        0,
+                                        Length(last_field)) ==
+                                        last_field) ==
+                                        (last_field ==
+                                        last_field)),
+                            rewrite((last_field ==
+                                     last_field) ==
+                                    True),
+                            (seq.extract(last_field,
+                                        0,
+                                        Length(last_field)) ==
+                             last_field) ==
+                            True),
+                      Not(seq.extract(last_field,
+                                      0,
+                                      Length(last_field)) ==
+                          last_field) ==
+                      Not(True)),
+         rewrite(Not(True) == False),
+         Not(seq.extract(last_field, 0, Length(last_field)) ==
+             last_field) ==
+         False),
+   False)

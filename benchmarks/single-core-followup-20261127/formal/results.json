@@ -1,0 +1,18 @@
+{
+  "solver": "5.4.1",
+  "scope": "Abstract contracts; no whole-program or Data::Dumper proof",
+  "checks": [
+    {
+      "name": "token_boundary_step",
+      "result": "unsat"
+    },
+    {
+      "name": "token_tail",
+      "result": "unsat"
+    },
+    {
+      "name": "singleton_fold",
+      "result": "unsat"
+    }
+  ]
+}

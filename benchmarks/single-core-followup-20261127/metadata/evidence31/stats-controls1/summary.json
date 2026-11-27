@@ -1,0 +1,392 @@
+[
+  {
+    "case": "stats",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3c4ef435a2c76e6c20661dec384f894dc36e1f36be3510aeff3f0e7d8bec40e5",
+      "3c4ef435a2c76e6c20661dec384f894dc36e1f36be3510aeff3f0e7d8bec40e5"
+    ]
+  },
+  {
+    "case": "stats-filters",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "4a30be052eb7f5bec2810059299474bcf7b601ca51617c8d5e5602149664c2ea",
+      "4a30be052eb7f5bec2810059299474bcf7b601ca51617c8d5e5602149664c2ea"
+    ]
+  },
+  {
+    "case": "stats-subset",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "e4507d69fe8cb4fc9539469804c250d9819b2d1d310ce90d65ea2103a59d9022",
+      "e4507d69fe8cb4fc9539469804c250d9819b2d1d310ce90d65ea2103a59d9022"
+    ]
+  },
+  {
+    "case": "stats-sites",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3beebb590de9b023225769b0f231903f87337b561440134de6615316c2603bc2",
+      "3beebb590de9b023225769b0f231903f87337b561440134de6615316c2603bc2"
+    ]
+  },
+  {
+    "case": "merge",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3f46acf68e80cc86cec2a21c16cac6867e24798b60731e3c25840adbedce64a5",
+      "3f46acf68e80cc86cec2a21c16cac6867e24798b60731e3c25840adbedce64a5"
+    ]
+  },
+  {
+    "case": "merge-trim",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "c13a17be4e75e1cc2dba2839cd7aaaf6cbff0e8261f8406f46443e1dc61d82b4",
+      "c13a17be4e75e1cc2dba2839cd7aaaf6cbff0e8261f8406f46443e1dc61d82b4"
+    ]
+  },
+  {
+    "case": "merge-missing",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "a6ec7fa54bd4a8d90026814d9578061f44a4517f62d5e599ac7723c42db5a9c0",
+      "a6ec7fa54bd4a8d90026814d9578061f44a4517f62d5e599ac7723c42db5a9c0"
+    ]
+  },
+  {
+    "case": "merge-separate",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "cde1c1dea2772c9886e30404af45db6323689295fbc94f8eb76978ce77ebb49f",
+      "cde1c1dea2772c9886e30404af45db6323689295fbc94f8eb76978ce77ebb49f"
+    ]
+  },
+  {
+    "case": "merge-sites",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3ea51915ca51766eb22cbc66955500c391dce2a48fe02ce4dcd256b6e0559ab5",
+      "3ea51915ca51766eb22cbc66955500c391dce2a48fe02ce4dcd256b6e0559ab5"
+    ]
+  },
+  {
+    "case": "api",
+    "hash_seed": 0,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef",
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef"
+    ]
+  },
+  {
+    "case": "stats",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "6d144b708af1b37293273f6e6c1c4df7db001920edd8c2e6caabfc3373bb9490",
+      "6d144b708af1b37293273f6e6c1c4df7db001920edd8c2e6caabfc3373bb9490"
+    ]
+  },
+  {
+    "case": "stats-filters",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "9a40a19d1fffef2565d60b4738a98131844d21ed517c38039055fadf998a2044",
+      "9a40a19d1fffef2565d60b4738a98131844d21ed517c38039055fadf998a2044"
+    ]
+  },
+  {
+    "case": "stats-subset",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "871eb0ed1a8bab7ee24bb84a5743e48f6cc3119aac797c757a425f9fb3cf1248",
+      "871eb0ed1a8bab7ee24bb84a5743e48f6cc3119aac797c757a425f9fb3cf1248"
+    ]
+  },
+  {
+    "case": "stats-sites",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3beebb590de9b023225769b0f231903f87337b561440134de6615316c2603bc2",
+      "3beebb590de9b023225769b0f231903f87337b561440134de6615316c2603bc2"
+    ]
+  },
+  {
+    "case": "merge",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "765adc5a8fbd5c06210995719870874526c65d0416002675e3634ec200255827",
+      "765adc5a8fbd5c06210995719870874526c65d0416002675e3634ec200255827"
+    ]
+  },
+  {
+    "case": "merge-trim",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "4f86982b676e5d9bb9d28f5d3a9c2da4429a79776d511f8f1a9e73c8d83c6506",
+      "4f86982b676e5d9bb9d28f5d3a9c2da4429a79776d511f8f1a9e73c8d83c6506"
+    ]
+  },
+  {
+    "case": "merge-missing",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "f41f6d99fd606004bd901491c2338e520b2413fbf96bfb3a97789094e02b1cbd",
+      "f41f6d99fd606004bd901491c2338e520b2413fbf96bfb3a97789094e02b1cbd"
+    ]
+  },
+  {
+    "case": "merge-separate",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "085efe1d5ea05ea8d1736c68a163a55dc97132dce5666d2970e93430022d09cc",
+      "085efe1d5ea05ea8d1736c68a163a55dc97132dce5666d2970e93430022d09cc"
+    ]
+  },
+  {
+    "case": "merge-sites",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3ea51915ca51766eb22cbc66955500c391dce2a48fe02ce4dcd256b6e0559ab5",
+      "3ea51915ca51766eb22cbc66955500c391dce2a48fe02ce4dcd256b6e0559ab5"
+    ]
+  },
+  {
+    "case": "api",
+    "hash_seed": 1,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef",
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef"
+    ]
+  },
+  {
+    "case": "stats",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "4e4bec7e30c80792e3c1a366d9daf7d17173fa1832ad6c9aea6323375e3905ba",
+      "4e4bec7e30c80792e3c1a366d9daf7d17173fa1832ad6c9aea6323375e3905ba"
+    ]
+  },
+  {
+    "case": "stats-filters",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "673d1c78c50e689f295dceed0fafd08dab3a3385e9e71899927b6dcd789eb1e9",
+      "673d1c78c50e689f295dceed0fafd08dab3a3385e9e71899927b6dcd789eb1e9"
+    ]
+  },
+  {
+    "case": "stats-subset",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "0b563b62a7474a079a9226a1fab233e7a6eaff35f326d0899267b271029f35d6",
+      "0b563b62a7474a079a9226a1fab233e7a6eaff35f326d0899267b271029f35d6"
+    ]
+  },
+  {
+    "case": "stats-sites",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "9d32160ae0c40bb3aac825cc1b1ed41b5e459c833e64a68fecb83337c09ab6f5",
+      "9d32160ae0c40bb3aac825cc1b1ed41b5e459c833e64a68fecb83337c09ab6f5"
+    ]
+  },
+  {
+    "case": "merge",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "e9c7a329d9be0ebccb7bf0fa1b44c65c772e3d5bb57d51f6a80ff140d866ff79",
+      "e9c7a329d9be0ebccb7bf0fa1b44c65c772e3d5bb57d51f6a80ff140d866ff79"
+    ]
+  },
+  {
+    "case": "merge-trim",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "3f282570c933aa9d446480eb8ba8343b56c2c12c7b82d14655ef8791e57005f4",
+      "3f282570c933aa9d446480eb8ba8343b56c2c12c7b82d14655ef8791e57005f4"
+    ]
+  },
+  {
+    "case": "merge-missing",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "1827498658fefa8e93bd19fd106285cc2f232af3d2b8d54a8c3b2ec483cdd822",
+      "1827498658fefa8e93bd19fd106285cc2f232af3d2b8d54a8c3b2ec483cdd822"
+    ]
+  },
+  {
+    "case": "merge-separate",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "9febf44f22e3a2c8d49808824bb47a3a000440f7b2b7599aa0fd9ae9ecc8c3c3",
+      "9febf44f22e3a2c8d49808824bb47a3a000440f7b2b7599aa0fd9ae9ecc8c3c3"
+    ]
+  },
+  {
+    "case": "merge-sites",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "6a16b874918bc44e89de5c0183c2d07b8ae76105d5e7306a590fdd00a1214a93",
+      "6a16b874918bc44e89de5c0183c2d07b8ae76105d5e7306a590fdd00a1214a93"
+    ]
+  },
+  {
+    "case": "api",
+    "hash_seed": 19,
+    "passed": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "stdout_sha256": [
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef",
+      "1f60262d9c530fbea825154e991deb0ee4e7b3ef5134a6812ffb624b5a619bef"
+    ]
+  }
+]

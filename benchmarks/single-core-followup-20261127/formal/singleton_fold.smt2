@@ -1,0 +1,17 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun reduce (Int Int) Int)
+(declare-fun classify (Int) Int)
+(declare-fun record2 () Int)
+(declare-fun record1 () Int)
+(declare-fun state () Int)
+(define-funs-rec ( ( fold ((x!1 Int) (x!2 (Seq Int))) Int))
+                 ( (let ((a!1 ((_ fold 0)
+                                (reduce x!1 (seq.nth x!2 0))
+                                (seq.extract x!2 1 (- (seq.len x!2) 1)))))
+                     (ite (= (seq.len x!2) 0) x!1 a!1))))
+(assert
+ (let ((?x61 ((_ fold 0) ((_ fold 0) state (seq.unit (classify record1))) (seq.unit (classify record2)))))
+(let (($x64 (= ?x61 (reduce (reduce state (classify record1)) (classify record2)))))
+(not $x64))))
+(check-sat)

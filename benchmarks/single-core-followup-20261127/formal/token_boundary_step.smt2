@@ -1,0 +1,18 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun tail () (Seq Int))
+(declare-fun field () (Seq Int))
+(assert
+ (let ((?x8 (seq.unit 58)))
+(let ((?x9 (seq.++ ?x8 tail)))
+(let ((?x10 (seq.++ field ?x9)))
+(let ((?x17 (seq.len ?x10)))
+(let ((?x11 (seq.len field)))
+(let ((?x16 (+ ?x11 1)))
+(let ((?x18 (seq.extract ?x10 ?x16 ?x17)))
+(let (($x19 (= ?x18 tail)))
+(let ((?x13 (seq.extract ?x10 0 ?x11)))
+(let (($x14 (= ?x13 field)))
+(let (($x20 (and $x14 $x19)))
+(not $x20)))))))))))))
+(check-sat)

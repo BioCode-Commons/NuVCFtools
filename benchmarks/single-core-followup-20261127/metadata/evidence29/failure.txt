@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/sss/jobtmp/zliu328/nuvcftools-parallel-tools-v1/run29.py", line 75, in <module>
+    subprocess.run(['python3',str(R/'candidate29/tests/single_core_followup_regression.py'),'--before',str(LIB['before']),'--candidate',str(LIB['candidate']),'--output',str(E/'targeted-controls')],check=True,env=ENV)
+  File "/oscar/rt/9.6/25/spack/x86_64_v3/python-3.11.11-5e66epfh6bxt72bivuccajllo5eixfnq/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate29/tests/single_core_followup_regression.py', '--before', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl', '--candidate', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate29/src/perl', '--output', '/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence29/targeted-controls']' returned non-zero exit status 1.

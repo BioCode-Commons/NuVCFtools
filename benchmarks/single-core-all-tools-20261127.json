@@ -335,62 +335,62 @@
     {
       "tool": "vcf-fix-ploidy",
       "case": "500 samples; active haploid conversion",
-      "job": "9692585",
-      "node": "node1916.oscar.ccv.brown.edu",
-      "source_snapshot": "candidate27",
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
       "repetitions": 1,
       "values": {
         "original": {
-          "wall_seconds": 41.48,
-          "gnu_peak_rss_kib": 11136,
-          "sampled_tree_rss_kib": 16128,
-          "sampled_tree_pss_kib": 11238
+          "wall_seconds": 50.96,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11307,
+          "gnu_peak_rss_kib": 10752
         },
         "before": {
-          "wall_seconds": 42.27,
-          "gnu_peak_rss_kib": 11136,
-          "sampled_tree_rss_kib": 16896,
-          "sampled_tree_pss_kib": 11536
+          "wall_seconds": 51.62,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11619,
+          "gnu_peak_rss_kib": 10752
         },
         "candidate": {
-          "wall_seconds": 42.1,
-          "gnu_peak_rss_kib": 10752,
-          "sampled_tree_rss_kib": 16128,
-          "sampled_tree_pss_kib": 11431
+          "wall_seconds": 45.32,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11592,
+          "gnu_peak_rss_kib": 10752
         }
       },
       "passed": true,
-      "speedup": 0.985273159144893
+      "speedup": 1.1244483671668137
     },
     {
       "tool": "vcf-indel-stats",
       "case": "500 samples; coordinate interval",
-      "job": "9691582",
-      "node": "node1911.oscar.ccv.brown.edu",
-      "source_snapshot": "candidate24",
-      "repetitions": 1,
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
+      "repetitions": 3,
       "values": {
         "original": {
-          "wall_seconds": 0.44,
-          "gnu_peak_rss_kib": 10752,
-          "sampled_tree_rss_kib": 15744,
-          "sampled_tree_pss_kib": 10998
+          "wall_seconds": 0.38,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 10945,
+          "gnu_peak_rss_kib": 10752
         },
         "before": {
-          "wall_seconds": 0.6,
-          "gnu_peak_rss_kib": 13824,
-          "sampled_tree_rss_kib": 19584,
-          "sampled_tree_pss_kib": 13845
+          "wall_seconds": 0.56,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 11172,
+          "gnu_peak_rss_kib": 10752
         },
         "candidate": {
-          "wall_seconds": 0.57,
-          "gnu_peak_rss_kib": 10752,
-          "sampled_tree_rss_kib": 15744,
-          "sampled_tree_pss_kib": 11324
+          "wall_seconds": 0.44,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11195,
+          "gnu_peak_rss_kib": 10368
         }
       },
       "passed": true,
-      "speedup": 0.7719298245614036
+      "speedup": 0.8636363636363636
     },
     {
       "tool": "vcf-isec",
@@ -575,32 +575,32 @@
     {
       "tool": "vcf-stats",
       "case": "500 samples; default statistics",
-      "job": "9691582",
-      "node": "node1911.oscar.ccv.brown.edu",
-      "source_snapshot": "candidate24",
+      "job": "9693876",
+      "node": "node1842.oscar.ccv.brown.edu",
+      "source_snapshot": "candidate31",
       "repetitions": 1,
       "values": {
         "original": {
-          "wall_seconds": 121.34,
-          "gnu_peak_rss_kib": 26880,
+          "wall_seconds": 120.05,
           "sampled_tree_rss_kib": 15360,
-          "sampled_tree_pss_kib": 12565
+          "sampled_tree_pss_kib": 12569,
+          "gnu_peak_rss_kib": 26880
         },
         "before": {
-          "wall_seconds": 30.79,
-          "gnu_peak_rss_kib": 30336,
-          "sampled_tree_rss_kib": 21888,
-          "sampled_tree_pss_kib": 19488
+          "wall_seconds": 29.79,
+          "sampled_tree_rss_kib": 26840,
+          "sampled_tree_pss_kib": 24414,
+          "gnu_peak_rss_kib": 27648
         },
         "candidate": {
-          "wall_seconds": 30.02,
-          "gnu_peak_rss_kib": 27648,
-          "sampled_tree_rss_kib": 25256,
-          "sampled_tree_pss_kib": 22761
+          "wall_seconds": 29.94,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 13057,
+          "gnu_peak_rss_kib": 16896
         }
       },
       "passed": true,
-      "speedup": 4.0419720186542305
+      "speedup": 4.009686038744155
     },
     {
       "tool": "vcf-subset",
@@ -904,5 +904,7 @@
     }
   ],
   "removed_output_bytes": 6772551720,
-  "removed_derived_input_bytes": 332560845
+  "removed_derived_input_bytes": 332560845,
+  "followup_report": "single-core-followup-20261127.md",
+  "followup_removed_output_bytes": 81949020
 }

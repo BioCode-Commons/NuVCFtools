@@ -1,0 +1,86 @@
+{
+  "case": "stats500",
+  "tool": "vcf-stats",
+  "arguments": [
+    "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+  ],
+  "stdin": "None",
+  "measurements": {
+    "original": {
+      "wall_seconds": 120.05,
+      "gnu_peak_rss_kib": 26880,
+      "user_seconds": 119.44,
+      "system_seconds": 0.16,
+      "sampled_tree_rss_kib": 15360,
+      "sampled_tree_pss_kib": 12569,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-original.time",
+        "taskset",
+        "-c",
+        "15",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-stats",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ]
+    },
+    "before": {
+      "wall_seconds": 29.79,
+      "gnu_peak_rss_kib": 27648,
+      "user_seconds": 29.53,
+      "system_seconds": 0.12,
+      "sampled_tree_rss_kib": 26840,
+      "sampled_tree_pss_kib": 24414,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-before.time",
+        "taskset",
+        "-c",
+        "15",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-stats",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+        "--workers",
+        "1"
+      ]
+    },
+    "candidate": {
+      "wall_seconds": 29.94,
+      "gnu_peak_rss_kib": 16896,
+      "user_seconds": 29.67,
+      "system_seconds": 0.11,
+      "sampled_tree_rss_kib": 15744,
+      "sampled_tree_pss_kib": 13057,
+      "sampling_seconds": 0.1,
+      "exit": 0,
+      "cores": 1,
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "%e %M %U %S",
+        "-o",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-candidate.time",
+        "taskset",
+        "-c",
+        "15",
+        "perl",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-stats",
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+        "--workers",
+        "1"
+      ]
+    }
+  }
+}

@@ -1,0 +1,201 @@
+mp(asserted(Not(And(seq.extract(Concat(field,
+                                       Concat(Unit(58),
+                                        tail)),
+                                0,
+                                Length(field)) ==
+                    field,
+                    seq.extract(Concat(field,
+                                       Concat(Unit(58),
+                                        tail)),
+                                Length(field) + 1,
+                                Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                    tail))),
+   trans(monotonicity(trans(monotonicity(trans(monotonicity(trans(rewrite(seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                        Concat(field,
+                                        seq.extract(Concat(Unit(58),
+                                        tail),
+                                        0,
+                                        0))),
+                                        trans(monotonicity(rewrite(seq.extract(Concat(Unit(58),
+                                        tail),
+                                        0,
+                                        0) ==
+                                        Empty(Seq(Int))),
+                                        Concat(field,
+                                        seq.extract(Concat(Unit(58),
+                                        tail),
+                                        0,
+                                        0)) ==
+                                        Concat(field,
+                                        Empty(Seq(Int)))),
+                                        rewrite(Concat(field,
+                                        Empty(Seq(Int))) ==
+                                        field),
+                                        Concat(field,
+                                        seq.extract(Concat(Unit(58),
+                                        tail),
+                                        0,
+                                        0)) ==
+                                        field),
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                        field),
+                                        (seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                        field) ==
+                                        (field == field)),
+                                        rewrite((field ==
+                                        field) ==
+                                        True),
+                                        (seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                        field) ==
+                                        True),
+                                        trans(monotonicity(trans(trans(monotonicity(rewrite(Length(field) +
+                                        1 ==
+                                        1 + Length(field)),
+                                        trans(rewrite(Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail))) ==
+                                        Length(field) +
+                                        Length(tail) +
+                                        1),
+                                        rewrite(Length(field) +
+                                        Length(tail) +
+                                        1 ==
+                                        1 +
+                                        Length(field) +
+                                        Length(tail)),
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail))) ==
+                                        1 +
+                                        Length(field) +
+                                        Length(tail)),
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        1 + Length(field),
+                                        1 +
+                                        Length(field) +
+                                        Length(tail))),
+                                        rewrite(seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        1 + Length(field),
+                                        1 +
+                                        Length(field) +
+                                        Length(tail)) ==
+                                        seq.extract(tail,
+                                        0,
+                                        1 +
+                                        Length(field) +
+                                        Length(tail))),
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        seq.extract(tail,
+                                        0,
+                                        1 +
+                                        Length(field) +
+                                        Length(tail))),
+                                        rewrite(seq.extract(tail,
+                                        0,
+                                        1 +
+                                        Length(field) +
+                                        Length(tail)) ==
+                                        tail),
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        tail),
+                                        (seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        tail) ==
+                                        (tail == tail)),
+                                        rewrite((tail ==
+                                        tail) ==
+                                        True),
+                                        (seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        tail) ==
+                                        True),
+                                        And(seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                        field,
+                                        seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                        tail) ==
+                                        And(True, True)),
+                            rewrite(And(True, True) == True),
+                            And(seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                                field,
+                                seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        Length(field) + 1,
+                                        Length(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)))) ==
+                                tail) ==
+                            True),
+                      Not(And(seq.extract(Concat(field,
+                                        Concat(Unit(58),
+                                        tail)),
+                                        0,
+                                        Length(field)) ==
+                              field,
+                              seq.extract(Concat(field,
+...

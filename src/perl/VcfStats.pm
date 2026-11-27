@@ -471,6 +471,9 @@ sub add_variant
 sub dump
 {
     my ($self) = @_;
+    # No caller observes Dumper's internal Seen table. Retain entries only
+    # where alias/cycle detection can need them; formatting stays unchanged.
+    local $Data::Dumper::Sparseseen = 1;
     return Dumper($$self{stats});
 }
 

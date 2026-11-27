@@ -79,9 +79,7 @@ sub do_stats
     $$opts{in_frame} = $$opts{out_frame} = 0;
     my ($prev_chr,$prev_pos);
     my $ntot=0;
-    NuOrderedWorkers::run(
-        workers=>$$opts{workers} || 1,
-        next=>NuOrderedWorkers::prepared_line_batches(sub { $vcf->next_line() },sub {
+    my $prepare = sub {
         my ($line)=@_;
         if ( substr($line,0,1) eq '#' ) { return undef; }
         my $i=0;
@@ -100,17 +98,12 @@ sub do_stats
         #print "[$chr] [$pos] [$ref] [$alt]\n";
 
         return [$chr,$pos,$ref,$alt];
-        },$$opts{worker_batch_bytes} || 4194304),
-        work=>sub {
-            my ($batch)=@_;
-            my @results;
-            for my $item (@$batch) {
-                my $fields=NuOrderedWorkers::take_prepared_value($item);
-                next unless defined $fields;
-                my ($chr,$pos,$ref,$alt)=@$fields;
-                my @lengths;
-                my $last_indel=0;
-        my $is_indel;
+    };
+    my $classify = sub {
+        my ($fields)=@_;
+        my ($chr,$pos,$ref,$alt)=@$fields;
+        my @lengths;
+        my $last_indel=0;
         my ($i,$j);
         $i=0;
         while (($j=index($alt,',',$i))!=-1)
@@ -125,16 +118,36 @@ sub do_stats
             $last_indel=1;
             push @lengths,$len;
         }
-                push @results,[$chr,$pos,$last_indel,\@lengths];
-            }
-            return \@results;
-        },reduce=>sub {
-            my ($results)=@_;
-            for my $rec (@$results) {
-                $ntot += $$rec[2];
-                check_csq($opts,$$rec[0],$$rec[1],$_) for @{$$rec[3]};
-            }
-        });
+        return [$chr,$pos,$last_indel,\@lengths];
+    };
+    my $accumulate = sub {
+        my ($rec)=@_;
+        $ntot += $$rec[2];
+        check_csq($opts,$$rec[0],$$rec[1],$_) for @{$$rec[3]};
+    };
+    if (($$opts{workers} || 1)==1) {
+        while (defined(my $line=$vcf->next_line())) {
+            $! = 0; $? = 0;
+            my $fields=$prepare->($line);
+            $accumulate->($classify->($fields)) if defined $fields;
+        }
+    }
+    else {
+        NuOrderedWorkers::run(
+            workers=>$$opts{workers},
+            next=>NuOrderedWorkers::prepared_line_batches(sub {$vcf->next_line()},$prepare,$$opts{worker_batch_bytes} || 4194304),
+            work=>sub {
+                my ($batch)=@_;
+                my @results;
+                for my $item (@$batch) {
+                    my $fields=NuOrderedWorkers::take_prepared_value($item);
+                    push @results,$classify->($fields) if defined $fields;
+                }
+                return \@results;
+            },reduce=>sub {
+                $accumulate->($_) for @{$_[0]};
+            });
+    }
     printf "total\t%d\n", $ntot;
     printf "in-frame\t%d\n", $$opts{in_frame};
     printf "frameshift\t%d\n", $$opts{out_frame};

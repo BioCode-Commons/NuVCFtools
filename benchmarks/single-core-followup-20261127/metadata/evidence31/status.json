@@ -1,0 +1,467 @@
+{
+  "state": "complete",
+  "job": "9693876",
+  "node": "node1842.oscar.ccv.brown.edu",
+  "cpus": [
+    15,
+    19,
+    20,
+    21
+  ],
+  "results": [
+    {
+      "case": "indel500-r0",
+      "tool": "vcf-indel-stats",
+      "arguments": [
+        "-e",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.4,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.31,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 10990,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r0-original.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+          ]
+        },
+        "before": {
+          "wall_seconds": 0.57,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.49,
+          "system_seconds": 0.06,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 11172,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r0-before.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 0.44,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.37,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11293,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r0-candidate.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 159
+    },
+    {
+      "case": "indel500-r1",
+      "tool": "vcf-indel-stats",
+      "arguments": [
+        "-e",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.38,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.31,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 10945,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r1-original.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+          ]
+        },
+        "before": {
+          "wall_seconds": 0.56,
+          "gnu_peak_rss_kib": 10368,
+          "user_seconds": 0.49,
+          "system_seconds": 0.06,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11169,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r1-before.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 0.44,
+          "gnu_peak_rss_kib": 10368,
+          "user_seconds": 0.38,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11174,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r1-candidate.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 159
+    },
+    {
+      "case": "indel500-r2",
+      "tool": "vcf-indel-stats",
+      "arguments": [
+        "-e",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 0.38,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.31,
+          "system_seconds": 0.06,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 10905,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r2-original.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region"
+          ]
+        },
+        "before": {
+          "wall_seconds": 0.56,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 0.48,
+          "system_seconds": 0.07,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 11227,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r2-before.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 0.44,
+          "gnu_peak_rss_kib": 10368,
+          "user_seconds": 0.37,
+          "system_seconds": 0.05,
+          "sampled_tree_rss_kib": 16128,
+          "sampled_tree_pss_kib": 11195,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/indel500-r2-candidate.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-indel-stats -e /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/region --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 159
+    },
+    {
+      "case": "ploidy500",
+      "tool": "vcf-fix-ploidy",
+      "arguments": [
+        "-s",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/sexes",
+        "-p",
+        "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/policy"
+      ],
+      "stdin": "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+      "measurements": {
+        "original": {
+          "wall_seconds": 50.96,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 50.66,
+          "system_seconds": 0.11,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11307,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/ploidy500-original.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/policy"
+          ]
+        },
+        "before": {
+          "wall_seconds": 51.62,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 51.12,
+          "system_seconds": 0.13,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11619,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/ploidy500-before.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/policy --workers 1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 45.32,
+          "gnu_peak_rss_kib": 10752,
+          "user_seconds": 44.79,
+          "system_seconds": 0.16,
+          "sampled_tree_rss_kib": 16512,
+          "sampled_tree_pss_kib": 11592,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/ploidy500-candidate.time",
+            "taskset",
+            "-c",
+            "15",
+            "bash",
+            "-o",
+            "pipefail",
+            "-c",
+            "gzip -dc /jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz | perl /jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-fix-ploidy -s /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/sexes -p /jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/data/policy --workers 1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 76877907
+    },
+    {
+      "case": "stats500",
+      "tool": "vcf-stats",
+      "arguments": [
+        "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+      ],
+      "stdin": "None",
+      "measurements": {
+        "original": {
+          "wall_seconds": 120.05,
+          "gnu_peak_rss_kib": 26880,
+          "user_seconds": 119.44,
+          "system_seconds": 0.16,
+          "sampled_tree_rss_kib": 15360,
+          "sampled_tree_pss_kib": 12569,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-original.time",
+            "taskset",
+            "-c",
+            "15",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-benchmark-20261121/install/VCFtools/bin/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz"
+          ]
+        },
+        "before": {
+          "wall_seconds": 29.79,
+          "gnu_peak_rss_kib": 27648,
+          "user_seconds": 29.53,
+          "system_seconds": 0.12,
+          "sampled_tree_rss_kib": 26840,
+          "sampled_tree_pss_kib": 24414,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-before.time",
+            "taskset",
+            "-c",
+            "15",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/before29/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        },
+        "candidate": {
+          "wall_seconds": 29.94,
+          "gnu_peak_rss_kib": 16896,
+          "user_seconds": 29.67,
+          "system_seconds": 0.11,
+          "sampled_tree_rss_kib": 15744,
+          "sampled_tree_pss_kib": 13057,
+          "sampling_seconds": 0.1,
+          "exit": 0,
+          "cores": 1,
+          "command": [
+            "/usr/bin/time",
+            "-f",
+            "%e %M %U %S",
+            "-o",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/evidence31/stats500-candidate.time",
+            "taskset",
+            "-c",
+            "15",
+            "perl",
+            "/jobtmp/zliu328/nuvcftools-parallel-tools-v1/candidate31/src/perl/vcf-stats",
+            "/jobtmp/zliu328/nuvcftools-parallel-ld-20261126/data/cohort500.vcf.gz",
+            "--workers",
+            "1"
+          ]
+        }
+      },
+      "passed": true,
+      "cleaned_bytes": 5070636
+    }
+  ]
+}
