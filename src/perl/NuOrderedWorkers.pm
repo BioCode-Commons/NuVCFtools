@@ -61,12 +61,21 @@ sub run
     my $sequence = 0;
     my $ended = 0;
     my $cleanup = sub {
+        # Reaping cancelled children must not replace the primary error status.
+        local ($!, $?);
+#line 64
         kill 'TERM', map { $_->{pid} } @queue if @queue;
         for my $entry (@queue) { _wait($entry->{pid}); }
         @queue = ();
     };
-    local $SIG{INT} = sub { die "Interrupted (SIGINT)\n"; };
-    local $SIG{TERM} = sub { die "Interrupted (SIGTERM)\n"; };
+    # A child can receive cancellation immediately after inheriting these handlers.
+    # That child must exit, not unwind the parent's copied queue and attempt
+    # to wait for sibling processes that it does not own.
+    my $parent_pid = $$;
+    local $SIG{INT} = sub { POSIX::_exit(130) if $$ != $parent_pid; die "Interrupted (SIGINT)\n"; };
+    local $SIG{TERM} = sub { POSIX::_exit(143) if $$ != $parent_pid; die "Interrupted (SIGTERM)\n"; };
+    # Keep the original diagnostic locations in callbacks and cleanup.
+#line 70
     local $SIG{PIPE} = 'IGNORE';
     my $ok = eval {
         while (!$ended || @queue)
@@ -82,7 +91,7 @@ sub run
                 die "Cannot start worker: $!\n" unless defined $pid;
                 if (!$pid)
                 {
-                    $SIG{INT} = $SIG{TERM} = 'DEFAULT';
+                    # The inherited handlers exit directly in children.
                     my $child_ok = eval {
                         open(STDOUT, '>', "$prefix.out") or die "Worker stdout: $!\n";
                         open(STDERR, '>', "$prefix.err") or die "Worker stderr: $!\n";

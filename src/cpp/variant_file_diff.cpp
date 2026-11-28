@@ -1253,13 +1253,11 @@ void variant_file::output_switch_error(const parameters &params, variant_file &d
 	vector<int> N_phased_het_sites(N_combined_indv, 0);
 	vector<int> N_switch_errors(N_combined_indv, 0);
 
-	pair<string, string> missing_genotype(".",".");
-	pair<string, int> missing_loc(".",-1);
-	vector<pair<string, string> > prev_geno_file1(N_combined_indv, missing_genotype);
-	vector<pair<string, string> > prev_geno_file2(N_combined_indv, missing_genotype);
-	vector<pair<string, int> > prev_pos_file1(N_combined_indv, missing_loc);
-	vector<pair<string, int> > prev_pos_file2(N_combined_indv, missing_loc);
-	pair<string, string> file1_hap1, file1_hap2, file2_hap1;
+	// Matching phased heterozygotes have only two relative orientations.
+	// Retain that relationship instead of four potentially long allele strings.
+	// State 2 marks the first informative site, which cannot be a switch.
+	vector<unsigned char> previous_orientation(N_combined_indv, 2);
+	vector<pair<string, int> > previous_position(N_combined_indv, make_pair(string("."), -1));
 
 	if (N_combined_indv <= 0)
 		LOG.error("No overlapping individuals can be found.");
@@ -1439,31 +1437,17 @@ void variant_file::output_switch_error(const parameters &params, variant_file &d
 							if ((phase1 == '|') && (phase2 == '|'))
 							{	// Calculate Phasing error (switch error)
 								N_phased_het_sites[indv_count]++;
-								file1_hap1 = make_pair<string,string>((string)prev_geno_file1[indv_count].first, (string)genotype1.first);
-								file1_hap2 = make_pair<string,string>((string)prev_geno_file1[indv_count].second, (string)genotype1.second);
-								file2_hap1 = make_pair<string,string>((string)prev_geno_file2[indv_count].first, (string)genotype2.first);
-
-								if ((file2_hap1 != file1_hap1) && (file2_hap1 != file1_hap2))
-								{	// Must be a switch error
-									string indv_id;
+								const unsigned char orientation = genotype1.first == genotype2.first ? 0 : 1;
+								if (previous_orientation[indv_count] != 2 && previous_orientation[indv_count] != orientation)
+								{
 									N_switch_errors[indv_count]++;
-									if (indv1 != -1)
-										indv_id = meta_data.indv[indv1];
-									else
-										indv_id = diff_variant_file.meta_data.indv[indv2];
-
-									if (prev_pos_file1[indv_count].first == prev_pos_file2[indv_count].first)
-									{
-										if (prev_pos_file1[indv_count].second <= prev_pos_file2[indv_count].second)
-											switcherror << prev_pos_file1[indv_count].first << "\t" << prev_pos_file1[indv_count].second << "\t" << POS1 << "\t" << indv_id << endl;
-										else
-											switcherror << prev_pos_file1[indv_count].first << "\t" << prev_pos_file2[indv_count].second << "\t" << POS1 << "\t" << indv_id << endl;
-									}
+									const pair<string, int> &previous = previous_position[indv_count];
+									switcherror << previous.first << "\t" << previous.second << "\t" << POS1 << "\t" << meta_data.indv[indv1] << endl;
 								}
-								prev_geno_file1[indv_count] = genotype1;
-								prev_geno_file2[indv_count] = genotype2;
-								prev_pos_file1[indv_count] = std::pair<string,int>(CHROM1,POS1);
-								prev_pos_file2[indv_count] = std::pair<string,int>(CHROM2,POS2);
+								previous_orientation[indv_count] = orientation;
+								// Both files advance here only at the same chromosome and position.
+								// Keep the legacy history across chromosome boundaries as well.
+								previous_position[indv_count] = make_pair(CHROM1, POS1);
 							}
 						}
 					}

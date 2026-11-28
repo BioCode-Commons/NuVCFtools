@@ -154,6 +154,13 @@ sub contrast
     my @x = split(/,/, $$rec[4]);
     my $n_als = 1 + scalar @x;
 
+    if ( $has_PL )
+    {
+        my @indexed = contrast_pl_indexed($opts,$vcf,$rec,$ipl,$idp,$n_als);
+        return @indexed if shift @indexed;
+    }
+    # Keep diagnostic locations in the unchanged legacy path stable.
+#line 157
 	my (@bg_pls, @bg_als, @bg_gts, @var_pls, $min_dp);
     my (%ordered,%genotypes,%alleles);
     my $valid = 0;
@@ -329,3 +336,83 @@ sub same_gts
 	return 0;
 }
 
+
+# Complete, small integer likelihoods permit a shared background minimum:
+# min_background min_genotype(F + B) = min_genotype(F + min_background B).
+# A false first result requests the original path, including its diagnostics.
+sub contrast_pl_indexed
+{
+    my ($opts,$vcf,$rec,$ipl,$idp,$n_als) = @_;
+    return (0) if @{$$opts{var_cols}} < 2 || @{$$opts{bg_cols}} < 2;
+    return (0) if defined($idp) && (!defined($$opts{min_dp}) || $$opts{min_dp} !~ /\A[0-9]{1,9}\z/);
+
+    # Do not retain a likelihood array for every sample. Validate first without
+    # numeric coercion, then consume one sample at a time. Nine decimal digits
+    # keep pairwise sums exact even on a Perl with 32-bit signed integers.
+    my $diploid_width = $n_als * ($n_als+1) / 2;
+    for my $columns ($$opts{bg_cols},$$opts{var_cols})
+    {
+        for my $col (@$columns)
+        {
+            return (0) unless defined $$rec[$col];
+            my $pl = $vcf->get_field($$rec[$col],$ipl);
+            return (0) unless $pl =~ /\A[0-9]{1,9}(?:,[0-9]{1,9})*\z/;
+            my $width = 1 + ($pl =~ tr/,//);
+            return (0) unless $width == $n_als || $width == $diploid_width;
+        }
+    }
+    if ( defined $idp )
+    {
+        for my $col (@{$$opts{bg_cols}})
+        {
+            return (0) unless $vcf->get_field($$rec[$col],$idp) =~ /\A[0-9]{1,9}\z/;
+        }
+    }
+
+    my (@minimum,%bg_genotypes,%bg_alleles,$min_dp);
+    for my $col (@{$$opts{bg_cols}})
+    {
+        if ( defined $idp )
+        {
+            my $dp = $vcf->get_field($$rec[$col],$idp);
+            $min_dp = $dp if !defined($min_dp) || $dp < $min_dp;
+        }
+        my ($pl,@als) = likely_gt($vcf->get_field($$rec[$col],$ipl),$n_als);
+        my @values = split(/,/,$pl);
+        if ( !@minimum ) { @minimum = @values; }
+        else
+        {
+            for (my $i=0; $i<@values; $i++)
+            {
+                $minimum[$i] = $values[$i] if $values[$i] < $minimum[$i];
+            }
+        }
+        $bg_genotypes{join('/',sort(@als))} = 1;
+        $bg_alleles{$_} = 1 for @als;
+    }
+    return (1,undef) if defined($min_dp) && $min_dp < $$opts{min_dp};
+
+    my (%novel_gt,%novel_al,$min_score);
+    my $n_genotypes = scalar keys %bg_genotypes;
+    for my $col (@{$$opts{var_cols}})
+    {
+        my ($pl,@als) = likely_gt($vcf->get_field($$rec[$col],$ipl),$n_als);
+        @als = sort @als;
+        my $gt = join('/',@als);
+        # Legacy NOVELGT means that at least one background differs. Preserve
+        # this membership even when this foreground's score is zero.
+        $novel_gt{$col} = 1 if $n_genotypes > 1 || !exists($bg_genotypes{$gt});
+        my @values = split(/,/,$pl);
+        my $score = $values[0] + $minimum[0];
+        for (my $i=1; $i<@values; $i++)
+        {
+            my $sum = $values[$i] + $minimum[$i];
+            $score = $sum if $sum < $score;
+        }
+        next if !$score;
+        $min_score = $score if !defined($min_score) || $score < $min_score;
+        for my $al (@als) { $novel_al{$col} = 1 if !exists($bg_alleles{$al}); }
+    }
+    return (1,undef) if !$min_score || (!keys(%novel_gt) && !keys(%novel_al));
+    return (1,$min_score,\%novel_al,\%novel_gt);
+}

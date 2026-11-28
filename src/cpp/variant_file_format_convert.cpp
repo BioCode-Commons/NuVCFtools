@@ -53,8 +53,9 @@ void variant_file::output_as_plink(const parameters &params)
 			continue;
 
 		string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-		char tmpname[new_tmp.size()];
-		strcpy(tmpname, new_tmp.c_str());
+		vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+		temp_name.push_back('\0');
+		char *tmpname = &temp_name[0];
 
 		fd = mkstemp(tmpname);
 		if (fd == -1)
@@ -426,8 +427,9 @@ void variant_file::output_as_012_matrix(const parameters &params)
 		FAM << meta_data.indv[ui] << endl;
 
 		string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-		char tmpname[new_tmp.size()];
-		strcpy(tmpname, new_tmp.c_str());
+		vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+		temp_name.push_back('\0');
+		char *tmpname = &temp_name[0];
 
 		fd = mkstemp(tmpname);
 		if (fd == -1)
@@ -647,8 +649,9 @@ void variant_file::output_as_LDhat_phased(const parameters &params)
 	int ret = -1;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	string locs_tmp_filename(tmpname);
@@ -677,8 +680,9 @@ void variant_file::output_as_LDhat_phased(const parameters &params)
 		if (include_indv[ui] == false)
 			continue;
 
-		char tmpname[new_tmp.size()];
-		strcpy(tmpname, new_tmp.c_str());
+		vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+		temp_name.push_back('\0');
+		char *tmpname = &temp_name[0];
 		ret = mkstemp(tmpname);
 		ofstream *tmp_file = new ofstream(tmpname);
 		if (ret == -1)
@@ -699,8 +703,9 @@ void variant_file::output_as_LDhat_phased(const parameters &params)
 		tmp_files[2*ui] = tmp_file;
 		tmp_filenames[2*ui] = tmpname;
 
-		char tmpname2[new_tmp.size()];
-		strcpy(tmpname2, new_tmp.c_str());
+		vector<char> temp_name2(new_tmp.begin(), new_tmp.end());
+		temp_name2.push_back('\0');
+		char *tmpname2 = &temp_name2[0];
 		ret = mkstemp(tmpname2);
 		ofstream *tmp_file2 = new ofstream(tmpname2);
 		if (ret == -1)
@@ -830,8 +835,9 @@ void variant_file::output_as_LDhat_unphased(const parameters &params)
 	int ret = -1;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	string locs_tmp_filename(tmpname);
@@ -860,8 +866,9 @@ void variant_file::output_as_LDhat_unphased(const parameters &params)
 		if (include_indv[ui] == false)
 			continue;
 
-		char tmpname[new_tmp.size()];
-		strcpy(tmpname, new_tmp.c_str());
+		vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+		temp_name.push_back('\0');
+		char *tmpname = &temp_name[0];
 
 		ret = mkstemp(tmpname);
 		string filename(tmpname);
@@ -1014,8 +1021,9 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 	int ret = -1;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	string pos_tmp_filename(tmpname);
@@ -1045,8 +1053,9 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 		if (include_indv[ui] == false)
 			continue;
 
-		char tmpname[new_tmp.size()];
-		strcpy(tmpname, new_tmp.c_str());
+		vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+		temp_name.push_back('\0');
+		char *tmpname = &temp_name[0];
 		ret = mkstemp(tmpname);
 		ofstream *tmp_file = new ofstream(tmpname);
 		if (ret == -1)
@@ -1067,8 +1076,9 @@ void variant_file::output_as_LDhelmet(const parameters &params)
 		tmp_files[2*ui] = tmp_file;
 		tmp_filenames[2*ui] = tmpname;
 
-		char tmpname2[new_tmp.size()];
-		strcpy(tmpname2, new_tmp.c_str());
+		vector<char> temp_name2(new_tmp.begin(), new_tmp.end());
+		temp_name2.push_back('\0');
+		char *tmpname2 = &temp_name2[0];
 		ret = mkstemp(tmpname2);
 		ofstream *tmp_file2 = new ofstream(tmpname2);
 		if (ret == -1)

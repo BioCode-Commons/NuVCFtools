@@ -85,7 +85,7 @@ void bcf_entry::parse_basic_entry(bool parse_ALT, bool parse_FILTER, bool parse_
 		get_number(pos, &line_pos, line);
 		get_number(rlen, &line_pos, line);
 
-		qual = *reinterpret_cast<const float*>(&line[line_pos]);
+		qual = read_bcf_scalar<float>(&line[line_pos]);
 		line_pos += sizeof(qual);
 
 		get_number(n_allele_info, &line_pos, line);
@@ -250,7 +250,7 @@ void bcf_entry::parse_genotype_entry(unsigned int indv, bool GT, bool GQ, bool D
 
 			float tmp;
 			if (type==5)
-				tmp = *reinterpret_cast<const float*>(&line[l_pos]);
+				tmp = read_bcf_scalar<float>(&line[l_pos]);
 			else if (type==1)
 			{
 				int8_t tmp2 = *reinterpret_cast<const int8_t*>(&line[l_pos]);
@@ -258,12 +258,12 @@ void bcf_entry::parse_genotype_entry(unsigned int indv, bool GT, bool GQ, bool D
 			}
 			else if (type==2)
 			{
-				int16_t tmp2 = *reinterpret_cast<const int16_t*>(&line[l_pos]);
+				int16_t tmp2 = read_bcf_scalar<int16_t>(&line[l_pos]);
 				tmp = (float)tmp2;
 			}
 			else if (type==3)
 			{
-				int32_t tmp2 = *reinterpret_cast<const int32_t*>(&line[l_pos]);
+				int32_t tmp2 = read_bcf_scalar<int32_t>(&line[l_pos]);
 				tmp = (float)tmp2;
 			}
 			else
@@ -286,18 +286,18 @@ void bcf_entry::parse_genotype_entry(unsigned int indv, bool GT, bool GQ, bool D
 			else if (type==2)
 			{
 				if ( !check_missing(l_pos, 2, line) )
-					tmp = *reinterpret_cast<const int16_t*>(&line[l_pos]);
+					tmp = read_bcf_scalar<int16_t>(&line[l_pos]);
 			}
 			else if (type==3)
 			{
 				if ( !check_missing(l_pos, 3, line) )
-					tmp = *reinterpret_cast<const int32_t*>(&line[l_pos]);
+					tmp = read_bcf_scalar<int32_t>(&line[l_pos]);
 			}
 			else if (type==5)
 			{
 				float tmp2 = -1;
 				if ( !check_missing(l_pos, 5, line) )
-					tmp2 = *reinterpret_cast<const float*>(&line[l_pos]);
+					tmp2 = read_bcf_scalar<float>(&line[l_pos]);
 				tmp = (int)tmp2;
 			}
 			else
@@ -440,7 +440,7 @@ void bcf_entry::read_indv_generic_entry(unsigned int indv, const int &idx, strin
 				outstream << ".";
 			else
 			{
-				tmp = *reinterpret_cast<const int16_t*>(&line[l_pos]);
+				tmp = read_bcf_scalar<int16_t>(&line[l_pos]);
 				outstream << int(tmp);
 			}
 			l_pos += sizeof(int16_t);
@@ -469,7 +469,7 @@ void bcf_entry::read_indv_generic_entry(unsigned int indv, const int &idx, strin
 				outstream << ".";
 			else
 			{
-				tmp = *reinterpret_cast<const int32_t*>(&line[l_pos]);
+				tmp = read_bcf_scalar<int32_t>(&line[l_pos]);
 				outstream << int(tmp);
 			}
 			l_pos += sizeof(int32_t);
@@ -498,7 +498,7 @@ void bcf_entry::read_indv_generic_entry(unsigned int indv, const int &idx, strin
 				outstream << ".";
 			else
 			{
-				tmp = *reinterpret_cast<const float*>(&line[l_pos]);
+				tmp = read_bcf_scalar<float>(&line[l_pos]);
 				outstream << float(tmp);
 			}
 			l_pos += sizeof(float);

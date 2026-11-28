@@ -1437,11 +1437,14 @@ sub decode_genotype
 {
     my ($self,$ref,$alt,$gt) = @_;
     my $isep = 0;
-    my $out;
+    my ($out,$i,$j);
+    # Retain each separator's next position, including an absent separator.
+
+    $i = index($gt,'/',$isep);
+    $j = index($gt,'|',$isep);
     while (1)
     {
-        my $i = index($gt,'/',$isep);
-        my $j = index($gt,'|',$isep);
+#line 1445
         if ( $i==-1 && $j==-1 )
         {
             my $idx = substr($gt,$isep);
@@ -1456,10 +1459,10 @@ sub decode_genotype
             }
             return $out;
         }
-        if ( $i!=-1 && $j!=-1 && $i>$j ) { $i=$j; }
-        elsif ( $i==-1 ) { $i=$j }
+        my $next = $i;
+        if ( $next==-1 || ($j>=0 && $j<$next) ) { $next=$j; }
 
-        my $idx = substr($gt,$isep,$i-$isep);
+        my $idx = substr($gt,$isep,$next-$isep);
         if ( $idx eq '.' )
         {
             $out .= $idx;
@@ -1469,8 +1472,11 @@ sub decode_genotype
             if ( $idx>@$alt ) { $self->throw("The genotype index $idx in $gt out of bounds: ", join(',',@$alt)); }
             $out .= $idx==0 ? $ref : $$alt[$idx-1];
         }
-        $out .= substr($gt,$i,1);
-        $isep = $i+1;
+        $out .= substr($gt,$next,1);
+        $isep = $next+1;
+        if ( $i==$next ) { $i=index($gt,'/',$isep); }
+        else { $j=index($gt,'|',$isep); }
+#line 1474
     }
 }
 

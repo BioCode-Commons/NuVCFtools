@@ -748,7 +748,7 @@ void variant_file::output_individuals_by_mean_depth(const parameters &params)
 	delete e;
 }
 
-// Density and TajimaD omit leading empty bins from their reports. Keep those
+// Density, TajimaD and windowed Fst omit leading empty bins. Keep those
 // bins implicit until an earlier position needs them, without moving later bins.
 template <typename T>
 struct offset_window_bins
@@ -1325,6 +1325,42 @@ void variant_file::output_haplotype_count(const parameters &params)
 	}
 }
 
+namespace
+{
+// Early termination at a chromosome boundary is safe only if that chromosome
+// cannot return later. Certify the staged rows, with bounded scratch memory;
+// unusual contig counts/names simply retain the original pair scan.
+class ld_chromosome_order
+{
+	set<string> seen;
+	string previous;
+	size_t name_bytes;
+	bool contiguous;
+public:
+	ld_chromosome_order() : name_bytes(0), contiguous(true) {}
+	void observe(const string &chromosome)
+	{
+		if (!contiguous || (!seen.empty() && chromosome == previous)) return;
+		if (seen.size() >= 1024 || chromosome.size() > 65536 - name_bytes
+			|| !seen.insert(chromosome).second)
+		{
+			contiguous = false;
+			set<string>().swap(seen);
+			string().swap(previous);
+			return;
+		}
+		name_bytes += chromosome.size();
+		previous = chromosome;
+	}
+	bool finish()
+	{
+		set<string>().swap(seen);
+		string().swap(previous);
+		return contiguous;
+	}
+};
+}
+
 void variant_file::output_haplotype_r2(const parameters &params)
 {
 	// Output pairwise LD statistics, using traditional r^2. Requires phased haplotypes.
@@ -1364,8 +1400,9 @@ void variant_file::output_haplotype_r2(const parameters &params)
 	entry *e = get_entry_object();
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -1375,6 +1412,7 @@ void variant_file::output_haplotype_r2(const parameters &params)
 	ofstream fd(tmpname, std::ios::out | std::ios::binary);
 	out_line.reserve(meta_data.N_indv+10);
 	int indv_miss = 0;
+	ld_chromosome_order chromosome_order;
 	while(!eof())
 	{
 		get_entry(variant_line);
@@ -1394,6 +1432,7 @@ void variant_file::output_haplotype_r2(const parameters &params)
 		e->parse_genotype_entries(true);
 
 		CHROM = e->get_CHROM();
+		chromosome_order.observe(CHROM);
 		POS = e->get_POS();
 
 		site_count++;
@@ -1450,6 +1489,7 @@ void variant_file::output_haplotype_r2(const parameters &params)
 		fd.write(&out_line[0],out_line.size());
 	}
 	fd.close();
+	const bool chromosomes_contiguous = chromosome_order.finish();
 
 	if (N_kept_entries <= 1)
 	{
@@ -1481,6 +1521,8 @@ void variant_file::output_haplotype_r2(const parameters &params)
 			if (int(uj-ui) > snp_window_size)
 				break;
 			reader.read_header(CHROM2, POS2);
+			if (chromosomes_contiguous && CHROM != CHROM2)
+				break;
 			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
 				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
 			if (decode_pair)
@@ -1556,8 +1598,9 @@ void variant_file::output_genotype_r2(const parameters &params)
 	vector<char> out_line, tmp_int;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -1567,6 +1610,7 @@ void variant_file::output_genotype_r2(const parameters &params)
 	ofstream fd(tmpname, std::ios::out | std::ios::binary);
 	out_line.reserve(meta_data.N_indv+10);
 	int indv_miss = 0;
+	ld_chromosome_order chromosome_order;
 	while(!eof())
 	{
 		get_entry(variant_line);
@@ -1589,6 +1633,7 @@ void variant_file::output_genotype_r2(const parameters &params)
 		e->parse_genotype_entries(true);
 
 		CHROM = e->get_CHROM();
+		chromosome_order.observe(CHROM);
 		POS = e->get_POS();
 		string chrom_str = CHROM+"\n";
 
@@ -1638,6 +1683,7 @@ void variant_file::output_genotype_r2(const parameters &params)
 		fd.write(&out_line[0],out_line.size());
 	}
 	fd.close();
+	const bool chromosomes_contiguous = chromosome_order.finish();
 
 	if (N_kept_entries <= 1)
 	{
@@ -1670,6 +1716,8 @@ void variant_file::output_genotype_r2(const parameters &params)
 				break;
 
 			reader.read_header(CHROM2, POS2);
+			if (chromosomes_contiguous && CHROM != CHROM2)
+				break;
 			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
 				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
 			if (decode_pair)
@@ -1758,6 +1806,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	ofstream fd(tmpname, std::ios::out | std::ios::binary);
 	out_line.reserve(2*meta_data.N_indv+11);
 	int indv_miss = 0;
+	ld_chromosome_order chromosome_order;
 	while(!eof())
 	{
 		get_entry(variant_line);
@@ -1772,6 +1821,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 		e->parse_genotype_entries(true);
 
 		CHROM = e->get_CHROM();
+		chromosome_order.observe(CHROM);
 		POS = e->get_POS();
 		tmp_alleles = (int8_t)e->get_N_alleles();
 		string chrom_str = CHROM+"\n";
@@ -1826,6 +1876,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 		fd.write(&out_line[0],out_line.size());
 	}
 	fd.close();
+	const bool chromosomes_contiguous = chromosome_order.finish();
 
 	if (N_kept_entries <= 1)
 	{
@@ -1843,7 +1894,7 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 	{
 		try
 		{
-			output_genotype_chisq_parallel(params, tmpname, meta_data.N_indv-indv_miss, min_pval, out);
+			output_genotype_chisq_parallel(params, tmpname, meta_data.N_indv-indv_miss, min_pval, out, chromosomes_contiguous);
 		}
 		catch (const std::exception &error)
 		{
@@ -1877,6 +1928,8 @@ void variant_file::output_genotype_chisq(const parameters &params, double min_pv
 				break;
 
 			read_big_temp_site_header(tmp_file, CHROM2, POS2, alleles2);
+			if (chromosomes_contiguous && CHROM != CHROM2)
+				break;
 			const bool decode_pair = uj >= (ui+skip) && CHROM == CHROM2
 				&& (POS2 - POS) >= bp_window_min && (POS2 - POS) <= bp_window_size;
 			if (decode_pair)
@@ -1946,8 +1999,9 @@ void variant_file::output_interchromosomal_genotype_r2(const parameters &params)
 	vector<char> out_line, tmp_int;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -2115,8 +2169,9 @@ void variant_file::output_interchromosomal_haplotype_r2(const parameters &params
 	vector<char> out_line, tmp_int;
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -2332,8 +2387,9 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 	entry *e = get_entry_object();
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -2341,8 +2397,9 @@ void variant_file::output_haplotype_r2_of_SNP_list_vs_all_others(const parameter
 	::close(ret);
 	ofstream fd(tmpname, std::ios::out | std::ios::binary);
 
-	char tmpname2[new_tmp.size()];
-	strcpy(tmpname2, new_tmp.c_str());
+	vector<char> temp_name2(new_tmp.begin(), new_tmp.end());
+	temp_name2.push_back('\0');
+	char *tmpname2 = &temp_name2[0];
 
 	ret = mkstemp(tmpname2);
 	if (ret == -1)
@@ -2588,8 +2645,9 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 	entry *e = get_entry_object();
 
 	string new_tmp = params.temp_dir+"/vcftools.XXXXXX";
-	char tmpname[new_tmp.size()];
-	strcpy(tmpname, new_tmp.c_str());
+	vector<char> temp_name(new_tmp.begin(), new_tmp.end());
+	temp_name.push_back('\0');
+	char *tmpname = &temp_name[0];
 
 	ret = mkstemp(tmpname);
 	if (ret == -1)
@@ -2597,8 +2655,9 @@ void variant_file::output_genotype_r2_of_SNP_list_vs_all_others(const parameters
 	::close(ret);
 	ofstream fd(tmpname, std::ios::out | std::ios::binary);
 
-	char tmpname2[new_tmp.size()];
-	strcpy(tmpname2, new_tmp.c_str());
+	vector<char> temp_name2(new_tmp.begin(), new_tmp.end());
+	temp_name2.push_back('\0');
+	char *tmpname2 = &temp_name2[0];
 
 	ret = mkstemp(tmpname2);
 	if (ret == -1)
@@ -3808,14 +3867,9 @@ void variant_file::output_windowed_weir_and_cockerham_fst(const parameters &para
 	vector<char> variant_line;
 	entry *e = get_entry_object();
 
-	// Calculate number of bins for each chromosome and allocate memory for them.
-	// Each bin is a vector with four entries:
-	// N_variant_sites: Number of sites in a window that have VCF entries
-	// N_variant_site_pairs: Number of possible pairwise mismatches at polymorphic sites within a window
-	// N_mismatches: Number of actual pairwise mismatches at polymorphic sites within a window
-	// N_polymorphic_sites: number of sites within a window where there is at least 1 sample that is polymorphic with respect to the reference allele
-	const window_stat_row<double, 4> empty_vector;	// sum1, sum2, sum3, count
-	map<string, vector<window_stat_row<double, 4> > > bins;
+	// Each bin holds sum_a, sum_all, Fst and count. Empty leading bins never
+	// appear in the report, so leave them implicit for regional inputs.
+	map<string, offset_window_bins<window_stat_row<double, 4> > > bins;
 	double sum1=0.0, sum2 = 0.0;
 	double sum3=0.0, count = 0.0;
 
@@ -3925,13 +3979,11 @@ void variant_file::output_windowed_weir_and_cockerham_fst(const parameters &para
 			int last = (int) ceil(pos/double(fst_window_step));
 			for(int idx = first; idx < last; idx++)
 			{
-				if (idx >= (int)bins[CHROM].size())
-					bins[CHROM].resize(idx+1, empty_vector);
-
-				bins[CHROM][idx][0] += sum_a;
-				bins[CHROM][idx][1] += sum_all;
-				bins[CHROM][idx][2] += fst;
-				bins[CHROM][idx][3]++;
+				window_stat_row<double, 4> &bin = bins[CHROM].ensure_bin(idx);
+				bin[0] += sum_a;
+				bin[1] += sum_all;
+				bin[2] += fst;
+				bin[3]++;
 			}
 
 			sum1 += sum_a;
@@ -3964,17 +4016,19 @@ void variant_file::output_windowed_weir_and_cockerham_fst(const parameters &para
 	for (unsigned int ui=0; ui<chrs.size(); ui++)
 	{
 		CHROM = chrs[ui];
-		for (unsigned int s=0; s<bins[CHROM].size(); s++)
+		const offset_window_bins<window_stat_row<double, 4> > &chrom_bins = bins[CHROM];
+		for (unsigned int s=chrom_bins.first_index(); s<chrom_bins.end_index(); s++)
 		{
-			if ((bins[CHROM][s][1] != 0) && (!std::isnan(bins[CHROM][s][0])) && (!std::isnan(bins[CHROM][s][1])) && (bins[CHROM][s][3] > 0))
+			const window_stat_row<double, 4> &bin = chrom_bins.at(s);
+			if ((bin[1] != 0) && (!std::isnan(bin[0])) && (!std::isnan(bin[1])) && (bin[3] > 0))
 			{
-				double weighted_Fst = bins[CHROM][s][0] / bins[CHROM][s][1];
-				double mean_Fst = bins[CHROM][s][2] / bins[CHROM][s][3];
+				double weighted_Fst = bin[0] / bin[1];
+				double mean_Fst = bin[2] / bin[3];
 
 				out << CHROM << "\t"
 				<< s*fst_window_step + 1 << "\t"
 				<< (s*fst_window_step + fst_window_size) << "\t"
-				<< bins[CHROM][s][3] << "\t"
+				<< bin[3] << "\t"
 				<< weighted_Fst << "\t" << mean_Fst << endl;
 			}
 		}
@@ -5377,6 +5431,10 @@ void variant_file::output_PCA_SNP_loadings(const parameters &params)
 		for (unsigned int uj=ui; uj<N_indvs; uj++)
 			for (unsigned int s=0; s<N_sites; s++)
 				X[ui][uj] += M[ui][s] * M[uj][s];
+
+	// The Gram matrix now owns everything needed from M. SNP loadings use
+	// ids below; release M before allocating the eigensolver buffers.
+	vector< vector<double> >().swap(M);
 
 	// Populate other half
 	for (unsigned int ui=0; ui<N_indvs; ui++)

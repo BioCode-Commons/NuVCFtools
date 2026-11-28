@@ -407,7 +407,7 @@ sub join_vcfs_chr
         {
             while ( $$rec1[1] eq $$rec2[1] )
             {
-                push @buffer, [$rec1,$rec2];
+                push @buffer, pack_overlap_site($opts,$rec1,$rec2);
                 $rec1 = $vcf1->next_data_array();
                 $rec2 = $vcf2->next_data_array();
                 if ( !defined $rec1 ) { last; }
@@ -551,8 +551,8 @@ sub flush_buffer
     if (($$opts{workers} || 1)==1) {
     for my $site (@$buffer)
     {
-        my $rec1 = $$site[0];
-        my $rec2 = $$site[1];
+        my $rec1 = unpack_overlap_record($$site[0]);
+        my $rec2 = unpack_overlap_record($$site[1]);
 
         my $igt1 = $vcf->get_tag_index($$rec1[8],'GT',':'); 
         my $igt2 = $vcf->get_tag_index($$rec2[8],'GT',':'); 
@@ -630,7 +630,7 @@ sub flush_buffer
             next=>NuOrderedWorkers::prepared_line_batches(
                 sub { $index<@$buffer ? $$buffer[$index++] : undef },sub { $_[0] },
                 $$opts{worker_batch_bytes} || 4194304,
-                sub { length(join("\t",@{$_[0][0]}))+length(join("\t",@{$_[0][1]})) }),
+                sub { overlap_site_bytes($_[0]) }),
             work=>sub {
                 my ($batch)=@_;
                 my @scores;
@@ -687,7 +687,7 @@ sub flush_buffer
         my ($rec,$swap);
         if ( $to-$$site[0][1] > $$site[0][1]-$from )
         {
-            $rec = $$site[0];
+            $rec = unpack_overlap_record($$site[0]);
             $swap = $$opts{swapped};
         }
         else
@@ -701,7 +701,7 @@ sub flush_buffer
                 }
                 @quals = ();
             }
-            $rec = $$site[1];
+            $rec = unpack_overlap_record($$site[1]);
             $swap = \@swapped;
         }
         output_line($opts,$rec,$swap);
@@ -717,8 +717,8 @@ sub flush_buffer
 sub score_phase_site
 {
     my ($opts,$vcf,$site)=@_;
-        my $rec1 = $$site[0];
-        my $rec2 = $$site[1];
+        my $rec1 = unpack_overlap_record($$site[0]);
+        my $rec2 = unpack_overlap_record($$site[1]);
 
         my $igt1 = $vcf->get_tag_index($$rec1[8],'GT',':');
         my $igt2 = $vcf->get_tag_index($$rec2[8],'GT',':');
@@ -826,3 +826,54 @@ sub report_stats
     }
 }
 
+
+# Overlap scoring needs both records, but retaining one scalar per sample for
+# every overlapping site is expensive. Keep parsed site columns and one sample
+# suffix; only the current scoring pair or output row is expanded again.
+sub pack_overlap_site
+{
+    my ($opts,$left,$right) = @_;
+    # Narrow/truncated records and the shared record produced by wrong_order
+    # keep their original representation and ownership.
+    return [$left,$right] if $$opts{nsamples}<32 || $left==$right
+        || @$left != $$opts{nsamples}+9 || @$right != $$opts{nsamples}+9;
+    # Packing pays for scalar/array overhead only when fields are short. Avoid
+    # copying large FORMAT payloads, especially when the overlap has few sites.
+    my $byte_budget = 64 * $$opts{nsamples};
+    for my $record ($left,$right)
+    {
+        my $bytes = 0;
+        for (my $i=9; $i<@$record; $i++)
+        {
+            $bytes += length($$record[$i])+1;
+            return [$left,$right] if $bytes>$byte_budget;
+        }
+    }
+    my @packed;
+    for my $record ($left,$right)
+    {
+        my $samples = join("\t",@$record[9..$#$record]);
+        push @packed, [@$record[0..8], \$samples];
+    }
+    return \@packed;
+}
+
+sub unpack_overlap_record
+{
+    my ($record) = @_;
+    return $record unless ref($$record[9]) eq 'SCALAR';
+    return [@$record[0..8], split(/\t/,${$$record[9]},-1)];
+}
+
+sub overlap_site_bytes
+{
+    my ($site) = @_;
+    my $bytes = 0;
+    for my $record (@$site)
+    {
+        $bytes += ref($$record[9]) eq 'SCALAR'
+            ? length(join("\t",@$record[0..8]))+1+length(${$$record[9]})
+            : length(join("\t",@$record));
+    }
+    return $bytes;
+}

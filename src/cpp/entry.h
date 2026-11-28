@@ -11,6 +11,7 @@
 #include <deque>
 #include <vector>
 #include <cassert>
+#include <cstring>
 
 #include "header.h"
 #include "bgzf.h"
@@ -162,6 +163,16 @@ public:
 	static int thin_pos;
 
 protected:
+	// BCF fields may be unaligned. Read the stored type's exact width before
+	// any integer widening or float conversion, preserving its native bits.
+	template<typename T>
+	static T read_bcf_scalar(const char *bytes)
+	{
+		T value;
+		std::memcpy(&value, bytes, sizeof(T));
+		return value;
+	}
+
 	istringstream data_stream;
 	vector<char> line;
 	bool line_empty;

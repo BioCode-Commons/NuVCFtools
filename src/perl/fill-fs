@@ -260,10 +260,10 @@ sub mask_external_sequence
     my ($opts,$seq,$chr,$from,$to)=@_;
     for my $file (@{$$opts{vcf_mask}})
     {
-        my @tabix = `tabix $file $chr:$from-$to`;
-        for my $ret (@tabix)
+        my $tabix = `tabix $file $chr:$from-$to`; # Keep the query in one buffer.
+        while (defined($tabix) && $tabix =~ /([^\n]*\n|[^\n]+\z)/g)
         {
-            my $items = $$opts{vcf}->split_mandatory($ret);
+            my $items = $$opts{vcf}->split_mandatory($1);
             # In different situations one may want to treat indels differently. For
             #   now, mask the whole REF string as for primer design it is safer to 
             #   mask the whole thing; for example, a 2bp deletion can be reported by 
@@ -273,10 +273,10 @@ sub mask_external_sequence
     }
     for my $file (@{$$opts{bed_mask}})
     {
-        my @tabix = `tabix $file $chr:$from-$to`;
-        for my $ret (@tabix)
+        my $tabix = `tabix $file $chr:$from-$to`; # Keep the query in one buffer.
+        while (defined($tabix) && $tabix =~ /([^\n]*\n|[^\n]+\z)/g)
         {
-            my @items = split(/\t/,$ret);
+            my @items = split(/\t/,$1);
             apply_mask($opts,\$seq,$items[1]-$from+1,$items[2]-$from,$$opts{mask_char}{$file});
         }
     }

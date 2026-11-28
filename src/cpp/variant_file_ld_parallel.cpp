@@ -64,7 +64,7 @@ private:
 }
 
 void variant_file::output_genotype_chisq_parallel(const parameters &params,
-	const string &staged_file, size_t samples, double min_pval, ostream &out)
+	const string &staged_file, size_t samples, double min_pval, ostream &out, bool chromosomes_contiguous)
 {
 	const unsigned int rows = N_kept_entries - 1;
 	const unsigned int workers = min(static_cast<unsigned int>(params.ld_threads), rows);
@@ -109,6 +109,7 @@ void variant_file::output_genotype_chisq_parallel(const parameters &params,
 						{
 							if (int(j-i) > params.ld_snp_window_size) break;
 							read_big_temp_site_header(input, other_chromosome, other_position, other_alleles);
+							if (chromosomes_contiguous && chromosome != other_chromosome) break;
 							const bool decode = j >= i+skip && chromosome == other_chromosome
 								&& other_position-position >= params.ld_bp_window_min
 								&& other_position-position <= params.ld_bp_window_size;

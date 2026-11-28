@@ -204,6 +204,22 @@ sub fix_ploidy
                     if ( defined $gl && $gl ne '.' ) { ($new_gl,$new_gt) = reploid_g($rec, -1, $nals, $gl, scalar @als, $$samples{$sample}); }
                 }
             }
+            # Reuse the parsed fields when every replacement has a slot. A
+            # single join preserves trailing empty fields and avoids rebuilding
+            # this string separately for GT, PL and GL. Out-of-range fields
+            # retain replace_field's padding and pre-4.1 diagnostics below.
+            if ( defined($new_gt) && $igt < @fields
+                && (!defined($new_pl) || $ipl < @fields)
+                && (!defined($new_gl) || $igl < @fields) )
+            {
+                $fields[$igt] = $new_gt;
+                $changed++;
+                if ( defined $new_pl ) { $fields[$ipl] = $new_pl; $changed++; }
+                if ( defined $new_gl ) { $fields[$igl] = $new_gl; $changed++; }
+                $$rec[$isample] = join(':',@fields);
+                next;
+            }
+#line 207
             if ( defined $new_gt )
             {
                 $$rec[$isample] = $vcf->replace_field($$rec[$isample],$new_gt,$igt,':');

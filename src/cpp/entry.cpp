@@ -804,14 +804,14 @@ int entry::get_typed_int(unsigned int * line_position, const vector<char>& line,
 	else if (type == 2)
 	{
 		int16_t tmp;
-		tmp = *reinterpret_cast<const int16_t*>(&line[*line_position]);
+		tmp = read_bcf_scalar<int16_t>(&line[*line_position]);
 		*line_position += sizeof(tmp);
 		out = tmp;
 	}
 	else if (type == 3)
 	{
 		int32_t tmp;
-		tmp = *reinterpret_cast<const int32_t*>(&line[*line_position]);
+		tmp = read_bcf_scalar<int32_t>(&line[*line_position]);
 		*line_position += sizeof(tmp);
 		out = tmp;
 	}
@@ -846,7 +846,7 @@ vector<int> entry::get_int_vector(unsigned int * line_position, const vector<cha
 		int16_t tmp;
 		for (unsigned int ui=0; ui<size; ui++)
 		{
-			tmp = *reinterpret_cast<const int16_t*>(&line[*line_position]);
+			tmp = read_bcf_scalar<int16_t>(&line[*line_position]);
 			*line_position += sizeof(tmp);
 			out[ui] = tmp;
 		}
@@ -856,7 +856,7 @@ vector<int> entry::get_int_vector(unsigned int * line_position, const vector<cha
 		int32_t tmp;
 		for (unsigned int ui=0; ui<size; ui++)
 		{
-			tmp = *reinterpret_cast<const int32_t*>(&line[*line_position]);
+			tmp = read_bcf_scalar<int32_t>(&line[*line_position]);
 			*line_position += sizeof(tmp);
 			out[ui] = tmp;
 		}
@@ -891,7 +891,7 @@ void entry::get_type(unsigned int * line_position, const vector<char>& line, uns
 		else if (type2 == 2)
 		{
 			int16_t tmp;
-			tmp = *reinterpret_cast<const int16_t*>(&line[*line_position]);
+			tmp = read_bcf_scalar<int16_t>(&line[*line_position]);
 			*line_position += sizeof(tmp);
 
 			size = (int)tmp;
@@ -899,7 +899,7 @@ void entry::get_type(unsigned int * line_position, const vector<char>& line, uns
 		else if (type2 == 3)
 		{
 			int32_t tmp;
-			tmp = *reinterpret_cast<const int32_t*>(&line[*line_position]);
+			tmp = read_bcf_scalar<int32_t>(&line[*line_position]);
 			*line_position += sizeof(tmp);
 			size = (unsigned int)tmp;
 		}
